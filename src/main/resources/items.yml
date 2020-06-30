@@ -1,0 +1,99 @@
+items:
+  editmain:
+    mainlobby:
+      name: "Main Lobby"
+      slot: 0
+    waitinglobby:
+      name: "Waiting Lobby"
+      slot: 1
+    teams:
+      name: "Teams"
+      slot: 2
+    spectator:
+      name: "Spectator Spawn"
+      slot: 3
+    register:
+      name: "Register arena"
+      slot: 18
+  editteams:
+    back:
+      name: "Back to main menu"
+      slot: 22
+    white:
+      name: "White Team"
+      slot: 0
+      buttonslot: 9
+    orange:
+      name: "Orange Team"
+      slot: 1
+      buttonslot: 10
+    magenta:
+      name: "Magenta Team"
+      slot: 2
+      buttonslot: 11
+    lightblue:
+      name: "Light Blue Team"
+      slot: 3
+      buttonslot: 12
+    yellow:
+      name: "Yellow Team"
+      slot: 5
+      buttonslot: 14
+    lime:
+      name: "Lime Team"
+      slot: 6
+      buttonslot: 15
+    pink:
+      name: "Pink Team"
+      slot: 7
+      buttonslot: 16
+    gray:
+      name: "Gray Team"
+      slot: 8
+      buttonslot: 17
+    lightgray:
+      name: "Light Gray Team"
+      slot: 27
+      buttonslot: 36
+    cyan:
+      name: "Cyan Team"
+      slot: 28
+      buttonslot: 37
+    purple:
+      name: "Purple Team"
+      slot: 29
+      buttonslot: 38
+    blue:
+      name: "Blue Team"
+      slot: 30
+      buttonslot: 39
+    brown:
+      name: "Brown Team"
+      slot: 32
+      buttonslot: 41
+    green:
+      name: "Green Team"
+      slot: 33
+      buttonslot: 42
+    red:
+      name: "Red Team"
+      slot: 34
+      buttonslot: 43
+    black:
+      name: "Black Team"
+      slot: 35
+      buttonslot: 44
+    greenbutton:
+      name: "Deactivate Team"
+    graybutton:
+      name: "Activate team"
+  editteam:
+    egg:
+      name: "Egg"
+      slot: 13
+    shop:
+      name: "Shop"
+      slot: 10
+    spawn:
+      name: "Spawn"
+      slot: 16
