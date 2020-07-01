@@ -23,7 +23,7 @@ public class EditManager {
         Inventory team = Bukkit.createInventory(player, 9 * 5, arenaname);
         Inventory teamundermenu = Bukkit.createInventory(player, 9 * 3, arenaname);
 
-        EditMenu.setupEditMenu(main, arenaname);
+        EditMenu.setupEditMenu(main, arenaname, player);
         TeamMenu.setupTeamMenu(team, arenaname);
 
         // Add items and player to the HashMap

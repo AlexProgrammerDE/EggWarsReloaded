@@ -53,7 +53,9 @@ public class ShopAssistant implements Listener {
                 shop.setCollidable(false);
                 shop.setInvulnerable(true);
 
-                ArenaManager.setShop(playerdata.get(player)[0], playerdata.get(player)[1], shop.getUniqueId().toString(),villagerlocation);
+                ArenaManager.setShop(playerdata.get(player)[0], playerdata.get(player)[1], shop.getUniqueId().toString(), shop.getLocation());
+
+                player.sendMessage("[ShopAssistant] Set shop of team " + EditManager.playerteam.get(player) + " to: " + villagerlocation.getWorld().getName() + " " + villagerlocation.getBlockX() + " " + villagerlocation.getBlockY() + " " + villagerlocation.getBlockZ());
             }
 
             shouldCreateShop.remove(player);

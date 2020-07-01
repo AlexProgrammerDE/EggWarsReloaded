@@ -1,9 +1,16 @@
 package me.alexprogrammerde.EggWarsReloaded.utils;
 
+import javafx.beans.property.Property;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
+
+import java.lang.reflect.Field;
+import java.util.UUID;
 
 public class UtilCore {
 
@@ -19,8 +26,7 @@ public class UtilCore {
         player.sendTitle(title, subtitle, 1, 2, 1);
     }
 
-    public static Inventory[] addInventory(Inventory[] arr, Inventory inv)
-    {
+    public static Inventory[] addInventory(Inventory[] arr, Inventory inv) {
         int i;
 
         Inventory[] newarr = new Inventory[arr.length + 1];

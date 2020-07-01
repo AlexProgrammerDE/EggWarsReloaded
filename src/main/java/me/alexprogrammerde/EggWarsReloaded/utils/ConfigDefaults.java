@@ -12,12 +12,8 @@ public class ConfigDefaults {
         }
 
         if (name.equals("language")) {
-            configuration.addDefault("usage", "Usage: ");
-            configuration.addDefault("adminusage", "Usage: ");
-        }
-
-        if (name.equals("arenas")) {
-            configuration.addDefault("arenas", null);
+            configuration.addDefault("command.usage.playerusage", "Usage: /eggwars [help, join, randomjoin]");
+            configuration.addDefault("command.usage.adminusage", "Usage: /eggwars [help, join, randomjoin, reload, addarena, delarena, kick]");
         }
 
         return configuration;
