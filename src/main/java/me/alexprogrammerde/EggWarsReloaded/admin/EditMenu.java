@@ -18,7 +18,7 @@ public class EditMenu {
 
     public static void setupEditMenu(Inventory inventory, String arenaname) {
         FileConfiguration items = EggWarsMain.getEggWarsMain().getItems();
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration arenas = ArenaManager.getArenas();
 
         // Load Data from storage
         ItemStack mainlobby = new ItemStack(Material.GREEN_CONCRETE);
@@ -74,7 +74,7 @@ public class EditMenu {
         if (arenas.getBoolean("arenas." + arenaname + ".registered")) {
             registerlist.add("Left click to unregister the arena.");
         } else {
-            if (isArenaReady(arenaname)) {
+            if (ArenaManager.isArenaReady(arenaname)) {
                 registerlist.add("Left click to register the arena");
             } else {
                 registerlist.add("There are still some steps left!");
@@ -85,31 +85,25 @@ public class EditMenu {
             Location location = ArenaManager.getArenas().getLocation("arenas." + arenaname + ".mainlobby");
 
             mainlobbylist.add("Current: " +  location.getWorld().getName() + " "
-                    + Math.round(location.getBlockX()) + ":"
-                    + Math.round(location.getBlockY()) + ":"
-                    + Math.round(location.getBlockZ()) + " "
-                    + Math.round(location.getYaw()) + ":"
-                    + Math.round(location.getPitch()));
+                    + Math.round(location.getBlockX()) + " "
+                    + Math.round(location.getBlockY()) + " "
+                    + Math.round(location.getBlockZ()));
         }
 
         if (ArenaManager.getArenas().contains("arenas." + arenaname + ".waitinglobby")) {
             Location location = ArenaManager.getArenas().getLocation("arenas." + arenaname + ".waitinglobby");
             waitinglobbylist.add("Current: " +  location.getWorld().getName() + " "
-                    + Math.round(location.getBlockX()) + ":"
-                    + Math.round(location.getBlockY()) + ":"
-                    + Math.round(location.getBlockZ()) + " "
-                    + Math.round(location.getYaw()) + ":"
-                    + Math.round(location.getPitch()));
+                    + Math.round(location.getBlockX()) + " "
+                    + Math.round(location.getBlockY()) + " "
+                    + Math.round(location.getBlockZ()));
         }
 
         if (ArenaManager.getArenas().contains("arenas." + arenaname + ".spectator")) {
             Location location = ArenaManager.getArenas().getLocation("arenas." + arenaname + ".spectator");
             spectatorlist.add("Current: " +  location.getWorld().getName() + " "
-                    + Math.round(location.getBlockX()) + ":"
-                    + Math.round(location.getBlockY()) + ":"
-                    + Math.round(location.getBlockZ()) + " "
-                    + Math.round(location.getYaw()) + ":"
-                    + Math.round(location.getPitch()));
+                    + Math.round(location.getBlockX()) + " "
+                    + Math.round(location.getBlockY()) + " "
+                    + Math.round(location.getBlockZ()));
         }
 
         mainlobbylist.add("Use shift + left click to reset it.");
@@ -134,28 +128,5 @@ public class EditMenu {
         inventory.setItem(items.getInt("items.editmain.spectator.slot"), spectator);
         inventory.setItem(items.getInt("items.editmain.register.slot"), register);
         inventory.setItem(items.getInt("items.editmain.teams.slot"), teams);
-    }
-
-    static boolean isArenaReady(String arenaname) {
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
-
-        if (!arenas.contains("arenas." + arenaname + ".mainlobby")) {
-            return false;
-        }
-
-        if (!arenas.contains("arenas." + arenaname + ".waitinglobby")) {
-            return false;
-        }
-
-        if (!arenas.contains("arenas." + arenaname + ".spectator")) {
-            return false;
-        }
-
-        return true;
-    }
-
-    static boolean isTeamReady(String teamname) {
-        // TODO
-        return false;
     }
 }

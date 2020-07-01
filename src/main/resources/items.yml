@@ -6,11 +6,11 @@ items:
     waitinglobby:
       name: "Waiting Lobby"
       slot: 1
-    teams:
-      name: "Teams"
-      slot: 2
     spectator:
       name: "Spectator Spawn"
+      slot: 2
+    teams:
+      name: "Teams"
       slot: 3
     register:
       name: "Register arena"
@@ -90,10 +90,13 @@ items:
   editteam:
     egg:
       name: "Egg"
-      slot: 13
+      slot: 4
     shop:
       name: "Shop"
-      slot: 10
+      slot: 11
     spawn:
       name: "Spawn"
-      slot: 16
+      slot: 15
+    back:
+      name: "Back"
+      slot: 22

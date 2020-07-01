@@ -115,22 +115,100 @@ public class TeamMenu {
 
         inventory.setItem(items.getInt("items.editteams.back.slot"), back);
 
-        inventory.setItem(items.getInt("items.editteams.white.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.orange.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.magenta.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.lightblue.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.yellow.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.lime.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.pink.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.gray.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.lightgray.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.cyan.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.purple.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.blue.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.brown.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.green.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.red.buttonslot"), graybutton.clone());
-        inventory.setItem(items.getInt("items.editteams.black.buttonslot"), graybutton.clone());
+        if (arenas.getBoolean("arenas." + arenaname + ".team.white.registered")) {
+            inventory.setItem(items.getInt("items.editteams.white.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.white.buttonslot"), graybutton.clone());
+        }
+        if (arenas.getBoolean("arenas." + arenaname + ".team.orange.registered")) {
+            inventory.setItem(items.getInt("items.editteams.orange.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.orange.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.magenta.registered")) {
+            inventory.setItem(items.getInt("items.editteams.magenta.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.magenta.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.lightblue.registered")) {
+            inventory.setItem(items.getInt("items.editteams.lightblue.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.lightblue.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.yellow.registered")) {
+            inventory.setItem(items.getInt("items.editteams.yellow.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.yellow.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.lime.registered")) {
+            inventory.setItem(items.getInt("items.editteams.lime.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.lime.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.pink.registered")) {
+            inventory.setItem(items.getInt("items.editteams.pink.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.pink.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.gray.registered")) {
+            inventory.setItem(items.getInt("items.editteams.gray.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.gray.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.lightgray.registered")) {
+            inventory.setItem(items.getInt("items.editteams.lightgray.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.lightgray.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.cyan.registered")) {
+            inventory.setItem(items.getInt("items.editteams.cyan.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.cyan.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.purple.registered")) {
+            inventory.setItem(items.getInt("items.editteams.purple.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.purple.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.blue.registered")) {
+            inventory.setItem(items.getInt("items.editteams.blue.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.blue.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.brown.registered")) {
+            inventory.setItem(items.getInt("items.editteams.brown.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.brown.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.green.registered")) {
+            inventory.setItem(items.getInt("items.editteams.green.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.green.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.red.registered")) {
+            inventory.setItem(items.getInt("items.editteams.red.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.red.buttonslot"), graybutton.clone());
+        }
+
+        if (arenas.getBoolean("arenas." + arenaname + ".team.black.registered")) {
+            inventory.setItem(items.getInt("items.editteams.black.buttonslot"), greenbutton.clone());
+        } else {
+            inventory.setItem(items.getInt("items.editteams.black.buttonslot"), graybutton.clone());
+        }
 
         /*
         items.getInt("items.editteams.white.slot")

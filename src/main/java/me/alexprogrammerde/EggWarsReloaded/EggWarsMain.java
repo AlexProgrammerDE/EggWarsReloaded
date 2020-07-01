@@ -1,12 +1,17 @@
 package me.alexprogrammerde.EggWarsReloaded;
 
+import me.alexprogrammerde.EggWarsReloaded.admin.ArenaRepairer;
+import me.alexprogrammerde.EggWarsReloaded.admin.EggAssistant;
 import me.alexprogrammerde.EggWarsReloaded.admin.MenuListener;
+import me.alexprogrammerde.EggWarsReloaded.admin.ShopAssistant;
 import me.alexprogrammerde.EggWarsReloaded.commands.MainCommand;
+import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ConfigManager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.Set;
 import java.util.logging.Logger;
 
 public class EggWarsMain extends JavaPlugin {
@@ -33,18 +38,17 @@ public class EggWarsMain extends JavaPlugin {
 
         logger.info("§aRegistering listeners");
         getServer().getPluginManager().registerEvents(new MenuListener(), this);
+        getServer().getPluginManager().registerEvents(new EggAssistant(), this);
+        getServer().getPluginManager().registerEvents(new ShopAssistant(), this);
+        getServer().getPluginManager().registerEvents(new ArenaRepairer(), this);
 
         logger.info("§aLoading arenas");
 
-        /*try {
+        try {
             Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
-
-            for (String arenaname : arenas) {
-                new Game(arenaname);
-            }
         } catch (NullPointerException e) {
             logger.info("§aNo arenas found");
-        }*/
+        }
     }
 
     public FileConfiguration getConfig() {
