@@ -19,41 +19,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa731129-a453-4e59-92be-1af937cda468" name="Default Changelist" comment="Add more editing features">
-      <change afterPath="$PROJECT_DIR$/.idea/EggWarsReloaded.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_gson_gson_2_8_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_21_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_googlecode_json_simple_json_simple_1_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_10.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_md_5_bungeecord_chat_1_16_R0_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bstats_bstats_bungeecord_1_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_bukkit_bukkit_1_12_2_R0_1_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_spigotmc_plugin_annotations_1_1_0_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_spigotmc_spigot_api_1_16_1_R0_1_SNAPSHOT.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_1_26.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/paper.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dependency-reduced-pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/GeneratorAssistant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/EggWarsMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/EggWarsMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/EditManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/EditManager.java" afterDir="false" />
+    <list default="true" id="aa731129-a453-4e59-92be-1af937cda468" name="Default Changelist" comment="More editing features">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/EditMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/EditMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/MenuListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/MenuListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/ShopAssistant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/ShopAssistant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/utils/ArenaManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/utils/ArenaManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/utils/ConfigDefaults.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/utils/ConfigDefaults.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/utils/UtilCore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/utils/UtilCore.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/items.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/items.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,7 +113,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593595249958</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="More editing features">
+      <created>1593636960573</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1593636960573</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -153,11 +133,13 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Init commit" />
     <MESSAGE value="Add more editing features" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add more editing features" />
+    <MESSAGE value="More editing features" />
+    <option name="LAST_COMMIT_MESSAGE" value="More editing features" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1593417250701">
@@ -172,22 +154,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="707" y="414" width="507" height="217" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1593515764199" />
-    <state width="1877" height="146" key="GridCell.Tab.0.bottom" timestamp="1593636913738">
+    <state x="740" y="246" key="FileChooserDialogImpl" timestamp="1593677361223">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="146" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1593636913738" />
-    <state width="1877" height="146" key="GridCell.Tab.0.center" timestamp="1593636913738">
+    <state x="740" y="246" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1593677361223" />
+    <state width="1877" height="147" key="GridCell.Tab.0.bottom" timestamp="1593687170216">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="146" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1593636913738" />
-    <state width="1877" height="146" key="GridCell.Tab.0.left" timestamp="1593636913737">
+    <state width="1877" height="147" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1593687170216" />
+    <state width="1877" height="147" key="GridCell.Tab.0.center" timestamp="1593687170216">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="146" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1593636913737" />
-    <state width="1877" height="146" key="GridCell.Tab.0.right" timestamp="1593636913738">
+    <state width="1877" height="147" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1593687170216" />
+    <state width="1877" height="147" key="GridCell.Tab.0.left" timestamp="1593687170216">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="146" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593636913738" />
+    <state width="1877" height="147" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1593687170216" />
+    <state width="1877" height="147" key="GridCell.Tab.0.right" timestamp="1593687170216">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="147" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593687170216" />
     <state width="1877" height="381" key="GridCell.Tab.1.bottom" timestamp="1593461080714">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -204,10 +190,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="381" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593461080714" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1593595567812">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1593636966668">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1593595567812" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1593636966668" />
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593680938419">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1593680938419" />
     <state x="255" y="372" width="1552" height="1027" key="dock-window-1" timestamp="1593496950254">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -216,10 +206,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="953" y="0" width="974" height="1047" key="dock-window-2/0.0.1920.1040@0.0.1920.1040" timestamp="1593500782458" />
-    <state x="667" y="253" width="585" height="592" key="find.popup" timestamp="1593615752605">
+    <state x="667" y="253" width="585" height="592" key="find.popup" timestamp="1593681288131">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="253" width="585" height="592" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593615752605" />
+    <state x="667" y="253" width="585" height="592" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593681288131" />
     <state x="635" y="308" key="git4idea.merge.GitPullDialog" timestamp="1593595553241">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

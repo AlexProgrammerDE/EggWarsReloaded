@@ -64,18 +64,57 @@ public class MenuListener implements Listener {
                         if (event.getAction().equals(InventoryAction.MOVE_TO_OTHER_INVENTORY)) {
                             if (arenas.contains("arenas." + arenaname + ".mainlobby") && items.getInt("items.editmain.mainlobby.slot") == slot) {
                                 ArenaManager.setMainLobby(arenaname, null);
+                                ArenaManager.setArenaRegistered(arenaname, false, null);
                                 EditMenu.setupEditMenu(inventory, arenaname, player);
                                 player.sendMessage("Reseted main lobby.");
                             } else if (arenas.contains("arenas." + arenaname + ".waitinglobby") && items.getInt("items.editmain.waitinglobby.slot") == slot) {
                                 ArenaManager.setWaitingLobby(arenaname, null);
+                                ArenaManager.setArenaRegistered(arenaname, false, null);
                                 EditMenu.setupEditMenu(inventory, arenaname, player);
                                 player.sendMessage("Reseted waiting lobby.");
                             } else if (arenas.contains("arenas." + arenaname + ".spectator") && items.getInt("items.editmain.spectator.slot") == slot) {
                                 ArenaManager.setSpectator(arenaname, null);
+                                ArenaManager.setArenaRegistered(arenaname, false, null);
                                 EditMenu.setupEditMenu(inventory, arenaname, player);
                                 player.sendMessage("Reseted spectator spawn.");
-                            } else {
-                                player.sendMessage("It seems like that item wasn't set.");
+                            } else if (items.getInt("items.editmain.generators.slot") == slot) {
+                                arenas.set("arenas." + arenaname + ".iron", null);
+                                arenas.set("arenas." + arenaname + ".gold", null);
+                                arenas.set("arenas." + arenaname + ".diamond", null);
+
+                                try {
+                                    EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                EggWarsMain.getEggWarsMain().reloadArenas();
+                                EditMenu.setupEditMenu(inventory, arenaname, player);
+                                player.sendMessage("Reset all generators of arena: " + arenaname);
+                            } else if (items.getInt("items.editmain.teamsize.slot") == slot) {
+                                ArenaManager.setTeamSize(arenaname, 1);
+                                EditMenu.setupEditMenu(inventory, arenaname, player);
+                                player.sendMessage("Reset teamsize to 1 of arena: " + arenaname);
+                            } else if (items.getInt("items.editmain.pos1.slot") == slot) {
+                                ArenaManager.setArenaPos1(arenaname, null);
+                                EditMenu.setupEditMenu(inventory, arenaname, player);
+                                player.sendMessage("Reset pos2");
+                            } else if (items.getInt("items.editmain.pos2.slot") == slot) {
+                                ArenaManager.setArenaPos1(arenaname, null);
+                                EditMenu.setupEditMenu(inventory, arenaname, player);
+                                player.sendMessage("Reset pos2");
+                            } else if (items.getInt("items.editmain.teams.slot") == slot) {
+                                arenas.set("arenas." + arenaname + ".team", null);
+
+                                try {
+                                    EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                EggWarsMain.getEggWarsMain().reloadArenas();
+                                EditMenu.setupEditMenu(inventory, arenaname, player);
+                                player.sendMessage("Reset teams of arena: " + arenaname);
                             }
                         } else {
                             if (items.getInt("items.editmain.mainlobby.slot") == slot) {
@@ -95,6 +134,7 @@ public class MenuListener implements Listener {
                                     player.sendMessage("Set waiting lobby.");
                                 }
                             } else if (items.getInt("items.editmain.spectator.slot") == slot) {
+
                                 if (ArenaManager.getArenas().contains("arenas." + arenaname + "spectator")) {
                                     player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
                                 } else {
@@ -103,6 +143,7 @@ public class MenuListener implements Listener {
                                     player.sendMessage("Set spectator spawn.");
                                 }
                             } else if (items.getInt("items.editmain.teams.slot") == slot) {
+
                                 // Open the inv
                                 TeamMenu.setupTeamMenu(foundarr[1], arenaname);
                                 player.openInventory(foundarr[1]);
@@ -156,6 +197,7 @@ public class MenuListener implements Listener {
                                     }
                                 }
                             } else if (items.getInt("items.editmain.generators.slot") == slot) {
+
                                 if (GeneratorAssistant.shouldTouchBlock.containsKey(player)) {
                                     GeneratorAssistant.shouldTouchBlock.remove(player);
                                     player.sendMessage("[GeneratorAssistant] You left generator adding mode.");
@@ -174,6 +216,14 @@ public class MenuListener implements Listener {
                                 } else {
                                     ArenaManager.setTeamSize(arenaname, size + 1);
                                 }
+
+                                EditMenu.setupEditMenu(inventory, arenaname, player);
+                            } else if (items.getInt("items.editmain.pos1.slot") == slot) {
+                                ArenaManager.setArenaPos1(arenaname, player.getLocation());
+
+                                EditMenu.setupEditMenu(inventory, arenaname, player);
+                            } else if (items.getInt("items.editmain.pos2.slot") == slot) {
+                                ArenaManager.setArenaPos2(arenaname, player.getLocation());
 
                                 EditMenu.setupEditMenu(inventory, arenaname, player);
                             }
@@ -219,6 +269,8 @@ public class MenuListener implements Listener {
                             if (ArenaManager.isTeamReady(arenaname, teamname)) {
                                 if (ArenaManager.isTeamRegistered(arenaname, teamname)) {
                                     ArenaManager.setTeamRegistered(arenaname, teamname, false);
+                                    ArenaManager.setArenaRegistered(arenaname, false, null);
+
                                     TeamMenu.setupTeamMenu(inventory, arenaname);
                                 } else {
                                     ArenaManager.setTeamRegistered(arenaname, teamname, true);
@@ -235,9 +287,10 @@ public class MenuListener implements Listener {
                         if (items.getInt("items.editteam.egg.slot") == slot) {
                             if (event.getAction().equals(InventoryAction.MOVE_TO_OTHER_INVENTORY)) {
                                 ArenaManager.setEgg(arenaname, teamname, null);
-                                TeamUnderMenu.setupTeamUnderMenu(inventory, arenaname, teamname);
                                 ArenaManager.setTeamRegistered(arenaname, teamname, false);
                                 ArenaManager.setArenaRegistered(arenaname, false, null);
+
+                                TeamUnderMenu.setupTeamUnderMenu(inventory, arenaname, teamname);
 
                                 // TODO Remove the egg on reset
                                 if (ArenaManager.isArenaRegistered(arenaname) && ArenaManager.isTeamRegistered(arenaname, teamname)) {
@@ -261,10 +314,10 @@ public class MenuListener implements Listener {
                         if (items.getInt("items.editteam.shop.slot") == slot) {
                             if (event.getAction().equals(InventoryAction.MOVE_TO_OTHER_INVENTORY)) {
                                 ArenaManager.setShop(arenaname, teamname, null, null);
-                                TeamUnderMenu.setupTeamUnderMenu(inventory, arenaname, teamname);
-
                                 ArenaManager.setTeamRegistered(arenaname, teamname, false);
                                 ArenaManager.setArenaRegistered(arenaname, false, null);
+
+                                TeamUnderMenu.setupTeamUnderMenu(inventory, arenaname, teamname);
 
                                 // TODO Kill the villager at reset
                                 if (ArenaManager.isArenaRegistered(arenaname) && ArenaManager.isTeamRegistered(arenaname, teamname)) {
@@ -299,6 +352,8 @@ public class MenuListener implements Listener {
                                     ArenaManager.setArenaRegistered(arenaname, false, null);
                                     ArenaManager.setSpawn(arenaname, teamname, null);
 
+                                    TeamUnderMenu.setupTeamUnderMenu(inventory, arenaname, teamname);
+
                                     if (ArenaManager.isArenaRegistered(arenaname) && ArenaManager.isTeamRegistered(arenaname, teamname)) {
                                         player.sendMessage("Reseted the spawns and unregistered the team and the arena.");
                                     }
@@ -307,8 +362,6 @@ public class MenuListener implements Listener {
                                     } else if (ArenaManager.isArenaRegistered(arenaname)) {
                                         player.sendMessage("Reseted the spawns and unregistered the arena.");
                                     }
-
-                                    TeamUnderMenu.setupTeamUnderMenu(inventory, arenaname, teamname);
                                 } else {
                                     Location playerlocation = player.getLocation();
                                     Block ground = player.getWorld().getBlockAt(new Location(playerlocation.getWorld(), playerlocation.getBlockX(), playerlocation.getBlockY() - 1, playerlocation.getBlockZ()));

@@ -5,6 +5,8 @@ main: me.alexprogrammerde.EggWarsReloaded.EggWarsMain
 author: AlexProgrammerDE
 description: A awesome minigame.
 website: alexprogrammerde.github.io
+load: POSTWORLD
+softdepend: [Multiverse-Core]
 commands:
   eggwarsreloaded:
     aliases: [egg, eggwars]

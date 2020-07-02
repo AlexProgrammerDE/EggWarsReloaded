@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Game {
     String arenaname;
@@ -37,6 +38,7 @@ public class Game {
     public void addPlayer(Player player) {
         if (!playerlist.contains(player)) {
             playerlist.add(player);
+            player.teleport(Objects.requireNonNull(EggWarsMain.getEggWarsMain().getArenas().getLocation("arenas." + arenaname + ".waitinglobby")));
         }
     }
 

@@ -18,6 +18,12 @@ items:
     teamsize:
       name: "Set teamsize"
       slot: 8
+    pos1:
+      name: "Set pos1 of arena"
+      slot: 24
+    pos2:
+      name: "Set pos2 of arena"
+      slot: 26
     register:
       name: "Register arena"
       slot: 18
