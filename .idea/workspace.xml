@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -19,14 +22,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa731129-a453-4e59-92be-1af937cda468" name="Default Changelist" comment="More editing features">
+    <list default="true" id="aa731129-a453-4e59-92be-1af937cda468" name="Default Changelist" comment="Improve code and add more options">
+      <change afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/GeneratorManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/EggWarsMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/EggWarsMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/EditMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/EditMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/MenuListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/MenuListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/commands/MainCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/commands/MainCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/utils/ArenaManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/utils/ArenaManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/items.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/items.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/GameListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/GameListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/GameRegisterer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/GameRegisterer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,14 +41,21 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="FxmlFile" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="C:\Users\alex-\AppData\Local\JetBrains\Toolbox\apps\IDEA-C\ch-0\202.6109.22\plugins\maven\lib\maven3" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectId" id="1dwt2UMaziDUydnRR6QZMCB1SnH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -120,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593636960573</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Improve code and add more options">
+      <created>1593690152509</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1593690152509</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -139,7 +158,8 @@
     <MESSAGE value="Init commit" />
     <MESSAGE value="Add more editing features" />
     <MESSAGE value="More editing features" />
-    <option name="LAST_COMMIT_MESSAGE" value="More editing features" />
+    <MESSAGE value="Improve code and add more options" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improve code and add more options" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1593417250701">
@@ -158,22 +178,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="246" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1593677361223" />
-    <state width="1877" height="147" key="GridCell.Tab.0.bottom" timestamp="1593687170216">
+    <state width="1877" height="91" key="GridCell.Tab.0.bottom" timestamp="1593775195500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="147" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1593687170216" />
-    <state width="1877" height="147" key="GridCell.Tab.0.center" timestamp="1593687170216">
+    <state width="1877" height="91" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1593775195500" />
+    <state width="1877" height="91" key="GridCell.Tab.0.center" timestamp="1593775195500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="147" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1593687170216" />
-    <state width="1877" height="147" key="GridCell.Tab.0.left" timestamp="1593687170216">
+    <state width="1877" height="91" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1593775195500" />
+    <state width="1877" height="91" key="GridCell.Tab.0.left" timestamp="1593775195500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="147" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1593687170216" />
-    <state width="1877" height="147" key="GridCell.Tab.0.right" timestamp="1593687170216">
+    <state width="1877" height="91" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1593775195500" />
+    <state width="1877" height="91" key="GridCell.Tab.0.right" timestamp="1593775195500">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="147" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593687170216" />
+    <state width="1877" height="91" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593775195500" />
     <state width="1877" height="381" key="GridCell.Tab.1.bottom" timestamp="1593461080714">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -190,10 +210,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="381" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593461080714" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1593636966668">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1593690163309">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1593636966668" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1593690163309" />
     <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593680938419">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -218,9 +238,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="761" y="426" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1593511285731" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1593454440802">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1593773749176">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593454440802" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593773749176" />
   </component>
 </project>

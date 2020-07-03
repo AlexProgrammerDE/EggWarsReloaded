@@ -5,9 +5,9 @@ import java.util.HashMap;
 public class GameRegisterer {
     public static HashMap<String, Game> gamesmap = new HashMap<>();
 
-    public static void addGame(String arenaname, Game game) {
+    public static void addGame(String arenaname) {
         if (!gamesmap.containsKey(arenaname)) {
-            gamesmap.put(arenaname, game);
+            gamesmap.put(arenaname, new Game(arenaname));
         }
     }
 

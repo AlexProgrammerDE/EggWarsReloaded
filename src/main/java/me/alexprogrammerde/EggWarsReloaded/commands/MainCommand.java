@@ -2,6 +2,7 @@ package me.alexprogrammerde.EggWarsReloaded.commands;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsMain;
 import me.alexprogrammerde.EggWarsReloaded.admin.EditManager;
+import me.alexprogrammerde.EggWarsReloaded.game.GameRegisterer;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -10,7 +11,7 @@ import org.bukkit.util.StringUtil;
 import java.util.*;
 
 public class MainCommand implements CommandExecutor, TabExecutor {
-    private static final String[] PLAYER = { "help"/*, "join", "randomjoin"*/ };
+    private static final String[] PLAYER = { "help", "join"/*, "randomjoin"*/ };
     private static final String[] ADMIN = { /*"reload", */"addarena", "delarena", /*"kick", */"edit" };
 
     @Override
@@ -37,17 +38,16 @@ public class MainCommand implements CommandExecutor, TabExecutor {
                     }
                 }
 
-                /*if (args[0].equals("join")) {
+                if (args[0].equals("join")) {
                     if (player.hasPermission("eggwarsreloaded.command.join")) {
                         if (args.length > 1) {
-                            if (GameRegisterer.gamesmap.containsKey(args[1])) {
-                                Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
-
-                                if (ArenaManager.getArenas().getBoolean("arenas." + args[1] + ".registered")) {
-                                    GameRegisterer.gamesmap.get(args[1]).addPlayer(player);
-                                } else {
-                                    player.sendMessage("Sorry a arena with this name doesnt exist.");
+                            if (ArenaManager.getArenas().contains("arenas." + args[1]) && ArenaManager.getArenas().getBoolean("arenas." + args[1] + ".registered")) {
+                                if (!GameRegisterer.gamesmap.containsKey(args[1])) {
+                                    GameRegisterer.addGame(args[1]);
                                 }
+
+                                GameRegisterer.gamesmap.get(args[1]).addPlayer(player);
+
                             } else {
                                 player.sendMessage("Sorry a arena with this name doesnt exist.");
                             }
@@ -55,7 +55,7 @@ public class MainCommand implements CommandExecutor, TabExecutor {
                     }
                 }
 
-                if (args[0].equals("randomjoin")) {
+                /*if (args[0].equals("randomjoin")) {
                     if (player.hasPermission("eggwarsreloaded.command.randomjoin")) {
 
                     }
@@ -176,7 +176,7 @@ public class MainCommand implements CommandExecutor, TabExecutor {
                 }
             }
 
-            /*if (player.hasPermission("eggwarsreloaded.command.join") && args[0].equals("join") && args.length == 2) {
+            if (player.hasPermission("eggwarsreloaded.command.join") && args[0].equals("join") && args.length == 2) {
                 Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
                 Set<String> registeredarenas = new HashSet<>();
 
@@ -188,7 +188,7 @@ public class MainCommand implements CommandExecutor, TabExecutor {
 
                 StringUtil.copyPartialMatches(args[1], arenas, completions);
                 Collections.sort(completions);
-            }*/
+            }
 
         }
 

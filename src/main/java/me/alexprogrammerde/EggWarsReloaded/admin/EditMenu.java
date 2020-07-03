@@ -154,7 +154,7 @@ public class EditMenu {
 
         if (ArenaManager.getArenas().contains("arenas." + arenaname + ".pos1")) {
             Location location = ArenaManager.getArenas().getLocation("arenas." + arenaname + ".pos1");
-            spectatorlist.add("Current: " +  location.getWorld().getName() + " "
+            pos1list.add("Current: " +  location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
@@ -162,7 +162,7 @@ public class EditMenu {
 
         if (ArenaManager.getArenas().contains("arenas." + arenaname + ".pos2")) {
             Location location = ArenaManager.getArenas().getLocation("arenas." + arenaname + ".pos2");
-            spectatorlist.add("Current: " +  location.getWorld().getName() + " "
+            pos2list.add("Current: " +  location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));

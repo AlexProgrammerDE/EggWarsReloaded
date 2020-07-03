@@ -97,10 +97,12 @@ public class MenuListener implements Listener {
                                 player.sendMessage("Reset teamsize to 1 of arena: " + arenaname);
                             } else if (items.getInt("items.editmain.pos1.slot") == slot) {
                                 ArenaManager.setArenaPos1(arenaname, null);
+
                                 EditMenu.setupEditMenu(inventory, arenaname, player);
-                                player.sendMessage("Reset pos2");
+                                player.sendMessage("Reset pos1");
                             } else if (items.getInt("items.editmain.pos2.slot") == slot) {
-                                ArenaManager.setArenaPos1(arenaname, null);
+                                ArenaManager.setArenaPos2(arenaname, null);
+
                                 EditMenu.setupEditMenu(inventory, arenaname, player);
                                 player.sendMessage("Reset pos2");
                             } else if (items.getInt("items.editmain.teams.slot") == slot) {
@@ -143,7 +145,6 @@ public class MenuListener implements Listener {
                                     player.sendMessage("Set spectator spawn.");
                                 }
                             } else if (items.getInt("items.editmain.teams.slot") == slot) {
-
                                 // Open the inv
                                 TeamMenu.setupTeamMenu(foundarr[1], arenaname);
                                 player.openInventory(foundarr[1]);
@@ -167,11 +168,15 @@ public class MenuListener implements Listener {
                                         String wrongteams = "";
 
                                         for (String team : teams) {
+                                            EggWarsMain.getEggWarsMain().getLogger().info(team);
                                             List<String> spawns = arenas.getStringList("arenas." + arenaname + ".team." + team + ".spawn");
+                                            EggWarsMain.getEggWarsMain().getLogger().info(spawns.toString());
+                                            EggWarsMain.getEggWarsMain().getLogger().info(String.valueOf(spawns.size()));
+                                            EggWarsMain.getEggWarsMain().getLogger().info(String.valueOf(ArenaManager.getTeamSize(team)));
 
-                                            if (spawns.size() != ArenaManager.getTeamSize(team)) {
+                                            if (spawns.size() != ArenaManager.getTeamSize(arenaname)) {
                                                 isWrong = true;
-                                                wrongteams = " " + team;
+                                                wrongteams = wrongteams + " " + team;
                                             }
                                         }
 
