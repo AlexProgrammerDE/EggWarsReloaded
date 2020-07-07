@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="BranchesTreeState">
     <expand>
       <path>
@@ -22,16 +19,55 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="aa731129-a453-4e59-92be-1af937cda468" name="Default Changelist" comment="Improve code and add more options">
-      <change afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/GeneratorManager.java" afterDir="false" />
+    <list default="true" id="aa731129-a453-4e59-92be-1af937cda468" name="Default Changelist" comment="More functionality">
+      <change afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/LobbyListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/TeleportSpawn.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/arenas.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/config.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/items.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/language.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/EggWarsMain.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/admin/ArenaRepairer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/admin/EditManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/admin/EditMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/admin/EggAssistant.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/admin/GeneratorAssistant.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/admin/MenuListener.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/admin/ShopAssistant.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/admin/TeamMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/admin/TeamUnderMenu.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/commands/MainCommand.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/game/Game$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/game/Game$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/game/Game.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/game/GameListener.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/game/GameRegisterer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/game/GeneratorManager$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/game/GeneratorManager$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/game/GeneratorManager$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/game/GeneratorManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/game/LobbyListener.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/gui/Shop.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/utils/ArenaManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/utils/ConfigDefaults.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/utils/ConfigManager.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/utils/PlaceholderCore.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/utils/UpdateChecker.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/me/alexprogrammerde/EggWarsReloaded/utils/UtilCore.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/EggWarsMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/EggWarsMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/EditMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/EditMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/MenuListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/admin/MenuListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/commands/MainCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/commands/MainCommand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/GameListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/GameListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/GameRegisterer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/GameRegisterer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/game/LobbyHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/utils/ArenaManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/me/alexprogrammerde/EggWarsReloaded/utils/ArenaManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/items.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/items.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,13 +86,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHome" value="C:\Users\alex-\AppData\Local\JetBrains\Toolbox\apps\IDEA-C\ch-0\202.6109.22\plugins\maven\lib\maven3" />
-      </MavenGeneralSettings>
-    </option>
-  </component>
   <component name="ProjectId" id="1dwt2UMaziDUydnRR6QZMCB1SnH" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -68,6 +97,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -139,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1593690152509</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="More functionality">
+      <created>1593806671372</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1593806671372</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -159,7 +196,8 @@
     <MESSAGE value="Add more editing features" />
     <MESSAGE value="More editing features" />
     <MESSAGE value="Improve code and add more options" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improve code and add more options" />
+    <MESSAGE value="More functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="More functionality" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1593417250701">
@@ -178,22 +216,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="246" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1593677361223" />
-    <state width="1877" height="91" key="GridCell.Tab.0.bottom" timestamp="1593775195500">
+    <state width="938" height="226" key="GridCell.Tab.0.bottom" timestamp="1594060637141">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="91" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1593775195500" />
-    <state width="1877" height="91" key="GridCell.Tab.0.center" timestamp="1593775195500">
+    <state width="938" height="226" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594060637141" />
+    <state width="938" height="226" key="GridCell.Tab.0.center" timestamp="1594060637141">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="91" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1593775195500" />
-    <state width="1877" height="91" key="GridCell.Tab.0.left" timestamp="1593775195500">
+    <state width="938" height="226" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594060637141" />
+    <state width="938" height="226" key="GridCell.Tab.0.left" timestamp="1594060637141">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="91" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1593775195500" />
-    <state width="1877" height="91" key="GridCell.Tab.0.right" timestamp="1593775195500">
+    <state width="938" height="226" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594060637141" />
+    <state width="938" height="226" key="GridCell.Tab.0.right" timestamp="1594060637141">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="91" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593775195500" />
+    <state width="938" height="226" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594060637141" />
     <state width="1877" height="381" key="GridCell.Tab.1.bottom" timestamp="1593461080714">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -210,10 +248,14 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="381" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593461080714" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1593690163309">
+    <state x="461" y="165" key="SettingsEditor" timestamp="1594040923204">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1593690163309" />
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1594040923204" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1593806692730">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1593806692730" />
     <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1593680938419">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -226,10 +268,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="953" y="0" width="974" height="1047" key="dock-window-2/0.0.1920.1040@0.0.1920.1040" timestamp="1593500782458" />
-    <state x="667" y="253" width="585" height="592" key="find.popup" timestamp="1593681288131">
+    <state x="667" y="253" width="585" height="592" key="find.popup" timestamp="1594041107208">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="667" y="253" width="585" height="592" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1593681288131" />
+    <state x="667" y="253" width="585" height="592" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1594041107208" />
     <state x="635" y="308" key="git4idea.merge.GitPullDialog" timestamp="1593595553241">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

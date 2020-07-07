@@ -40,6 +40,10 @@ public class GameListener implements Listener {
     public void onPVP(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
+
+            if (Game.playergame.get(player).isLobby) {
+                event.setCancelled(true);
+            }
         }
     }
 }

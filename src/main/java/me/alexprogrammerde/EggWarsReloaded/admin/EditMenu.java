@@ -31,6 +31,7 @@ public class EditMenu {
         ItemStack size = new ItemStack(Material.ENDER_PEARL);
         ItemStack pos1;
         ItemStack pos2;
+        ItemStack world = new ItemStack(Material.LIGHT_BLUE_WOOL);
 
         if (arenas.contains("arenas." + arenaname + ".pos1")) {
             pos1 = new ItemStack(Material.GOLD_INGOT);
@@ -53,6 +54,7 @@ public class EditMenu {
         ItemMeta sizemeta = size.getItemMeta();
         ItemMeta pos1meta = pos1.getItemMeta();
         ItemMeta pos2meta = pos2.getItemMeta();
+        ItemMeta worldmeta = world.getItemMeta();
 
         // Give item names from items.yml
         mainlobbymeta.setDisplayName(items.getString("items.editmain.mainlobby.name"));
@@ -64,6 +66,7 @@ public class EditMenu {
         sizemeta.setDisplayName(items.getString("items.editmain.teamsize.name"));
         pos1meta.setDisplayName(items.getString("items.editmain.pos1.name"));
         pos2meta.setDisplayName(items.getString("items.editmain.pos2.name"));
+        worldmeta.setDisplayName(items.getString("items.editmain.world.name"));
 
         if (ArenaManager.getArenas().contains("arenas." + arenaname + ".mainlobby")) {
             mainlobbymeta.addEnchant(Enchantment.DURABILITY, 0, true);
@@ -100,6 +103,11 @@ public class EditMenu {
             pos2meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
+        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".world")) {
+            pos2meta.addEnchant(Enchantment.DURABILITY, 0, true);
+            pos2meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        }
+
         List<String> mainlobbylist = new ArrayList<>();
         List<String> waitinglobbylist = new ArrayList<>();
         List<String> spectatorlist = new ArrayList<>();
@@ -108,6 +116,7 @@ public class EditMenu {
         List<String> sizelist = new ArrayList<>();
         List<String> pos1list = new ArrayList<>();
         List<String> pos2list = new ArrayList<>();
+        List<String> worldlist = new ArrayList<>();
 
         mainlobbylist.add("Left click to set the main lobby.");
         waitinglobbylist.add("Left click to set the waiting lobby.");
@@ -116,6 +125,7 @@ public class EditMenu {
         sizelist.add("Click to increase teamsize. 4 is the maximum!");
         pos1list.add("Left click to set your position to pos1.");
         pos2list.add("Left click to set your position to pos2.");
+        worldlist.add("Left click to set your arenas world.");
 
         if (arenas.getBoolean("arenas." + arenaname + ".registered")) {
             registerlist.add("Left click to unregister the arena.");
@@ -130,7 +140,7 @@ public class EditMenu {
         if (ArenaManager.getArenas().contains("arenas." + arenaname + ".mainlobby")) {
             Location location = ArenaManager.getArenas().getLocation("arenas." + arenaname + ".mainlobby");
 
-            mainlobbylist.add("Current: " +  location.getWorld().getName() + " "
+            mainlobbylist.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
@@ -138,7 +148,7 @@ public class EditMenu {
 
         if (ArenaManager.getArenas().contains("arenas." + arenaname + ".waitinglobby")) {
             Location location = ArenaManager.getArenas().getLocation("arenas." + arenaname + ".waitinglobby");
-            waitinglobbylist.add("Current: " +  location.getWorld().getName() + " "
+            waitinglobbylist.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
@@ -146,7 +156,7 @@ public class EditMenu {
 
         if (ArenaManager.getArenas().contains("arenas." + arenaname + ".spectator")) {
             Location location = ArenaManager.getArenas().getLocation("arenas." + arenaname + ".spectator");
-            spectatorlist.add("Current: " +  location.getWorld().getName() + " "
+            spectatorlist.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
@@ -154,7 +164,7 @@ public class EditMenu {
 
         if (ArenaManager.getArenas().contains("arenas." + arenaname + ".pos1")) {
             Location location = ArenaManager.getArenas().getLocation("arenas." + arenaname + ".pos1");
-            pos1list.add("Current: " +  location.getWorld().getName() + " "
+            pos1list.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
@@ -162,10 +172,15 @@ public class EditMenu {
 
         if (ArenaManager.getArenas().contains("arenas." + arenaname + ".pos2")) {
             Location location = ArenaManager.getArenas().getLocation("arenas." + arenaname + ".pos2");
-            pos2list.add("Current: " +  location.getWorld().getName() + " "
+            pos2list.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
+        }
+
+        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".pos2")) {
+            String location = ArenaManager.getArenas().getString("arenas." + arenaname + ".world");
+            pos2list.add("Current: " + location);
         }
 
         sizelist.add("Current: " + ArenaManager.getTeamSize(arenaname));
@@ -175,6 +190,7 @@ public class EditMenu {
         spectatorlist.add("Use shift + left click to reset it.");
         pos1list.add("Use shift + left click to reset it.");
         pos2list.add("Use shift + left click to reset it.");
+        worldlist.add("Use shift + left click to reset it.");
 
         mainlobbymeta.setLore(mainlobbylist);
         waitinglobbymeta.setLore(waitinglobbylist);
@@ -184,6 +200,7 @@ public class EditMenu {
         sizemeta.setLore(sizelist);
         pos1meta.setLore(pos1list);
         pos2meta.setLore(pos2list);
+        worldmeta.setLore(worldlist);
 
         mainlobby.setItemMeta(mainlobbymeta);
         waitinglobby.setItemMeta(waitinglobbymeta);
@@ -194,6 +211,7 @@ public class EditMenu {
         size.setItemMeta(sizemeta);
         pos1.setItemMeta(pos1meta);
         pos2.setItemMeta(pos1meta);
+        world.setItemMeta(worldmeta);
 
         // Assign the items to the inventory
         inventory.setItem(items.getInt("items.editmain.mainlobby.slot"), mainlobby);
@@ -205,5 +223,6 @@ public class EditMenu {
         inventory.setItem(items.getInt("items.editmain.teamsize.slot"), size);
         inventory.setItem(items.getInt("items.editmain.pos1.slot"), pos1);
         inventory.setItem(items.getInt("items.editmain.pos2.slot"), pos2);
+        inventory.setItem(items.getInt("items.editmain.world.slot"), world);
     }
 }

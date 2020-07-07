@@ -6,9 +6,7 @@ public class GameRegisterer {
     public static HashMap<String, Game> gamesmap = new HashMap<>();
 
     public static void addGame(String arenaname) {
-        if (!gamesmap.containsKey(arenaname)) {
-            gamesmap.put(arenaname, new Game(arenaname));
-        }
+        gamesmap.put(arenaname, new Game(arenaname));
     }
 
     public static void removegame(String arenaname) {

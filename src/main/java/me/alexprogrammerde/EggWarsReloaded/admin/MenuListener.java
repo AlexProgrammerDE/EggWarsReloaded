@@ -231,6 +231,10 @@ public class MenuListener implements Listener {
                                 ArenaManager.setArenaPos2(arenaname, player.getLocation());
 
                                 EditMenu.setupEditMenu(inventory, arenaname, player);
+                            } else if (items.getInt("items.editmain.generators.slot") == slot) {
+                                ArenaManager.setArenaWorld(arenaname, player.getLocation().getWorld().getName());
+
+                                EditMenu.setupEditMenu(inventory, arenaname, player);
                             }
                         }
                     } else if (index == 1) {

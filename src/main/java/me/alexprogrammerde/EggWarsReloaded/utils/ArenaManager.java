@@ -136,6 +136,18 @@ public class ArenaManager {
         EggWarsMain.getEggWarsMain().reloadArenas();
     }
 
+    public static void setArenaWorld(String arenaname, String world) {
+        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".world", world);
+
+        try {
+            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        EggWarsMain.getEggWarsMain().reloadArenas();
+    }
+
     public static void addArena(String arenaname) {
         EggWarsMain.getEggWarsMain().getArenas().createSection("arenas." + arenaname);
         EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".size", 1);
