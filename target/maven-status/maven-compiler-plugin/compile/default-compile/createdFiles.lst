@@ -7,7 +7,6 @@ me\alexprogrammerde\EggWarsReloaded\admin\GeneratorAssistant.class
 me\alexprogrammerde\EggWarsReloaded\game\LobbyListener.class
 me\alexprogrammerde\EggWarsReloaded\game\GameRegisterer.class
 me\alexprogrammerde\EggWarsReloaded\game\Game.class
-me\alexprogrammerde\EggWarsReloaded\game\Game$2.class
 me\alexprogrammerde\EggWarsReloaded\game\GameListener.class
 me\alexprogrammerde\EggWarsReloaded\utils\UpdateChecker.class
 me\alexprogrammerde\EggWarsReloaded\utils\ConfigDefaults.class
@@ -22,7 +21,8 @@ me\alexprogrammerde\EggWarsReloaded\admin\MenuListener.class
 me\alexprogrammerde\EggWarsReloaded\game\GeneratorManager$1.class
 me\alexprogrammerde\EggWarsReloaded\utils\ArenaManager.class
 me\alexprogrammerde\EggWarsReloaded\admin\TeamMenu.class
-me\alexprogrammerde\EggWarsReloaded\game\Game$1.class
+me\alexprogrammerde\EggWarsReloaded\game\TeleportSpawn.class
 me\alexprogrammerde\EggWarsReloaded\gui\Shop.class
 me\alexprogrammerde\EggWarsReloaded\admin\ShopAssistant.class
+me\alexprogrammerde\EggWarsReloaded\game\TeleportSpawn$1.class
 me\alexprogrammerde\EggWarsReloaded\EggWarsMain.class

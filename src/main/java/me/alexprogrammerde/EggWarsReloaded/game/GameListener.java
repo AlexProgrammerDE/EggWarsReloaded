@@ -5,7 +5,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public class GameListener implements Listener {
@@ -37,6 +39,19 @@ public class GameListener implements Listener {
     }
 
     @EventHandler
+    public void onFallDamage(EntityDamageEvent event) {
+        if (event.getEntity() instanceof Player) {
+            if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+                Player player = (Player) event.getEntity();
+
+                if (Game.playergame.containsKey(player)) {
+                    event.setCancelled(true);
+                }
+            }
+        }
+    }
+
+    @EventHandler
     public void onPVP(EntityDamageByEntityEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
@@ -44,6 +59,15 @@ public class GameListener implements Listener {
             if (Game.playergame.get(player).isLobby) {
                 event.setCancelled(true);
             }
+        }
+    }
+
+    @EventHandler
+    public void onDeath(PlayerDeathEvent event) {
+        Player player = event.getEntity();
+
+        if (Game.playergame.containsKey(player)) {
+            Game.playergame.get(player).death(player);
         }
     }
 }

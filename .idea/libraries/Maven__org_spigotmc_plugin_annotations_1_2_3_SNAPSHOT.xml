@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.spigotmc:plugin-annotations:1.2.3-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/spigotmc/plugin-annotations/1.2.3-SNAPSHOT/plugin-annotations-1.2.3-20200327.223425-1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/spigotmc/plugin-annotations/1.2.3-SNAPSHOT/plugin-annotations-1.2.3-20200327.223425-1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/spigotmc/plugin-annotations/1.2.3-SNAPSHOT/plugin-annotations-1.2.3-20200327.223425-1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

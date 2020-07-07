@@ -19,11 +19,11 @@ public class UtilCore {
     }
 
     public static void sendTitle(Player player, String title) {
-        player.sendTitle(title, null, 1, 2, 1);
+        player.sendTitle(title, null, 5, 10, 5);
     }
 
     public static void sendTitle(Player player, String title, String subtitle) {
-        player.sendTitle(title, subtitle, 1, 2, 1);
+        player.sendTitle(title, subtitle, 5, 10, 5);
     }
 
     public static Inventory[] addInventory(Inventory[] arr, Inventory inv) {

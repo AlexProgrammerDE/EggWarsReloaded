@@ -19,7 +19,7 @@ public class GeneratorManager {
                     for (String generator : arenas.getStringList("arenas." + game.arenaname + ".iron")) {
                         String[] generatorsplit = generator.split(" ");
 
-                        Location generatorlocation = new Location(Bukkit.getWorld(generatorsplit[0]), Double.parseDouble(generatorsplit[1]), Double.parseDouble(generatorsplit[2]), Double.parseDouble(generatorsplit[3]));
+                        Location generatorlocation = new Location(Bukkit.getWorld(generatorsplit[0]), Double.parseDouble(generatorsplit[1]) + 0.5, Double.parseDouble(generatorsplit[2]) + 0.5, Double.parseDouble(generatorsplit[3]) + 0.5, 0, 90);
 
                         Bukkit.getWorld(generatorsplit[0]).dropItem(generatorlocation, new ItemStack(Material.IRON_INGOT));
                     }
@@ -34,7 +34,7 @@ public class GeneratorManager {
                     for (String generator : arenas.getStringList("arenas." + game.arenaname + ".gold")) {
                         String[] generatorsplit = generator.split(" ");
 
-                        Location generatorlocation = new Location(Bukkit.getWorld(generatorsplit[0]), Double.parseDouble(generatorsplit[1]), Double.parseDouble(generatorsplit[2]), Double.parseDouble(generatorsplit[3]));
+                        Location generatorlocation = new Location(Bukkit.getWorld(generatorsplit[0]), Double.parseDouble(generatorsplit[1]) + 0.5, Double.parseDouble(generatorsplit[2]) + 0.5, Double.parseDouble(generatorsplit[3]) + 0.5, 0, 90);
 
                         Bukkit.getWorld(generatorsplit[0]).dropItem(generatorlocation, new ItemStack(Material.GOLD_INGOT));
                     }
@@ -49,7 +49,7 @@ public class GeneratorManager {
                     for (String generator : arenas.getStringList("arenas." + game.arenaname + ".diamond")) {
                         String[] generatorsplit = generator.split(" ");
 
-                        Location generatorlocation = new Location(Bukkit.getWorld(generatorsplit[0]), Double.parseDouble(generatorsplit[1]), Double.parseDouble(generatorsplit[2]), Double.parseDouble(generatorsplit[3]));
+                        Location generatorlocation = new Location(Bukkit.getWorld(generatorsplit[0]), Double.parseDouble(generatorsplit[1]) + 0.5, Double.parseDouble(generatorsplit[2]) + 0.5, Double.parseDouble(generatorsplit[3]) + 0.5, 0, 90);
 
                         Bukkit.getWorld(generatorsplit[0]).dropItem(generatorlocation, new ItemStack(Material.DIAMOND));
                     }
