@@ -1,6 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.game;
 
-import me.alexprogrammerde.EggWarsReloaded.EggWarsMain;
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -22,7 +22,7 @@ public class TeleportSpawn {
     }
 
     public void addTeam(String team) {
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
         List<Location> spawns = new ArrayList<>();
 
@@ -64,5 +64,15 @@ public class TeleportSpawn {
 
             player.teleport(teleportto);
         }
+    }
+
+    public boolean isTeamFull(String team) {
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
+
+        return playersinteams.get(team).size() != arenas.getInt("arenas." + arenaname + ".size");
+    }
+
+    public void setTeam(Player player) {
+
     }
 }

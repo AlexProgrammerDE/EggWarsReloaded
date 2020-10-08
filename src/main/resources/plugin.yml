@@ -1,7 +1,7 @@
 name: EggWarsReloaded
 version: 1.0.0
 api-version: 1.16
-main: me.alexprogrammerde.EggWarsReloaded.EggWarsMain
+main: me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded
 author: AlexProgrammerDE
 description: A awesome minigame.
 website: alexprogrammerde.github.io

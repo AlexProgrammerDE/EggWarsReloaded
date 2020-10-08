@@ -1,6 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.admin;
 
-import me.alexprogrammerde.EggWarsReloaded.EggWarsMain;
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -39,7 +39,7 @@ public class ShopAssistant implements Listener {
     }
 
     public void ArmorStandInteract(Player player, Entity armorstand) {
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
         if (shouldCreateShop.containsKey(player)) {
             if (shouldCreateShop.get(player)) {

@@ -1,6 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.game;
 
-import me.alexprogrammerde.EggWarsReloaded.EggWarsMain;
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -8,15 +8,16 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 
 public class GeneratorManager {
+    int[] tasks = new int[3];
 
-    public GeneratorManager(Game game) {
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+    public GeneratorManager(GameLib gameLib) {
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
-        game.taskID[1] = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsMain.getEggWarsMain(), new Runnable() {
+        tasks[0] = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), new Runnable() {
             @Override
             public void run() {
-                if (game.isPlaying) {
-                    for (String generator : arenas.getStringList("arenas." + game.arenaname + ".iron")) {
+                if (gameLib.isPlaying) {
+                    for (String generator : arenas.getStringList("arenas." + gameLib.arenaname + ".iron")) {
                         String[] generatorsplit = generator.split(" ");
 
                         Location generatorlocation = new Location(Bukkit.getWorld(generatorsplit[0]), Double.parseDouble(generatorsplit[1]) + 0.5, Double.parseDouble(generatorsplit[2]) + 0.5, Double.parseDouble(generatorsplit[3]) + 0.5, 0, 90);
@@ -27,11 +28,11 @@ public class GeneratorManager {
             }
         }, 20, 20);
 
-        game.taskID[2] = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsMain.getEggWarsMain(), new Runnable() {
+        tasks[1] = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), new Runnable() {
             @Override
             public void run() {
-                if (game.isPlaying) {
-                    for (String generator : arenas.getStringList("arenas." + game.arenaname + ".gold")) {
+                if (gameLib.isPlaying) {
+                    for (String generator : arenas.getStringList("arenas." + gameLib.arenaname + ".gold")) {
                         String[] generatorsplit = generator.split(" ");
 
                         Location generatorlocation = new Location(Bukkit.getWorld(generatorsplit[0]), Double.parseDouble(generatorsplit[1]) + 0.5, Double.parseDouble(generatorsplit[2]) + 0.5, Double.parseDouble(generatorsplit[3]) + 0.5, 0, 90);
@@ -42,11 +43,11 @@ public class GeneratorManager {
             }
         }, 20, 60);
 
-        game.taskID[3] = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsMain.getEggWarsMain(), new Runnable() {
+        tasks[2] = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), new Runnable() {
             @Override
             public void run() {
-                if (game.isPlaying) {
-                    for (String generator : arenas.getStringList("arenas." + game.arenaname + ".diamond")) {
+                if (gameLib.isPlaying) {
+                    for (String generator : arenas.getStringList("arenas." + gameLib.arenaname + ".diamond")) {
                         String[] generatorsplit = generator.split(" ");
 
                         Location generatorlocation = new Location(Bukkit.getWorld(generatorsplit[0]), Double.parseDouble(generatorsplit[1]) + 0.5, Double.parseDouble(generatorsplit[2]) + 0.5, Double.parseDouble(generatorsplit[3]) + 0.5, 0, 90);
@@ -56,5 +57,11 @@ public class GeneratorManager {
                 }
             }
         }, 20, 100);
+    }
+
+    public void kill() {
+        for (int id : tasks) {
+            Bukkit.getScheduler().cancelTask(id);
+        }
     }
 }

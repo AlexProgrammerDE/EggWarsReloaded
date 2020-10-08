@@ -1,6 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.admin;
 
-import me.alexprogrammerde.EggWarsReloaded.EggWarsMain;
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -8,9 +8,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -24,7 +22,7 @@ public class GeneratorAssistant implements Listener {
 
     @EventHandler
     public void onBlockInteract(BlockBreakEvent event) {
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
         Player player = event.getPlayer();
         Block block = event.getBlock();
         Location blocklocation = block.getLocation();
@@ -69,12 +67,12 @@ public class GeneratorAssistant implements Listener {
                 }
 
                 try {
-                    EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+                    EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
 
-                EggWarsMain.getEggWarsMain().reloadArenas();
+                EggWarsReloaded.getEggWarsMain().reloadArenas();
             }
     }
 }

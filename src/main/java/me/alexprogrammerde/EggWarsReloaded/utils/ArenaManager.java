@@ -1,6 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded.utils;
 
-import me.alexprogrammerde.EggWarsReloaded.EggWarsMain;
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -8,174 +9,194 @@ import java.io.IOException;
 import java.util.List;
 
 public class ArenaManager {
+    // WORLD + X + Y + X + YAW + PITCH
+
 
     public static FileConfiguration getArenas() {
-        return EggWarsMain.getEggWarsMain().getArenas();
+        return EggWarsReloaded.getEggWarsMain().getArenas();
     }
 
     public static void setMainLobby(String arenaname, Location location) {
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".mainlobby", location);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname + ".mainlobby", location.getWorld().getName() + " " + location.getX() + " " + location.getY() + " " + location.getZ() + " " + location.getYaw() + " " + location.getPitch());
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
     public static void setWaitingLobby(String arenaname, Location location) {
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".waitinglobby", location);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname + ".waitinglobby", location.getWorld().getName() + " " + location.getX() + " " + location.getY() + " " + location.getZ() + " " + location.getYaw() + " " + location.getPitch());
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
     public static void setSpectator(String arenaname, Location location) {
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".spectator", location);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname + ".spectator", location.getWorld().getName() + " " + location.getX() + " " + location.getY() + " " + location.getZ() + " " + location.getYaw() + " " + location.getPitch());
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
+    }
+
+    public static Location getMainLobby(String arenaname) {
+        String[] split = EggWarsReloaded.getEggWarsMain().getArenas().getString("arenas." + arenaname + ".mainlobby").split(" ");
+
+        return new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]), Double.parseDouble(split[3]), Float.parseFloat(split[4]), Float.parseFloat(split[5]));
+    }
+
+    public static Location getWaitingLobby(String arenaname) {
+        String[] split = EggWarsReloaded.getEggWarsMain().getArenas().getString("arenas." + arenaname + ".waitinglobby").split(" ");
+
+        return new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]), Double.parseDouble(split[3]), Float.parseFloat(split[4]), Float.parseFloat(split[5]));
+    }
+
+    public static Location getSpectator(String arenaname) {
+        String[] split = EggWarsReloaded.getEggWarsMain().getArenas().getString("arenas." + arenaname + ".spectator").split(" ");
+
+        return new Location(Bukkit.getWorld(split[0]), Double.parseDouble(split[1]), Double.parseDouble(split[2]), Double.parseDouble(split[3]), Float.parseFloat(split[4]), Float.parseFloat(split[5]));
     }
 
     public static void setArenaRegistered(String arenaname, boolean register, List<String> teams) {
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".registered", register);
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".registeredteams", teams);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname + ".registered", register);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname + ".registeredteams", teams);
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
     public static void setTeamSize(String arenaname, Integer size) {
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".size", size);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname + ".size", size);
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
     public static int getTeamSize(String arenaname) {
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
         return arenas.getInt("arenas." + arenaname + ".size");
     }
 
     public static boolean isArenaRegistered(String arenaname) {
-        return EggWarsMain.getEggWarsMain().getArenas().getBoolean("arenas." + arenaname + ".registered");
+        return EggWarsReloaded.getEggWarsMain().getArenas().getBoolean("arenas." + arenaname + ".registered");
     }
 
     public static void setTeamRegistered(String arenaname, String teamname, boolean register) {
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".team." + teamname + ".registered", register);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname + ".team." + teamname + ".registered", register);
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
     public static boolean isTeamRegistered(String arenaname, String teamname) {
-        return EggWarsMain.getEggWarsMain().getArenas().getBoolean("arenas." + arenaname + ".team." + teamname + ".registered");
+        return EggWarsReloaded.getEggWarsMain().getArenas().getBoolean("arenas." + arenaname + ".team." + teamname + ".registered");
     }
 
     public static void setEgg(String arenaname, String teamname, Location egglocation) {
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".team." + teamname + ".egg", egglocation);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname + ".team." + teamname + ".egg", egglocation);
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
     public static void setArenaPos1(String arenaname, Location pos1) {
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".pos1", pos1);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname + ".pos1", pos1);
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
     public static void setArenaPos2(String arenaname, Location pos2) {
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".pos2", pos2);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname + ".pos2", pos2);
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
     public static void setArenaWorld(String arenaname, String world) {
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".world", world);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname + ".world", world);
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
     public static void addArena(String arenaname) {
-        EggWarsMain.getEggWarsMain().getArenas().createSection("arenas." + arenaname);
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname + ".size", 1);
+        EggWarsReloaded.getEggWarsMain().getArenas().createSection("arenas." + arenaname);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname + ".size", 1);
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
     public static void deleteArena(String arenaname) {
-        EggWarsMain.getEggWarsMain().getArenas().set("arenas." + arenaname, null);
+        EggWarsReloaded.getEggWarsMain().getArenas().set("arenas." + arenaname, null);
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
     public static boolean isArenaReady(String arenaname) {
         // TODO Check for generators
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
         if (!arenas.contains("arenas." + arenaname + ".mainlobby")) {
             return false;
@@ -213,12 +234,12 @@ public class ArenaManager {
         }
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
     public static void setSpawn(String arenaname, String teamname, Location location) {
@@ -227,11 +248,11 @@ public class ArenaManager {
         arenas.set("arenas." + arenaname + ".team." + teamname + ".spawn", location);
 
         try {
-            EggWarsMain.getEggWarsMain().getArenas().save(EggWarsMain.getEggWarsMain().getArenasFile());
+            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        EggWarsMain.getEggWarsMain().reloadArenas();
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 }

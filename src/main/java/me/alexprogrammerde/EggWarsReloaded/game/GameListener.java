@@ -1,6 +1,10 @@
 package me.alexprogrammerde.EggWarsReloaded.game;
 
+import me.alexprogrammerde.EggWarsReloaded.gui.Shop;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -8,22 +12,24 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.Inventory;
 
 public class GameListener implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        if (Game.playergame.containsKey(player)) {
-            Game.playergame.get(player).removePlayer(player);
+        if (GameLib.playergame.containsKey(player)) {
+            GameLib.playergame.get(player).removePlayer(player);
         }
     }
 
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        if (Game.playergame.containsKey(player)) {
+        if (GameLib.playergame.containsKey(player)) {
             event.setCancelled(true);
         }
     }
@@ -32,7 +38,7 @@ public class GameListener implements Listener {
     public void onHunger(FoodLevelChangeEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            if (Game.playergame.containsKey(player)) {
+            if (GameLib.playergame.containsKey(player)) {
                 event.setFoodLevel(20);
             }
         }
@@ -44,7 +50,7 @@ public class GameListener implements Listener {
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
                 Player player = (Player) event.getEntity();
 
-                if (Game.playergame.containsKey(player)) {
+                if (GameLib.playergame.containsKey(player)) {
                     event.setCancelled(true);
                 }
             }
@@ -56,7 +62,7 @@ public class GameListener implements Listener {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
 
-            if (Game.playergame.get(player).isLobby) {
+            if (GameLib.playergame.get(player).isLobby) {
                 event.setCancelled(true);
             }
         }
@@ -66,8 +72,29 @@ public class GameListener implements Listener {
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        if (Game.playergame.containsKey(player)) {
-            Game.playergame.get(player).death(player);
+        if (GameLib.playergame.containsKey(player)) {
+            GameLib.playergame.get(player).death(player);
+        }
+    }
+
+    @EventHandler
+    public void onVillagerClick(PlayerInteractEntityEvent event) {
+        Player player = event.getPlayer();
+
+        if (GameLib.playergame.containsKey(player)) {
+            GameLib gameLib = GameLib.playergame.get(player);
+
+            if (gameLib.isPlaying) {
+                if (event.getRightClicked().getType() == EntityType.VILLAGER) {
+                    Villager villager = (Villager) event.getRightClicked();
+
+                    Inventory inv = Bukkit.createInventory(null, 3 * 9, "");
+
+                    Shop.setupShopMenu(inv, 0);
+
+                    player.openInventory(inv);
+                }
+            }
         }
     }
 }

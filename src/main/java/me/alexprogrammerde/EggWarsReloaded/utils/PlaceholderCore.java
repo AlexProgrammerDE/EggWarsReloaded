@@ -6,8 +6,6 @@ public class PlaceholderCore {
     public static String parseText(String text, String type) {
         String parsedtext = text;
 
-
-
         return parsedtext;
     }
 }

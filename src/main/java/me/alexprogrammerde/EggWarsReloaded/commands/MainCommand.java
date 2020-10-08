@@ -1,6 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.commands;
 
-import me.alexprogrammerde.EggWarsReloaded.EggWarsMain;
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.EditManager;
 import me.alexprogrammerde.EggWarsReloaded.game.GameRegisterer;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
@@ -23,12 +23,12 @@ public class MainCommand implements CommandExecutor, TabExecutor {
                 if (args[0].equals("help")) {
                     if (player.hasPermission("eggwarsreloaded.command.help")) {
                         if (player.hasPermission("eggwarsreloaded.admin")) {
-                            List<String> messagelist = EggWarsMain.getEggWarsMain().getLanguage().getStringList("command.help.adminhelp");
+                            List<String> messagelist = EggWarsReloaded.getEggWarsMain().getLanguage().getStringList("command.help.adminhelp");
                             String[] messagearr = new String[messagelist.size()];
                             messagearr = messagelist.toArray(messagearr);
                             player.sendMessage(messagearr);
                         } else {
-                            List<String> messagelist = EggWarsMain.getEggWarsMain().getLanguage().getStringList("command.help.playerhelp");
+                            List<String> messagelist = EggWarsReloaded.getEggWarsMain().getLanguage().getStringList("command.help.playerhelp");
                             String[] messagearr = new String[messagelist.size()];
                             messagearr = messagelist.toArray(messagearr);
                             player.sendMessage(messagearr);
@@ -64,7 +64,7 @@ public class MainCommand implements CommandExecutor, TabExecutor {
                 // Admin commands
                 /*if (args[0].equals("reload")) {
                     if (player.hasPermission("eggwarsreloaded.command.reload")) {
-                        EggWarsMain.getEggWarsMain().reloadConfig();
+                        EggWarsReloaded.getEggWarsMain().reloadConfig();
                     }
                 }*/
 

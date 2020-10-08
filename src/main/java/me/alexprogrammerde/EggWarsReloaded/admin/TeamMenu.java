@@ -1,6 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.admin;
 
-import me.alexprogrammerde.EggWarsReloaded.EggWarsMain;
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.Inventory;
@@ -10,8 +10,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class TeamMenu {
 
     public static void setupTeamMenu(Inventory inventory, String arenaname) {
-        FileConfiguration items = EggWarsMain.getEggWarsMain().getItems();
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration items = EggWarsReloaded.getEggWarsMain().getItems();
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
         // Load Data from storage
         ItemStack white = new ItemStack(Material.WHITE_WOOL);

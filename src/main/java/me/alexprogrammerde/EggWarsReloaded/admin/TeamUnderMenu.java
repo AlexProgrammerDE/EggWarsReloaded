@@ -1,6 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.admin;
 
-import me.alexprogrammerde.EggWarsReloaded.EggWarsMain;
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -17,8 +17,8 @@ import java.util.List;
 public class TeamUnderMenu {
 
     public static void setupTeamUnderMenu(Inventory inventory, String arenaname, String teamname) {
-        FileConfiguration items = EggWarsMain.getEggWarsMain().getItems();
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration items = EggWarsReloaded.getEggWarsMain().getItems();
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
         // Load Data from storage
         ItemStack shop;

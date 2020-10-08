@@ -1,6 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.admin;
 
-import me.alexprogrammerde.EggWarsReloaded.EggWarsMain;
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,7 +18,7 @@ import java.util.List;
 public class EditMenu {
 
     public static void setupEditMenu(Inventory inventory, String arenaname, Player player) {
-        FileConfiguration items = EggWarsMain.getEggWarsMain().getItems();
+        FileConfiguration items = EggWarsReloaded.getEggWarsMain().getItems();
         FileConfiguration arenas = ArenaManager.getArenas();
 
         // Load Data from storage

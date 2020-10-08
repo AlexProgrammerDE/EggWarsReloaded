@@ -1,6 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.admin;
 
-import me.alexprogrammerde.EggWarsReloaded.EggWarsMain;
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,13 +16,13 @@ import java.util.UUID;
 public class ArenaRepairer implements Listener {
 
     // TODO Add Egg too (low prio)
-    @EventHandler
+    @EventHandler(priority = EventPriority.L)
     public void onVillagerKill(EntityDeathEvent event) {
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
         if (event.getEntity().getType() == EntityType.VILLAGER) {
             Villager villager = (Villager) event.getEntity();
-            EggWarsMain.getEggWarsMain().getLogger().info(villager.toString());
+            EggWarsReloaded.getEggWarsMain().getLogger().info(villager.toString());
 
             if (arenas.contains("arenas")) {
                 for (String arenaname : arenas.getConfigurationSection("arenas").getKeys(false)) {
@@ -41,7 +41,7 @@ public class ArenaRepairer implements Listener {
 
                                 ArenaManager.setShop(arenaname, team, newvillager.getUniqueId().toString(), villager.getLocation());
 
-                                EggWarsMain.getEggWarsMain().getLogger().info("Respawned shop. If you wish to delete it use the edit menu.");
+                                EggWarsReloaded.getEggWarsMain().getLogger().info("Respawned shop. If you wish to delete it use the edit menu.");
                             }
                         }
                     }

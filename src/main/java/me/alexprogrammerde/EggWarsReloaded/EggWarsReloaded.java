@@ -11,15 +11,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
-public class EggWarsMain extends JavaPlugin {
+public class EggWarsReloaded extends JavaPlugin {
     FileConfiguration config;
     FileConfiguration language;
     FileConfiguration arenas;
     FileConfiguration items;
-    static EggWarsMain plugin;
+    static EggWarsReloaded plugin;
 
     public void onEnable() {
         plugin = this;
@@ -48,7 +49,7 @@ public class EggWarsMain extends JavaPlugin {
         logger.info("§aLoading arenas");
 
         try {
-            Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
+            Set<String> arenas = Objects.requireNonNull(ArenaManager.getArenas().getConfigurationSection("arenas")).getKeys(false);
         } catch (NullPointerException e) {
             logger.info("§aNo arenas found");
         }
@@ -91,7 +92,7 @@ public class EggWarsMain extends JavaPlugin {
         this.arenas = new ConfigManager(this, "arenas.yml", "arenas").getConfig();
     }
 
-    public static EggWarsMain getEggWarsMain() {
+    public static EggWarsReloaded getEggWarsMain() {
         return plugin;
     }
 }

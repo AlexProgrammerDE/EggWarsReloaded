@@ -1,6 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.game;
 
-import me.alexprogrammerde.EggWarsReloaded.EggWarsMain;
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
@@ -18,21 +18,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-public class Game {
+public class GameLib {
     String arenaname;
-    int[] taskID = new int[6];
+    int[] tasks = new int[6];
     List<Player> playerlist = new ArrayList<>();
     public boolean isPlaying = false;
     public boolean isPreGame = false;
     public boolean isLobby;
-    public static HashMap<Player, Game> playergame = new HashMap<>();
+    public static HashMap<Player, GameLib> playergame = new HashMap<>();
     BossBar lobbybar = Bukkit.createBossBar("The game starts soon!", BarColor.RED, BarStyle.SOLID);
     int lobbytime = 0;
     int pregametime = 0;
     public TeleportSpawn teleportspawn;
 
-    public Game(String arenaname) {
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+    public GameLib(String arenaname) {
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
         this.arenaname = arenaname;
         isLobby = true;
         teleportspawn = new TeleportSpawn(arenaname);
@@ -45,7 +45,7 @@ public class Game {
 
         new GeneratorManager(this);
 
-        this.taskID[0] = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsMain.getEggWarsMain(), () -> {
+        tasks[3] = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
             for (Player player : playerlist) {
                 if (!player.isOnline()) {
                     removePlayer(player);
@@ -56,8 +56,8 @@ public class Game {
                 }
 
                 if (playerlist.size() >= 2) {
-                    player.setLevel(lobbytime);
                     lobbytime--;
+                    player.setLevel(lobbytime);
                 } else {
                     player.setLevel(0);
                     lobbytime = 30;
@@ -71,7 +71,7 @@ public class Game {
     }
 
     public void addPlayer(Player player) {
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
         if (!playerlist.contains(player)) {
             playerlist.add(player);
@@ -101,18 +101,18 @@ public class Game {
 
             player.getInventory().clear();
 
-            player.teleport(Objects.requireNonNull(EggWarsMain.getEggWarsMain().getArenas().getLocation("arenas." + arenaname + ".mainlobby")));
+            player.teleport(Objects.requireNonNull(EggWarsReloaded.getEggWarsMain().getArenas().getLocation("arenas." + arenaname + ".mainlobby")));
         }
     }
 
     public void start() {
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
         isLobby = false;
         isPreGame = true;
         pregametime = 5;
 
-        EggWarsMain.getEggWarsMain().getLogger().info("Starting game.");
+        EggWarsReloaded.getEggWarsMain().getLogger().info("Starting game.");
 
         for (Player player : playerlist) {
             player.getInventory().clear();
@@ -123,10 +123,10 @@ public class Game {
             teleportspawn.teleportPlayer(player, "white");
         }
 
-        this.taskID[5] = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsMain.getEggWarsMain(), () -> {
+        tasks[5] = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
             if (pregametime == 0) {
                 isPlaying = true;
-                Bukkit.getScheduler().cancelTask(taskID[5]);
+                Bukkit.getScheduler().cancelTask(tasks[5]);
 
                 for (String key : Objects.requireNonNull(arenas.getConfigurationSection("arenas." + arenaname + ".team")).getKeys(false)) {
                     for (String spawn : arenas.getStringList("arenas." + arenaname + ".team." + key + ".spawn")) {
@@ -176,7 +176,7 @@ public class Game {
                     }
                 }
 
-                taskID[4] = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsMain.getEggWarsMain(), () -> {
+                tasks[4] = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
                     if (isPlaying && playerlist.size() == 1) {
                         // Only one person is playing. So the one won
                         UtilCore.sendTitle(playerlist.get(0), "You won!");
@@ -197,7 +197,7 @@ public class Game {
     }
 
     public void stop() {
-        for (int task : taskID) {
+        for (int task : tasks) {
             Bukkit.getScheduler().cancelTask(task);
         }
 
@@ -207,7 +207,7 @@ public class Game {
     }
 
     public void restart() {
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
         World arena = Bukkit.getWorld(Objects.requireNonNull(arenas.getString("arenas." + arenaname + ".world")));
 
         stop();
@@ -226,7 +226,7 @@ public class Game {
     }
 
     public void prepareArena() {
-        FileConfiguration arenas = EggWarsMain.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
         World arena = Bukkit.getWorld(Objects.requireNonNull(arenas.getString("arenas." + arenaname + ".world")));
         Objects.requireNonNull(arena).setAutoSave(false);
