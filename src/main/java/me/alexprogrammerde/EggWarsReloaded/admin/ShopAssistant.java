@@ -55,7 +55,7 @@ public class ShopAssistant implements Listener {
 
                 ArenaManager.setShop(playerdata.get(player)[0], playerdata.get(player)[1], shop.getUniqueId().toString(), shop.getLocation());
 
-                player.sendMessage("[ShopAssistant] Set shop of team " + EditManager.playerteam.get(player) + " to: " + villagerlocation.getWorld().getName() + " " + villagerlocation.getBlockX() + " " + villagerlocation.getBlockY() + " " + villagerlocation.getBlockZ());
+                player.sendMessage("[ShopAssistant] Set shop of team " + playerdata.get(player)[1] + " to: " + villagerlocation.getWorld().getName() + " " + villagerlocation.getBlockX() + " " + villagerlocation.getBlockY() + " " + villagerlocation.getBlockZ());
             }
 
             shouldCreateShop.remove(player);

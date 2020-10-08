@@ -160,9 +160,7 @@ public class MainCommand implements CommandExecutor, TabExecutor {
                     StringUtil.copyPartialMatches(args[1], arenas, completions);
                     Collections.sort(completions);
                 } catch (NullPointerException ignored) {
-
                 }
-
             }
 
             if (player.hasPermission("eggwarsreloaded.command.delarena") && args[0].equals("delarena") && args.length == 2) {
@@ -172,7 +170,6 @@ public class MainCommand implements CommandExecutor, TabExecutor {
                     StringUtil.copyPartialMatches(args[1], arenas, completions);
                     Collections.sort(completions);
                 } catch (NullPointerException ignored) {
-
                 }
             }
 

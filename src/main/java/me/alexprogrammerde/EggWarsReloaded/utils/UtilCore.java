@@ -1,16 +1,11 @@
 package me.alexprogrammerde.EggWarsReloaded.utils;
 
-import javafx.beans.property.Property;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Material;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
-
-import java.lang.reflect.Field;
-import java.util.UUID;
 
 public class UtilCore {
 
@@ -37,5 +32,15 @@ public class UtilCore {
         newarr[arr.length] = inv;
 
         return newarr;
+    }
+
+    public static Location convertLocation(String str) {
+        String[] arr = str.split(" ");
+
+        return new Location(Bukkit.getWorld(arr[0]), Double.parseDouble(arr[1]), Double.parseDouble(arr[2]), Double.parseDouble(arr[3]), Float.parseFloat(arr[4]), Float.parseFloat(arr[5]));
+    }
+
+    public String convertString(Location loc) {
+        return loc.getWorld().getName() + " " + loc.getX() + " " + loc.getY() + " " + loc.getYaw() + " " + loc.getPitch();
     }
 }

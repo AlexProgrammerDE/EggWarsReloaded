@@ -31,48 +31,48 @@ public class GeneratorAssistant implements Listener {
         if (shouldTouchBlock.containsKey(player)) {
             String arenaname = playerdata.get(player);
 
-                if (block.getType() == Material.IRON_BLOCK && shouldTouchBlock.get(player)) {
-                    event.setCancelled(true);
-                    List<String> generators = arenas.getStringList("arenas." + arenaname + ".iron");
+            if (block.getType() == Material.IRON_BLOCK && shouldTouchBlock.get(player)) {
+                event.setCancelled(true);
+                List<String> generators = arenas.getStringList("arenas." + arenaname + ".iron");
 
-                    if (generators.contains(blocklocationstring)) {
-                        player.sendMessage("This block is already added!");
-                    } else {
-                        generators.add(blocklocationstring);
-                        arenas.set("arenas." + arenaname + ".iron", generators);
-                        player.sendMessage("Added block: " + blocklocationstring);
-                    }
-                } else if (block.getType() == Material.GOLD_BLOCK && shouldTouchBlock.get(player)) {
-                    event.setCancelled(true);
-                    List<String> generators = arenas.getStringList("arenas." + arenaname + ".gold");
-
-                    if (generators.contains(blocklocationstring)) {
-                         player.sendMessage("This block is already added!");
-                    } else {
-                        generators.add(blocklocationstring);
-                        arenas.set("arenas." + arenaname + ".gold", generators);
-                        player.sendMessage("Added block: " + blocklocationstring);
-                    }
-                } else if (block.getType() == Material.DIAMOND_BLOCK && shouldTouchBlock.get(player)) {
-                    event.setCancelled(true);
-                    List<String> generators = arenas.getStringList("arenas." + arenaname + ".diamond");
-
-                    if (generators.contains(blocklocationstring)) {
-                        player.sendMessage("This block is already added!");
-                    } else {
-                        generators.add(blocklocationstring);
-                        arenas.set("arenas." + arenaname + ".diamond", generators);
-                        player.sendMessage("Added block: " + blocklocationstring);
-                    }
+                if (generators.contains(blocklocationstring)) {
+                    player.sendMessage("This block is already added!");
+                } else {
+                    generators.add(blocklocationstring);
+                    arenas.set("arenas." + arenaname + ".iron", generators);
+                    player.sendMessage("Added block: " + blocklocationstring);
                 }
+            } else if (block.getType() == Material.GOLD_BLOCK && shouldTouchBlock.get(player)) {
+                event.setCancelled(true);
+                List<String> generators = arenas.getStringList("arenas." + arenaname + ".gold");
 
-                try {
-                    EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
-                } catch (IOException e) {
-                    e.printStackTrace();
+                if (generators.contains(blocklocationstring)) {
+                    player.sendMessage("This block is already added!");
+                } else {
+                    generators.add(blocklocationstring);
+                    arenas.set("arenas." + arenaname + ".gold", generators);
+                    player.sendMessage("Added block: " + blocklocationstring);
                 }
+            } else if (block.getType() == Material.DIAMOND_BLOCK && shouldTouchBlock.get(player)) {
+                event.setCancelled(true);
+                List<String> generators = arenas.getStringList("arenas." + arenaname + ".diamond");
 
-                EggWarsReloaded.getEggWarsMain().reloadArenas();
+                if (generators.contains(blocklocationstring)) {
+                    player.sendMessage("This block is already added!");
+                } else {
+                    generators.add(blocklocationstring);
+                    arenas.set("arenas." + arenaname + ".diamond", generators);
+                    player.sendMessage("Added block: " + blocklocationstring);
+                }
             }
+
+            try {
+                EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            EggWarsReloaded.getEggWarsMain().reloadArenas();
+        }
     }
 }

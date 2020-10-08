@@ -33,7 +33,7 @@ public class EggAssistant implements Listener {
 
                         setPlayer(player, setup.get(player)[0], setup.get(player)[1], "none");
 
-                        player.sendMessage("[EggAssistant] Set dragon egg of team " + EditManager.playerteam.get(player) + " to: " + egglocation.getWorld().getName() + " " + egglocation.getBlockX() + " " + egglocation.getBlockY() + " " + egglocation.getBlockZ());
+                        player.sendMessage("[EggAssistant] Set dragon egg of team " + setup.get(player)[1] + " to: " + egglocation.getWorld().getName() + " " + egglocation.getBlockX() + " " + egglocation.getBlockY() + " " + egglocation.getBlockZ());
                     }
                 }
             }
