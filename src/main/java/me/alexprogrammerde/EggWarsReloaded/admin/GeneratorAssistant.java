@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class GeneratorAssistant implements Listener {
+    // TODO: Rework
     public static HashMap<Player, Boolean> shouldTouchBlock = new HashMap<>();
 
     // [0] == arenaname, [1] == teamname

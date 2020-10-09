@@ -4,6 +4,7 @@ import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.EggAssistant;
 import me.alexprogrammerde.EggWarsReloaded.admin.ShopAssistant;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
+import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
 import me.alexprogrammerde.EggWarsReloaded.utils.gui.GUI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -23,14 +24,14 @@ import java.util.List;
 
 public class TeamUnderMenu {
 
-    public static void setupTeamUnderMenu(String arenaname, String teamname, Player player) {
+    public static void setupTeamUnderMenu(String arenaName, String teamName, Player player) {
         FileConfiguration items = EggWarsReloaded.getEggWarsMain().getItems();
         FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
         // Load Data from storage
         ItemStack shop;
 
-        if (arenas.contains("arenas." + arenaname + ".team." + teamname + ".shop")) {
+        if (arenas.contains("arenas." + arenaName + ".team." + teamName + ".shop")) {
             shop = new ItemStack(Material.ENDER_CHEST);
         } else {
             shop = new ItemStack(Material.CHEST);
@@ -54,8 +55,8 @@ public class TeamUnderMenu {
         List<String> egglist = new ArrayList<>();
         egglist.add("Left click to start the egg assistant.");
 
-        if (arenas.contains("arenas." + arenaname + ".team." + teamname + ".egg")) {
-            Location egglocation = ArenaManager.getArenas().getLocation("arenas." + arenaname + ".team." + teamname + ".egg");
+        if (arenas.contains("arenas." + arenaName + ".team." + teamName + ".egg")) {
+            Location egglocation = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".team." + teamName + ".egg"));
 
             egglist.add("Current: " + egglocation.getWorld().getName() + " "
                     + Math.round(egglocation.getBlockX()) + " "
@@ -70,30 +71,30 @@ public class TeamUnderMenu {
 
         eggmeta.setLore(egglist);
 
-        List<String> shoplist = new ArrayList<>();
-        shoplist.add("Left click to start the shop assistant.");
+        List<String> shopList = new ArrayList<>();
+        shopList.add("Left click to start the shop assistant.");
 
-        if (arenas.contains("arenas." + arenaname + ".team." + teamname + ".shop")) {
-            Location shoplocation = ArenaManager.getArenas().getLocation("arenas." + arenaname + ".team." + teamname + ".shop.location");
+        if (arenas.contains("arenas." + arenaName + ".team." + teamName + ".shop")) {
+            Location shopLocation = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".team." + teamName + ".shop.location"));
 
-            shoplist.add("Current: " + shoplocation.getWorld().getName() + " "
-                    + Math.round(shoplocation.getBlockX()) + " "
-                    + Math.round(shoplocation.getBlockY()) + " "
-                    + Math.round(shoplocation.getBlockZ()));
+            shopList.add("Current: " + shopLocation.getWorld().getName() + " "
+                    + Math.round(shopLocation.getBlockX()) + " "
+                    + Math.round(shopLocation.getBlockY()) + " "
+                    + Math.round(shopLocation.getBlockZ()));
 
             shopmeta.addEnchant(Enchantment.DURABILITY, 0, true);
             shopmeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
-            shoplist.add("Use shift + left click to reset it.");
+            shopList.add("Use shift + left click to reset it.");
         }
 
-        shopmeta.setLore(shoplist);
+        shopmeta.setLore(shopList);
 
         List<String> spawnlist = new ArrayList<>();
         spawnlist.add("Left click to start the shop assistant.");
 
-        if (arenas.contains("arenas." + arenaname + ".team." + teamname + ".spawn")) {
-            for (String spawns : ArenaManager.getArenas().getStringList("arenas." + arenaname + ".team." + teamname + ".spawn")) {
+        if (arenas.contains("arenas." + arenaName + ".team." + teamName + ".spawn")) {
+            for (String spawns : ArenaManager.getArenas().getStringList("arenas." + arenaName + ".team." + teamName + ".spawn")) {
                 String[] spawnssplit = spawns.split(" ");
 
                 spawnlist.add(spawnssplit[0] + " "
@@ -117,37 +118,37 @@ public class TeamUnderMenu {
         spawn.setItemMeta(spawnmeta);
         back.setItemMeta(backmeta);
 
-        GUI gui = new GUI(arenaname, 3, EggWarsReloaded.getEggWarsMain(), player);
+        GUI gui = new GUI(arenaName, 3, EggWarsReloaded.getEggWarsMain(), player);
 
         gui.addItem(shop, items.getInt("items.editteam.shop.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
                     @Override
                     public void run() {
-                        ArenaManager.setShop(arenaname, teamname, null, null);
-                        ArenaManager.setTeamRegistered(arenaname, teamname, false);
-                        ArenaManager.setArenaRegistered(arenaname, false, null);
+                        ArenaManager.setShop(arenaName, teamName, null, null);
+                        ArenaManager.setTeamRegistered(arenaName, teamName, false);
+                        ArenaManager.setArenaRegistered(arenaName, false, null);
 
-                        TeamUnderMenu.setupTeamUnderMenu(arenaname, teamname, player);
+                        TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
                         // TODO Kill the villager at reset
-                        if (ArenaManager.isArenaRegistered(arenaname) && ArenaManager.isTeamRegistered(arenaname, teamname)) {
-                            player.sendMessage("Reseted the shop and unregistered the team and the arena. Use /kill to remove the villager.");
-                        } if (ArenaManager.isTeamRegistered(arenaname, teamname)) {
-                            player.sendMessage("Reseted the shop and unregistered the team. Use /kill to remove the villager.");
-                        } else if (ArenaManager.isArenaRegistered(arenaname)) {
-                            player.sendMessage("Reseted the shop and unregistered the arena. Use /kill to remove the villager.");
+                        if (ArenaManager.isArenaRegistered(arenaName) && ArenaManager.isTeamRegistered(arenaName, teamName)) {
+                            player.sendMessage("Reset the shop and unregistered the team and the arena. Use /kill to remove the villager.");
+                        } if (ArenaManager.isTeamRegistered(arenaName, teamName)) {
+                            player.sendMessage("Reset the shop and unregistered the team. Use /kill to remove the villager.");
+                        } else if (ArenaManager.isArenaRegistered(arenaName)) {
+                            player.sendMessage("Reset the shop and unregistered the arena. Use /kill to remove the villager.");
                         }
                     }
                 })
                 .addDefaultEvent(new Runnable() {
                     @Override
                     public void run() {
-                        if (arenas.contains("arenas." + arenaname + ".team." + teamname + ".shop")) {
+                        if (arenas.contains("arenas." + arenaName + ".team." + teamName + ".shop")) {
                             player.sendMessage("The shop is already set. Please reset it first.");
                         } else {
                             String[] data = new String[2];
-                            data[0] = arenaname;
-                            data[1] = teamname;
+                            data[0] = arenaName;
+                            data[1] = teamName;
 
                             ShopAssistant.shouldCreateShop.put(player, true);
                             ShopAssistant.playerdata.put(player, data);
@@ -162,29 +163,29 @@ public class TeamUnderMenu {
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
                     @Override
                     public void run() {
-                        ArenaManager.setEgg(arenaname, teamname, null);
-                        ArenaManager.setTeamRegistered(arenaname, teamname, false);
-                        ArenaManager.setArenaRegistered(arenaname, false, null);
+                        ArenaManager.setEgg(arenaName, teamName, null);
+                        ArenaManager.setTeamRegistered(arenaName, teamName, false);
+                        ArenaManager.setArenaRegistered(arenaName, false, null);
 
-                        TeamUnderMenu.setupTeamUnderMenu(arenaname, teamname, player);
+                        TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
                         // TODO Remove the egg on reset
-                        if (ArenaManager.isArenaRegistered(arenaname) && ArenaManager.isTeamRegistered(arenaname, teamname)) {
-                            player.sendMessage("Reseted the egg and unregistered the team and the arena. Remove the egg manually in creative mode.");
-                        } if (ArenaManager.isTeamRegistered(arenaname, teamname)) {
-                            player.sendMessage("Reseted the egg and unregistered the team. Remove the egg manually in creative mode.");
-                        } else if (ArenaManager.isArenaRegistered(arenaname)) {
-                            player.sendMessage("Reseted the egg and unregistered the arena. Remove the egg manually in creative mode.");
+                        if (ArenaManager.isArenaRegistered(arenaName) && ArenaManager.isTeamRegistered(arenaName, teamName)) {
+                            player.sendMessage("Reset the egg and unregistered the team and the arena. Remove the egg manually in creative mode.");
+                        } if (ArenaManager.isTeamRegistered(arenaName, teamName)) {
+                            player.sendMessage("Reset the egg and unregistered the team. Remove the egg manually in creative mode.");
+                        } else if (ArenaManager.isArenaRegistered(arenaName)) {
+                            player.sendMessage("Reset the egg and unregistered the arena. Remove the egg manually in creative mode.");
                         }
                     }
                 })
                 .addDefaultEvent(new Runnable() {
                     @Override
                     public void run() {
-                        if (arenas.contains("arenas." + arenaname + ".team." + teamname + ".egg")) {
+                        if (arenas.contains("arenas." + arenaName + ".team." + teamName + ".egg")) {
                             player.sendMessage("The egg is already set. Please reset it first.");
                         } else {
-                            EggAssistant.setPlayer(player, arenaname, teamname, "egg");
+                            EggAssistant.setPlayer(player, arenaName, teamName, "egg");
                             player.closeInventory();
                             player.sendMessage("[EggAssistant] You can now click a dragon egg to add it to the team.");
                         }
@@ -195,19 +196,19 @@ public class TeamUnderMenu {
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
                     @Override
                     public void run() {
-                        if (arenas.getStringList("arenas." + arenaname + ".team." + teamname + ".spawn").size() < 4) {
-                            ArenaManager.setTeamRegistered(arenaname, teamname, false);
-                            ArenaManager.setArenaRegistered(arenaname, false, null);
-                            ArenaManager.setSpawn(arenaname, teamname, null);
+                        if (arenas.getStringList("arenas." + arenaName + ".team." + teamName + ".spawn").size() < 4) {
+                            ArenaManager.setTeamRegistered(arenaName, teamName, false);
+                            ArenaManager.setArenaRegistered(arenaName, false, null);
+                            ArenaManager.setSpawn(arenaName, teamName, null);
 
-                            TeamUnderMenu.setupTeamUnderMenu(arenaname, teamname, player);
+                            TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
-                            if (ArenaManager.isArenaRegistered(arenaname) && ArenaManager.isTeamRegistered(arenaname, teamname)) {
+                            if (ArenaManager.isArenaRegistered(arenaName) && ArenaManager.isTeamRegistered(arenaName, teamName)) {
                                 player.sendMessage("Reseted the spawns and unregistered the team and the arena.");
                             }
-                            if (ArenaManager.isTeamRegistered(arenaname, teamname)) {
+                            if (ArenaManager.isTeamRegistered(arenaName, teamName)) {
                                 player.sendMessage("Reseted the spawns and unregistered the team.");
-                            } else if (ArenaManager.isArenaRegistered(arenaname)) {
+                            } else if (ArenaManager.isArenaRegistered(arenaName)) {
                                 player.sendMessage("Reseted the spawns and unregistered the arena.");
                             }
                         } else {
@@ -218,12 +219,12 @@ public class TeamUnderMenu {
                 .addDefaultEvent(new Runnable() {
                     @Override
                     public void run() {
-                        if (arenas.getStringList("arenas." + arenaname + ".team." + teamname + ".spawn").size() < 4) {
+                        if (arenas.getStringList("arenas." + arenaName + ".team." + teamName + ".spawn").size() < 4) {
                             Location playerlocation = player.getLocation();
                             Block ground = player.getWorld().getBlockAt(new Location(playerlocation.getWorld(), playerlocation.getBlockX(), playerlocation.getBlockY() - 1, playerlocation.getBlockZ()));
 
                             if (ground.getType().equals(Material.EMERALD_BLOCK)) {
-                                List<String> strings = arenas.getStringList("arenas." + arenaname + ".team." + teamname + ".spawn");
+                                List<String> strings = arenas.getStringList("arenas." + arenaName + ".team." + teamName + ".spawn");
                                 List<Location> locations = new ArrayList<>();
 
                                 for (String location : strings) {
@@ -243,7 +244,7 @@ public class TeamUnderMenu {
                                 if (!locations.contains(playerlocation)) {
                                     strings.add(playerlocation.getWorld().getName() + " " + playerlocation.getX() + " " + playerlocation.getY() + " " + playerlocation.getZ() + " " + playerlocation.getYaw() + " " + playerlocation.getPitch());
 
-                                    arenas.set("arenas." + arenaname + ".team." + teamname + ".spawn", strings);
+                                    arenas.set("arenas." + arenaName + ".team." + teamName + ".spawn", strings);
 
                                     try {
                                         EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -253,9 +254,9 @@ public class TeamUnderMenu {
 
                                     EggWarsReloaded.getEggWarsMain().reloadArenas();
 
-                                    TeamUnderMenu.setupTeamUnderMenu(arenaname, teamname, player);
+                                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
-                                    player.sendMessage("[SpawnAssistant] Added spawn of team " + teamname + " to: " + playerlocation.getWorld().getName() + " " + playerlocation.getBlockX() + " " + playerlocation.getBlockY() + " " + playerlocation.getBlockZ());
+                                    player.sendMessage("[SpawnAssistant] Added spawn of team " + teamName + " to: " + playerlocation.getWorld().getName() + " " + playerlocation.getBlockX() + " " + playerlocation.getBlockY() + " " + playerlocation.getBlockZ());
                                 } else {
                                     player.sendMessage("[SpawnAssistant] This location is already registered!");
                                 }
@@ -272,7 +273,7 @@ public class TeamUnderMenu {
                 .addDefaultEvent(new Runnable() {
                     @Override
                     public void run() {
-                        TeamMenu.setupTeamMenu(arenaname, player);
+                        TeamMenu.setupTeamMenu(arenaName, player);
                     }
                 });
 

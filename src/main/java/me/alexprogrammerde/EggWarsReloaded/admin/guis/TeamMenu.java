@@ -160,127 +160,155 @@ public class TeamMenu {
                 });
 
 
-        // TODO: Add actions to team buttons
         if (arenas.getBoolean("arenas." + arenaname + ".team.white.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.white.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.white.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "white"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.white.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.white.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "white"));
         }
         if (arenas.getBoolean("arenas." + arenaname + ".team.orange.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.orange.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.orange.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "orange"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.orange.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.orange.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "orange"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.magenta.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.magenta.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.magenta.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "magenta"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.magenta.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.magenta.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "magenta"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.lightblue.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.lightblue.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.lightblue.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "lightblue"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.lightblue.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.lightblue.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "lightblue"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.yellow.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.yellow.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.yellow.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "yellow"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.yellow.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.yellow.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "yellow"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.lime.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.lime.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.lime.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "lime"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.lime.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.lime.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "lime"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.pink.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.pink.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.pink.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "pink"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.pink.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.pink.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "pink"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.gray.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.gray.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.gray.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "gray"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.gray.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.gray.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "gray"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.lightgray.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.lightgray.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.lightgray.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "lightgray"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.lightgray.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.lightgray.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "lightgray"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.cyan.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.cyan.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.cyan.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "cyan"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.cyan.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.cyan.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "cyan"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.purple.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.purple.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.purple.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "purple"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.purple.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.purple.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "purple"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.blue.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.blue.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.blue.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "blue"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.blue.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.blue.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "blue"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.brown.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.brown.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.brown.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "brown"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.brown.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.brown.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "brown"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.green.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.green.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.green.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "green"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.green.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.green.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "green"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.red.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.red.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.red.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "red"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.red.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.red.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "red"));
         }
 
         if (arenas.getBoolean("arenas." + arenaname + ".team.black.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.black.buttonslot"));
+            gui.addItem(greenButton.clone(), items.getInt("items.editteams.black.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "black"));
         } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.black.buttonslot"));
+            gui.addItem(grayButton.clone(), items.getInt("items.editteams.black.buttonslot"))
+                    .addDefaultEvent(clickButton(player, arenaname, "black"));
         }
 
         gui.openGUI();
     }
 
-    private static Runnable openTeam(Player player, String arenaname, String teamname) {
+    private static Runnable openTeam(Player player, String arenaName, String teamName) {
         return () -> {
-            Inventory undermenu = Bukkit.createInventory(player, 9 * 3, teamname);
-            TeamUnderMenu.setupTeamUnderMenu(arenaname, teamname, player);
+            TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
-            EggAssistant.setPlayer(player, arenaname, teamname, "none");
-
-            player.openInventory(undermenu);
+            EggAssistant.setPlayer(player, arenaName, teamName, "none");
         };
     }
 
-    private static Runnable clickButton(Player player, String arenaname, String teamname) {
+    private static Runnable clickButton(Player player, String arenaName, String teamnNme) {
         return () -> {
-            if (ArenaManager.isTeamReady(arenaname, teamname)) {
-                if (ArenaManager.isTeamRegistered(arenaname, teamname)) {
-                    ArenaManager.setTeamRegistered(arenaname, teamname, false);
-                    ArenaManager.setArenaRegistered(arenaname, false, null);
+            if (ArenaManager.isTeamReady(arenaName, teamnNme)) {
+                if (ArenaManager.isTeamRegistered(arenaName, teamnNme)) {
+                    ArenaManager.setTeamRegistered(arenaName, teamnNme, false);
+                    ArenaManager.setArenaRegistered(arenaName, false, null);
                 } else {
-                    ArenaManager.setTeamRegistered(arenaname, teamname, true);
+                    ArenaManager.setTeamRegistered(arenaName, teamnNme, true);
                 }
-                TeamMenu.setupTeamMenu(arenaname, player);
-                player.sendMessage("Registered team: " + teamname);
+                TeamMenu.setupTeamMenu(arenaName, player);
+                player.sendMessage("Registered team: " + teamnNme);
             } else {
                 player.sendMessage("This team is not ready! Please finish the team setup. (Click the wool)");
             }

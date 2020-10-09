@@ -49,6 +49,6 @@ public class UtilCore {
             return null;
         }
 
-        return loc.getWorld().getName() + " " + loc.getX() + " " + loc.getY() + " " + loc.getYaw() + " " + loc.getPitch();
+        return loc.getWorld().getName() + " " + loc.getX() + " " + loc.getY() + " " + loc.getZ() + " " + loc.getYaw() + " " + loc.getPitch();
     }
 }

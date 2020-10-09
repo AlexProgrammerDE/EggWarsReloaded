@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.HashMap;
 
 public class EggAssistant implements Listener {
+    // TODO: Rework
 
     // String[0] == arena, String[1] == teamname, String[2] == state
     public static HashMap<Player, String[]> setup = new HashMap<>();
