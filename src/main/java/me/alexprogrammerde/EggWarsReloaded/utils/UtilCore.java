@@ -35,12 +35,20 @@ public class UtilCore {
     }
 
     public static Location convertLocation(String str) {
+        if (str == null) {
+            return null;
+        }
+
         String[] arr = str.split(" ");
 
         return new Location(Bukkit.getWorld(arr[0]), Double.parseDouble(arr[1]), Double.parseDouble(arr[2]), Double.parseDouble(arr[3]), Float.parseFloat(arr[4]), Float.parseFloat(arr[5]));
     }
 
-    public String convertString(Location loc) {
+    public static String convertString(Location loc) {
+        if (loc == null) {
+            return null;
+        }
+
         return loc.getWorld().getName() + " " + loc.getX() + " " + loc.getY() + " " + loc.getYaw() + " " + loc.getPitch();
     }
 }

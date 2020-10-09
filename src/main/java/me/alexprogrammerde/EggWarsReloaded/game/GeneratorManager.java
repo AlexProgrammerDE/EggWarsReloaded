@@ -17,7 +17,7 @@ public class GeneratorManager {
             @Override
             public void run() {
                 if (gameLib.isPlaying) {
-                    for (String generator : arenas.getStringList("arenas." + gameLib.arenaname + ".iron")) {
+                    for (String generator : arenas.getStringList("arenas." + gameLib.arenaName + ".iron")) {
                         String[] generatorsplit = generator.split(" ");
 
                         Location generatorlocation = new Location(Bukkit.getWorld(generatorsplit[0]), Double.parseDouble(generatorsplit[1]) + 0.5, Double.parseDouble(generatorsplit[2]) + 0.5, Double.parseDouble(generatorsplit[3]) + 0.5, 0, 90);
@@ -32,7 +32,7 @@ public class GeneratorManager {
             @Override
             public void run() {
                 if (gameLib.isPlaying) {
-                    for (String generator : arenas.getStringList("arenas." + gameLib.arenaname + ".gold")) {
+                    for (String generator : arenas.getStringList("arenas." + gameLib.arenaName + ".gold")) {
                         String[] generatorsplit = generator.split(" ");
 
                         Location generatorlocation = new Location(Bukkit.getWorld(generatorsplit[0]), Double.parseDouble(generatorsplit[1]) + 0.5, Double.parseDouble(generatorsplit[2]) + 0.5, Double.parseDouble(generatorsplit[3]) + 0.5, 0, 90);
@@ -47,7 +47,7 @@ public class GeneratorManager {
             @Override
             public void run() {
                 if (gameLib.isPlaying) {
-                    for (String generator : arenas.getStringList("arenas." + gameLib.arenaname + ".diamond")) {
+                    for (String generator : arenas.getStringList("arenas." + gameLib.arenaName + ".diamond")) {
                         String[] generatorsplit = generator.split(" ");
 
                         Location generatorlocation = new Location(Bukkit.getWorld(generatorsplit[0]), Double.parseDouble(generatorsplit[1]) + 0.5, Double.parseDouble(generatorsplit[2]) + 0.5, Double.parseDouble(generatorsplit[3]) + 0.5, 0, 90);

@@ -260,39 +260,29 @@ public class TeamMenu {
     }
 
     private static Runnable openTeam(Player player, String arenaname, String teamname) {
-        return new Runnable() {
-            @Override
-            public void run() {
-                Inventory undermenu = Bukkit.createInventory(player, 9 * 3, teamname);
-                TeamUnderMenu.setupTeamUnderMenu(arenaname, teamname, player);
+        return () -> {
+            Inventory undermenu = Bukkit.createInventory(player, 9 * 3, teamname);
+            TeamUnderMenu.setupTeamUnderMenu(arenaname, teamname, player);
 
-                EggAssistant.setPlayer(player, arenaname, teamname, "none");
+            EggAssistant.setPlayer(player, arenaname, teamname, "none");
 
-                player.openInventory(undermenu);
-            }
+            player.openInventory(undermenu);
         };
     }
 
     private static Runnable clickButton(Player player, String arenaname, String teamname) {
-        return new Runnable() {
-            @Override
-            public void run() {
-                if (ArenaManager.isTeamReady(arenaname, teamname)) {
-                    if (ArenaManager.isTeamRegistered(arenaname, teamname)) {
-                        ArenaManager.setTeamRegistered(arenaname, teamname, false);
-                        ArenaManager.setArenaRegistered(arenaname, false, null);
-                        TeamMenu.setupTeamMenu(arenaname, player);
-
-                        player.sendMessage("Registered team: " + teamname);
-                    } else {
-                        ArenaManager.setTeamRegistered(arenaname, teamname, true);
-                        TeamMenu.setupTeamMenu(arenaname, player);
-
-                        player.sendMessage("Registered team: " + teamname);
-                    }
+        return () -> {
+            if (ArenaManager.isTeamReady(arenaname, teamname)) {
+                if (ArenaManager.isTeamRegistered(arenaname, teamname)) {
+                    ArenaManager.setTeamRegistered(arenaname, teamname, false);
+                    ArenaManager.setArenaRegistered(arenaname, false, null);
                 } else {
-                    player.sendMessage("This team is not ready! Please finish the team setup. (Click the wool)");
+                    ArenaManager.setTeamRegistered(arenaname, teamname, true);
                 }
+                TeamMenu.setupTeamMenu(arenaname, player);
+                player.sendMessage("Registered team: " + teamname);
+            } else {
+                player.sendMessage("This team is not ready! Please finish the team setup. (Click the wool)");
             }
         };
     }

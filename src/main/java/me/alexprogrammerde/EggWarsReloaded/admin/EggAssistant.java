@@ -27,23 +27,23 @@ public class EggAssistant implements Listener {
                 if (setup.get(player)[2].equals("egg")) {
                     if (event.getClickedBlock().getType() == Material.DRAGON_EGG) {
                         event.setCancelled(true);
-                        Location egglocation = event.getClickedBlock().getLocation();
+                        Location eggLocation = event.getClickedBlock().getLocation();
 
-                        ArenaManager.setEgg(setup.get(player)[0], setup.get(player)[1], egglocation);
+                        ArenaManager.setEgg(setup.get(player)[0], setup.get(player)[1], eggLocation);
 
                         setPlayer(player, setup.get(player)[0], setup.get(player)[1], "none");
 
-                        player.sendMessage("[EggAssistant] Set dragon egg of team " + setup.get(player)[1] + " to: " + egglocation.getWorld().getName() + " " + egglocation.getBlockX() + " " + egglocation.getBlockY() + " " + egglocation.getBlockZ());
+                        player.sendMessage("[EggAssistant] Set dragon egg of team " + setup.get(player)[1] + " to: " + eggLocation.getWorld().getName() + " " + eggLocation.getBlockX() + " " + eggLocation.getBlockY() + " " + eggLocation.getBlockZ());
                     }
                 }
             }
         }
     }
 
-    public static void setPlayer(Player player, String arena, String teamname, String state) {
+    public static void setPlayer(Player player, String arena, String teamName, String state) {
         String[] newarr = new String[3];
         newarr[0] = arena;
-        newarr[1] = teamname;
+        newarr[1] = teamName;
         newarr[2] = state;
 
         setup.put(player, newarr);

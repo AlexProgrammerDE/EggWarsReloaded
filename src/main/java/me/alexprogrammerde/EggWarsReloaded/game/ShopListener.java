@@ -13,8 +13,8 @@ public class ShopListener implements Listener {
         if (event.getWhoClicked() instanceof Player) {
             Player player = (Player) event.getWhoClicked();
 
-            if (GameLib.playergame.containsKey(player)) {
-                GameLib gameLib = GameLib.playergame.get(player);
+            if (GameLib.playerGame.containsKey(player)) {
+                GameLib gameLib = GameLib.playerGame.get(player);
             }
         }
     }

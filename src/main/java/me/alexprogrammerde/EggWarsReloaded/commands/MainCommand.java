@@ -1,7 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded.commands;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
-import me.alexprogrammerde.EggWarsReloaded.admin.EditManager;
+import me.alexprogrammerde.EggWarsReloaded.admin.guis.EditMenu;
 import me.alexprogrammerde.EggWarsReloaded.game.GameRegisterer;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import org.bukkit.command.*;
@@ -110,7 +110,7 @@ public class MainCommand implements CommandExecutor, TabExecutor {
                     if (player.hasPermission("eggwarsreloaded.command.edit")) {
                         if (args.length > 1) {
                             if (ArenaManager.getArenas().contains("arenas." + args[1])) {
-                                new EditManager(player).openMenu(args[1]);
+                                EditMenu.openEditMenu(args[1], player);
                             } else {
                                 player.sendMessage("Sorry a arena with this name doesn't exist.");
                             }

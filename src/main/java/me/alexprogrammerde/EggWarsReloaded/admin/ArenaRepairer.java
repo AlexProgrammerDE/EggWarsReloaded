@@ -7,17 +7,13 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Villager;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
-
 import java.util.UUID;
 
 public class ArenaRepairer implements Listener {
 
     // TODO Add Egg too (low prio)
-    @EventHandler(priority = EventPriority.LOW)
     public void onVillagerKill(EntityDeathEvent event) {
         FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 

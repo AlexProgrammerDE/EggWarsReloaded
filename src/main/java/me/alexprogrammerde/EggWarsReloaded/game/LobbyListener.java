@@ -12,10 +12,10 @@ public class LobbyListener implements Listener {
     public void onItemClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
-        if (GameLib.playergame.containsKey(player) && GameLib.playergame.get(player).isLobby) {
+        if (GameLib.playerGame.containsKey(player) && GameLib.playerGame.get(player).isLobby) {
             if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
                 if (player.getInventory().getHeldItemSlot() == 1) {
-                    GameLib.playergame.get(player).start();
+                    GameLib.playerGame.get(player).start();
                 }
             }
         }

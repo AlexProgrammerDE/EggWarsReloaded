@@ -21,15 +21,15 @@ public class GameListener implements Listener {
     @EventHandler
     public void onLeave(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        if (GameLib.playergame.containsKey(player)) {
-            GameLib.playergame.get(player).removePlayer(player);
+        if (GameLib.playerGame.containsKey(player)) {
+            GameLib.playerGame.get(player).removePlayer(player);
         }
     }
 
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
-        if (GameLib.playergame.containsKey(player)) {
+        if (GameLib.playerGame.containsKey(player)) {
             event.setCancelled(true);
         }
     }
@@ -38,7 +38,7 @@ public class GameListener implements Listener {
     public void onHunger(FoodLevelChangeEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
-            if (GameLib.playergame.containsKey(player)) {
+            if (GameLib.playerGame.containsKey(player)) {
                 event.setFoodLevel(20);
             }
         }
@@ -50,7 +50,7 @@ public class GameListener implements Listener {
             if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
                 Player player = (Player) event.getEntity();
 
-                if (GameLib.playergame.containsKey(player)) {
+                if (GameLib.playerGame.containsKey(player)) {
                     event.setCancelled(true);
                 }
             }
@@ -62,7 +62,7 @@ public class GameListener implements Listener {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
 
-            if (GameLib.playergame.get(player).isLobby) {
+            if (GameLib.playerGame.get(player).isLobby) {
                 event.setCancelled(true);
             }
         }
@@ -72,8 +72,8 @@ public class GameListener implements Listener {
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
-        if (GameLib.playergame.containsKey(player)) {
-            GameLib.playergame.get(player).death(player);
+        if (GameLib.playerGame.containsKey(player)) {
+            GameLib.playerGame.get(player).death(player);
         }
     }
 
@@ -81,8 +81,8 @@ public class GameListener implements Listener {
     public void onVillagerClick(PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();
 
-        if (GameLib.playergame.containsKey(player)) {
-            GameLib gameLib = GameLib.playergame.get(player);
+        if (GameLib.playerGame.containsKey(player)) {
+            GameLib gameLib = GameLib.playerGame.get(player);
 
             if (gameLib.isPlaying) {
                 if (event.getRightClicked().getType() == EntityType.VILLAGER) {

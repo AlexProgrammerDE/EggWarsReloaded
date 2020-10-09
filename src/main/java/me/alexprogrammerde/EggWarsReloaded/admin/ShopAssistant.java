@@ -43,10 +43,10 @@ public class ShopAssistant implements Listener {
 
         if (shouldCreateShop.containsKey(player)) {
             if (shouldCreateShop.get(player)) {
-                Location villagerlocation = armorstand.getLocation();
+                Location villagerLocation = armorstand.getLocation();
                 armorstand.remove();
 
-                Villager shop = (Villager) player.getWorld().spawnEntity(villagerlocation, EntityType.VILLAGER);
+                Villager shop = (Villager) player.getWorld().spawnEntity(villagerLocation, EntityType.VILLAGER);
 
                 shop.setAI(false);
                 shop.setAware(false);
@@ -55,7 +55,7 @@ public class ShopAssistant implements Listener {
 
                 ArenaManager.setShop(playerdata.get(player)[0], playerdata.get(player)[1], shop.getUniqueId().toString(), shop.getLocation());
 
-                player.sendMessage("[ShopAssistant] Set shop of team " + playerdata.get(player)[1] + " to: " + villagerlocation.getWorld().getName() + " " + villagerlocation.getBlockX() + " " + villagerlocation.getBlockY() + " " + villagerlocation.getBlockZ());
+                player.sendMessage("[ShopAssistant] Set shop of team " + playerdata.get(player)[1] + " to: " + villagerLocation.getWorld().getName() + " " + villagerLocation.getBlockX() + " " + villagerLocation.getBlockY() + " " + villagerLocation.getBlockZ());
             }
 
             shouldCreateShop.remove(player);
