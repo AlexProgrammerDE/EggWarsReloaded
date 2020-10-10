@@ -148,7 +148,7 @@ public class TeamUnderMenu {
                     }
                 });
 
-        gui.addItem(shop, items.getInt("items.editteam.egg.slot"))
+        gui.addItem(egg, items.getInt("items.editteam.egg.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setEgg(arenaName, teamName, null);
                     ArenaManager.setTeamRegistered(arenaName, teamName, false);
@@ -175,7 +175,7 @@ public class TeamUnderMenu {
                     }
                 });
 
-        gui.addItem(shop, items.getInt("items.editteam.spawn.slot"))
+        gui.addItem(spawn, items.getInt("items.editteam.spawn.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     if (arenas.getStringList("arenas." + arenaName + ".team." + teamName + ".spawn").size() < 4) {
                         ArenaManager.setTeamRegistered(arenaName, teamName, false);
@@ -246,7 +246,7 @@ public class TeamUnderMenu {
                     }
                 });
 
-        gui.addItem(shop, items.getInt("items.editteam.back.slot"))
+        gui.addItem(back, items.getInt("items.editteam.back.slot"))
                 .addDefaultEvent(() -> TeamMenu.setupTeamMenu(arenaName, player));
 
         gui.openGUI();

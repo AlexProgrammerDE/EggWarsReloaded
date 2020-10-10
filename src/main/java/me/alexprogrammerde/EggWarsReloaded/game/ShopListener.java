@@ -9,7 +9,6 @@ public class ShopListener implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
-
         if (event.getWhoClicked() instanceof Player) {
             Player player = (Player) event.getWhoClicked();
 

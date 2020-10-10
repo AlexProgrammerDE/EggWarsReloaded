@@ -25,7 +25,7 @@ public class GameLib {
     public boolean isPlaying = false;
     public boolean isPreGame = false;
     public boolean isLobby;
-    public static HashMap<Player, GameLib> playerGame = new HashMap<>();
+    public static final HashMap<Player, GameLib> playerGame = new HashMap<>();
     BossBar lobbyBar = Bukkit.createBossBar("The game starts soon!", BarColor.RED, BarStyle.SOLID);
     int lobbyTime = 0;
     int pregameTime = 0;

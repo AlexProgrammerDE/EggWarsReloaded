@@ -1,6 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded.admin;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
+import me.alexprogrammerde.EggWarsReloaded.admin.guis.TeamUnderMenu;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -45,9 +46,11 @@ public class EggAssistant implements Listener {
 
                         ArenaManager.setEgg(arenaName, teamName, eggLocation);
 
-                        assistants.remove(player);
+                        removePlayer(player);
 
                         player.sendMessage("[EggAssistant] Set dragon egg of team " + teamName + " to: " + eggLocation.getWorld().getName() + " " + eggLocation.getBlockX() + " " + eggLocation.getBlockY() + " " + eggLocation.getBlockZ());
+
+                        TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
                     }
                 }
             }

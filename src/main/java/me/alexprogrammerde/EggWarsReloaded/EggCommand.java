@@ -75,7 +75,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                             player.sendMessage("Added arena: " + args[1]);
                             player.sendMessage("Use /eggwars edit " + args[1] + " to set up the arena.");
                         } else {
-                            player.sendMessage("Usage: /eggwars addarena arenaname");
+                            player.sendMessage("Usage: /eggwars addarena arenaName");
                         }
                     } else {
                         player.sendMessage("You have no permission!");
@@ -92,7 +92,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                                 player.sendMessage("Sorry a arena with this name doesn't exist.");
                             }
                         } else {
-                            player.sendMessage("Usage: /eggwars delarena arenaname");
+                            player.sendMessage("Usage: /eggwars delarena arenaName");
                         }
                     } else {
                         player.sendMessage("You have no permission!");
@@ -114,7 +114,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                                 player.sendMessage("Sorry a arena with this name doesn't exist.");
                             }
                         } else {
-                            player.sendMessage("Usage: /eggwars edit arenaname");
+                            player.sendMessage("Usage: /eggwars edit arenaName");
                         }
                     } else {
                         player.sendMessage("You have no permission!");
@@ -176,9 +176,9 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
                 Set<String> registeredarenas = new HashSet<>();
 
-                for (String arenaname : arenas) {
-                    if (ArenaManager.getArenas().getBoolean("arenas." + arenaname + ".registered")) {
-                        registeredarenas.add(arenaname);
+                for (String arenaName : arenas) {
+                    if (ArenaManager.getArenas().getBoolean("arenas." + arenaName + ".registered")) {
+                        registeredarenas.add(arenaName);
                     }
                 }
 

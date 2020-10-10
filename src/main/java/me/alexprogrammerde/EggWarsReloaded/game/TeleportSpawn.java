@@ -11,14 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class TeleportSpawn {
-
-    String arenaname;
+    String arenaName;
     HashMap<String, List<Location>> teams = new HashMap<>();
     HashMap<String, List<Player>> playersinteams = new HashMap<>();
     HashMap<Location, Player> playerinlocation = new HashMap<>();
 
-    public TeleportSpawn(String arenaname) {
-        this.arenaname = arenaname;
+    public TeleportSpawn(String arenaName) {
+        this.arenaName = arenaName;
     }
 
     public void addTeam(String team) {
@@ -26,7 +25,7 @@ public class TeleportSpawn {
 
         List<Location> spawns = new ArrayList<>();
 
-        for (String spawn : arenas.getStringList("arenas." + arenaname + ".team." + team + ".spawn")) {
+        for (String spawn : arenas.getStringList("arenas." + arenaName + ".team." + team + ".spawn")) {
             String[] spawnsplit = spawn.split(" ");
 
             spawns.add(new Location(Bukkit.getWorld(spawnsplit[0]), Double.parseDouble(spawnsplit[1]), Double.parseDouble(spawnsplit[2]), Double.parseDouble(spawnsplit[3]), Float.parseFloat(spawnsplit[4]), Float.parseFloat(spawnsplit[5])));
@@ -36,7 +35,6 @@ public class TeleportSpawn {
     }
 
     public void teleportPlayer(Player player, String team) {
-
         boolean teleportplayer = false;
         List<Location> list = teams.get(team);
         Location teleportto = null;
@@ -69,7 +67,7 @@ public class TeleportSpawn {
     public boolean isTeamFull(String team) {
         FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
-        return playersinteams.get(team).size() != arenas.getInt("arenas." + arenaname + ".size");
+        return playersinteams.get(team).size() != arenas.getInt("arenas." + arenaName + ".size");
     }
 
     public void setTeam(Player player) {

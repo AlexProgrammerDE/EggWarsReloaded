@@ -1,6 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded.admin;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
+import me.alexprogrammerde.EggWarsReloaded.admin.guis.TeamUnderMenu;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -67,6 +68,8 @@ public class ShopAssistant implements Listener {
             ArenaManager.setShop(arenaName, teamName, shop.getUniqueId().toString(), shop.getLocation());
 
             player.sendMessage("[ShopAssistant] Set shop of team " + teamName + " to: " + villagerLocation.getWorld().getName() + " " + villagerLocation.getBlockX() + " " + villagerLocation.getBlockY() + " " + villagerLocation.getBlockZ());
+
+            TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
         }
 
         removePlayer(player);
