@@ -37,7 +37,7 @@ public class GeneratorAssistant implements Listener {
         Block block = event.getBlock();
         String blockLocationString = UtilCore.convertString(block.getLocation());
 
-        if (player.equals(this.player)) {
+        if (player == this.player && isAdding(player)) {
             if (block.getType() == Material.IRON_BLOCK) {
                 event.setCancelled(true);
                 List<String> generators = arenas.getStringList("arenas." + arenaName + ".iron");

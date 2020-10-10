@@ -36,7 +36,7 @@ public class EggAssistant implements Listener {
         if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Player player = event.getPlayer();
 
-            if (player == this.player) {
+            if (player == this.player && isAdding(player)) {
                 // Ok it's time to assist the player with the egg
 
                 if (assistants.containsKey(player)) {

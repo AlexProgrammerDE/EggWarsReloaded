@@ -54,7 +54,7 @@ public class ShopAssistant implements Listener {
     public void ArmorStandInteract(Player player, Entity armorstand) {
         FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
-        if (player == this.player) {
+        if (player == this.player && isAdding(player)) {
             Location villagerLocation = armorstand.getLocation();
             armorstand.remove();
 
