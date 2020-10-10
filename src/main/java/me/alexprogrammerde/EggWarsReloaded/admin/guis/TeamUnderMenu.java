@@ -121,161 +121,133 @@ public class TeamUnderMenu {
         GUI gui = new GUI(arenaName, 3, EggWarsReloaded.getEggWarsMain(), player);
 
         gui.addItem(shop, items.getInt("items.editteam.shop.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
-                    @Override
-                    public void run() {
-                        ArenaManager.setShop(arenaName, teamName, null, null);
-                        ArenaManager.setTeamRegistered(arenaName, teamName, false);
-                        ArenaManager.setArenaRegistered(arenaName, false, null);
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    ArenaManager.setShop(arenaName, teamName, null, null);
+                    ArenaManager.setTeamRegistered(arenaName, teamName, false);
+                    ArenaManager.setArenaRegistered(arenaName, false, null);
 
-                        TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
+                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
-                        // TODO Kill the villager at reset
-                        if (ArenaManager.isArenaRegistered(arenaName) && ArenaManager.isTeamRegistered(arenaName, teamName)) {
-                            player.sendMessage("Reset the shop and unregistered the team and the arena. Use /kill to remove the villager.");
-                        } if (ArenaManager.isTeamRegistered(arenaName, teamName)) {
-                            player.sendMessage("Reset the shop and unregistered the team. Use /kill to remove the villager.");
-                        } else if (ArenaManager.isArenaRegistered(arenaName)) {
-                            player.sendMessage("Reset the shop and unregistered the arena. Use /kill to remove the villager.");
-                        }
+                    // TODO Kill the villager at reset
+                    if (ArenaManager.isArenaRegistered(arenaName) && ArenaManager.isTeamRegistered(arenaName, teamName)) {
+                        player.sendMessage("Reset the shop and unregistered the team and the arena. Use /kill to remove the villager.");
+                    } if (ArenaManager.isTeamRegistered(arenaName, teamName)) {
+                        player.sendMessage("Reset the shop and unregistered the team. Use /kill to remove the villager.");
+                    } else if (ArenaManager.isArenaRegistered(arenaName)) {
+                        player.sendMessage("Reset the shop and unregistered the arena. Use /kill to remove the villager.");
                     }
                 })
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (arenas.contains("arenas." + arenaName + ".team." + teamName + ".shop")) {
-                            player.sendMessage("The shop is already set. Please reset it first.");
-                        } else {
-                            String[] data = new String[2];
-                            data[0] = arenaName;
-                            data[1] = teamName;
+                .addDefaultEvent(() -> {
+                    if (arenas.contains("arenas." + arenaName + ".team." + teamName + ".shop")) {
+                        player.sendMessage("The shop is already set. Please reset it first.");
+                    } else {
+                        new ShopAssistant(player, arenaName, teamName);
 
-                            ShopAssistant.shouldCreateShop.put(player, true);
-                            ShopAssistant.playerdata.put(player, data);
-
-                            player.closeInventory();
-                            player.sendMessage("[ShopAssistant] Click a armor stand to make him to a shop.");
-                        }
+                        player.closeInventory();
+                        player.sendMessage("[ShopAssistant] Click a armor stand to make him to a shop.");
                     }
                 });
 
         gui.addItem(shop, items.getInt("items.editteam.egg.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
-                    @Override
-                    public void run() {
-                        ArenaManager.setEgg(arenaName, teamName, null);
-                        ArenaManager.setTeamRegistered(arenaName, teamName, false);
-                        ArenaManager.setArenaRegistered(arenaName, false, null);
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    ArenaManager.setEgg(arenaName, teamName, null);
+                    ArenaManager.setTeamRegistered(arenaName, teamName, false);
+                    ArenaManager.setArenaRegistered(arenaName, false, null);
 
-                        TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
+                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
-                        // TODO Remove the egg on reset
-                        if (ArenaManager.isArenaRegistered(arenaName) && ArenaManager.isTeamRegistered(arenaName, teamName)) {
-                            player.sendMessage("Reset the egg and unregistered the team and the arena. Remove the egg manually in creative mode.");
-                        } if (ArenaManager.isTeamRegistered(arenaName, teamName)) {
-                            player.sendMessage("Reset the egg and unregistered the team. Remove the egg manually in creative mode.");
-                        } else if (ArenaManager.isArenaRegistered(arenaName)) {
-                            player.sendMessage("Reset the egg and unregistered the arena. Remove the egg manually in creative mode.");
-                        }
+                    // TODO Remove the egg on reset
+                    if (ArenaManager.isArenaRegistered(arenaName) && ArenaManager.isTeamRegistered(arenaName, teamName)) {
+                        player.sendMessage("Reset the egg and unregistered the team and the arena. Remove the egg manually in creative mode.");
+                    } if (ArenaManager.isTeamRegistered(arenaName, teamName)) {
+                        player.sendMessage("Reset the egg and unregistered the team. Remove the egg manually in creative mode.");
+                    } else if (ArenaManager.isArenaRegistered(arenaName)) {
+                        player.sendMessage("Reset the egg and unregistered the arena. Remove the egg manually in creative mode.");
                     }
                 })
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (arenas.contains("arenas." + arenaName + ".team." + teamName + ".egg")) {
-                            player.sendMessage("The egg is already set. Please reset it first.");
-                        } else {
-                            EggAssistant.setPlayer(player, arenaName, teamName, "egg");
-                            player.closeInventory();
-                            player.sendMessage("[EggAssistant] You can now click a dragon egg to add it to the team.");
-                        }
+                .addDefaultEvent(() -> {
+                    if (arenas.contains("arenas." + arenaName + ".team." + teamName + ".egg")) {
+                        player.sendMessage("The egg is already set. Please reset it first.");
+                    } else {
+                        new EggAssistant(player, arenaName, teamName);
+                        player.closeInventory();
+                        player.sendMessage("[EggAssistant] You can now click a dragon egg to add it to the team.");
                     }
                 });
 
         gui.addItem(shop, items.getInt("items.editteam.spawn.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
-                    @Override
-                    public void run() {
-                        if (arenas.getStringList("arenas." + arenaName + ".team." + teamName + ".spawn").size() < 4) {
-                            ArenaManager.setTeamRegistered(arenaName, teamName, false);
-                            ArenaManager.setArenaRegistered(arenaName, false, null);
-                            ArenaManager.setSpawn(arenaName, teamName, null);
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    if (arenas.getStringList("arenas." + arenaName + ".team." + teamName + ".spawn").size() < 4) {
+                        ArenaManager.setTeamRegistered(arenaName, teamName, false);
+                        ArenaManager.setArenaRegistered(arenaName, false, null);
+                        ArenaManager.setSpawn(arenaName, teamName, null);
 
-                            TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
+                        TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
-                            if (ArenaManager.isArenaRegistered(arenaName) && ArenaManager.isTeamRegistered(arenaName, teamName)) {
-                                player.sendMessage("Reseted the spawns and unregistered the team and the arena.");
-                            }
-                            if (ArenaManager.isTeamRegistered(arenaName, teamName)) {
-                                player.sendMessage("Reseted the spawns and unregistered the team.");
-                            } else if (ArenaManager.isArenaRegistered(arenaName)) {
-                                player.sendMessage("Reseted the spawns and unregistered the arena.");
-                            }
-                        } else {
-                            player.sendMessage("Sorry 4 spawns are the limit for one team.");
+                        if (ArenaManager.isArenaRegistered(arenaName) && ArenaManager.isTeamRegistered(arenaName, teamName)) {
+                            player.sendMessage("Reseted the spawns and unregistered the team and the arena.");
                         }
+                        if (ArenaManager.isTeamRegistered(arenaName, teamName)) {
+                            player.sendMessage("Reseted the spawns and unregistered the team.");
+                        } else if (ArenaManager.isArenaRegistered(arenaName)) {
+                            player.sendMessage("Reseted the spawns and unregistered the arena.");
+                        }
+                    } else {
+                        player.sendMessage("Sorry 4 spawns are the limit for one team.");
                     }
                 })
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (arenas.getStringList("arenas." + arenaName + ".team." + teamName + ".spawn").size() < 4) {
-                            Location playerlocation = player.getLocation();
-                            Block ground = player.getWorld().getBlockAt(new Location(playerlocation.getWorld(), playerlocation.getBlockX(), playerlocation.getBlockY() - 1, playerlocation.getBlockZ()));
+                .addDefaultEvent(() -> {
+                    if (arenas.getStringList("arenas." + arenaName + ".team." + teamName + ".spawn").size() < 4) {
+                        Location playerlocation = player.getLocation();
+                        Block ground = player.getWorld().getBlockAt(new Location(playerlocation.getWorld(), playerlocation.getBlockX(), playerlocation.getBlockY() - 1, playerlocation.getBlockZ()));
 
-                            if (ground.getType().equals(Material.EMERALD_BLOCK)) {
-                                List<String> strings = arenas.getStringList("arenas." + arenaName + ".team." + teamName + ".spawn");
-                                List<Location> locations = new ArrayList<>();
+                        if (ground.getType().equals(Material.EMERALD_BLOCK)) {
+                            List<String> strings = arenas.getStringList("arenas." + arenaName + ".team." + teamName + ".spawn");
+                            List<Location> locations = new ArrayList<>();
 
-                                for (String location : strings) {
-                                    String[] data = location.split(" ");
-                                    Location loc = new Location(player.getWorld(), 0, 0, 0, 0, 0);
+                            for (String location : strings) {
+                                String[] data = location.split(" ");
+                                Location loc = new Location(player.getWorld(), 0, 0, 0, 0, 0);
 
-                                    loc.setWorld(Bukkit.getWorld(data[0]));
-                                    loc.setX(Double.parseDouble(data[1]));
-                                    loc.setY(Double.parseDouble(data[2]));
-                                    loc.setZ(Double.parseDouble(data[3]));
-                                    loc.setYaw(Float.parseFloat(data[4]));
-                                    loc.setPitch(Float.parseFloat(data[5]));
+                                loc.setWorld(Bukkit.getWorld(data[0]));
+                                loc.setX(Double.parseDouble(data[1]));
+                                loc.setY(Double.parseDouble(data[2]));
+                                loc.setZ(Double.parseDouble(data[3]));
+                                loc.setYaw(Float.parseFloat(data[4]));
+                                loc.setPitch(Float.parseFloat(data[5]));
 
-                                    locations.add(loc);
+                                locations.add(loc);
+                            }
+
+                            if (!locations.contains(playerlocation)) {
+                                strings.add(playerlocation.getWorld().getName() + " " + playerlocation.getX() + " " + playerlocation.getY() + " " + playerlocation.getZ() + " " + playerlocation.getYaw() + " " + playerlocation.getPitch());
+
+                                arenas.set("arenas." + arenaName + ".team." + teamName + ".spawn", strings);
+
+                                try {
+                                    EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
+                                } catch (IOException e) {
+                                    e.printStackTrace();
                                 }
 
-                                if (!locations.contains(playerlocation)) {
-                                    strings.add(playerlocation.getWorld().getName() + " " + playerlocation.getX() + " " + playerlocation.getY() + " " + playerlocation.getZ() + " " + playerlocation.getYaw() + " " + playerlocation.getPitch());
+                                EggWarsReloaded.getEggWarsMain().reloadArenas();
 
-                                    arenas.set("arenas." + arenaName + ".team." + teamName + ".spawn", strings);
+                                TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
-                                    try {
-                                        EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    EggWarsReloaded.getEggWarsMain().reloadArenas();
-
-                                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
-
-                                    player.sendMessage("[SpawnAssistant] Added spawn of team " + teamName + " to: " + playerlocation.getWorld().getName() + " " + playerlocation.getBlockX() + " " + playerlocation.getBlockY() + " " + playerlocation.getBlockZ());
-                                } else {
-                                    player.sendMessage("[SpawnAssistant] This location is already registered!");
-                                }
+                                player.sendMessage("[SpawnAssistant] Added spawn of team " + teamName + " to: " + playerlocation.getWorld().getName() + " " + playerlocation.getBlockX() + " " + playerlocation.getBlockY() + " " + playerlocation.getBlockZ());
                             } else {
-                                player.sendMessage("[SpawnAssistant] The block under needs to be a a emerald block!");
+                                player.sendMessage("[SpawnAssistant] This location is already registered!");
                             }
                         } else {
-                            player.sendMessage("Sorry 4 spawns are the limit for one team.");
+                            player.sendMessage("[SpawnAssistant] The block under needs to be a a emerald block!");
                         }
+                    } else {
+                        player.sendMessage("Sorry 4 spawns are the limit for one team.");
                     }
                 });
 
         gui.addItem(shop, items.getInt("items.editteam.back.slot"))
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        TeamMenu.setupTeamMenu(arenaName, player);
-                    }
-                });
+                .addDefaultEvent(() -> TeamMenu.setupTeamMenu(arenaName, player));
 
         gui.openGUI();
     }

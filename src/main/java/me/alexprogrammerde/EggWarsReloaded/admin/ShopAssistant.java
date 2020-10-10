@@ -2,10 +2,12 @@ package me.alexprogrammerde.EggWarsReloaded.admin;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
@@ -13,10 +15,20 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import java.util.HashMap;
 
 public class ShopAssistant implements Listener {
-    public static HashMap<Player, Boolean> shouldCreateShop = new HashMap<>();
+    private static final HashMap<Player, ShopAssistant> assistants = new HashMap<>();
+    Player player;
+    String arenaName;
+    String teamName;
 
-    // [0] == arenaname, [1] == teamname
-    public static HashMap<Player, String[]> playerdata = new HashMap<>();
+    public ShopAssistant(Player player, String arenaName, String teamName) {
+        assistants.put(player, this);
+
+        this.player = player;
+        this.arenaName = arenaName;
+        this.teamName = teamName;
+
+        Bukkit.getServer().getPluginManager().registerEvents(this, EggWarsReloaded.getEggWarsMain());
+    }
 
     @EventHandler
     public void onArmorStandClick(PlayerInteractAtEntityEvent event) {
@@ -41,24 +53,32 @@ public class ShopAssistant implements Listener {
     public void ArmorStandInteract(Player player, Entity armorstand) {
         FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
 
-        if (shouldCreateShop.containsKey(player)) {
-            if (shouldCreateShop.get(player)) {
-                Location villagerLocation = armorstand.getLocation();
-                armorstand.remove();
+        if (player == this.player) {
+            Location villagerLocation = armorstand.getLocation();
+            armorstand.remove();
 
-                Villager shop = (Villager) player.getWorld().spawnEntity(villagerLocation, EntityType.VILLAGER);
+            Villager shop = (Villager) player.getWorld().spawnEntity(villagerLocation, EntityType.VILLAGER);
 
-                shop.setAI(false);
-                shop.setAware(false);
-                shop.setCollidable(false);
-                shop.setInvulnerable(true);
+            shop.setAI(false);
+            shop.setAware(false);
+            shop.setCollidable(false);
+            shop.setInvulnerable(true);
 
-                ArenaManager.setShop(playerdata.get(player)[0], playerdata.get(player)[1], shop.getUniqueId().toString(), shop.getLocation());
+            ArenaManager.setShop(arenaName, teamName, shop.getUniqueId().toString(), shop.getLocation());
 
-                player.sendMessage("[ShopAssistant] Set shop of team " + playerdata.get(player)[1] + " to: " + villagerLocation.getWorld().getName() + " " + villagerLocation.getBlockX() + " " + villagerLocation.getBlockY() + " " + villagerLocation.getBlockZ());
-            }
-
-            shouldCreateShop.remove(player);
+            player.sendMessage("[ShopAssistant] Set shop of team " + teamName + " to: " + villagerLocation.getWorld().getName() + " " + villagerLocation.getBlockX() + " " + villagerLocation.getBlockY() + " " + villagerLocation.getBlockZ());
         }
+
+        removePlayer(player);
+    }
+
+    public static boolean isAdding(Player player) {
+        return assistants.containsKey(player);
+    }
+
+    public static void removePlayer(Player player) {
+        HandlerList.unregisterAll(assistants.get(player));
+
+        assistants.remove(player);
     }
 }

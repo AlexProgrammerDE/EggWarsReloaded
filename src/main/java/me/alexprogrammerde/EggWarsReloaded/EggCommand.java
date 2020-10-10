@@ -1,6 +1,5 @@
-package me.alexprogrammerde.EggWarsReloaded.commands;
+package me.alexprogrammerde.EggWarsReloaded;
 
-import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.guis.EditMenu;
 import me.alexprogrammerde.EggWarsReloaded.game.GameRegisterer;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
@@ -10,7 +9,7 @@ import org.bukkit.util.StringUtil;
 
 import java.util.*;
 
-public class MainCommand implements CommandExecutor, TabExecutor {
+public class EggCommand implements CommandExecutor, TabExecutor {
     private static final String[] PLAYER = { "help", "join"/*, "randomjoin"*/ };
     private static final String[] ADMIN = { /*"reload", */"addarena", "delarena", /*"kick", */"edit" };
 

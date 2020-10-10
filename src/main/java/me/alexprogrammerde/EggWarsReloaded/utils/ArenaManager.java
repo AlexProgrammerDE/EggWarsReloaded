@@ -1,7 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.utils;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 

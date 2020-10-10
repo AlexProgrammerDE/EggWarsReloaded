@@ -21,13 +21,13 @@ import java.util.List;
 
 public class EditMenu {
 
-    public static void openEditMenu(String arenaname, Player player) {
+    public static void openEditMenu(String arenaName, Player player) {
         FileConfiguration items = EggWarsReloaded.getEggWarsMain().getItems();
         FileConfiguration arenas = ArenaManager.getArenas();
 
         // Load Data from storage
-        ItemStack mainlobby = new ItemStack(Material.GREEN_CONCRETE);
-        ItemStack waitinglobby = new ItemStack(Material.RED_CONCRETE);
+        ItemStack mainLobby = new ItemStack(Material.GREEN_CONCRETE);
+        ItemStack waitingLobby = new ItemStack(Material.RED_CONCRETE);
         ItemStack spectator = new ItemStack(Material.YELLOW_CONCRETE);
         ItemStack register = new ItemStack(Material.END_CRYSTAL);
         ItemStack teams = new ItemStack(Material.WHITE_WOOL);
@@ -37,20 +37,20 @@ public class EditMenu {
         ItemStack pos2;
         ItemStack world = new ItemStack(Material.LIGHT_BLUE_WOOL);
 
-        if (arenas.contains("arenas." + arenaname + ".pos1")) {
+        if (arenas.contains("arenas." + arenaName + ".pos1")) {
             pos1 = new ItemStack(Material.GOLD_INGOT);
         } else {
             pos1 = new ItemStack(Material.IRON_INGOT);
         }
 
-        if (arenas.contains("arenas." + arenaname + ".pos2")) {
+        if (arenas.contains("arenas." + arenaName + ".pos2")) {
             pos2 = new ItemStack(Material.GOLD_INGOT);
         } else {
             pos2 = new ItemStack(Material.IRON_INGOT);
         }
 
-        ItemMeta mainlobbymeta = mainlobby.getItemMeta();
-        ItemMeta waitinglobbymeta = waitinglobby.getItemMeta();
+        ItemMeta mainlobbymeta = mainLobby.getItemMeta();
+        ItemMeta waitinglobbymeta = waitingLobby.getItemMeta();
         ItemMeta spectatormeta = spectator.getItemMeta();
         ItemMeta registermeta = spectator.getItemMeta();
         ItemMeta teamsmeta = teams.getItemMeta();
@@ -72,42 +72,42 @@ public class EditMenu {
         pos2meta.setDisplayName(items.getString("items.editmain.pos2.name"));
         worldmeta.setDisplayName(items.getString("items.editmain.world.name"));
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".mainlobby")) {
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".mainlobby")) {
             mainlobbymeta.addEnchant(Enchantment.DURABILITY, 0, true);
             mainlobbymeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".waitinglobby")) {
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".waitinglobby")) {
             waitinglobbymeta.addEnchant(Enchantment.DURABILITY, 0, true);
             waitinglobbymeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".spectator")) {
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".spectator")) {
             spectatormeta.addEnchant(Enchantment.DURABILITY, 0, true);
             spectatormeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".register")) {
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".register")) {
             spectatormeta.addEnchant(Enchantment.DURABILITY, 0, true);
             spectatormeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        if (GeneratorAssistant.shouldTouchBlock.containsKey(player)) {
+        if (GeneratorAssistant.isAdding(player)) {
             generatorsmeta.addEnchant(Enchantment.DURABILITY, 0, true);
             generatorsmeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".pos1")) {
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".pos1")) {
             pos1meta.addEnchant(Enchantment.DURABILITY, 0, true);
             pos1meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".pos2")) {
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".pos2")) {
             pos2meta.addEnchant(Enchantment.DURABILITY, 0, true);
             pos2meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".world")) {
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".world")) {
             pos2meta.addEnchant(Enchantment.DURABILITY, 0, true);
             pos2meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -131,18 +131,18 @@ public class EditMenu {
         pos2list.add("Left click to set your position to pos2.");
         worldlist.add("Left click to set your arenas world.");
 
-        if (arenas.getBoolean("arenas." + arenaname + ".registered")) {
+        if (arenas.getBoolean("arenas." + arenaName + ".registered")) {
             registerlist.add("Left click to unregister the arena.");
         } else {
-            if (ArenaManager.isArenaReady(arenaname)) {
+            if (ArenaManager.isArenaReady(arenaName)) {
                 registerlist.add("Left click to register the arena");
             } else {
                 registerlist.add("There are still some steps left!");
             }
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".mainlobby")) {
-            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaname + ".mainlobby"));
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".mainlobby")) {
+            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".mainlobby"));
 
             mainlobbylist.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
@@ -150,44 +150,44 @@ public class EditMenu {
                     + Math.round(location.getBlockZ()));
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".waitinglobby")) {
-            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaname + ".waitinglobby"));
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".waitinglobby")) {
+            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".waitinglobby"));
             waitinglobbylist.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".spectator")) {
-            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaname + ".spectator"));
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".spectator")) {
+            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".spectator"));
             spectatorlist.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".pos1")) {
-            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaname + ".pos1"));
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".pos1")) {
+            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".pos1"));
             pos1list.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".pos2")) {
-            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaname + ".pos2"));
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".pos2")) {
+            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".pos2"));
             pos2list.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaname + ".pos2")) {
-            String location = ArenaManager.getArenas().getString("arenas." + arenaname + ".world");
+        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".pos2")) {
+            String location = ArenaManager.getArenas().getString("arenas." + arenaName + ".world");
             pos2list.add("Current: " + location);
         }
 
-        sizelist.add("Current: " + ArenaManager.getTeamSize(arenaname));
+        sizelist.add("Current: " + ArenaManager.getTeamSize(arenaName));
 
         mainlobbylist.add("Use shift + left click to reset it.");
         waitinglobbylist.add("Use shift + left click to reset it.");
@@ -206,8 +206,8 @@ public class EditMenu {
         pos2meta.setLore(pos2list);
         worldmeta.setLore(worldlist);
 
-        mainlobby.setItemMeta(mainlobbymeta);
-        waitinglobby.setItemMeta(waitinglobbymeta);
+        mainLobby.setItemMeta(mainlobbymeta);
+        waitingLobby.setItemMeta(waitinglobbymeta);
         spectator.setItemMeta(spectatormeta);
         register.setItemMeta(registermeta);
         teams.setItemMeta(teamsmeta);
@@ -217,136 +217,115 @@ public class EditMenu {
         pos2.setItemMeta(pos1meta);
         world.setItemMeta(worldmeta);
 
-        GUI gui = new GUI(arenaname, 3, EggWarsReloaded.getEggWarsMain(), player);
+        GUI gui = new GUI(arenaName, 3, EggWarsReloaded.getEggWarsMain(), player);
 
-        gui.addItem(mainlobby, items.getInt("items.editmain.mainlobby.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
-                    @Override
-                    public void run() {
-                        if (arenas.contains("arenas." + arenaname + ".mainlobby")) {
-                            ArenaManager.setMainLobby(arenaname, null);
-                            ArenaManager.setArenaRegistered(arenaname, false, null);
-                            EditMenu.openEditMenu(arenaname, player);
-                            player.sendMessage("Reseted main lobby.");
-                        }
+        gui.addItem(mainLobby, items.getInt("items.editmain.mainlobby.slot"))
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    if (arenas.contains("arenas." + arenaName + ".mainlobby")) {
+                        ArenaManager.setMainLobby(arenaName, null);
+                        ArenaManager.setArenaRegistered(arenaName, false, null);
+                        EditMenu.openEditMenu(arenaName, player);
+                        player.sendMessage("Reseted main lobby.");
                     }
                 })
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (ArenaManager.getArenas().contains("arenas." + arenaname + "mainlobby")) {
-                            player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
-                        } else {
-                            ArenaManager.setMainLobby(arenaname, player.getLocation());
-                            EditMenu.openEditMenu(arenaname, player);
-                            player.sendMessage("Set main lobby.");
-                        }
+                .addDefaultEvent(() -> {
+                    if (ArenaManager.getArenas().contains("arenas." + arenaName + "mainlobby")) {
+                        player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
+                    } else {
+                        ArenaManager.setMainLobby(arenaName, player.getLocation());
+                        EditMenu.openEditMenu(arenaName, player);
+                        player.sendMessage("Set main lobby.");
                     }
                 });
 
-        gui.addItem(waitinglobby, items.getInt("items.editmain.waitinglobby.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
-                    @Override
-                    public void run() {
-                        if (arenas.contains("arenas." + arenaname + ".waitinglobby")) {
-                            ArenaManager.setWaitingLobby(arenaname, null);
-                            ArenaManager.setArenaRegistered(arenaname, false, null);
-                            EditMenu.openEditMenu(arenaname, player);
-                            player.sendMessage("Reseted waiting lobby.");
-                        }
+        gui.addItem(waitingLobby, items.getInt("items.editmain.waitinglobby.slot"))
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    if (arenas.contains("arenas." + arenaName + ".waitinglobby")) {
+                        ArenaManager.setWaitingLobby(arenaName, null);
+                        ArenaManager.setArenaRegistered(arenaName, false, null);
+                        EditMenu.openEditMenu(arenaName, player);
+                        player.sendMessage("Reset waiting lobby.");
                     }
                 })
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (ArenaManager.getArenas().contains("arenas." + arenaname + "waitinglobby")) {
-                            player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
-                        } else {
-                            ArenaManager.setWaitingLobby(arenaname, player.getLocation());
-                            EditMenu.openEditMenu(arenaname, player);
-                            player.sendMessage("Set waiting lobby.");
-                        }
+                .addDefaultEvent(() -> {
+                    if (ArenaManager.getArenas().contains("arenas." + arenaName + "waitinglobby")) {
+                        player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
+                    } else {
+                        ArenaManager.setWaitingLobby(arenaName, player.getLocation());
+                        EditMenu.openEditMenu(arenaName, player);
+                        player.sendMessage("Set waiting lobby.");
                     }
                 });
 
         gui.addItem(spectator, items.getInt("items.editmain.spectator.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
-                    @Override
-                    public void run() {
-                        if (arenas.contains("arenas." + arenaname + ".spectator")) {
-                            ArenaManager.setSpectator(arenaname, null);
-                            ArenaManager.setArenaRegistered(arenaname, false, null);
-                            EditMenu.openEditMenu(arenaname, player);
-                            player.sendMessage("Reseted spectator spawn.");
-                        }
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    if (arenas.contains("arenas." + arenaName + ".spectator")) {
+                        ArenaManager.setSpectator(arenaName, null);
+                        ArenaManager.setArenaRegistered(arenaName, false, null);
+                        EditMenu.openEditMenu(arenaName, player);
+                        player.sendMessage("Reset spectator spawn.");
                     }
                 })
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (ArenaManager.getArenas().contains("arenas." + arenaname + "spectator")) {
-                            player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
-                        } else {
-                            ArenaManager.setSpectator(arenaname, player.getLocation());
-                            EditMenu.openEditMenu(arenaname, player);
-                            player.sendMessage("Set spectator spawn.");
-                        }
+                .addDefaultEvent(() -> {
+                    if (ArenaManager.getArenas().contains("arenas." + arenaName + "spectator")) {
+                        player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
+                    } else {
+                        ArenaManager.setSpectator(arenaName, player.getLocation());
+                        EditMenu.openEditMenu(arenaName, player);
+                        player.sendMessage("Set spectator spawn.");
                     }
                 });
 
         gui.addItem(register, items.getInt("items.editmain.register.slot"))
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (ArenaManager.isArenaRegistered(arenaname)) {
-                            ArenaManager.setArenaRegistered(arenaname, false, null);
-                            player.sendMessage("Unregistered arena: " + arenaname);
-                        } else {
-                            List<String> teams = new ArrayList<>();
+                .addDefaultEvent(() -> {
+                    if (ArenaManager.isArenaRegistered(arenaName)) {
+                        ArenaManager.setArenaRegistered(arenaName, false, null);
+                        player.sendMessage("Unregistered arena: " + arenaName);
+                    } else {
+                        List<String> teams1 = new ArrayList<>();
 
-                            for (String team : arenas.getConfigurationSection("arenas." + arenaname + ".team").getKeys(false)) {
-                                if (ArenaManager.isTeamRegistered(arenaname, team)) {
-                                    teams.add(team);
+                        for (String team : arenas.getConfigurationSection("arenas." + arenaName + ".team").getKeys(false)) {
+                            if (ArenaManager.isTeamRegistered(arenaName, team)) {
+                                teams1.add(team);
+                            }
+                        }
+
+                        if (teams1.size() < 2) {
+                            player.sendMessage("You need at least 2 teams registered!");
+                        } else {
+                            boolean isWrong = false;
+                            String wrongteams = "";
+
+                            for (String team : teams1) {
+                                EggWarsReloaded.getEggWarsMain().getLogger().info(team);
+                                List<String> spawns = arenas.getStringList("arenas." + arenaName + ".team." + team + ".spawn");
+                                EggWarsReloaded.getEggWarsMain().getLogger().info(spawns.toString());
+                                EggWarsReloaded.getEggWarsMain().getLogger().info(String.valueOf(spawns.size()));
+                                EggWarsReloaded.getEggWarsMain().getLogger().info(String.valueOf(ArenaManager.getTeamSize(team)));
+
+                                if (spawns.size() != ArenaManager.getTeamSize(arenaName)) {
+                                    isWrong = true;
+                                    wrongteams = wrongteams + " " + team;
                                 }
                             }
 
-                            if (teams.size() < 2) {
-                                player.sendMessage("You need at least 2 teams registered!");
+                            if (isWrong) {
+                                player.sendMessage("The following teams have not the set amount of spawns:" + wrongteams);
                             } else {
-                                boolean isWrong = false;
-                                String wrongteams = "";
+                                if (arenas.contains("arenas." + arenaName + ".iron")) {
+                                    if (arenas.contains("arenas." + arenaName + ".gold")) {
+                                        if (arenas.contains("arenas." + arenaName + ".diamond")) {
 
-                                for (String team : teams) {
-                                    EggWarsReloaded.getEggWarsMain().getLogger().info(team);
-                                    List<String> spawns = arenas.getStringList("arenas." + arenaname + ".team." + team + ".spawn");
-                                    EggWarsReloaded.getEggWarsMain().getLogger().info(spawns.toString());
-                                    EggWarsReloaded.getEggWarsMain().getLogger().info(String.valueOf(spawns.size()));
-                                    EggWarsReloaded.getEggWarsMain().getLogger().info(String.valueOf(ArenaManager.getTeamSize(team)));
-
-                                    if (spawns.size() != ArenaManager.getTeamSize(arenaname)) {
-                                        isWrong = true;
-                                        wrongteams = wrongteams + " " + team;
-                                    }
-                                }
-
-                                if (isWrong) {
-                                    player.sendMessage("The following teams have not the set amount of spawns:" + wrongteams);
-                                } else {
-                                    if (arenas.contains("arenas." + arenaname + ".iron")) {
-                                        if (arenas.contains("arenas." + arenaname + ".gold")) {
-                                            if (arenas.contains("arenas." + arenaname + ".diamond")) {
-
-                                                ArenaManager.setArenaRegistered(arenaname, true, teams);
-                                                player.sendMessage("Registered arena " + arenaname);
-                                            } else {
-                                                player.sendMessage("You need to set up at least one diamond generator!");
-                                            }
+                                            ArenaManager.setArenaRegistered(arenaName, true, teams1);
+                                            player.sendMessage("Registered arena " + arenaName);
                                         } else {
-                                            player.sendMessage("You need to set up at least one gold generator!");
+                                            player.sendMessage("You need to set up at least one diamond generator!");
                                         }
                                     } else {
-                                        player.sendMessage("You need to set up at least one iron generator!");
+                                        player.sendMessage("You need to set up at least one gold generator!");
                                     }
+                                } else {
+                                    player.sendMessage("You need to set up at least one iron generator!");
                                 }
                             }
                         }
@@ -354,135 +333,101 @@ public class EditMenu {
                 });
 
         gui.addItem(teams, items.getInt("items.editmain.teams.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
-                    @Override
-                    public void run() {
-                        arenas.set("arenas." + arenaname + ".team", null);
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    arenas.set("arenas." + arenaName + ".team", null);
 
-                        try {
-                            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        EggWarsReloaded.getEggWarsMain().reloadArenas();
-                        EditMenu.openEditMenu(arenaname, player);
-                        player.sendMessage("Reset teams of arena: " + arenaname);
+                    try {
+                        EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+
+                    EggWarsReloaded.getEggWarsMain().reloadArenas();
+                    EditMenu.openEditMenu(arenaName, player);
+                    player.sendMessage("Reset teams of arena: " + arenaName);
                 })
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Open the inv
-                        TeamMenu.setupTeamMenu(arenaname, player);
-                    }
+                .addDefaultEvent(() -> {
+                    // Open the inv
+                    TeamMenu.setupTeamMenu(arenaName, player);
                 });
 
         gui.addItem(generators, items.getInt("items.editmain.generators.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
-                    @Override
-                    public void run() {
-                        arenas.set("arenas." + arenaname + ".iron", null);
-                        arenas.set("arenas." + arenaname + ".gold", null);
-                        arenas.set("arenas." + arenaname + ".diamond", null);
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    arenas.set("arenas." + arenaName + ".iron", null);
+                    arenas.set("arenas." + arenaName + ".gold", null);
+                    arenas.set("arenas." + arenaName + ".diamond", null);
 
-                        try {
-                            EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                        EggWarsReloaded.getEggWarsMain().reloadArenas();
-                        EditMenu.openEditMenu(arenaname, player);
-                        player.sendMessage("Reset all generators of arena: " + arenaname);
+                    try {
+                        EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+
+                    EggWarsReloaded.getEggWarsMain().reloadArenas();
+                    EditMenu.openEditMenu(arenaName, player);
+                    player.sendMessage("Reset all generators of arena: " + arenaName);
                 })
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (GeneratorAssistant.shouldTouchBlock.containsKey(player)) {
-                            GeneratorAssistant.shouldTouchBlock.remove(player);
-                            player.sendMessage("[GeneratorAssistant] You left generator adding mode.");
-                        } else {
-                            GeneratorAssistant.shouldTouchBlock.put(player, true);
-                            GeneratorAssistant.playerdata.put(player, arenaname);
-                            player.sendMessage("[GeneratorAssistant] You are in generator adding mode. Left click a iron/gold/diamond block and it gets added to the list.");
-                        }
+                .addDefaultEvent(() -> {
+                    if (GeneratorAssistant.isAdding(player)) {
+                        GeneratorAssistant.removePlayer(player);
+                        player.sendMessage("[GeneratorAssistant] You left generator adding mode.");
+                    } else {
+                        new GeneratorAssistant(player, arenaName);
+                        player.sendMessage("[GeneratorAssistant] You are in generator adding mode. Left click a iron/gold/diamond block and it gets added to the list.");
                     }
                 });
 
         gui.addItem(size, items.getInt("items.editmain.teamsize.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
-                    @Override
-                    public void run() {
-                        ArenaManager.setTeamSize(arenaname, 1);
-                        EditMenu.openEditMenu(arenaname, player);
-                        player.sendMessage("Reset teamsize to 1 of arena: " + arenaname);
-                    }
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    ArenaManager.setTeamSize(arenaName, 1);
+                    EditMenu.openEditMenu(arenaName, player);
+                    player.sendMessage("Reset teamsize to 1 of arena: " + arenaName);
                 })
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        int size = ArenaManager.getTeamSize(arenaname);
+                .addDefaultEvent(() -> {
+                    int size1 = ArenaManager.getTeamSize(arenaName);
 
-                        if (size == 4) {
-                            ArenaManager.setTeamSize(arenaname, 1);
-                            ArenaManager.setArenaRegistered(arenaname, false, null);
-                            player.sendMessage("Changed the team size and unregistered the arena.");
-                        } else {
-                            ArenaManager.setTeamSize(arenaname, size + 1);
-                        }
-
-                        EditMenu.openEditMenu(arenaname, player);
+                    if (size1 == 4) {
+                        ArenaManager.setTeamSize(arenaName, 1);
+                        ArenaManager.setArenaRegistered(arenaName, false, null);
+                        player.sendMessage("Changed the team size and unregistered the arena.");
+                    } else {
+                        ArenaManager.setTeamSize(arenaName, size1 + 1);
                     }
+
+                    EditMenu.openEditMenu(arenaName, player);
                 });
 
         gui.addItem(pos1, items.getInt("items.editmain.pos1.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
-                    @Override
-                    public void run() {
-                        ArenaManager.setArenaPos1(arenaname, null);
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    ArenaManager.setArenaPos1(arenaName, null);
 
-                        EditMenu.openEditMenu(arenaname, player);
-                        player.sendMessage("Reset pos1");
-                    }
+                    EditMenu.openEditMenu(arenaName, player);
+                    player.sendMessage("Reset pos1");
                 })
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        ArenaManager.setArenaPos1(arenaname, player.getLocation());
+                .addDefaultEvent(() -> {
+                    ArenaManager.setArenaPos1(arenaName, player.getLocation());
 
-                        EditMenu.openEditMenu(arenaname, player);
-                    }
+                    EditMenu.openEditMenu(arenaName, player);
                 });
 
         gui.addItem(pos2, items.getInt("items.editmain.pos2.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, new Runnable() {
-                    @Override
-                    public void run() {
-                        ArenaManager.setArenaPos2(arenaname, null);
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    ArenaManager.setArenaPos2(arenaName, null);
 
-                        EditMenu.openEditMenu(arenaname, player);
-                        player.sendMessage("Reset pos2");
-                    }
+                    EditMenu.openEditMenu(arenaName, player);
+                    player.sendMessage("Reset pos2");
                 })
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        ArenaManager.setArenaPos2(arenaname, player.getLocation());
+                .addDefaultEvent(() -> {
+                    ArenaManager.setArenaPos2(arenaName, player.getLocation());
 
-                        EditMenu.openEditMenu(arenaname, player);
-                    }
+                    EditMenu.openEditMenu(arenaName, player);
                 });
 
         gui.addItem(world, items.getInt("items.editmain.world.slot"))
-        .addDefaultEvent(new Runnable() {
-            @Override
-            public void run() {
-                ArenaManager.setArenaWorld(arenaname, player.getLocation().getWorld().getName());
+        .addDefaultEvent(() -> {
+            ArenaManager.setArenaWorld(arenaName, player.getLocation().getWorld().getName());
 
-                EditMenu.openEditMenu(arenaname, player);
-            }
+            EditMenu.openEditMenu(arenaName, player);
         });
 
         gui.openGUI();

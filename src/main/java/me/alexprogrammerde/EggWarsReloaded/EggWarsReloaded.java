@@ -1,10 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded;
 
 import me.alexprogrammerde.EggWarsReloaded.admin.ArenaRepairer;
-import me.alexprogrammerde.EggWarsReloaded.admin.EggAssistant;
-import me.alexprogrammerde.EggWarsReloaded.admin.GeneratorAssistant;
-import me.alexprogrammerde.EggWarsReloaded.admin.ShopAssistant;
-import me.alexprogrammerde.EggWarsReloaded.commands.MainCommand;
 import me.alexprogrammerde.EggWarsReloaded.game.GameListener;
 import me.alexprogrammerde.EggWarsReloaded.game.LobbyListener;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
@@ -37,14 +33,11 @@ public class EggWarsReloaded extends JavaPlugin {
         this.items = new ConfigManager(this, "items.yml", "items").getConfig();
 
         logger.info("§aRegistering command");
-        getServer().getPluginCommand("eggwarsreloaded").setExecutor(new MainCommand());
-        getServer().getPluginCommand("eggwarsreloaded").setTabCompleter(new MainCommand());
+        getServer().getPluginCommand("eggwarsreloaded").setExecutor(new EggCommand());
+        getServer().getPluginCommand("eggwarsreloaded").setTabCompleter(new EggCommand());
 
         logger.info("§aRegistering listeners");
-        getServer().getPluginManager().registerEvents(new EggAssistant(), this);
-        getServer().getPluginManager().registerEvents(new ShopAssistant(), this);
         getServer().getPluginManager().registerEvents(new ArenaRepairer(), this);
-        getServer().getPluginManager().registerEvents(new GeneratorAssistant(), this);
         getServer().getPluginManager().registerEvents(new GameListener(), this);
         getServer().getPluginManager().registerEvents(new LobbyListener(), this);
 

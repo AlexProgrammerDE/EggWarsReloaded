@@ -2,13 +2,13 @@ package me.alexprogrammerde.EggWarsReloaded.admin.guis;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.EggAssistant;
+import me.alexprogrammerde.EggWarsReloaded.admin.GeneratorAssistant;
+import me.alexprogrammerde.EggWarsReloaded.admin.ShopAssistant;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.gui.GUI;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -294,7 +294,9 @@ public class TeamMenu {
         return () -> {
             TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
-            EggAssistant.setPlayer(player, arenaName, teamName, "none");
+            EggAssistant.removePlayer(player);
+            GeneratorAssistant.removePlayer(player);
+            ShopAssistant.removePlayer(player);
         };
     }
 

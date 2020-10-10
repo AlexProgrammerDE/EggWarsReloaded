@@ -5,7 +5,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 public class UtilCore {
 
@@ -19,19 +18,6 @@ public class UtilCore {
 
     public static void sendTitle(Player player, String title, String subtitle) {
         player.sendTitle(title, subtitle, 5, 10, 5);
-    }
-
-    public static Inventory[] addInventory(Inventory[] arr, Inventory inv) {
-        int i;
-
-        Inventory[] newarr = new Inventory[arr.length + 1];
-
-        for (i = 0; i < arr.length; i++)
-            newarr[i] = arr[i];
-
-        newarr[arr.length] = inv;
-
-        return newarr;
     }
 
     public static Location convertLocation(String str) {
