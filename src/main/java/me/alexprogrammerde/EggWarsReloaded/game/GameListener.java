@@ -59,11 +59,14 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onPVP(EntityDamageByEntityEvent event) {
-        if (event.getEntity() instanceof Player) {
-            Player player = (Player) event.getEntity();
+        if (event.getDamager() instanceof Player) {
+            Player damager = (Player) event.getDamager();
+            if (event.getEntity() instanceof Player) {
+                Player damaged = (Player) event.getEntity();
 
-            if (GameLib.playerGame.get(player).isLobby) {
-                event.setCancelled(true);
+                if (GameLib.playerGame.get(player).isLobby) {
+                    event.setCancelled(true);
+                }
             }
         }
     }
@@ -88,11 +91,9 @@ public class GameListener implements Listener {
                 if (event.getRightClicked().getType() == EntityType.VILLAGER) {
                     Villager villager = (Villager) event.getRightClicked();
 
-                    Inventory inv = Bukkit.createInventory(null, 3 * 9, "");
 
-                    Shop.setupShopMenu(inv, 0);
 
-                    player.openInventory(inv);
+                    Shop.setupShopMenu();
                 }
             }
         }

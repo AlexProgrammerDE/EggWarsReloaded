@@ -7,7 +7,7 @@ import org.bukkit.inventory.Inventory;
 
 public class Shop {
 
-    public static void setupShopMenu(Inventory inventory, Integer index) {
+    public static void setupShopMenu(String arenaName, String teamName) {
         FileConfiguration items = EggWarsReloaded.getEggWarsMain().getItems();
         FileConfiguration arenas = ArenaManager.getArenas();
 

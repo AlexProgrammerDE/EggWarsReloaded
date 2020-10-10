@@ -1,7 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded;
 
 import me.alexprogrammerde.EggWarsReloaded.admin.guis.EditMenu;
-import me.alexprogrammerde.EggWarsReloaded.game.GameRegisterer;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -37,15 +36,12 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                     }
                 }
 
+                // TODO: Don't forget the join cmd
                 if (args[0].equals("join")) {
                     if (player.hasPermission("eggwarsreloaded.command.join")) {
                         if (args.length > 1) {
                             if (ArenaManager.getArenas().contains("arenas." + args[1]) && ArenaManager.getArenas().getBoolean("arenas." + args[1] + ".registered")) {
-                                if (!GameRegisterer.gamesmap.containsKey(args[1])) {
-                                    GameRegisterer.addGame(args[1]);
-                                }
 
-                                GameRegisterer.gamesmap.get(args[1]).addPlayer(player);
 
                             } else {
                                 player.sendMessage("Sorry a arena with this name doesnt exist.");
@@ -61,11 +57,11 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 }*/
 
                 // Admin commands
-                /*if (args[0].equals("reload")) {
+                if (args[0].equals("reload")) {
                     if (player.hasPermission("eggwarsreloaded.command.reload")) {
                         EggWarsReloaded.getEggWarsMain().reloadConfig();
                     }
-                }*/
+                }
 
                 if (args[0].equals("addarena")) {
                     if (player.hasPermission("eggwarsreloaded.command.addarena")) {

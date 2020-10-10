@@ -2,7 +2,7 @@ package me.alexprogrammerde.EggWarsReloaded;
 
 import me.alexprogrammerde.EggWarsReloaded.admin.ArenaRepairer;
 import me.alexprogrammerde.EggWarsReloaded.game.GameListener;
-import me.alexprogrammerde.EggWarsReloaded.game.LobbyListener;
+import me.alexprogrammerde.EggWarsReloaded.game.listeners.LobbyCore;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ConfigManager;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -39,7 +39,7 @@ public class EggWarsReloaded extends JavaPlugin {
         logger.info("§aRegistering listeners");
         getServer().getPluginManager().registerEvents(new ArenaRepairer(), this);
         getServer().getPluginManager().registerEvents(new GameListener(), this);
-        getServer().getPluginManager().registerEvents(new LobbyListener(), this);
+        getServer().getPluginManager().registerEvents(new LobbyCore(), this);
 
         logger.info("§aLoading arenas");
 
