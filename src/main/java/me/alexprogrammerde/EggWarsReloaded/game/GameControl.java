@@ -1,5 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.game;
 
+import me.alexprogrammerde.EggWarsReloaded.game.collection.RejectType;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class GameControl {
 
     public static RejectType removePlayer(Player player) {
         if (players.containsKey(player)) {
+            players.remove(player);
             return players.get(player).kickPlayer(player);
         } else {
             return RejectType.NOTIN;

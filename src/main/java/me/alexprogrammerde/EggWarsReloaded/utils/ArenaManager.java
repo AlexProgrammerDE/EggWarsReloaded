@@ -199,10 +199,24 @@ public class ArenaManager {
         EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
-    public static void setSpawn(String arenaName, String teamName, Location location) {
+    public static void setFirstSpawn(String arenaName, String teamName, Location location) {
         FileConfiguration arenas = ArenaManager.getArenas();
 
         arenas.set("arenas." + arenaName + ".team." + teamName + ".spawn", UtilCore.convertString(location));
+
+        try {
+            getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        EggWarsReloaded.getEggWarsMain().reloadArenas();
+    }
+
+    public static void setRespawn(String arenaName, String teamName, Location location) {
+        FileConfiguration arenas = ArenaManager.getArenas();
+
+        arenas.set("arenas." + arenaName + ".team." + teamName + ".respawn", UtilCore.convertString(location));
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());

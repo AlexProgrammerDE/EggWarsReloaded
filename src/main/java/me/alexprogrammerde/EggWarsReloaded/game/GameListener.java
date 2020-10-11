@@ -1,5 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.game;
 
+import me.alexprogrammerde.EggWarsReloaded.game.collection.GameState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -8,33 +9,47 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 public class GameListener implements Listener {
-
-    @EventHandler
-    public void onLeave(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
-    }
-
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
         Player player = event.getPlayer();
+
+        if (GameControl.isInGame(player)) {
+            Game game = GameControl.getPlayerGame(player);
+
+            if (game.state != GameState.RUNNING) {
+                event.setCancelled(true);
+            }
+        }
     }
 
     @EventHandler
     public void onHunger(FoodLevelChangeEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
+
+            if (GameControl.isInGame(player)) {
+                Game game = GameControl.getPlayerGame(player);
+
+                if (game.state != GameState.RUNNING) {
+                    event.setCancelled(true);
+                }
+            }
         }
     }
 
     @EventHandler
-    public void onFallDamage(EntityDamageEvent event) {
+    public void onDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player) {
-            if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
-                Player player = (Player) event.getEntity();
+            Player player = (Player) event.getEntity();
+
+            if (GameControl.isInGame(player)) {
+                Game game = GameControl.getPlayerGame(player);
+
+                if (game.state != GameState.RUNNING || event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+                    event.setCancelled(true);
+                }
             }
         }
     }
@@ -43,8 +58,13 @@ public class GameListener implements Listener {
     public void onPVP(EntityDamageByEntityEvent event) {
         if (event.getDamager() instanceof Player) {
             Player damager = (Player) event.getDamager();
-            if (event.getEntity() instanceof Player) {
-                Player damaged = (Player) event.getEntity();
+
+            if (GameControl.isInGame(damager)) {
+                Game game = GameControl.getPlayerGame(damager);
+
+                if (game.state != GameState.RUNNING) {
+                    event.setCancelled(true);
+                }
             }
         }
     }
@@ -52,10 +72,7 @@ public class GameListener implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
-    }
 
-    @EventHandler
-    public void onVillagerClick(PlayerInteractEntityEvent event) {
-        Player player = event.getPlayer();
+
     }
 }

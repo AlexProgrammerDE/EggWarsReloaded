@@ -105,11 +105,14 @@ items:
   editteam:
     egg:
       name: "Egg"
-      slot: 4
+      slot: 2
     shop:
       name: "Shop"
       slot: 11
     spawn:
+      name: "Spawn"
+      slot: 6
+    respawn:
       name: "Spawn"
       slot: 15
     back:

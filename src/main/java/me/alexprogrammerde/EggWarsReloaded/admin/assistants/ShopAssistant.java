@@ -1,4 +1,4 @@
-package me.alexprogrammerde.EggWarsReloaded.admin;
+package me.alexprogrammerde.EggWarsReloaded.admin.assistants;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.guis.TeamUnderMenu;

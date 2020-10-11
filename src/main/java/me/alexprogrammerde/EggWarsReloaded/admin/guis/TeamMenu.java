@@ -1,9 +1,9 @@
 package me.alexprogrammerde.EggWarsReloaded.admin.guis;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
-import me.alexprogrammerde.EggWarsReloaded.admin.EggAssistant;
-import me.alexprogrammerde.EggWarsReloaded.admin.GeneratorAssistant;
-import me.alexprogrammerde.EggWarsReloaded.admin.ShopAssistant;
+import me.alexprogrammerde.EggWarsReloaded.admin.assistants.EggAssistant;
+import me.alexprogrammerde.EggWarsReloaded.admin.assistants.GeneratorAssistant;
+import me.alexprogrammerde.EggWarsReloaded.admin.assistants.ShopAssistant;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.gui.GUI;
 import org.bukkit.Material;

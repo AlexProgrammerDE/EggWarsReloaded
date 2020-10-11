@@ -1,8 +1,12 @@
 package me.alexprogrammerde.EggWarsReloaded.game;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
+import me.alexprogrammerde.EggWarsReloaded.game.collection.GameState;
+import me.alexprogrammerde.EggWarsReloaded.game.collection.RejectType;
+import me.alexprogrammerde.EggWarsReloaded.game.collection.RewardType;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
+import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.*;
@@ -10,6 +14,13 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scoreboard.DisplaySlot;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
+import org.bukkit.scoreboard.Scoreboard;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -71,13 +82,13 @@ public class Game {
 
         // Remove everything the player had
         player.getInventory().clear();
-        player.setExp(0);
         player.setGameMode(GameMode.ADVENTURE);
+
+        player.teleport(UtilCore.convertLocation(arenas.getString("arenas." + arenaName + ".waitinglobby")));
+
         player.setLevel(0);
         player.setFoodLevel(20);
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
-
-        player.teleport(UtilCore.convertLocation(arenas.getString("arenas." + arenaName + ".waitinglobby")));
 
         player.sendTitle("You joined " + arenaName + "!", "Please wait till the game starts!", 5, 10, 5);
 
@@ -88,6 +99,23 @@ public class Game {
         matchmaker.findTeamForPlayer(player);
 
         player.sendMessage("Your in the team: " + matchmaker.getTeamOfPlayer(player));
+
+        Scoreboard playerScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+
+        Objective objective = playerScoreboard.registerNewObjective("scoreboard", "dummy", "EggWarsReloaded");
+
+        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+
+        Score one = objective.getScore("");
+        one.setScore(3);
+
+        Score two = objective.getScore("Your team: " + matchmaker.getTeamOfPlayer(player));
+        two.setScore(2);
+
+        Score three = objective.getScore("Your arena: " + arenaName);
+        three.setScore(1);
+
+        player.setScoreboard(playerScoreboard);
 
         // TODO: Make player requirement optional and don't run it again if someone joins
         if (players.size() >= 2) {
@@ -111,6 +139,8 @@ public class Game {
         player.getInventory().clear();
 
         player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".mainlobby")));
+
+        player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 
         player.setGameMode(GameMode.SURVIVAL);
     }
@@ -179,6 +209,23 @@ public class Game {
         state = GameState.RUNNING;
 
         destroyCages();
+
+        ItemStack sword = new ItemStack(Material.NETHERITE_SWORD);
+
+        ItemMeta swordMeta = sword.getItemMeta();
+
+        swordMeta.setDisplayName(ChatColor.AQUA + "Just a normal sword...");
+        swordMeta.setLore(new ArrayList<String>() {
+            {
+                add("uwu its me Loreio");
+            }
+        });
+
+        sword.setItemMeta(swordMeta);
+
+        for (Player player : players) {
+            player.getInventory().setItem(0, sword);
+        }
     }
 
     private void rewardPlayer(Player player, RewardType reward) {

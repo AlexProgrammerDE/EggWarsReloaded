@@ -1,7 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded.admin.guis;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
-import me.alexprogrammerde.EggWarsReloaded.admin.GeneratorAssistant;
+import me.alexprogrammerde.EggWarsReloaded.admin.assistants.GeneratorAssistant;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
 import me.alexprogrammerde.EggWarsReloaded.utils.gui.GUI;
@@ -225,7 +225,7 @@ public class EditMenu {
                         ArenaManager.setMainLobby(arenaName, null);
                         ArenaManager.setArenaRegistered(arenaName, false, null);
                         EditMenu.openEditMenu(arenaName, player);
-                        player.sendMessage("Reseted main lobby.");
+                        player.sendMessage("Reset main lobby.");
                     }
                 })
                 .addDefaultEvent(() -> {

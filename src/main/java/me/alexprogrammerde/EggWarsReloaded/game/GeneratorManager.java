@@ -1,6 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded.game;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
+import me.alexprogrammerde.EggWarsReloaded.game.collection.GameState;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
