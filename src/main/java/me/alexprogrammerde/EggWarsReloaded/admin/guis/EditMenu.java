@@ -108,8 +108,8 @@ public class EditMenu {
         }
 
         if (ArenaManager.getArenas().contains("arenas." + arenaName + ".world")) {
-            pos2meta.addEnchant(Enchantment.DURABILITY, 0, true);
-            pos2meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            worldmeta.addEnchant(Enchantment.DURABILITY, 0, true);
+            worldmeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
         List<String> mainlobbylist = new ArrayList<>();
@@ -214,7 +214,7 @@ public class EditMenu {
         generators.setItemMeta(generatorsmeta);
         size.setItemMeta(sizemeta);
         pos1.setItemMeta(pos1meta);
-        pos2.setItemMeta(pos1meta);
+        pos2.setItemMeta(pos2meta);
         world.setItemMeta(worldmeta);
 
         GUI gui = new GUI(arenaName, 3, EggWarsReloaded.getEggWarsMain(), player);

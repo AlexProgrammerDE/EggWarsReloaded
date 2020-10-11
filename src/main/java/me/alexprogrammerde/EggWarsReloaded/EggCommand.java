@@ -1,6 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded;
 
 import me.alexprogrammerde.EggWarsReloaded.admin.guis.EditMenu;
+import me.alexprogrammerde.EggWarsReloaded.game.GameControl;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
@@ -32,21 +33,21 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                             player.sendMessage(messagearr);
                         }
                     } else {
-                        player.sendMessage("You have no permission!");
+                        return false;
                     }
                 }
 
-                // TODO: Don't forget the join cmd
                 if (args[0].equals("join")) {
                     if (player.hasPermission("eggwarsreloaded.command.join")) {
                         if (args.length > 1) {
-                            if (ArenaManager.getArenas().contains("arenas." + args[1]) && ArenaManager.getArenas().getBoolean("arenas." + args[1] + ".registered")) {
-
-
+                            if (ArenaManager.isArenaRegistered(args[1])) {
+                                GameControl.addPlayer(player, GameControl.getGame(args[1]));
                             } else {
-                                player.sendMessage("Sorry a arena with this name doesnt exist.");
+                                player.sendMessage("Sorry a arena with this name doesn't exist.");
                             }
                         }
+                    } else {
+                        return false;
                     }
                 }
 

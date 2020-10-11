@@ -1,4 +1,4 @@
-package me.alexprogrammerde.EggWarsReloaded.gui;
+package me.alexprogrammerde.EggWarsReloaded.game.guis;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;

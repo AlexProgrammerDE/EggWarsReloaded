@@ -11,10 +11,6 @@ public class ShopListener implements Listener {
     public void onClick(InventoryClickEvent event) {
         if (event.getWhoClicked() instanceof Player) {
             Player player = (Player) event.getWhoClicked();
-
-            if (GameLib.playerGame.containsKey(player)) {
-                GameLib gameLib = GameLib.playerGame.get(player);
-            }
         }
     }
 }

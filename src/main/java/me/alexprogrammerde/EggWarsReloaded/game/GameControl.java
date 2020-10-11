@@ -18,19 +18,17 @@ public class GameControl {
         games.add(game);
     }
 
-    public static void addPlayer(Player player, Game game) {
-        if (!games.contains(game)) {
-            addGame(game);
-        }
-
+    public static RejectType addPlayer(Player player, Game game) {
         players.put(player, game);
 
-        game.addPlayer(player);
+        return game.addPlayer(player);
     }
 
-    public static void removePlayer(Player player) {
+    public static RejectType removePlayer(Player player) {
         if (players.containsKey(player)) {
-            players.get(player).removePlayer(player);
+            return players.get(player).kickPlayer(player);
+        } else {
+            return RejectType.NOTIN;
         }
     }
 
@@ -40,5 +38,17 @@ public class GameControl {
 
     public static boolean isInGame(Player player) {
         return players.containsKey(player);
+    }
+
+    public static Game getGame(String arenaName) {
+        Game returnedGame = null;
+
+        for (Game game : games) {
+            if (game.arenaName.equalsIgnoreCase(arenaName)) {
+                returnedGame = game;
+            }
+        }
+
+        return returnedGame;
     }
 }

@@ -1,9 +1,8 @@
-package me.alexprogrammerde.EggWarsReloaded.gui;
+package me.alexprogrammerde.EggWarsReloaded.game.guis;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.inventory.Inventory;
 
 public class Shop {
 

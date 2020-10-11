@@ -4,6 +4,7 @@ import me.alexprogrammerde.EggWarsReloaded.game.GameControl;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -14,7 +15,7 @@ public class PlayerWatcher implements Listener {
         Player player = event.getPlayer();
 
         if (GameControl.isInGame(player)) {
-            GameControl.getPlayerGame(player).removePlayer(player);
+            GameControl.getPlayerGame(player).kickPlayer(player);
         }
     }
 
@@ -23,7 +24,12 @@ public class PlayerWatcher implements Listener {
         Player player = event.getPlayer();
 
         if (GameControl.isInGame(player)) {
-            GameControl.getPlayerGame(player).removePlayer(player);
+            GameControl.getPlayerGame(player).kickPlayer(player);
         }
+    }
+
+    @EventHandler
+    public void onWorldSwitch(PlayerChangedWorldEvent event) {
+
     }
 }

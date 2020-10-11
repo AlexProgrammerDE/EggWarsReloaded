@@ -220,7 +220,7 @@ public class TeamUnderMenu {
                             }
 
                             if (!locations.contains(playerlocation)) {
-                                strings.add(playerlocation.getWorld().getName() + " " + playerlocation.getX() + " " + playerlocation.getY() + " " + playerlocation.getZ() + " " + playerlocation.getYaw() + " " + playerlocation.getPitch());
+                                strings.add(UtilCore.convertString(playerlocation));
 
                                 arenas.set("arenas." + arenaName + ".team." + teamName + ".spawn", strings);
 

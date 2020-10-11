@@ -1,6 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded;
 
 import me.alexprogrammerde.EggWarsReloaded.admin.ArenaRepairer;
+import me.alexprogrammerde.EggWarsReloaded.game.Game;
 import me.alexprogrammerde.EggWarsReloaded.game.GameListener;
 import me.alexprogrammerde.EggWarsReloaded.game.listeners.LobbyCore;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
@@ -10,7 +11,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -42,11 +42,14 @@ public class EggWarsReloaded extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new LobbyCore(), this);
 
         logger.info("§aLoading arenas");
+        Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
 
-        try {
-            Set<String> arenas = Objects.requireNonNull(ArenaManager.getArenas().getConfigurationSection("arenas")).getKeys(false);
-        } catch (NullPointerException e) {
-            logger.info("§aNo arenas found");
+
+        logger.info("§aPreparing games");
+        for (String arenaName : arenas) {
+            if (ArenaManager.isArenaRegistered(arenaName)) {
+                new Game(arenaName);
+            }
         }
     }
 
