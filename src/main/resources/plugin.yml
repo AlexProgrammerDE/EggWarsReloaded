@@ -19,12 +19,14 @@ permissions:
       eggwarsreloaded.player: true
       eggwarsreloaded.admin: true
   eggwarsreloaded.player:
+    default: true
     description: Basic access for the player.
     children:
       eggwarsreloaded.command.help: true
       eggwarsreloaded.command.join: true
       eggwarsreloaded.command.randomjoin: true
   eggwarsreloaded.admin:
+    default: op
     description: Access to all admin commands.
     children:
       eggwarsreloaded.command.reload: true
@@ -32,6 +34,7 @@ permissions:
       eggwarsreloaded.command.delarena: true
       eggwarsreloaded.command.kick: true
       eggwarsreloaded.command.edit: true
+      eggwarsreloaded.command.endgame: true
   eggwarsreloaded.command.help:
     description: Permission to run the help command.
   eggwarsreloaded.command.reload:
@@ -47,4 +50,6 @@ permissions:
   eggwarsreloaded.command.kick:
     description: Permission to run the kick command.
   eggwarsreloaded.command.edit:
+    description: Permission to run the edit command.
+  eggwarsreloaded.command.endgame:
     description: Permission to run the edit command.

@@ -108,11 +108,11 @@ public class Game {
     }
 
     private void endPlayer(Player player) {
-        players.remove(player);
-
         player.getInventory().clear();
 
-        player.teleport(Objects.requireNonNull(ArenaManager.getArenas().getLocation("arenas." + arenaName + ".mainlobby")));
+        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".mainlobby")));
+
+        player.setGameMode(GameMode.SURVIVAL);
     }
 
     private void registerGame() {
@@ -185,15 +185,17 @@ public class Game {
 
     }
 
-    private void endGame() {
+    public void endGame() {
         state = GameState.ENDING;
 
         for (Player player : players) {
-
+            player.sendMessage("The game ended!");
             rewardPlayer(player, RewardType.GAME);
 
             endPlayer(player);
         }
+
+        players.clear();
 
         for (int i : taskIds) {
             Bukkit.getScheduler().cancelTask(i);

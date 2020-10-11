@@ -11,7 +11,7 @@ import java.util.*;
 
 public class EggCommand implements CommandExecutor, TabExecutor {
     private static final String[] PLAYER = { "help", "join"/*, "randomjoin"*/ };
-    private static final String[] ADMIN = { /*"reload", */"addarena", "delarena", /*"kick", */"edit" };
+    private static final String[] ADMIN = { /*"reload", */"addarena", "delarena", /*"kick", */"edit", "endgame" };
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
@@ -102,6 +102,21 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                     }
                 }*/
 
+                if (args[0].equals("endgame")) {
+                    if (player.hasPermission("eggwarsreloaded.command.endgame")) {
+                        if (args.length > 1) {
+                            player.sendMessage("Hey you ran a cmd im excited!");
+                            if (ArenaManager.isArenaRegistered(args[1])) {
+                                GameControl.getGame(args[1]).endGame();
+                            } else {
+                                player.sendMessage("Sorry a arena with this name doesn't exist.");
+                            }
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+
                 if (args[0].equals("edit")) {
                     if (player.hasPermission("eggwarsreloaded.command.edit")) {
                         if (args.length > 1) {
@@ -170,6 +185,20 @@ public class EggCommand implements CommandExecutor, TabExecutor {
             }
 
             if (player.hasPermission("eggwarsreloaded.command.join") && args[0].equals("join") && args.length == 2) {
+                Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
+                Set<String> registeredarenas = new HashSet<>();
+
+                for (String arenaName : arenas) {
+                    if (ArenaManager.getArenas().getBoolean("arenas." + arenaName + ".registered")) {
+                        registeredarenas.add(arenaName);
+                    }
+                }
+
+                StringUtil.copyPartialMatches(args[1], arenas, completions);
+                Collections.sort(completions);
+            }
+
+            if (player.hasPermission("eggwarsreloaded.command.endgame") && args[0].equals("endgame") && args.length == 2) {
                 Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
                 Set<String> registeredarenas = new HashSet<>();
 
