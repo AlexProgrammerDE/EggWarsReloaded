@@ -108,13 +108,13 @@ items:
       slot: 2
     shop:
       name: "Shop"
-      slot: 11
+      slot: 20
     spawn:
       name: "Spawn"
       slot: 6
     respawn:
-      name: "Spawn"
-      slot: 15
+      name: "Respawn"
+      slot: 24
     back:
       name: "Back"
-      slot: 22
+      slot: 13

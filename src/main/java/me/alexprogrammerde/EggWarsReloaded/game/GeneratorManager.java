@@ -22,7 +22,7 @@ public class GeneratorManager {
                     Bukkit.getWorld(generatorsplit[0]).dropItem(generatorlocation, new ItemStack(Material.IRON_INGOT));
                 }
             }
-        }, 20, 20));
+        }, 20, 40));
 
         game.taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
             if (game.state == GameState.RUNNING) {
@@ -34,7 +34,7 @@ public class GeneratorManager {
                     Bukkit.getWorld(generatorsplit[0]).dropItem(generatorlocation, new ItemStack(Material.GOLD_INGOT));
                 }
             }
-        }, 20, 60));
+        }, 20, 200));
 
         game.taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), new Runnable() {
             @Override
@@ -49,6 +49,6 @@ public class GeneratorManager {
                     }
                 }
             }
-        }, 20, 100));
+        }, 20, 400));
     }
 }

@@ -32,11 +32,13 @@ public class Game {
     public final String arenaName;
     protected final List<Integer> taskIds = new ArrayList<>();
     private int startingTime;
-    private final MatchMaker matchmaker;
+    protected final MatchMaker matchmaker;
     final List<String> usedTeams = new ArrayList<>();
-    int clockTask;
+    private int clockTask;
     public final int maxPlayers;
     public final int maxTeamPlayers;
+    protected final List<Player> livingPlayers = new ArrayList<>();
+    private final GameLogics gameLogics;
 
     public Game(String arenaName) {
         this.arenaName = arenaName;
@@ -49,10 +51,12 @@ public class Game {
         }
 
         prepareArena();
+
         maxTeamPlayers = arenas.getInt("arenas." + arenaName + ".size");
         maxPlayers = usedTeams.size() * maxTeamPlayers;
         matchmaker = new MatchMaker(arenaName, this);
         matchmaker.readSpawns();
+        gameLogics = new GameLogics(this);
 
         EggWarsReloaded.getEggWarsMain().getLogger().info("Starting game for arena " + arenaName);
 
@@ -117,6 +121,10 @@ public class Game {
 
         player.setScoreboard(playerScoreboard);
 
+        for (Player lobbyPlayer : players) {
+            lobbyPlayer.sendMessage("[ + ] " + player.getDisplayName() + " " + players.size() + "/" + maxPlayers);
+        }
+
         // TODO: Make player requirement optional and don't run it again if someone joins
         if (players.size() >= 2) {
             startGame1();
@@ -145,6 +153,29 @@ public class Game {
         player.setGameMode(GameMode.SURVIVAL);
     }
 
+    public void killPlayer(Player killed, Player killer) {
+        livingPlayers.remove(killed);
+
+        rewardPlayer(killed, RewardType.KILL);
+
+        checkWin();
+    }
+
+    public void deathPlayer(Player player) {
+        livingPlayers.remove(player);
+
+        checkWin();
+    }
+
+    private void checkWin() {
+        if (gameLogics.isOnlyOneTeamLeft()) {
+            for (Player player : matchmaker.getPlayersInTeam(gameLogics.getLastTeam())) {
+                rewardPlayer(player, RewardType.WIN);
+                player.sendMessage("You won! gg");
+            }
+        }
+    }
+
     private void registerGame() {
         GameControl.addGame(this);
 
@@ -161,6 +192,7 @@ public class Game {
         state = GameState.STARTING1;
 
         startingTime = 20;
+
         for (Player player : players) {
             player.setLevel(startingTime);
         }
@@ -186,6 +218,7 @@ public class Game {
         matchmaker.teleportPlayers();
 
         startingTime = 10;
+
         for (Player player : players) {
             player.setLevel(startingTime);
         }
@@ -208,6 +241,8 @@ public class Game {
 
         state = GameState.RUNNING;
 
+        livingPlayers.addAll(players);
+
         destroyCages();
 
         ItemStack sword = new ItemStack(Material.NETHERITE_SWORD);
@@ -217,7 +252,7 @@ public class Game {
         swordMeta.setDisplayName(ChatColor.AQUA + "Just a normal sword...");
         swordMeta.setLore(new ArrayList<String>() {
             {
-                add("uwu its me Loreio");
+                add("uwu its a me Loreio");
             }
         });
 
@@ -264,6 +299,20 @@ public class Game {
         // DON'T save actions the players do in the game
         arena.setAutoSave(false);
 
+        placeCages();
+    }
+
+    private void resetArena() {
+        World arena = Bukkit.getWorld(ArenaManager.getArenas().getString("arenas." + arenaName + ".world"));
+
+        // Unload world to remove actions done by players and not saving them
+        Bukkit.unloadWorld(arena, false);
+
+        // Reload world to make use of it and reenable autosaving
+        Bukkit.createWorld(new WorldCreator(Objects.requireNonNull(ArenaManager.getArenas().getString("arenas." + arenaName + ".world")))).setAutoSave(true);
+    }
+
+    private void placeCages() {
         for (String key : Objects.requireNonNull(ArenaManager.getArenas().getConfigurationSection("arenas." + arenaName + ".team")).getKeys(false)) {
             for (String spawn : ArenaManager.getArenas().getStringList("arenas." + arenaName + ".team." + key + ".spawn")) {
                 Location loc = UtilCore.convertLocation(spawn);
@@ -311,16 +360,6 @@ public class Game {
                 top.setType(Material.BARRIER);
             }
         }
-    }
-
-    private void resetArena() {
-        World arena = Bukkit.getWorld(ArenaManager.getArenas().getString("arenas." + arenaName + ".world"));
-
-        // Unload world to remove actions done by players and not saving them
-        Bukkit.unloadWorld(arena, false);
-
-        // Reload world to make use of it and reenable autosaving
-        Bukkit.createWorld(new WorldCreator(Objects.requireNonNull(ArenaManager.getArenas().getString("arenas." + arenaName + ".world")))).setAutoSave(true);
     }
 
     private void destroyCages() {

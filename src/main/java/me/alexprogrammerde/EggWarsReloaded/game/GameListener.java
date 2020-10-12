@@ -73,6 +73,16 @@ public class GameListener implements Listener {
     public void onDeath(PlayerDeathEvent event) {
         Player player = event.getEntity();
 
+        if (GameControl.isInGame(player)) {
+            Game game = GameControl.getPlayerGame(player);
 
+            if (game.state == GameState.RUNNING) {
+                if (player.getKiller() == null) {
+                    game.deathPlayer(player);
+                } else {
+                    game.killPlayer(player, player.getKiller());
+                }
+            }
+        }
     }
 }

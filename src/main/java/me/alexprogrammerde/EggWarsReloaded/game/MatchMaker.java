@@ -21,7 +21,7 @@ public class MatchMaker {
 
     private final HashMap<Player, Location> playerInLocation = new HashMap<>();
 
-    private final HashMap<Player, String> playerInTeam = new HashMap<>();
+    protected final HashMap<Player, String> playerInTeam = new HashMap<>();
 
     private final Game game;
 
@@ -91,5 +91,17 @@ public class MatchMaker {
 
     public String getTeamOfPlayer(Player player) {
         return playerInTeam.get(player);
+    }
+
+    public List<Player> getPlayersInTeam(String team) {
+        List<Player> players = new ArrayList<>();
+
+        for (Player player : playerInTeam.keySet()) {
+            if (playerInTeam.get(player).equals(team)) {
+                players.add(player);
+            }
+        }
+
+        return players;
     }
 }

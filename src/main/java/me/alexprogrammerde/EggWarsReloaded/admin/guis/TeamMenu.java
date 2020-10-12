@@ -306,12 +306,13 @@ public class TeamMenu {
                 if (ArenaManager.isTeamRegistered(arenaName, teamnName)) {
                     ArenaManager.setTeamRegistered(arenaName, teamnName, false);
                     ArenaManager.setArenaRegistered(arenaName, false, null);
+
+                    player.sendMessage("Unregistered team: " + teamnName);
                 } else {
                     ArenaManager.setTeamRegistered(arenaName, teamnName, true);
+
+                    player.sendMessage("Registered team: " + teamnName);
                 }
-
-
-                player.sendMessage("Registered team: " + teamnName);
             } else {
                 player.sendMessage("This team is not ready! Please finish the team setup. (Click the wool)");
             }
