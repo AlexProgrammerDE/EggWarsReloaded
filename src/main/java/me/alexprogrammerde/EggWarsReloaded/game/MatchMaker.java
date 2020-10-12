@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class MatchMaker {
@@ -25,6 +26,8 @@ public class MatchMaker {
 
     private final Game game;
 
+    protected final HashMap<String, Boolean> hasTeamEgg = new HashMap<>();
+
     public MatchMaker(String arenaName, Game game) {
         this.arenaName = arenaName;
         this.game = game;
@@ -34,6 +37,8 @@ public class MatchMaker {
         FileConfiguration arenas = ArenaManager.getArenas();
 
         for (String team : game.usedTeams) {
+            hasTeamEgg.put(team, true);
+
             List<Location> tempList = new ArrayList<>();
 
             for (String spawn : arenas.getStringList("arenas." + arenaName + ".team." + team + ".spawn")) {
@@ -47,7 +52,6 @@ public class MatchMaker {
 
     public void teleportPlayers() {
         for (Player player : playerInLocation.keySet()) {
-            player.sendMessage("b");
             player.teleport(playerInLocation.get(player));
         }
     }

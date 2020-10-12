@@ -1,12 +1,14 @@
 package me.alexprogrammerde.EggWarsReloaded;
 
 import me.alexprogrammerde.EggWarsReloaded.admin.ArenaRepairer;
+import me.alexprogrammerde.EggWarsReloaded.game.EggListener;
 import me.alexprogrammerde.EggWarsReloaded.game.Game;
 import me.alexprogrammerde.EggWarsReloaded.game.GameListener;
 import me.alexprogrammerde.EggWarsReloaded.game.listeners.LobbyCore;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ConfigManager;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Egg;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -40,6 +42,7 @@ public class EggWarsReloaded extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ArenaRepairer(), this);
         getServer().getPluginManager().registerEvents(new GameListener(), this);
         getServer().getPluginManager().registerEvents(new LobbyCore(), this);
+        getServer().getPluginManager().registerEvents(new EggListener(), this);
 
         logger.info("§aLoading arenas");
         Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);

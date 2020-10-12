@@ -80,8 +80,12 @@ public class Game {
             return RejectType.ALREADYIN;
         }
 
-        if (state != GameState.LOBBY) {
+        if (!(state == GameState.LOBBY || state == GameState.STARTING1)) {
             return RejectType.ALREADYPLAYING;
+        }
+
+        if (players.size() >= maxPlayers) {
+            return RejectType.FULL;
         }
 
         // Remove everything the player had
@@ -126,11 +130,31 @@ public class Game {
         }
 
         // TODO: Make player requirement optional and don't run it again if someone joins
-        if (players.size() >= 2) {
-            startGame1();
+        int minPlayers = 2;
+        if (players.size() >= minPlayers) {
+            if (state == GameState.LOBBY) {
+                startGame1();
+            }
         }
 
         return RejectType.NONE;
+    }
+
+    public void removePlayer(Player player) {
+        players.remove(player);
+        livingPlayers.remove(player);
+
+        player.getInventory().clear();
+
+        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".mainlobby")));
+
+        player.setGameMode(GameMode.SURVIVAL);
+        player.getInventory().clear();
+        player.setLevel(0);
+        player.setFoodLevel(20);
+        player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
+
+        player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
     }
 
     public RejectType kickPlayer(Player player) {
@@ -138,33 +162,63 @@ public class Game {
             return RejectType.NOTIN;
         }
 
-        endPlayer(player);
+        spectatorPlayer(player);
 
         return RejectType.NONE;
     }
 
-    private void endPlayer(Player player) {
+    private void spectatorPlayer(Player player) {
         player.getInventory().clear();
 
-        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".mainlobby")));
+        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".spectator")));
 
-        player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+        player.setGameMode(GameMode.SPECTATOR);
 
-        player.setGameMode(GameMode.SURVIVAL);
+        Bukkit.getScheduler().runTaskLater(EggWarsReloaded.getEggWarsMain(), () -> {
+            respawnPlayer(player);
+        }, 100);
     }
 
     public void killPlayer(Player killed, Player killer) {
-        livingPlayers.remove(killed);
+        if (!matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(killed)))  {
+            livingPlayers.remove(killed);
+        }
 
         rewardPlayer(killed, RewardType.KILL);
 
         checkWin();
+
+        for (Player player : livingPlayers) {
+            player.sendMessage(killer.getDisplayName() + " killed " + killed.getDisplayName() + "!");
+        }
+
+        spectatorPlayer(killed);
+    }
+
+    private void respawnPlayer(Player player) {
+        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".team." + matchmaker.getTeamOfPlayer(player) + ".respawn")));
+
+        player.setGameMode(GameMode.SURVIVAL);
+        player.getInventory().clear();
+        player.setLevel(0);
+        player.setFoodLevel(20);
+        player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
+
+        player.getInventory().setItem(0, getNetheriteSword());
     }
 
     public void deathPlayer(Player player) {
-        livingPlayers.remove(player);
+        if (!matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(player)))  {
+            livingPlayers.remove(player);
+        }
+
+        for (Player livePlayer : livingPlayers) {
+            livePlayer.sendMessage(player.getDisplayName() + " died! :(");
+        }
 
         checkWin();
+
+        spectatorPlayer(player);
     }
 
     private void checkWin() {
@@ -245,21 +299,14 @@ public class Game {
 
         destroyCages();
 
-        ItemStack sword = new ItemStack(Material.NETHERITE_SWORD);
+        for (Player player : livingPlayers) {
+            player.setGameMode(GameMode.SURVIVAL);
+        }
 
-        ItemMeta swordMeta = sword.getItemMeta();
 
-        swordMeta.setDisplayName(ChatColor.AQUA + "Just a normal sword...");
-        swordMeta.setLore(new ArrayList<String>() {
-            {
-                add("uwu its a me Loreio");
-            }
-        });
-
-        sword.setItemMeta(swordMeta);
 
         for (Player player : players) {
-            player.getInventory().setItem(0, sword);
+            player.getInventory().setItem(0, getNetheriteSword());
         }
     }
 
@@ -274,7 +321,7 @@ public class Game {
             player.sendMessage("The game ended!");
             rewardPlayer(player, RewardType.GAME);
 
-            endPlayer(player);
+            removePlayer(player);
         }
 
         players.clear();
@@ -300,6 +347,8 @@ public class Game {
         arena.setAutoSave(false);
 
         placeCages();
+
+        placeAllEggs();
     }
 
     private void resetArena() {
@@ -410,5 +459,43 @@ public class Game {
                 top.setType(Material.AIR);
             }
         }
+    }
+
+    private void placeAllEggs() {
+        List<Location> eggs = new ArrayList<>();
+
+        for (String team : usedTeams) {
+            eggs.add(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".team." + team + ".egg")));
+        }
+
+        for (Location loc : eggs) {
+            loc.getBlock().setType(Material.DRAGON_EGG);
+        }
+    }
+
+    public void eggDestroyed(String team) {
+        matchmaker.hasTeamEgg.remove(team);
+        matchmaker.hasTeamEgg.put(team, false);
+
+        for (Player player : matchmaker.getPlayersInTeam(team)) {
+            player.sendTitle("Your egg has been destroyed!", "You will no longer respawn!", 10, 20, 10);
+        }
+    }
+
+    private ItemStack getNetheriteSword() {
+        ItemStack sword = new ItemStack(Material.NETHERITE_SWORD);
+
+        ItemMeta swordMeta = sword.getItemMeta();
+
+        swordMeta.setDisplayName(ChatColor.AQUA + "Just a normal sword...");
+        swordMeta.setLore(new ArrayList<String>() {
+            {
+                add("uwu its a me Loreio");
+            }
+        });
+
+        sword.setItemMeta(swordMeta);
+
+        return sword;
     }
 }
