@@ -100,6 +100,8 @@ public class Game {
 
         player.setVelocity(new Vector(0, 0, 0));
 
+        player.setFallDistance(0);
+
         player.setLevel(0);
         player.setFoodLevel(20);
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
@@ -157,13 +159,16 @@ public class Game {
 
         player.setVelocity(new Vector(0, 0, 0));
 
+        player.setFallDistance(0);
+
         player.setGameMode(GameMode.SURVIVAL);
-        player.getInventory().clear();
         player.setLevel(0);
         player.setFoodLevel(20);
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
 
         player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+
+        GameControl.removePlayerFromGame(player);
     }
 
     public RejectType kickPlayer(Player player) {
@@ -187,6 +192,8 @@ public class Game {
 
         player.setVelocity(new Vector(0, 0, 0));
 
+        player.setFallDistance(0);
+
         if (respawn) {
             Bukkit.getScheduler().runTaskLater(EggWarsReloaded.getEggWarsMain(), () -> {
                 respawnPlayer(player);
@@ -200,6 +207,8 @@ public class Game {
         player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".team." + matchmaker.getTeamOfPlayer(player) + ".respawn")));
 
         player.setVelocity(new Vector(0, 0, 0));
+
+        player.setFallDistance(0);
 
         player.setGameMode(GameMode.SURVIVAL);
         player.getInventory().clear();

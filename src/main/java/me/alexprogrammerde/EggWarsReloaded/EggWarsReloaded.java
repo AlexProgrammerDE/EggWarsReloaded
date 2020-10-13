@@ -8,7 +8,6 @@ import me.alexprogrammerde.EggWarsReloaded.game.listeners.LobbyCore;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ConfigManager;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Egg;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -91,6 +90,7 @@ public class EggWarsReloaded extends JavaPlugin {
         this.config = new ConfigManager(this, "config.yml", "config").getConfig();
         this.language = new ConfigManager(this, "language.yml", "language").getConfig();
         this.arenas = new ConfigManager(this, "arenas.yml", "arenas").getConfig();
+        this.items = new ConfigManager(this, "items.yml", "items").getConfig();
     }
 
     public static EggWarsReloaded getEggWarsMain() {

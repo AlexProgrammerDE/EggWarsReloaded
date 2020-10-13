@@ -25,13 +25,17 @@ public class GameControl {
         return game.addPlayer(player);
     }
 
-    public static RejectType removePlayer(Player player) {
+    public static RejectType kickPlayer(Player player) {
         if (players.containsKey(player)) {
             players.remove(player);
             return players.get(player).kickPlayer(player);
         } else {
             return RejectType.NOTIN;
         }
+    }
+
+    protected static void removePlayerFromGame(Player player) {
+        players.remove(player);
     }
 
     public static Game getPlayerGame(Player player) {
