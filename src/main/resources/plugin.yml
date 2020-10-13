@@ -7,6 +7,7 @@ description: A awesome minigame.
 website: alexprogrammerde.github.io
 load: POSTWORLD
 softdepend: [Multiverse-Core]
+authors: ["254n-m"]
 commands:
   eggwarsreloaded:
     aliases: [egg, eggwars]

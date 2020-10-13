@@ -98,14 +98,14 @@ public class TeamUnderMenu {
 
         if (arenas.contains("arenas." + arenaName + ".team." + teamName + ".spawn")) {
             for (String spawns : ArenaManager.getArenas().getStringList("arenas." + arenaName + ".team." + teamName + ".spawn")) {
-                String[] spawnssplit = spawns.split(" ");
+                Location loc = UtilCore.convertLocation(spawns);
 
-                spawnlist.add(spawnssplit[0] + " "
-                        + Math.round(Double.parseDouble(spawnssplit[1])) + " "
-                        + Math.round(Double.parseDouble(spawnssplit[2])) + " "
-                        + Math.round(Double.parseDouble(spawnssplit[2])) + " "
-                        + Math.round(Float.parseFloat(spawnssplit[2])) + " "
-                        + Math.round(Float.parseFloat(spawnssplit[3])));
+                spawnlist.add(loc.getWorld().getName() + " "
+                        + loc.getX() + " "
+                        + loc.getY() + " "
+                        + loc.getZ() + " "
+                        + loc.getYaw() + " "
+                        + loc.getPitch());
             }
 
             spawnmeta.addEnchant(Enchantment.DURABILITY, 0, true);
@@ -120,14 +120,14 @@ public class TeamUnderMenu {
         respawnlist.add("Left click to set your current place as the respawnpoint.");
 
         if (arenas.contains("arenas." + arenaName + ".team." + teamName + ".respawn")) {
-            String[] respawnssplit = arenas.getString("arenas." + arenaName + ".team." + teamName + ".respawn").split(" ");
+            Location loc = UtilCore.convertLocation(arenas.getString("arenas." + arenaName + ".team." + teamName + ".respawn"));
 
-            spawnlist.add(respawnssplit[0] + " "
-                    + Math.round(Double.parseDouble(respawnssplit[1])) + " "
-                    + Math.round(Double.parseDouble(respawnssplit[2])) + " "
-                    + Math.round(Double.parseDouble(respawnssplit[2])) + " "
-                    + Math.round(Float.parseFloat(respawnssplit[2])) + " "
-                    + Math.round(Float.parseFloat(respawnssplit[3])));
+            respawnlist.add(loc.getWorld().getName() + " "
+                    + loc.getX() + " "
+                    + loc.getY() + " "
+                    + loc.getZ() + " "
+                    + loc.getYaw() + " "
+                    + loc.getPitch());
 
             respawnmeta.addEnchant(Enchantment.DURABILITY, 0, true);
             respawnmeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -209,18 +209,8 @@ public class TeamUnderMenu {
                             List<String> strings = arenas.getStringList("arenas." + arenaName + ".team." + teamName + ".spawn");
                             List<Location> locations = new ArrayList<>();
 
-                            for (String location : strings) {
-                                String[] data = location.split(" ");
-                                Location loc = new Location(player.getWorld(), 0, 0, 0, 0, 0);
-
-                                loc.setWorld(Bukkit.getWorld(data[0]));
-                                loc.setX(Double.parseDouble(data[1]));
-                                loc.setY(Double.parseDouble(data[2]));
-                                loc.setZ(Double.parseDouble(data[3]));
-                                loc.setYaw(Float.parseFloat(data[4]));
-                                loc.setPitch(Float.parseFloat(data[5]));
-
-                                locations.add(loc);
+                            for (String str : strings) {
+                                locations.add(UtilCore.convertLocation(str));
                             }
 
                             if (!locations.contains(playerlocation)) {

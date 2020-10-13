@@ -13,6 +13,7 @@ import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -20,13 +21,15 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class Game {
-    protected final List<Player> players = new ArrayList<>();
+    protected final List<Player> inGamePlayers = new ArrayList<>();
+    protected final List<Player> livingPlayers = new ArrayList<>();
     public GameState state = GameState.NONE;
     FileConfiguration arenas = ArenaManager.getArenas();
     public final String arenaName;
@@ -37,7 +40,6 @@ public class Game {
     private int clockTask;
     public final int maxPlayers;
     public final int maxTeamPlayers;
-    protected final List<Player> livingPlayers = new ArrayList<>();
     private final GameLogics gameLogics;
 
     public Game(String arenaName) {
@@ -66,7 +68,7 @@ public class Game {
 
         taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
             if (state == GameState.LOBBY || state == GameState.STARTING1) {
-                for (Player player : players) {
+                for (Player player : inGamePlayers) {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder("The game will start shortly!").create());
                 }
             }
@@ -76,7 +78,7 @@ public class Game {
     }
 
     public RejectType addPlayer(Player player) {
-        if (players.contains(player)) {
+        if (inGamePlayers.contains(player)) {
             return RejectType.ALREADYIN;
         }
 
@@ -84,7 +86,7 @@ public class Game {
             return RejectType.ALREADYPLAYING;
         }
 
-        if (players.size() >= maxPlayers) {
+        if (inGamePlayers.size() >= maxPlayers) {
             return RejectType.FULL;
         }
 
@@ -92,7 +94,11 @@ public class Game {
         player.getInventory().clear();
         player.setGameMode(GameMode.ADVENTURE);
 
+        player.setVelocity(new Vector(0, 0, 0));
+
         player.teleport(UtilCore.convertLocation(arenas.getString("arenas." + arenaName + ".waitinglobby")));
+
+        player.setVelocity(new Vector(0, 0, 0));
 
         player.setLevel(0);
         player.setFoodLevel(20);
@@ -102,7 +108,7 @@ public class Game {
 
         player.sendMessage("You joined " + arenaName + "!");
 
-        players.add(player);
+        inGamePlayers.add(player);
 
         matchmaker.findTeamForPlayer(player);
 
@@ -125,13 +131,13 @@ public class Game {
 
         player.setScoreboard(playerScoreboard);
 
-        for (Player lobbyPlayer : players) {
-            lobbyPlayer.sendMessage("[ + ] " + player.getDisplayName() + " " + players.size() + "/" + maxPlayers);
+        for (Player lobbyPlayer : inGamePlayers) {
+            lobbyPlayer.sendMessage("[ + ] " + player.getDisplayName() + " " + inGamePlayers.size() + "/" + maxPlayers);
         }
 
         // TODO: Make player requirement optional and don't run it again if someone joins
         int minPlayers = 2;
-        if (players.size() >= minPlayers) {
+        if (inGamePlayers.size() >= minPlayers) {
             if (state == GameState.LOBBY) {
                 startGame1();
             }
@@ -141,12 +147,15 @@ public class Game {
     }
 
     public void removePlayer(Player player) {
-        players.remove(player);
         livingPlayers.remove(player);
 
         player.getInventory().clear();
 
+        player.setVelocity(new Vector(0, 0, 0));
+
         player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".mainlobby")));
+
+        player.setVelocity(new Vector(0, 0, 0));
 
         player.setGameMode(GameMode.SURVIVAL);
         player.getInventory().clear();
@@ -158,45 +167,39 @@ public class Game {
     }
 
     public RejectType kickPlayer(Player player) {
-        if (!players.contains(player)) {
+        if (!inGamePlayers.contains(player)) {
             return RejectType.NOTIN;
         }
 
-        spectatorPlayer(player);
+        removePlayer(player);
 
         return RejectType.NONE;
     }
 
-    private void spectatorPlayer(Player player) {
+    public void spectatorPlayer(Player player, boolean respawn) {
         player.getInventory().clear();
-
-        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".spectator")));
 
         player.setGameMode(GameMode.SPECTATOR);
 
-        Bukkit.getScheduler().runTaskLater(EggWarsReloaded.getEggWarsMain(), () -> {
-            respawnPlayer(player);
-        }, 100);
-    }
+        player.setVelocity(new Vector(0, 0, 0));
 
-    public void killPlayer(Player killed, Player killer) {
-        if (!matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(killed)))  {
-            livingPlayers.remove(killed);
+        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".spectator")));
+
+        player.setVelocity(new Vector(0, 0, 0));
+
+        if (respawn) {
+            Bukkit.getScheduler().runTaskLater(EggWarsReloaded.getEggWarsMain(), () -> {
+                respawnPlayer(player);
+            }, 100);
         }
-
-        rewardPlayer(killed, RewardType.KILL);
-
-        checkWin();
-
-        for (Player player : livingPlayers) {
-            player.sendMessage(killer.getDisplayName() + " killed " + killed.getDisplayName() + "!");
-        }
-
-        spectatorPlayer(killed);
     }
 
     private void respawnPlayer(Player player) {
+        player.setVelocity(new Vector(0, 0, 0));
+
         player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".team." + matchmaker.getTeamOfPlayer(player) + ".respawn")));
+
+        player.setVelocity(new Vector(0, 0, 0));
 
         player.setGameMode(GameMode.SURVIVAL);
         player.getInventory().clear();
@@ -204,29 +207,71 @@ public class Game {
         player.setFoodLevel(20);
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
 
-        player.getInventory().setItem(0, getNetheriteSword());
+        givePlayerItems(player);
     }
 
-    public void deathPlayer(Player player) {
-        if (!matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(player)))  {
-            livingPlayers.remove(player);
+    public void killPlayer(Player killed, Player killer) {
+        rewardPlayer(killer, RewardType.KILL);
+
+        for (Player livePlayer : inGamePlayers) {
+            livePlayer.sendMessage(ChatColor.RED + killer.getDisplayName() + ChatColor.GOLD + " killed " + ChatColor.AQUA + killed.getDisplayName() + ChatColor.GOLD + "!");
         }
 
-        for (Player livePlayer : livingPlayers) {
-            livePlayer.sendMessage(player.getDisplayName() + " died! :(");
+        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(killed)))  {
+            killed.sendMessage(ChatColor.GOLD + "You got killed by " + ChatColor.AQUA +  killer.getDisplayName() + ChatColor.GOLD + "! You will respawn in 5 seconds!");
+        } else {
+            killed.sendMessage(ChatColor.GOLD + "You got killed by " + killer.getDisplayName() + ChatColor.GOLD + "! Your team has no egg, so you will not respawn now. Please wait till the game ends...");
+        }
+
+        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(killed)))  {
+            spectatorPlayer(killed, true);
+        } else {
+            livingPlayers.remove(killed);
+            spectatorPlayer(killed, false);
         }
 
         checkWin();
-
-        spectatorPlayer(player);
     }
 
-    private void checkWin() {
+    public void deathPlayer(Player player) {
+        for (Player livePlayer : inGamePlayers) {
+            livePlayer.sendMessage(ChatColor.BLUE + player.getDisplayName() + ChatColor.GOLD +  " died! :(");
+        }
+
+        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(player)))  {
+            player.sendMessage(ChatColor.GOLD + "You died! You will respawn in 5 seconds!");
+        } else {
+            player.sendMessage(ChatColor.GOLD + "You died! Your team has no egg, so you will not respawn now. Please wait till the game ends...");
+        }
+
+        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(player)))  {
+            spectatorPlayer(player, true);
+        } else {
+            livingPlayers.remove(player);
+            spectatorPlayer(player, false);
+        }
+
+        checkWin();
+    }
+
+
+    private void rewardPlayer(Player player, RewardType reward) {
+
+    }
+
+    protected void checkWin() {
         if (gameLogics.isOnlyOneTeamLeft()) {
-            for (Player player : matchmaker.getPlayersInTeam(gameLogics.getLastTeam())) {
-                rewardPlayer(player, RewardType.WIN);
-                player.sendMessage("You won! gg");
+            for (Player player : inGamePlayers) {
+                player.sendMessage("a");
+                if (matchmaker.getPlayersInTeam(gameLogics.getLastTeam()).contains(player)) {
+                    player.sendMessage("Your team won! gg");
+                    rewardPlayer(player, RewardType.WIN);
+                } else {
+                    player.sendMessage("Team " + gameLogics.getLastTeam() + " won! gg");
+                }
             }
+
+            endGame();
         }
     }
 
@@ -247,14 +292,14 @@ public class Game {
 
         startingTime = 20;
 
-        for (Player player : players) {
+        for (Player player : inGamePlayers) {
             player.setLevel(startingTime);
         }
 
         clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
             startingTime--;
 
-            for (Player player : players) {
+            for (Player player : inGamePlayers) {
                 player.setLevel(startingTime);
             }
 
@@ -273,14 +318,14 @@ public class Game {
 
         startingTime = 10;
 
-        for (Player player : players) {
+        for (Player player : inGamePlayers) {
             player.setLevel(startingTime);
         }
 
         clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
             startingTime--;
 
-            for (Player player : players) {
+            for (Player player : inGamePlayers) {
                 player.setLevel(startingTime);
             }
 
@@ -290,12 +335,13 @@ public class Game {
         }, 20, 20);
     }
 
+
     private void runGame() {
         Bukkit.getScheduler().cancelTask(clockTask);
 
         state = GameState.RUNNING;
 
-        livingPlayers.addAll(players);
+        livingPlayers.addAll(inGamePlayers);
 
         destroyCages();
 
@@ -303,28 +349,22 @@ public class Game {
             player.setGameMode(GameMode.SURVIVAL);
         }
 
-
-
-        for (Player player : players) {
-            player.getInventory().setItem(0, getNetheriteSword());
+        for (Player player : inGamePlayers) {
+            givePlayerItems(player);
         }
-    }
-
-    private void rewardPlayer(Player player, RewardType reward) {
-
     }
 
     public void endGame() {
         state = GameState.ENDING;
 
-        for (Player player : players) {
+        for (Player player : inGamePlayers) {
             player.sendMessage("The game ended!");
             rewardPlayer(player, RewardType.GAME);
 
             removePlayer(player);
         }
 
-        players.clear();
+        inGamePlayers.clear();
 
         for (int i : taskIds) {
             Bukkit.getScheduler().cancelTask(i);
@@ -482,7 +522,7 @@ public class Game {
         }
     }
 
-    private ItemStack getNetheriteSword() {
+    private void givePlayerItems(Player player) {
         ItemStack sword = new ItemStack(Material.NETHERITE_SWORD);
 
         ItemMeta swordMeta = sword.getItemMeta();
@@ -496,6 +536,68 @@ public class Game {
 
         sword.setItemMeta(swordMeta);
 
-        return sword;
+        ItemStack block = new ItemStack(Material.WHITE_WOOL);
+
+        block.setAmount(64);
+
+        ItemMeta blockMeta = block.getItemMeta();
+
+        blockMeta.setDisplayName(ChatColor.AQUA + "Bed");
+        blockMeta.setLore(new ArrayList<String>() {
+            {
+                add("uwu pls sleep on me ;)");
+            }
+        });
+
+        block.setItemMeta(blockMeta);
+
+        ItemStack bow = new ItemStack(Material.BOW);
+
+        ItemMeta bowMeta = bow.getItemMeta();
+
+        bowMeta.setDisplayName(ChatColor.AQUA + "Pistol");
+        bowMeta.setLore(new ArrayList<String>() {
+            {
+                add("uwu pew pew");
+            }
+        });
+
+        bowMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
+
+        bow.setItemMeta(bowMeta);
+
+        ItemStack arrow = new ItemStack(Material.ARROW);
+
+        ItemMeta arrowMeta = arrow.getItemMeta();
+
+        arrowMeta.setDisplayName(ChatColor.AQUA + "Bullet");
+        arrowMeta.setLore(new ArrayList<String>() {
+            {
+                add("uwu pls don't kill any1 irl :(");
+            }
+        });
+
+        arrow.setItemMeta(arrowMeta);
+
+        ItemStack steak = new ItemStack(Material.COOKED_BEEF);
+
+        steak.setAmount(16);
+
+        ItemMeta steakMeta = steak.getItemMeta();
+
+        steakMeta.setDisplayName(ChatColor.AQUA + "Bullet");
+        steakMeta.setLore(new ArrayList<String>() {
+            {
+                add("uwu pls don't kill any1 irl :(");
+            }
+        });
+
+        steak.setItemMeta(steakMeta);
+
+        player.getInventory().setItem(0, sword);
+        player.getInventory().setItem(1, block);
+        player.getInventory().setItem(2, bow);
+        player.getInventory().setItem(3, steak);
+        player.getInventory().setItem(10, arrow);
     }
 }
