@@ -384,6 +384,12 @@ public class Game {
         state = GameState.ENDED;
 
         unregisterGame();
+
+        createNewGame();
+    }
+
+    private void createNewGame() {
+        GameControl.addGame(new Game(arenaName));
     }
 
     private void prepareArena() {
@@ -411,8 +417,8 @@ public class Game {
     }
 
     private void placeCages() {
-        for (String key : Objects.requireNonNull(ArenaManager.getArenas().getConfigurationSection("arenas." + arenaName + ".team")).getKeys(false)) {
-            for (String spawn : ArenaManager.getArenas().getStringList("arenas." + arenaName + ".team." + key + ".spawn")) {
+        for (String team : usedTeams) {
+            for (String spawn : ArenaManager.getArenas().getStringList("arenas." + arenaName + ".team." + team + ".spawn")) {
                 Location loc = UtilCore.convertLocation(spawn);
                 World world = loc.getWorld();
                 double x = loc.getX();
@@ -461,8 +467,8 @@ public class Game {
     }
 
     private void destroyCages() {
-        for (String key : Objects.requireNonNull(ArenaManager.getArenas().getConfigurationSection("arenas." + arenaName + ".team")).getKeys(false)) {
-            for (String spawn : ArenaManager.getArenas().getStringList("arenas." + arenaName + ".team." + key + ".spawn")) {
+        for (String team : usedTeams) {
+            for (String spawn : ArenaManager.getArenas().getStringList("arenas." + arenaName + ".team." + team + ".spawn")) {
                 Location loc = UtilCore.convertLocation(spawn);
                 World world = loc.getWorld();
                 double x = loc.getX();
@@ -597,7 +603,7 @@ public class Game {
         steakMeta.setDisplayName(ChatColor.AQUA + "Bullet");
         steakMeta.setLore(new ArrayList<String>() {
             {
-                add("uwu pls don't kill any1 irl :(");
+                add("uwu nom nom :(");
             }
         });
 

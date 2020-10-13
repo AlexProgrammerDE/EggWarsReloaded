@@ -51,7 +51,7 @@ public class MatchMaker {
 
     public void teleportPlayers() {
         for (Player player : playerInLocation.keySet()) {
-            player.teleport(playerInLocation.get(player));
+            player.teleport(playerInLocation.get(player).getBlock().getLocation().add(0.5, 0, 0.5).setDirection(playerInLocation.get(player).getDirection()));
         }
     }
 
