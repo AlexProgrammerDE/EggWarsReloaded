@@ -32,7 +32,7 @@ public class EggListener implements Listener {
 
                             for (String team : game.usedTeams) {
                                 if (ArenaManager.isTeamRegistered(game.arenaName, team)) {
-                                    teamEggs.put(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + game.arenaName + ".team." + team + ".egg")), team);
+                                    teamEggs.put(UtilCore.convertLocation(ArenaManager.getArenas().getString(game.arenaName + ".team." + team + ".egg")), team);
                                 }
                             }
 

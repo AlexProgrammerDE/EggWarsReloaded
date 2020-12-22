@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class LobbyCore implements Listener {
-
     @EventHandler
     public void onItemClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();

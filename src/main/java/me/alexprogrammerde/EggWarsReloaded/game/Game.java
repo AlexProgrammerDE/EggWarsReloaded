@@ -52,7 +52,7 @@ public class Game {
 
         state = GameState.UNREGISTERED;
 
-        for (String team : arenas.getConfigurationSection("arenas." + arenaName + ".team").getKeys(false)) {
+        for (String team : arenas.getConfigurationSection(arenaName + ".team").getKeys(false)) {
             if (ArenaManager.isTeamRegistered(arenaName, team)) {
                 usedTeams.add(team);
             }
@@ -60,7 +60,7 @@ public class Game {
 
         prepareArena();
 
-        maxTeamPlayers = arenas.getInt("arenas." + arenaName + ".size");
+        maxTeamPlayers = arenas.getInt(arenaName + ".size");
         maxPlayers = usedTeams.size() * maxTeamPlayers;
         matchmaker = new MatchMaker(arenaName, this);
         matchmaker.readSpawns();
@@ -102,7 +102,7 @@ public class Game {
 
         player.setVelocity(new Vector(0, 0, 0));
 
-        player.teleport(UtilCore.convertLocation(arenas.getString("arenas." + arenaName + ".waitinglobby")));
+        player.teleport(UtilCore.convertLocation(arenas.getString(arenaName + ".waitinglobby")));
 
         player.setVelocity(new Vector(0, 0, 0));
 
@@ -161,7 +161,7 @@ public class Game {
 
         player.setVelocity(new Vector(0, 0, 0));
 
-        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".mainlobby")));
+        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".mainlobby")));
 
         player.setVelocity(new Vector(0, 0, 0));
 
@@ -196,7 +196,7 @@ public class Game {
 
         player.setVelocity(new Vector(0, 0, 0));
 
-        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".spectator")));
+        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".spectator")));
 
         player.setVelocity(new Vector(0, 0, 0));
 
@@ -212,7 +212,7 @@ public class Game {
     private void respawnPlayer(Player player) {
         player.setVelocity(new Vector(0, 0, 0));
 
-        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".team." + matchmaker.getTeamOfPlayer(player) + ".respawn")));
+        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".team." + matchmaker.getTeamOfPlayer(player) + ".respawn")));
 
         player.setVelocity(new Vector(0, 0, 0));
 
@@ -400,7 +400,7 @@ public class Game {
     }
 
     private void prepareArena() {
-        World arena = Bukkit.getWorld(ArenaManager.getArenas().getString("arenas." + arenaName + ".world"));
+        World arena = Bukkit.getWorld(ArenaManager.getArenas().getString(arenaName + ".world"));
 
         // DON'T save actions the players do in the game
         arena.setAutoSave(false);
@@ -413,8 +413,8 @@ public class Game {
     private void resetArena() {
         EggWarsReloaded.getEggWarsMain().getLogger().info("a");
 
-        EggWarsReloaded.getEggWarsMain().getLogger().info(ArenaManager.getArenas().getString("arenas." + arenaName + ".world"));
-        EggWarsReloaded.getEggWarsMain().getLogger().info(Bukkit.getWorld(ArenaManager.getArenas().getString("arenas." + arenaName + ".world")).getName());
+        EggWarsReloaded.getEggWarsMain().getLogger().info(ArenaManager.getArenas().getString(arenaName + ".world"));
+        EggWarsReloaded.getEggWarsMain().getLogger().info(Bukkit.getWorld(ArenaManager.getArenas().getString(arenaName + ".world")).getName());
 
 
         EggWarsReloaded.getEggWarsMain().getLogger().info("b");
@@ -425,7 +425,7 @@ public class Game {
 
     private void placeCages() {
         for (String team : usedTeams) {
-            for (String spawn : ArenaManager.getArenas().getStringList("arenas." + arenaName + ".team." + team + ".spawn")) {
+            for (String spawn : ArenaManager.getArenas().getStringList(arenaName + ".team." + team + ".spawn")) {
                 Location loc = UtilCore.convertLocation(spawn);
                 World world = loc.getWorld();
                 double x = loc.getX();
@@ -475,7 +475,7 @@ public class Game {
 
     private void destroyCages() {
         for (String team : usedTeams) {
-            for (String spawn : ArenaManager.getArenas().getStringList("arenas." + arenaName + ".team." + team + ".spawn")) {
+            for (String spawn : ArenaManager.getArenas().getStringList(arenaName + ".team." + team + ".spawn")) {
                 Location loc = UtilCore.convertLocation(spawn);
                 World world = loc.getWorld();
                 double x = loc.getX();
@@ -527,7 +527,7 @@ public class Game {
         List<Location> eggs = new ArrayList<>();
 
         for (String team : usedTeams) {
-            eggs.add(UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".team." + team + ".egg")));
+            eggs.add(UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".team." + team + ".egg")));
         }
 
         for (Location loc : eggs) {

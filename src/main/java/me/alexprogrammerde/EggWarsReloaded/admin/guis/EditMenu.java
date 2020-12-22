@@ -36,13 +36,13 @@ public class EditMenu {
         ItemStack pos1;
         ItemStack pos2;
 
-        if (arenas.contains("arenas." + arenaName + ".pos1")) {
+        if (arenas.contains(arenaName + ".pos1")) {
             pos1 = new ItemStack(Material.GOLD_INGOT);
         } else {
             pos1 = new ItemStack(Material.IRON_INGOT);
         }
 
-        if (arenas.contains("arenas." + arenaName + ".pos2")) {
+        if (arenas.contains(arenaName + ".pos2")) {
             pos2 = new ItemStack(Material.GOLD_INGOT);
         } else {
             pos2 = new ItemStack(Material.IRON_INGOT);
@@ -69,22 +69,22 @@ public class EditMenu {
         pos1meta.setDisplayName(items.getString("items.editmain.pos1.name"));
         pos2meta.setDisplayName(items.getString("items.editmain.pos2.name"));
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".mainlobby")) {
+        if (ArenaManager.getArenas().contains(arenaName + ".mainlobby")) {
             mainlobbymeta.addEnchant(Enchantment.DURABILITY, 0, true);
             mainlobbymeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".waitinglobby")) {
+        if (ArenaManager.getArenas().contains(arenaName + ".waitinglobby")) {
             waitinglobbymeta.addEnchant(Enchantment.DURABILITY, 0, true);
             waitinglobbymeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".spectator")) {
+        if (ArenaManager.getArenas().contains(arenaName + ".spectator")) {
             spectatormeta.addEnchant(Enchantment.DURABILITY, 0, true);
             spectatormeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".register")) {
+        if (ArenaManager.getArenas().contains(arenaName + ".register")) {
             spectatormeta.addEnchant(Enchantment.DURABILITY, 0, true);
             spectatormeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -94,12 +94,12 @@ public class EditMenu {
             generatorsmeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".pos1")) {
+        if (ArenaManager.getArenas().contains(arenaName + ".pos1")) {
             pos1meta.addEnchant(Enchantment.DURABILITY, 0, true);
             pos1meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".pos2")) {
+        if (ArenaManager.getArenas().contains(arenaName + ".pos2")) {
             pos2meta.addEnchant(Enchantment.DURABILITY, 0, true);
             pos2meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
@@ -121,7 +121,7 @@ public class EditMenu {
         pos1list.add("Left click to set your position to pos1.");
         pos2list.add("Left click to set your position to pos2.");
 
-        if (arenas.getBoolean("arenas." + arenaName + ".registered")) {
+        if (arenas.getBoolean(arenaName + ".registered")) {
             registerlist.add("Left click to unregister the arena.");
         } else {
             if (ArenaManager.isArenaReady(arenaName)) {
@@ -131,8 +131,8 @@ public class EditMenu {
             }
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".mainlobby")) {
-            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".mainlobby"));
+        if (ArenaManager.getArenas().contains(arenaName + ".mainlobby")) {
+            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".mainlobby"));
 
             mainlobbylist.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
@@ -140,32 +140,32 @@ public class EditMenu {
                     + Math.round(location.getBlockZ()));
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".waitinglobby")) {
-            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".waitinglobby"));
+        if (ArenaManager.getArenas().contains(arenaName + ".waitinglobby")) {
+            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".waitinglobby"));
             waitinglobbylist.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".spectator")) {
-            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".spectator"));
+        if (ArenaManager.getArenas().contains(arenaName + ".spectator")) {
+            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".spectator"));
             spectatorlist.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".pos1")) {
-            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".pos1"));
+        if (ArenaManager.getArenas().contains(arenaName + ".pos1")) {
+            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".pos1"));
             pos1list.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
         }
 
-        if (ArenaManager.getArenas().contains("arenas." + arenaName + ".pos2")) {
-            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString("arenas." + arenaName + ".pos2"));
+        if (ArenaManager.getArenas().contains(arenaName + ".pos2")) {
+            Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".pos2"));
             pos2list.add("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
@@ -203,7 +203,7 @@ public class EditMenu {
 
         gui.addItem(mainLobby, items.getInt("items.editmain.mainlobby.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
-                    if (arenas.contains("arenas." + arenaName + ".mainlobby")) {
+                    if (arenas.contains(arenaName + ".mainlobby")) {
                         ArenaManager.setMainLobby(arenaName, null);
                         ArenaManager.setArenaRegistered(arenaName, false, null);
 
@@ -213,7 +213,7 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player);
                 })
                 .addDefaultEvent(() -> {
-                    if (ArenaManager.getArenas().contains("arenas." + arenaName + "mainlobby")) {
+                    if (ArenaManager.getArenas().contains(arenaName + "mainlobby")) {
                         player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
                     } else {
                         ArenaManager.setMainLobby(arenaName, player.getLocation());
@@ -226,7 +226,7 @@ public class EditMenu {
 
         gui.addItem(waitingLobby, items.getInt("items.editmain.waitinglobby.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
-                    if (arenas.contains("arenas." + arenaName + ".waitinglobby")) {
+                    if (arenas.contains(arenaName + ".waitinglobby")) {
                         ArenaManager.setWaitingLobby(arenaName, null);
                         ArenaManager.setArenaRegistered(arenaName, false, null);
 
@@ -236,7 +236,7 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player);
                 })
                 .addDefaultEvent(() -> {
-                    if (ArenaManager.getArenas().contains("arenas." + arenaName + "waitinglobby")) {
+                    if (ArenaManager.getArenas().contains(arenaName + "waitinglobby")) {
                         player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
                     } else {
                         ArenaManager.setWaitingLobby(arenaName, player.getLocation());
@@ -248,7 +248,7 @@ public class EditMenu {
 
         gui.addItem(spectator, items.getInt("items.editmain.spectator.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
-                    if (arenas.contains("arenas." + arenaName + ".spectator")) {
+                    if (arenas.contains(arenaName + ".spectator")) {
                         ArenaManager.setSpectator(arenaName, null);
                         ArenaManager.setArenaRegistered(arenaName, false, null);
 
@@ -258,7 +258,7 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player);
                 })
                 .addDefaultEvent(() -> {
-                    if (ArenaManager.getArenas().contains("arenas." + arenaName + "spectator")) {
+                    if (ArenaManager.getArenas().contains(arenaName + "spectator")) {
                         player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
                     } else {
                         ArenaManager.setSpectator(arenaName, player.getLocation());
@@ -278,7 +278,7 @@ public class EditMenu {
                     } else {
                         List<String> teams1 = new ArrayList<>();
 
-                        for (String team : arenas.getConfigurationSection("arenas." + arenaName + ".team").getKeys(false)) {
+                        for (String team : arenas.getConfigurationSection(arenaName + ".team").getKeys(false)) {
                             if (ArenaManager.isTeamRegistered(arenaName, team)) {
                                 teams1.add(team);
                             }
@@ -292,7 +292,7 @@ public class EditMenu {
 
                             for (String team : teams1) {
                                 EggWarsReloaded.getEggWarsMain().getLogger().info(team);
-                                List<String> spawns = arenas.getStringList("arenas." + arenaName + ".team." + team + ".spawn");
+                                List<String> spawns = arenas.getStringList(arenaName + ".team." + team + ".spawn");
                                 EggWarsReloaded.getEggWarsMain().getLogger().info(spawns.toString());
                                 EggWarsReloaded.getEggWarsMain().getLogger().info(String.valueOf(spawns.size()));
                                 EggWarsReloaded.getEggWarsMain().getLogger().info(String.valueOf(ArenaManager.getTeamSize(team)));
@@ -306,9 +306,9 @@ public class EditMenu {
                             if (isWrong) {
                                 player.sendMessage("The following teams have not the set amount of spawns:" + wrongteams);
                             } else {
-                                if (arenas.contains("arenas." + arenaName + ".iron")) {
-                                    if (arenas.contains("arenas." + arenaName + ".gold")) {
-                                        if (arenas.contains("arenas." + arenaName + ".diamond")) {
+                                if (arenas.contains(arenaName + ".iron")) {
+                                    if (arenas.contains(arenaName + ".gold")) {
+                                        if (arenas.contains(arenaName + ".diamond")) {
 
                                             ArenaManager.setArenaRegistered(arenaName, true, teams1);
                                             player.sendMessage("Registered arena " + arenaName);
@@ -330,7 +330,7 @@ public class EditMenu {
 
         gui.addItem(teams, items.getInt("items.editmain.teams.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
-                    arenas.set("arenas." + arenaName + ".team", null);
+                    arenas.set(arenaName + ".team", null);
 
                     try {
                         EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -349,9 +349,9 @@ public class EditMenu {
 
         gui.addItem(generators, items.getInt("items.editmain.generators.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
-                    arenas.set("arenas." + arenaName + ".iron", null);
-                    arenas.set("arenas." + arenaName + ".gold", null);
-                    arenas.set("arenas." + arenaName + ".diamond", null);
+                    arenas.set(arenaName + ".iron", null);
+                    arenas.set(arenaName + ".gold", null);
+                    arenas.set(arenaName + ".diamond", null);
 
                     try {
                         EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());

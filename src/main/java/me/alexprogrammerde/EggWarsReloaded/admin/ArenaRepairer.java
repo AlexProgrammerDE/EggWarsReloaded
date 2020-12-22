@@ -27,10 +27,10 @@ public class ArenaRepairer implements Listener {
 
             if (arenas.contains("arenas")) {
                 for (String arenaName : arenas.getConfigurationSection("arenas").getKeys(false)) {
-                    for (String team : arenas.getConfigurationSection("arenas." + arenaName + ".team").getKeys(false)) {
-                        if (arenas.contains("arenas." + arenaName + ".team." + team + ".shop")) {
-                            String uuid = arenas.getString("arenas." + arenaName + ".team." + team + ".shop.uuid");
-                            Location shopLocation = UtilCore.convertLocation(arenas.getString("arenas." + arenaName + ".team." + team + ".shop.location"));
+                    for (String team : arenas.getConfigurationSection(arenaName + ".team").getKeys(false)) {
+                        if (arenas.contains(arenaName + ".team." + team + ".shop")) {
+                            String uuid = arenas.getString(arenaName + ".team." + team + ".shop.uuid");
+                            Location shopLocation = UtilCore.convertLocation(arenas.getString(arenaName + ".team." + team + ".shop.location"));
 
                             if (villager.getUniqueId().equals(UUID.fromString(uuid))) {
                                 Villager newVillager = (Villager) Bukkit.getWorld(shopLocation.getWorld().getName()).spawnEntity(shopLocation, EntityType.VILLAGER);

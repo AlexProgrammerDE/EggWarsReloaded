@@ -17,9 +17,9 @@ import java.util.HashMap;
 
 public class EggAssistant implements Listener {
     private static final HashMap<Player, EggAssistant> assistants = new HashMap<>();
-    Player player;
-    String arenaName;
-    String teamName;
+    private final Player player;
+    private final String arenaName;
+    private final String teamName;
 
     public EggAssistant(Player player, String arenaName, String teamName) {
         assistants.put(player, this);

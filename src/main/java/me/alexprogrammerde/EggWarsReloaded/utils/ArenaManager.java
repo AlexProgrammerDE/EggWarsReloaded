@@ -13,7 +13,7 @@ public class ArenaManager {
     }
 
     public static void setMainLobby(String arenaName, Location location) {
-        getArenas().set("arenas." + arenaName + ".mainlobby", UtilCore.convertString(location));
+        getArenas().set(arenaName + ".mainlobby", UtilCore.convertString(location));
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -25,7 +25,7 @@ public class ArenaManager {
     }
 
     public static void setWaitingLobby(String arenaName, Location location) {
-        getArenas().set("arenas." + arenaName + ".waitinglobby", UtilCore.convertString(location));
+        getArenas().set(arenaName + ".waitinglobby", UtilCore.convertString(location));
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -37,7 +37,7 @@ public class ArenaManager {
     }
 
     public static void setSpectator(String arenaName, Location location) {
-        getArenas().set("arenas." + arenaName + ".spectator", UtilCore.convertString(location));
+        getArenas().set(arenaName + ".spectator", UtilCore.convertString(location));
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -49,20 +49,20 @@ public class ArenaManager {
     }
 
     public static Location getMainLobby(String arenaName) {
-        return UtilCore.convertLocation(getArenas().getString("arenas." + arenaName + ".mainlobby"));
+        return UtilCore.convertLocation(getArenas().getString(arenaName + ".mainlobby"));
     }
 
     public static Location getWaitingLobby(String arenaName) {
-        return UtilCore.convertLocation(getArenas().getString("arenas." + arenaName + ".waitinglobby"));
+        return UtilCore.convertLocation(getArenas().getString(arenaName + ".waitinglobby"));
     }
 
     public static Location getSpectator(String arenaName) {
-        return UtilCore.convertLocation(getArenas().getString("arenas." + arenaName + ".spectator"));
+        return UtilCore.convertLocation(getArenas().getString(arenaName + ".spectator"));
     }
 
     public static void setArenaRegistered(String arenaName, boolean register, List<String> teams) {
-        getArenas().set("arenas." + arenaName + ".registered", register);
-        getArenas().set("arenas." + arenaName + ".registeredteams", teams);
+        getArenas().set(arenaName + ".registered", register);
+        getArenas().set(arenaName + ".registeredteams", teams);
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -74,7 +74,7 @@ public class ArenaManager {
     }
 
     public static void setTeamSize(String arenaName, Integer size) {
-        getArenas().set("arenas." + arenaName + ".size", size);
+        getArenas().set(arenaName + ".size", size);
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -88,15 +88,15 @@ public class ArenaManager {
     public static int getTeamSize(String arenaName) {
         FileConfiguration arenas = getArenas();
 
-        return arenas.getInt("arenas." + arenaName + ".size");
+        return arenas.getInt(arenaName + ".size");
     }
 
     public static boolean isArenaRegistered(String arenaName) {
-        return getArenas().getBoolean("arenas." + arenaName + ".registered");
+        return getArenas().getBoolean(arenaName + ".registered");
     }
 
     public static void setTeamRegistered(String arenaName, String teamName, boolean register) {
-        getArenas().set("arenas." + arenaName + ".team." + teamName + ".registered", register);
+        getArenas().set(arenaName + ".team." + teamName + ".registered", register);
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -108,7 +108,7 @@ public class ArenaManager {
     }
 
     public static void setArenaPos1(String arenaName, Location pos1) {
-        getArenas().set("arenas." + arenaName + ".pos1", UtilCore.convertString(pos1));
+        getArenas().set(arenaName + ".pos1", UtilCore.convertString(pos1));
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -120,7 +120,7 @@ public class ArenaManager {
     }
 
     public static void setArenaPos2(String arenaName, Location pos2) {
-        getArenas().set("arenas." + arenaName + ".pos2", UtilCore.convertString(pos2));
+        getArenas().set(arenaName + ".pos2", UtilCore.convertString(pos2));
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -132,7 +132,7 @@ public class ArenaManager {
     }
 
     public static void deleteArena(String arenaName) {
-        getArenas().set("arenas." + arenaName, null);
+        getArenas().set(arenaName, null);
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -144,7 +144,7 @@ public class ArenaManager {
     }
 
     public static void setEgg(String arenaName, String teamName, Location eggLocation) {
-        getArenas().set("arenas." + arenaName + ".team." + teamName + ".egg", UtilCore.convertString(eggLocation));
+        getArenas().set(arenaName + ".team." + teamName + ".egg", UtilCore.convertString(eggLocation));
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -159,10 +159,10 @@ public class ArenaManager {
         FileConfiguration arenas = ArenaManager.getArenas();
 
         if (uuid == null || location == null) {
-            arenas.set("arenas." + arenaName + ".team." + teamName + ".shop", null);
+            arenas.set(arenaName + ".team." + teamName + ".shop", null);
         } else {
-            arenas.set("arenas." + arenaName + ".team." + teamName + ".shop.uuid", uuid);
-            arenas.set("arenas." + arenaName + ".team." + teamName + ".shop.location", UtilCore.convertString(location));
+            arenas.set(arenaName + ".team." + teamName + ".shop.uuid", uuid);
+            arenas.set(arenaName + ".team." + teamName + ".shop.location", UtilCore.convertString(location));
         }
 
         try {
@@ -177,7 +177,7 @@ public class ArenaManager {
     public static void setFirstSpawn(String arenaName, String teamName, Location location) {
         FileConfiguration arenas = ArenaManager.getArenas();
 
-        arenas.set("arenas." + arenaName + ".team." + teamName + ".spawn", UtilCore.convertString(location));
+        arenas.set(arenaName + ".team." + teamName + ".spawn", UtilCore.convertString(location));
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -191,7 +191,7 @@ public class ArenaManager {
     public static void setRespawn(String arenaName, String teamName, Location location) {
         FileConfiguration arenas = ArenaManager.getArenas();
 
-        arenas.set("arenas." + arenaName + ".team." + teamName + ".respawn", UtilCore.convertString(location));
+        arenas.set(arenaName + ".team." + teamName + ".respawn", UtilCore.convertString(location));
 
         try {
             getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
@@ -203,7 +203,7 @@ public class ArenaManager {
     }
 
     public static boolean isTeamRegistered(String arenaName, String teamName) {
-        return getArenas().getBoolean("arenas." + arenaName + ".team." + teamName + ".registered");
+        return getArenas().getBoolean(arenaName + ".team." + teamName + ".registered");
     }
 
     public static boolean isArenaReady(String arenaName) {
@@ -215,6 +215,8 @@ public class ArenaManager {
     public static boolean isTeamReady(String arenaName, String teamName) {
         FileConfiguration arenas = ArenaManager.getArenas();
 
-        return arenas.contains("arenas." + arenaName + ".team." + teamName + ".egg") && arenas.contains("arenas." + arenaName + ".team." + teamName + ".shop") && arenas.contains("arenas." + arenaName + ".team." + teamName + ".spawn");
+        return arenas.contains(arenaName + ".team." + teamName + ".egg")
+                && arenas.contains(arenaName + ".team." + teamName + ".shop")
+                && arenas.contains(arenaName + ".team." + teamName + ".spawn");
     }
 }

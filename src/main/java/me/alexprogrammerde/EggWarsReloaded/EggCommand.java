@@ -85,7 +85,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 if (args[0].equals("delarena")) {
                     if (player.hasPermission("eggwarsreloaded.command.delarena")) {
                         if (args.length > 1) {
-                            if (ArenaManager.getArenas().contains("arenas." + args[1])) {
+                            if (ArenaManager.getArenas().contains(args[1])) {
                                 ArenaManager.deleteArena(args[1]);
                                 player.sendMessage("Deleted arena: " + args[1]);
                             } else {
@@ -123,7 +123,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 if (args[0].equals("edit")) {
                     if (player.hasPermission("eggwarsreloaded.command.edit")) {
                         if (args.length > 1) {
-                            if (ArenaManager.getArenas().contains("arenas." + args[1])) {
+                            if (ArenaManager.getArenas().contains(args[1])) {
                                 EditMenu.openEditMenu(args[1], player);
                             } else {
                                 player.sendMessage("Sorry a arena with this name doesn't exist.");
@@ -190,7 +190,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 Set<String> registeredArenas = new HashSet<>();
 
                 for (String arenaName : arenas) {
-                    if (ArenaManager.getArenas().getBoolean("arenas." + arenaName + ".registered")) {
+                    if (ArenaManager.getArenas().getBoolean(arenaName + ".registered")) {
                         registeredArenas.add(arenaName);
                     }
                 }
@@ -204,7 +204,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 Set<String> registeredArenas = new HashSet<>();
 
                 for (String arenaName : arenas) {
-                    if (ArenaManager.getArenas().getBoolean("arenas." + arenaName + ".registered")) {
+                    if (ArenaManager.getArenas().getBoolean(arenaName + ".registered")) {
                         registeredArenas.add(arenaName);
                     }
                 }

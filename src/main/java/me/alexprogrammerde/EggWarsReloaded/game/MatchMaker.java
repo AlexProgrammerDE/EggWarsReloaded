@@ -41,7 +41,7 @@ public class MatchMaker {
 
             List<Location> tempList = new ArrayList<>();
 
-            for (String spawn : arenas.getStringList("arenas." + arenaName + ".team." + team + ".spawn")) {
+            for (String spawn : arenas.getStringList(arenaName + ".team." + team + ".spawn")) {
                 spawns.put(UtilCore.convertLocation(spawn), team);
                 tempList.add(UtilCore.convertLocation(spawn));
             }

@@ -40,35 +40,35 @@ public class GeneratorAssistant implements Listener {
         if (player == this.player && isAdding(player)) {
             if (block.getType() == Material.IRON_BLOCK) {
                 event.setCancelled(true);
-                List<String> generators = arenas.getStringList("arenas." + arenaName + ".iron");
+                List<String> generators = arenas.getStringList(arenaName + ".iron");
 
                 if (generators.contains(blockLocationString)) {
                     player.sendMessage("[GeneratorAssistant] This block is already added!");
                 } else {
                     generators.add(blockLocationString);
-                    arenas.set("arenas." + arenaName + ".iron", generators);
+                    arenas.set(arenaName + ".iron", generators);
                     player.sendMessage("[GeneratorAssistant] Added iron block: " + blockLocationString);
                 }
             } else if (block.getType() == Material.GOLD_BLOCK) {
                 event.setCancelled(true);
-                List<String> generators = arenas.getStringList("arenas." + arenaName + ".gold");
+                List<String> generators = arenas.getStringList(arenaName + ".gold");
 
                 if (generators.contains(blockLocationString)) {
                     player.sendMessage("[GeneratorAssistant] This block is already added!");
                 } else {
                     generators.add(blockLocationString);
-                    arenas.set("arenas." + arenaName + ".gold", generators);
+                    arenas.set(arenaName + ".gold", generators);
                     player.sendMessage("[GeneratorAssistant] Added gold block: " + blockLocationString);
                 }
             } else if (block.getType() == Material.DIAMOND_BLOCK) {
                 event.setCancelled(true);
-                List<String> generators = arenas.getStringList("arenas." + arenaName + ".diamond");
+                List<String> generators = arenas.getStringList(arenaName + ".diamond");
 
                 if (generators.contains(blockLocationString)) {
                     player.sendMessage("[GeneratorAssistant] This block is already added!");
                 } else {
                     generators.add(blockLocationString);
-                    arenas.set("arenas." + arenaName + ".diamond", generators);
+                    arenas.set(arenaName + ".diamond", generators);
                     player.sendMessage("[GeneratorAssistant] Added diamond block: " + blockLocationString);
                 }
             }
