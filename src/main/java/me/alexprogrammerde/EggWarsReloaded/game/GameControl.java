@@ -30,7 +30,7 @@ public class GameControl {
             players.remove(player);
             return players.get(player).kickPlayer(player);
         } else {
-            return RejectType.NOTIN;
+            return RejectType.NOT_IN;
         }
     }
 

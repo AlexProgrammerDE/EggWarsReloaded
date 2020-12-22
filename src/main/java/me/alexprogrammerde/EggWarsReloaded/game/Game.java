@@ -30,20 +30,26 @@ import java.util.Objects;
 public class Game {
     protected final List<Player> inGamePlayers = new ArrayList<>();
     protected final List<Player> livingPlayers = new ArrayList<>();
-    public GameState state = GameState.NONE;
-    FileConfiguration arenas = ArenaManager.getArenas();
-    public final String arenaName;
-    protected final List<Integer> taskIds = new ArrayList<>();
-    private int startingTime;
-    protected final MatchMaker matchmaker;
-    final List<String> usedTeams = new ArrayList<>();
-    private int clockTask;
+    public final List<String> usedTeams = new ArrayList<>();
+
     public final int maxPlayers;
     public final int maxTeamPlayers;
+    private int startingTime;
+
+    final FileConfiguration arenas = ArenaManager.getArenas();
+    public final String arenaName;
+
+    protected final List<Integer> taskIds = new ArrayList<>();
+
+    public GameState state;
     private final GameLogics gameLogics;
+    public final MatchMaker matchmaker;
+
+    private int clockTask;
 
     public Game(String arenaName) {
         this.arenaName = arenaName;
+
         state = GameState.UNREGISTERED;
 
         for (String team : arenas.getConfigurationSection("arenas." + arenaName + ".team").getKeys(false)) {
@@ -79,11 +85,11 @@ public class Game {
 
     public RejectType addPlayer(Player player) {
         if (inGamePlayers.contains(player)) {
-            return RejectType.ALREADYIN;
+            return RejectType.ALREADY_IN;
         }
 
         if (!(state == GameState.LOBBY || state == GameState.STARTING1)) {
-            return RejectType.ALREADYPLAYING;
+            return RejectType.ALREADY_PLAYING;
         }
 
         if (inGamePlayers.size() >= maxPlayers) {
@@ -173,7 +179,7 @@ public class Game {
 
     public RejectType kickPlayer(Player player) {
         if (!inGamePlayers.contains(player)) {
-            return RejectType.NOTIN;
+            return RejectType.NOT_IN;
         }
 
         Bukkit.getScheduler().runTask(EggWarsReloaded.getEggWarsMain(), () -> {

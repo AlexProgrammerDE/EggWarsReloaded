@@ -1,5 +1,7 @@
-package me.alexprogrammerde.EggWarsReloaded.game;
+package me.alexprogrammerde.EggWarsReloaded.game.listeners;
 
+import me.alexprogrammerde.EggWarsReloaded.game.Game;
+import me.alexprogrammerde.EggWarsReloaded.game.GameControl;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.GameState;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;

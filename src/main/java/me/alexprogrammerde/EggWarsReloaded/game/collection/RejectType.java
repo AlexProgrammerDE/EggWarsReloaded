@@ -3,11 +3,11 @@ package me.alexprogrammerde.EggWarsReloaded.game.collection;
 public enum RejectType {
     NONE,
 
-    ALREADYIN,
+    ALREADY_IN,
 
-    NOTIN,
+    NOT_IN,
 
-    ALREADYPLAYING,
+    ALREADY_PLAYING,
 
     FULL
 }

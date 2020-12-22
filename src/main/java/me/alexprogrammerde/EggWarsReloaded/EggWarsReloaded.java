@@ -1,7 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded;
 
 import me.alexprogrammerde.EggWarsReloaded.admin.ArenaRepairer;
-import me.alexprogrammerde.EggWarsReloaded.game.EggListener;
+import me.alexprogrammerde.EggWarsReloaded.game.listeners.EggListener;
 import me.alexprogrammerde.EggWarsReloaded.game.Game;
 import me.alexprogrammerde.EggWarsReloaded.game.GameListener;
 import me.alexprogrammerde.EggWarsReloaded.game.listeners.LobbyCore;

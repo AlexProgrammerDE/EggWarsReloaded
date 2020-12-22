@@ -13,8 +13,9 @@ public class LobbyCore implements Listener {
     public void onItemClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
 
-        if (GameControl.isInGame(player) && GameControl.getPlayerGame(player).state == GameState.LOBBY) {
-
+        if (GameControl.isInGame(player) && (
+                GameControl.getPlayerGame(player).state != GameState.RUNNING)) {
+            event.setCancelled(true);
         }
     }
 }

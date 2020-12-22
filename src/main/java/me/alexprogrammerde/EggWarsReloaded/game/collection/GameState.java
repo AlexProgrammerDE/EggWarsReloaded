@@ -1,30 +1,38 @@
 package me.alexprogrammerde.EggWarsReloaded.game.collection;
 
 public enum GameState {
-    NONE,
+    UNREGISTERED(0),
 
-    UNREGISTERED,
-
-    REGISTERED,
+    REGISTERED(1),
 
     /**
      * People can still join and hang out!
      */
-    LOBBY,
+    LOBBY(2),
 
     /**
      * Starting countdown in the lobby!
      */
-    STARTING1,
+    STARTING1(3),
 
     /**
      * People have been teleported to their cages and wait for the game start!
      */
-    STARTING2,
+    STARTING2(4),
 
-    RUNNING,
+    RUNNING(5),
 
-    ENDING,
+    ENDING(6),
 
-    ENDED
+    ENDED(7);
+
+    private final int value;
+
+    GameState(int i) {
+        this.value = i;
+    }
+
+    public int getValue() {
+        return value;
+    }
 }
