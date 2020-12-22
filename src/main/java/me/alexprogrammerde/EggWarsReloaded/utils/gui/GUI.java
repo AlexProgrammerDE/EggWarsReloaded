@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GUI {
-    final Inventory inv;
-    final EggWarsReloaded plugin;
-    final Player player;
+    private final Inventory inv;
+    private final EggWarsReloaded plugin;
+    private final Player player;
     private final List<GUIItem> guiItems = new ArrayList<>();
 
     public GUI(String name, int lines, EggWarsReloaded plugin, Player player) {
@@ -24,7 +24,7 @@ public class GUI {
     public GUIItem addItem(ItemStack item, int slot) {
         inv.setItem(slot, item);
 
-        GUIItem guiitem = new GUIItem(this, slot, inv, player);
+        GUIItem guiitem = new GUIItem(this, slot, inv, player, plugin);
 
         guiItems.add(guiitem);
 
@@ -41,4 +41,3 @@ public class GUI {
         }
     }
 }
-

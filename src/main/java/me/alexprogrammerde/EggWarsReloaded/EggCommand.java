@@ -12,8 +12,8 @@ import org.bukkit.util.StringUtil;
 import java.util.*;
 
 public class EggCommand implements CommandExecutor, TabExecutor {
-    private static final String[] PLAYER = { "help", "join"/*, "randomjoin"*/ };
-    private static final String[] ADMIN = { /*"reload", */"addarena", "delarena", /*"kick", */"edit", "endgame" };
+    private static final String[] PLAYER = {"help", "join"/*, "randomjoin"*/};
+    private static final String[] ADMIN = { /*"reload", */"addarena", "delarena", /*"kick", */"edit", "endgame"};
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
@@ -53,11 +53,11 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                     }
                 }
 
-                /*if (args[0].equals("randomjoin")) {
+                /* if (args[0].equals("randomjoin")) {
                     if (player.hasPermission("eggwarsreloaded.command.randomjoin")) {
 
                     }
-                }*/
+                } */
 
                 // Admin commands
                 if (args[0].equals("reload")) {
@@ -70,7 +70,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                     if (player.hasPermission("eggwarsreloaded.command.addarena")) {
                         if (args.length > 1) {
 
-                            player.teleport(new Location(Bukkit.getWorld(args[1]), 0, 0,0));
+                            player.teleport(new Location(Bukkit.getWorld(args[1]), 0, 0, 0));
 
                             player.sendMessage("Added arena: " + args[1]);
                             player.sendMessage("Use /eggwars edit " + args[1] + " to set up the arena.");
@@ -99,11 +99,11 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                     }
                 }
 
-                /*if (args[0].equals("kick")) {
+                /* if (args[0].equals("kick")) {
                     if (player.hasPermission("eggwarsreloaded.command.kick")) {
 
                     }
-                }*/
+                } */
 
                 if (args[0].equals("endgame")) {
                     if (player.hasPermission("eggwarsreloaded.command.endgame")) {
@@ -140,8 +140,6 @@ public class EggCommand implements CommandExecutor, TabExecutor {
 
         // Console support soon?
         if (sender instanceof ConsoleCommandSender) {
-            ConsoleCommandSender console = (ConsoleCommandSender) sender;
-
             sender.sendMessage("Sorry you need to run this command ingame.");
         }
 
@@ -189,38 +187,35 @@ public class EggCommand implements CommandExecutor, TabExecutor {
 
             if (player.hasPermission("eggwarsreloaded.command.join") && args[0].equals("join") && args.length == 2) {
                 Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
-                Set<String> registeredarenas = new HashSet<>();
+                Set<String> registeredArenas = new HashSet<>();
 
                 for (String arenaName : arenas) {
                     if (ArenaManager.getArenas().getBoolean("arenas." + arenaName + ".registered")) {
-                        registeredarenas.add(arenaName);
+                        registeredArenas.add(arenaName);
                     }
                 }
 
-                StringUtil.copyPartialMatches(args[1], arenas, completions);
+                StringUtil.copyPartialMatches(args[1], registeredArenas, completions);
                 Collections.sort(completions);
             }
 
             if (player.hasPermission("eggwarsreloaded.command.endgame") && args[0].equals("endgame") && args.length == 2) {
                 Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
-                Set<String> registeredarenas = new HashSet<>();
+                Set<String> registeredArenas = new HashSet<>();
 
                 for (String arenaName : arenas) {
                     if (ArenaManager.getArenas().getBoolean("arenas." + arenaName + ".registered")) {
-                        registeredarenas.add(arenaName);
+                        registeredArenas.add(arenaName);
                     }
                 }
 
-                StringUtil.copyPartialMatches(args[1], arenas, completions);
+                StringUtil.copyPartialMatches(args[1], registeredArenas, completions);
                 Collections.sort(completions);
             }
 
         }
 
         // Console support soon?
-        if (sender instanceof ConsoleCommandSender) {
-            ConsoleCommandSender console = (ConsoleCommandSender) sender;
-        }
 
         return completions;
     }

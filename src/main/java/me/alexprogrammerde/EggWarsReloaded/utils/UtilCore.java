@@ -1,5 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.utils;
 
+import com.google.common.base.Preconditions;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -22,9 +23,7 @@ public class UtilCore {
     }
 
     public static Location convertLocation(String str) {
-        if (str == null) {
-            return null;
-        }
+        Preconditions.checkNotNull(str, "The string is not allowed to be null!");
 
         String[] arr = str.split(" ");
 
@@ -32,9 +31,7 @@ public class UtilCore {
     }
 
     public static String convertString(Location loc) {
-        if (loc == null) {
-            return null;
-        }
+        Preconditions.checkNotNull(loc, "The location is not allowed to be null!");
 
         return loc.getWorld().getName() + " " + loc.getX() + " " + loc.getY() + " " + loc.getZ() + " " + loc.getYaw() + " " + loc.getPitch();
     }

@@ -228,13 +228,13 @@ public class Game {
             livePlayer.sendMessage(ChatColor.RED + killer.getDisplayName() + ChatColor.GOLD + " killed " + ChatColor.AQUA + killed.getDisplayName() + ChatColor.GOLD + "!");
         }
 
-        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(killed)))  {
-            killed.sendMessage(ChatColor.GOLD + "You got killed by " + ChatColor.AQUA +  killer.getDisplayName() + ChatColor.GOLD + "! You will respawn in 5 seconds!");
+        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(killed))) {
+            killed.sendMessage(ChatColor.GOLD + "You got killed by " + ChatColor.AQUA + killer.getDisplayName() + ChatColor.GOLD + "! You will respawn in 5 seconds!");
         } else {
             killed.sendMessage(ChatColor.GOLD + "You got killed by " + killer.getDisplayName() + ChatColor.GOLD + "! Your team has no egg, so you will not respawn now. Please wait till the game ends...");
         }
 
-        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(killed)))  {
+        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(killed))) {
             spectatorPlayer(killed, true);
         } else {
             livingPlayers.remove(killed);
@@ -246,16 +246,16 @@ public class Game {
 
     public void deathPlayer(Player player) {
         for (Player livePlayer : inGamePlayers) {
-            livePlayer.sendMessage(ChatColor.BLUE + player.getDisplayName() + ChatColor.GOLD +  " died! :(");
+            livePlayer.sendMessage(ChatColor.BLUE + player.getDisplayName() + ChatColor.GOLD + " died! :(");
         }
 
-        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(player)))  {
+        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(player))) {
             player.sendMessage(ChatColor.GOLD + "You died! You will respawn in 5 seconds!");
         } else {
             player.sendMessage(ChatColor.GOLD + "You died! Your team has no egg, so you will not respawn now. Please wait till the game ends...");
         }
 
-        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(player)))  {
+        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(player))) {
             spectatorPlayer(player, true);
         } else {
             livingPlayers.remove(player);
@@ -411,9 +411,7 @@ public class Game {
         EggWarsReloaded.getEggWarsMain().getLogger().info(Bukkit.getWorld(ArenaManager.getArenas().getString("arenas." + arenaName + ".world")).getName());
 
 
-
         EggWarsReloaded.getEggWarsMain().getLogger().info("b");
-
 
 
         EggWarsReloaded.getEggWarsMain().getLogger().info("c");

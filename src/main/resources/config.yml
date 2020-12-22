@@ -1,1 +1,2 @@
-havenofun: false
+# EggwarsReloaded V${project.version}
+lobbyprotect: true

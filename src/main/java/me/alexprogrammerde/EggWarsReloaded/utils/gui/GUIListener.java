@@ -11,10 +11,10 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class GUIListener implements Listener {
-    Inventory inv;
-    Player player;
-    int slot;
-    GUI gui;
+    private final Inventory inv;
+    private final Player player;
+    private final int slot;
+    private final GUI gui;
     public Runnable defaultTask;
     public HashMap<InventoryAction, Runnable> actions = new HashMap<>();
 
@@ -56,4 +56,3 @@ public class GUIListener implements Listener {
         }
     }
 }
-
