@@ -17,9 +17,9 @@ import java.util.HashMap;
 
 public class ShopAssistant implements Listener {
     private static final HashMap<Player, ShopAssistant> assistants = new HashMap<>();
-    Player player;
-    String arenaName;
-    String teamName;
+    private final Player player;
+    private final String arenaName;
+    private final String teamName;
 
     public ShopAssistant(Player player, String arenaName, String teamName) {
         assistants.put(player, this);

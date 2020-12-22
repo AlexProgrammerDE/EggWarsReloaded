@@ -1,5 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.utils;
 
+import me.alexprogrammerde.EggWarsReloaded.game.collection.ItemPrice;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.ShopItems;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -33,6 +34,16 @@ public class ShopUtil {
         return gold;
     }
 
+    public static int convertToAmount(List<ItemStack> list) {
+        int i = 0;
+
+        for (ItemStack item : list) {
+            i = i + item.getAmount();
+        }
+
+        return i;
+    }
+
     public static List<ItemStack> getDiamonds(Player player) {
         List<ItemStack> diamond = new ArrayList<>();
 
@@ -46,14 +57,55 @@ public class ShopUtil {
     }
 
     public static void buyItem(ShopItems item, Player player) {
-        if (item == ShopItems.WOODEN_SWORD) {
+        if (canPay(item.getPrice(), player)) {
+            payPrice(item.getPrice(), player);
 
-        } else if (item == ShopItems.DIAMOND_SWORD) {
+            // TODO: Add item to his inventory here!
+        } else {
+            player.sendMessage("You don't have enough money to buy this!");
+        }
+    }
 
-        } else if (item == ShopItems.DIAMOND_CHESTPLATE) {
+    private static boolean canPay(ItemPrice price, Player player) {
+        if (convertToAmount(getIron(player)) < price.getIron()) {
+            return false;
+        }
 
-        } else if (item == ShopItems.GOLDEN_APPLE) {
+        if (convertToAmount(getGold(player)) < price.getGold()) {
+            return false;
+        }
 
+        if (convertToAmount(getDiamonds(player)) < price.getDiamonds()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private static void payPrice(ItemPrice price, Player player) {
+        subtractAmount(getIron(player), price.getIron());
+        subtractAmount(getGold(player), price.getGold());
+        subtractAmount(getDiamonds(player), price.getDiamonds());
+    }
+
+    private static void subtractAmount(List<ItemStack> list, int amount) {
+        int i = amount;
+
+        for (ItemStack item : list) {
+            int amountOfItem = item.getAmount();
+
+            if (i == amountOfItem) {
+                item.setAmount(0);
+
+                break;
+            } else if (i > amountOfItem) {
+                item.setAmount(0);
+
+                i = i - amountOfItem;
+            } else { // i < amountOfItem
+                item.setAmount(amountOfItem - i);
+                break;
+            }
         }
     }
 }

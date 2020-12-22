@@ -18,8 +18,8 @@ import java.util.List;
 
 public class GeneratorAssistant implements Listener {
     private static final HashMap<Player, GeneratorAssistant> assistants = new HashMap<>();
-    Player player;
-    String arenaName;
+    private final Player player;
+    private final String arenaName;
 
     public GeneratorAssistant(Player player, String arenaName) {
         assistants.put(player, this);
