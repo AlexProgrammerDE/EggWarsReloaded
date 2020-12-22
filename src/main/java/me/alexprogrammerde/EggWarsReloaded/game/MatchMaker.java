@@ -3,6 +3,7 @@ package me.alexprogrammerde.EggWarsReloaded.game;
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -51,6 +52,7 @@ public class MatchMaker {
 
     public void teleportPlayers() {
         for (Player player : playerInLocation.keySet()) {
+            player.setGameMode(GameMode.ADVENTURE);
             player.teleport(playerInLocation.get(player).getBlock().getLocation().add(0.5, 0, 0.5).setDirection(playerInLocation.get(player).getDirection()));
         }
     }

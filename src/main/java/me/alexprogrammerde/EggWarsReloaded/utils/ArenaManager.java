@@ -131,31 +131,6 @@ public class ArenaManager {
         EggWarsReloaded.getEggWarsMain().reloadArenas();
     }
 
-    public static void setArenaWorld(String arenaName, String world) {
-        getArenas().set("arenas." + arenaName + ".world", world);
-
-        try {
-            getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        EggWarsReloaded.getEggWarsMain().reloadArenas();
-    }
-
-    public static void addArena(String arenaName) {
-        getArenas().createSection("arenas." + arenaName);
-        getArenas().set("arenas." + arenaName + ".size", 1);
-
-        try {
-            getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        EggWarsReloaded.getEggWarsMain().reloadArenas();
-    }
-
     public static void deleteArena(String arenaName) {
         getArenas().set("arenas." + arenaName, null);
 

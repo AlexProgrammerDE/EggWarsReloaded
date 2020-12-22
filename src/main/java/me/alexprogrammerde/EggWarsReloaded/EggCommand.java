@@ -3,6 +3,8 @@ package me.alexprogrammerde.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.guis.EditMenu;
 import me.alexprogrammerde.EggWarsReloaded.game.GameControl;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
@@ -67,7 +69,8 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 if (args[0].equals("addarena")) {
                     if (player.hasPermission("eggwarsreloaded.command.addarena")) {
                         if (args.length > 1) {
-                            ArenaManager.addArena(args[1]);
+
+                            player.teleport(new Location(Bukkit.getWorld(args[1]), 0, 0,0));
 
                             player.sendMessage("Added arena: " + args[1]);
                             player.sendMessage("Use /eggwars edit " + args[1] + " to set up the arena.");

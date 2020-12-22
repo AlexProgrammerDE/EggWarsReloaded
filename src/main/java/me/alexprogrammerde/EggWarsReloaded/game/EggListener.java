@@ -36,12 +36,14 @@ public class EggListener implements Listener {
 
                             for (Location loc : teamEggs.keySet()) {
                                 if (UtilCore.compareBlock(loc.getBlock(), event.getClickedBlock())) {
-                                    // We know its a egg of a team
-                                    game.eggDestroyed(teamEggs.get(event.getClickedBlock().getLocation()));
-
                                     event.setCancelled(true);
 
-                                    event.getClickedBlock().setType(Material.AIR);
+                                    if (game.matchmaker.getTeamOfPlayer(player).equalsIgnoreCase(teamEggs.get(event.getClickedBlock().getLocation()))) {
+                                        player.sendMessage("Its not a good idea to destroy your own egg!");
+                                    } else {
+                                        game.eggDestroyed(teamEggs.get(event.getClickedBlock().getLocation()));
+                                        event.getClickedBlock().setType(Material.AIR);
+                                    }
 
                                     break;
                                 }

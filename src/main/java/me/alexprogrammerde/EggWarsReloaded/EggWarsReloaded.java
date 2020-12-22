@@ -7,6 +7,7 @@ import me.alexprogrammerde.EggWarsReloaded.game.GameListener;
 import me.alexprogrammerde.EggWarsReloaded.game.listeners.LobbyCore;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ConfigManager;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -44,13 +45,21 @@ public class EggWarsReloaded extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EggListener(), this);
 
         logger.info("§aLoading arenas");
-        Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
+        ConfigurationSection section = ArenaManager.getArenas().getConfigurationSection("arenas");
+        if (section == null) {
+            logger.info("§aNo arenas found!");
+        } else {
+            Set<String> arenas = section.getKeys(false);
 
-
-        logger.info("§aPreparing games");
-        for (String arenaName : arenas) {
-            if (ArenaManager.isArenaRegistered(arenaName)) {
-                new Game(arenaName);
+            if (arenas.size() == 0) {
+                logger.info("§aNo arenas found!");
+            } else {
+                logger.info("§aPreparing arenas");
+                for (String arenaName : arenas) {
+                    if (ArenaManager.isArenaRegistered(arenaName)) {
+                        new Game(arenaName);
+                    }
+                }
             }
         }
     }

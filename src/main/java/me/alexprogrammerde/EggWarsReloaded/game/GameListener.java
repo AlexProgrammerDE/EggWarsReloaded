@@ -46,9 +46,9 @@ public class GameListener implements Listener {
             if (GameControl.isInGame(player)) {
                 Game game = GameControl.getPlayerGame(player);
 
-                // TODO: Lobby protection
-
-                if (game.state == GameState.RUNNING && event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+                if (game.state == GameState.LOBBY || game.state == GameState.STARTING1) {
+                    event.setCancelled(true);
+                } else if (game.state == GameState.RUNNING && event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
                     if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
                         event.setCancelled(true);
 
@@ -82,9 +82,9 @@ public class GameListener implements Listener {
             if (GameControl.isInGame(damager) && GameControl.isInGame(damaged)) {
                 Game game = GameControl.getPlayerGame(damaged);
 
-                // TODO: Lobby protection
-
-                if (game.state == GameState.RUNNING) {
+                if (game.state == GameState.LOBBY || game.state == GameState.STARTING1) {
+                    event.setCancelled(true);
+                } else if (game.state == GameState.RUNNING) {
                     if((damaged.getHealth() - event.getDamage()) < 1) {
                         event.setCancelled(true);
 

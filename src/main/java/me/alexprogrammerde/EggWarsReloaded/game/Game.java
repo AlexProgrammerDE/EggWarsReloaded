@@ -176,7 +176,9 @@ public class Game {
             return RejectType.NOTIN;
         }
 
-        removePlayer(player);
+        Bukkit.getScheduler().runTask(EggWarsReloaded.getEggWarsMain(), () -> {
+            removePlayer(player);
+        });
 
         return RejectType.NONE;
     }
@@ -356,9 +358,6 @@ public class Game {
 
         for (Player player : livingPlayers) {
             player.setGameMode(GameMode.SURVIVAL);
-        }
-
-        for (Player player : inGamePlayers) {
             givePlayerItems(player);
         }
     }
@@ -370,7 +369,9 @@ public class Game {
             player.sendMessage("The game ended!");
             rewardPlayer(player, RewardType.GAME);
 
-            removePlayer(player);
+            Bukkit.getScheduler().runTask(EggWarsReloaded.getEggWarsMain(), () -> {
+                removePlayer(player);
+            });
         }
 
         inGamePlayers.clear();
@@ -395,9 +396,6 @@ public class Game {
     private void prepareArena() {
         World arena = Bukkit.getWorld(ArenaManager.getArenas().getString("arenas." + arenaName + ".world"));
 
-        // Save world to prevent losing progress
-        arena.save();
-
         // DON'T save actions the players do in the game
         arena.setAutoSave(false);
 
@@ -407,13 +405,18 @@ public class Game {
     }
 
     private void resetArena() {
-        World arena = Bukkit.getWorld(ArenaManager.getArenas().getString("arenas." + arenaName + ".world"));
+        EggWarsReloaded.getEggWarsMain().getLogger().info("a");
 
-        // Unload world to remove actions done by players and not saving them
-        Bukkit.unloadWorld(arena, false);
+        EggWarsReloaded.getEggWarsMain().getLogger().info(ArenaManager.getArenas().getString("arenas." + arenaName + ".world"));
+        EggWarsReloaded.getEggWarsMain().getLogger().info(Bukkit.getWorld(ArenaManager.getArenas().getString("arenas." + arenaName + ".world")).getName());
 
-        // Reload world to make use of it and reenable autosaving
-        Bukkit.createWorld(new WorldCreator(Objects.requireNonNull(ArenaManager.getArenas().getString("arenas." + arenaName + ".world")))).setAutoSave(true);
+
+
+        EggWarsReloaded.getEggWarsMain().getLogger().info("b");
+
+
+
+        EggWarsReloaded.getEggWarsMain().getLogger().info("c");
     }
 
     private void placeCages() {
@@ -600,7 +603,7 @@ public class Game {
 
         ItemMeta steakMeta = steak.getItemMeta();
 
-        steakMeta.setDisplayName(ChatColor.AQUA + "Bullet");
+        steakMeta.setDisplayName(ChatColor.AQUA + "Beef Jerk");
         steakMeta.setLore(new ArrayList<String>() {
             {
                 add("uwu nom nom :(");
