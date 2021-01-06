@@ -7,6 +7,7 @@ import me.alexprogrammerde.EggWarsReloaded.game.GameListener;
 import me.alexprogrammerde.EggWarsReloaded.game.listeners.LobbyCore;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ConfigManager;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -28,33 +29,33 @@ public class EggWarsReloaded extends JavaPlugin {
 
         Logger logger = this.getLogger();
 
-        logger.info("§aLoading config");
-        this.config = new ConfigManager(this, "config.yml", "config").getConfig();
-        this.language = new ConfigManager(this, "language.yml", "language").getConfig();
-        this.arenas = new ConfigManager(this, "arenas.yml", "arenas").getConfig();
-        this.items = new ConfigManager(this, "items.yml", "items").getConfig();
+        logger.info(ChatColor.LIGHT_PURPLE + "Loading config");
+        this.config = new ConfigManager(this, "config.yml").getConfig();
+        this.language = new ConfigManager(this, "language.yml").getConfig();
+        this.arenas = new ConfigManager(this, "arenas.yml").getConfig();
+        this.items = new ConfigManager(this, "items.yml").getConfig();
 
-        logger.info("§aRegistering command");
+        logger.info(ChatColor.LIGHT_PURPLE + "Registering command");
         getServer().getPluginCommand("eggwarsreloaded").setExecutor(new EggCommand());
         getServer().getPluginCommand("eggwarsreloaded").setTabCompleter(new EggCommand());
 
-        logger.info("§aRegistering listeners");
+        logger.info(ChatColor.LIGHT_PURPLE + "Registering listeners");
         getServer().getPluginManager().registerEvents(new ArenaRepairer(), this);
         getServer().getPluginManager().registerEvents(new GameListener(), this);
         getServer().getPluginManager().registerEvents(new LobbyCore(), this);
         getServer().getPluginManager().registerEvents(new EggListener(), this);
 
-        logger.info("§aLoading arenas");
+        logger.info(ChatColor.LIGHT_PURPLE + "Loading arenas");
         ConfigurationSection section = ArenaManager.getArenas().getConfigurationSection("arenas");
         if (section == null) {
-            logger.info("§aNo arenas found!");
+            logger.info(ChatColor.LIGHT_PURPLE + "No arenas found!");
         } else {
             Set<String> arenas = section.getKeys(false);
 
             if (arenas.size() == 0) {
-                logger.info("§aNo arenas found!");
+                logger.info(ChatColor.LIGHT_PURPLE + "No arenas found!");
             } else {
-                logger.info("§aPreparing arenas");
+                logger.info(ChatColor.LIGHT_PURPLE + "Preparing arenas");
                 for (String arenaName : arenas) {
                     if (ArenaManager.isArenaRegistered(arenaName)) {
                         new Game(arenaName);
@@ -93,13 +94,13 @@ public class EggWarsReloaded extends JavaPlugin {
         return new File(plugin.getDataFolder(), "arenas.yml");
     }
 
-    public void reloadArenas() { this.arenas = new ConfigManager(this, "arenas.yml", "arenas").getConfig(); }
+    public void reloadArenas() { this.arenas = new ConfigManager(this, "arenas.yml").getConfig(); }
 
     public void reloadConfig() {
-        this.config = new ConfigManager(this, "config.yml", "config").getConfig();
-        this.language = new ConfigManager(this, "language.yml", "language").getConfig();
-        this.arenas = new ConfigManager(this, "arenas.yml", "arenas").getConfig();
-        this.items = new ConfigManager(this, "items.yml", "items").getConfig();
+        this.config = new ConfigManager(this, "config.yml").getConfig();
+        this.language = new ConfigManager(this, "language.yml").getConfig();
+        this.arenas = new ConfigManager(this, "arenas.yml").getConfig();
+        this.items = new ConfigManager(this, "items.yml").getConfig();
     }
 
     public static EggWarsReloaded getEggWarsMain() {

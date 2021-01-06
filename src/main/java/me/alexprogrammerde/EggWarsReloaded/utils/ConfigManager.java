@@ -12,7 +12,7 @@ import java.nio.file.Files;
 public class ConfigManager {
     FileConfiguration config;
 
-    public ConfigManager(JavaPlugin plugin, String filename, String configname) {
+    public ConfigManager(JavaPlugin plugin, String filename) {
         if (!plugin.getDataFolder().exists()) {
             plugin.getDataFolder().mkdir();
         }
@@ -29,8 +29,6 @@ public class ConfigManager {
 
         this.config = YamlConfiguration.loadConfiguration(file);
 
-        this.config = ConfigDefaults.getConfiguration(configname, this.config);
-        this.config.options().copyDefaults(true);
         try {
             this.config.save(file);
         } catch (IOException e) {

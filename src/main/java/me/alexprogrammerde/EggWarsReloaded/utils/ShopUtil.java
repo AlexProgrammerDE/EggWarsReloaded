@@ -67,17 +67,14 @@ public class ShopUtil {
     }
 
     private static boolean canPay(ItemPrice price, Player player) {
-        if (convertToAmount(getIron(player)) < price.getIron()) {
+        if (convertToAmount(getIron(player)) < price.getIron())
             return false;
-        }
 
-        if (convertToAmount(getGold(player)) < price.getGold()) {
+        if (convertToAmount(getGold(player)) < price.getGold())
             return false;
-        }
 
-        if (convertToAmount(getDiamonds(player)) < price.getDiamonds()) {
+        if (convertToAmount(getDiamonds(player)) < price.getDiamonds())
             return false;
-        }
 
         return true;
     }
