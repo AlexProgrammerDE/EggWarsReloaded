@@ -1,9 +1,9 @@
 package me.alexprogrammerde.EggWarsReloaded.game.guis;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
-import me.alexprogrammerde.EggWarsReloaded.game.collection.ShopItems;
+import me.alexprogrammerde.EggWarsReloaded.game.shop.ShopItems;
+import me.alexprogrammerde.EggWarsReloaded.game.shop.ShopUtil;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
-import me.alexprogrammerde.EggWarsReloaded.utils.ShopUtil;
 import me.alexprogrammerde.EggWarsReloaded.utils.gui.GUI;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;

@@ -1,7 +1,5 @@
-package me.alexprogrammerde.EggWarsReloaded.utils;
+package me.alexprogrammerde.EggWarsReloaded.game.shop;
 
-import me.alexprogrammerde.EggWarsReloaded.game.collection.ItemPrice;
-import me.alexprogrammerde.EggWarsReloaded.game.collection.ShopItems;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

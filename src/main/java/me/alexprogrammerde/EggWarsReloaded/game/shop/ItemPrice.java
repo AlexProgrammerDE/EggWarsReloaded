@@ -1,4 +1,4 @@
-package me.alexprogrammerde.EggWarsReloaded.game.collection;
+package me.alexprogrammerde.EggWarsReloaded.game.shop;
 
 public class ItemPrice {
     public int iron;

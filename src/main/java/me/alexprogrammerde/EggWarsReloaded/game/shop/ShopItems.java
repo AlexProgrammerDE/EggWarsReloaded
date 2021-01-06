@@ -1,4 +1,4 @@
-package me.alexprogrammerde.EggWarsReloaded.game.collection;
+package me.alexprogrammerde.EggWarsReloaded.game.shop;
 
 public enum ShopItems {
     WOODEN_SWORD(new ItemPrice(0, 0, 0)),

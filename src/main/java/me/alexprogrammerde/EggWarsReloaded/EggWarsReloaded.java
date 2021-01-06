@@ -1,10 +1,10 @@
 package me.alexprogrammerde.EggWarsReloaded;
 
 import me.alexprogrammerde.EggWarsReloaded.admin.ArenaRepairer;
-import me.alexprogrammerde.EggWarsReloaded.game.listeners.EggListener;
 import me.alexprogrammerde.EggWarsReloaded.game.Game;
-import me.alexprogrammerde.EggWarsReloaded.game.GameListener;
-import me.alexprogrammerde.EggWarsReloaded.game.listeners.LobbyCore;
+import me.alexprogrammerde.EggWarsReloaded.game.listeners.GameListener;
+import me.alexprogrammerde.EggWarsReloaded.game.listeners.EggListener;
+import me.alexprogrammerde.EggWarsReloaded.game.listeners.LobbyListener;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ConfigManager;
 import org.bukkit.ChatColor;
@@ -42,7 +42,7 @@ public class EggWarsReloaded extends JavaPlugin {
         logger.info(ChatColor.LIGHT_PURPLE + "Registering listeners");
         getServer().getPluginManager().registerEvents(new ArenaRepairer(), this);
         getServer().getPluginManager().registerEvents(new GameListener(), this);
-        getServer().getPluginManager().registerEvents(new LobbyCore(), this);
+        getServer().getPluginManager().registerEvents(new LobbyListener(), this);
         getServer().getPluginManager().registerEvents(new EggListener(), this);
 
         logger.info(ChatColor.LIGHT_PURPLE + "Loading arenas");

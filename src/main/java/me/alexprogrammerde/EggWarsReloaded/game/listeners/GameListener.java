@@ -1,5 +1,7 @@
-package me.alexprogrammerde.EggWarsReloaded.game;
+package me.alexprogrammerde.EggWarsReloaded.game.listeners;
 
+import me.alexprogrammerde.EggWarsReloaded.game.Game;
+import me.alexprogrammerde.EggWarsReloaded.game.GameControl;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.GameState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,34 +13,6 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 public class GameListener implements Listener {
     @EventHandler
-    public void onBreak(BlockBreakEvent event) {
-        Player player = event.getPlayer();
-
-        if (GameControl.isInGame(player)) {
-            Game game = GameControl.getPlayerGame(player);
-
-            if (game.state == GameState.LOBBY || game.state == GameState.STARTING1) {
-                event.setCancelled(true);
-            }
-        }
-    }
-
-    @EventHandler
-    public void onHunger(FoodLevelChangeEvent event) {
-        if (event.getEntity() instanceof Player) {
-            Player player = (Player) event.getEntity();
-
-            if (GameControl.isInGame(player)) {
-                Game game = GameControl.getPlayerGame(player);
-
-                if (game.state == GameState.LOBBY || game.state == GameState.STARTING1) {
-                    event.setCancelled(true);
-                }
-            }
-        }
-    }
-
-    @EventHandler
     public void onDamage(EntityDamageEvent event) {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
@@ -46,9 +20,7 @@ public class GameListener implements Listener {
             if (GameControl.isInGame(player)) {
                 Game game = GameControl.getPlayerGame(player);
 
-                if (game.state == GameState.LOBBY || game.state == GameState.STARTING1) {
-                    event.setCancelled(true);
-                } else if (game.state == GameState.RUNNING && event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
+                if (game.state == GameState.RUNNING && event.getCause() != EntityDamageEvent.DamageCause.ENTITY_ATTACK) {
                     if (event.getCause() == EntityDamageEvent.DamageCause.VOID) {
                         event.setCancelled(true);
 
@@ -82,9 +54,7 @@ public class GameListener implements Listener {
             if (GameControl.isInGame(damager) && GameControl.isInGame(damaged)) {
                 Game game = GameControl.getPlayerGame(damaged);
 
-                if (game.state == GameState.LOBBY || game.state == GameState.STARTING1) {
-                    event.setCancelled(true);
-                } else if (game.state == GameState.RUNNING) {
+                if (game.state == GameState.RUNNING) {
                     if((damaged.getHealth() - event.getDamage()) < 1) {
                         event.setCancelled(true);
 
