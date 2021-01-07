@@ -35,4 +35,16 @@ public class GameLogics {
 
         return teams.get(0);
     }
+
+    public boolean isTeamDead(String team) {
+        List<Player> players = new ArrayList<>();
+
+        for (Player player : game.matchmaker.getPlayersInTeam(team)) {
+            if (game.livingPlayers.contains(player)) {
+                players.add(player);
+            }
+        }
+
+        return players.size() == 0;
+    }
 }

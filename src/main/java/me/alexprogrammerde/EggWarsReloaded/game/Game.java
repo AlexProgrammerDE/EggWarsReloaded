@@ -43,10 +43,13 @@ public class Game {
     protected final List<Integer> taskIds = new ArrayList<>();
 
     public GameState state;
-    private final GameLogics gameLogics;
+    public final GameLogics gameLogics;
     public final MatchMaker matchmaker;
+    private final ScoreboardManager scoreboardManager = new ScoreboardManager(this);
 
     private int clockTask;
+
+    public boolean noFall = false;
 
     public Game(String arenaName) {
         this.arenaName = arenaName;
@@ -67,7 +70,7 @@ public class Game {
         matchmaker.readSpawns();
         gameLogics = new GameLogics(this);
 
-        EggWarsReloaded.getEggWarsMain().getLogger().info("Starting game for arena " + arenaName);
+        EggWarsReloaded.getEggWarsMain().getLogger().info(ChatColor.GOLD + "Starting game for arena " + arenaName);
 
         registerGame();
 
@@ -76,7 +79,7 @@ public class Game {
         taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
             if (state == GameState.LOBBY || state == GameState.STARTING1) {
                 for (Player player : inGamePlayers) {
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder("The game will start shortly!").create());
+                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(ChatColor.AQUA + "The game will start shortly!").create());
                 }
             }
         }, 0, 20));
@@ -113,15 +116,15 @@ public class Game {
         player.setFoodLevel(20);
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
 
-        player.sendTitle("You joined " + arenaName + "!", "Please wait till the game starts!", 5, 10, 5);
+        player.sendTitle(ChatColor.GOLD + "You joined " + ChatColor.AQUA + arenaName + ChatColor.GOLD + "!", "Please wait till the game starts!", 5, 10, 5);
 
-        player.sendMessage("You joined " + arenaName + "!");
+        player.sendMessage(ChatColor.GOLD + "You joined " + ChatColor.AQUA + arenaName + ChatColor.GOLD + "!");
 
         inGamePlayers.add(player);
 
         matchmaker.findTeamForPlayer(player);
 
-        player.sendMessage("Your in the team: " + matchmaker.getTeamOfPlayer(player));
+        player.sendMessage(ChatColor.GOLD + "Your team: " + TeamColor.fromString(matchmaker.getTeamOfPlayer(player)).getColor() + matchmaker.getTeamOfPlayer(player));
 
         Scoreboard playerScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
@@ -132,16 +135,16 @@ public class Game {
         Score one = objective.getScore("");
         one.setScore(3);
 
-        Score two = objective.getScore("Your team: " + matchmaker.getTeamOfPlayer(player));
+        Score two = objective.getScore(ChatColor.GOLD + "Your team: " + TeamColor.fromString(matchmaker.getTeamOfPlayer(player)).getColor() + matchmaker.getTeamOfPlayer(player));
         two.setScore(2);
 
-        Score three = objective.getScore("Your arena: " + arenaName);
+        Score three = objective.getScore(ChatColor.GOLD + "Arena: " + ChatColor.AQUA + arenaName);
         three.setScore(1);
 
         player.setScoreboard(playerScoreboard);
 
         for (Player lobbyPlayer : inGamePlayers) {
-            lobbyPlayer.sendMessage("[ + ] " + player.getDisplayName() + " " + inGamePlayers.size() + "/" + maxPlayers);
+            lobbyPlayer.sendMessage(ChatColor.GOLD + "[ " + ChatColor.AQUA + "+" + ChatColor.GOLD + " ] " + player.getDisplayName() + " " + inGamePlayers.size() + "/" + maxPlayers);
         }
 
         // TODO: Make player requirement optional and don't run it again if someone joins
@@ -157,6 +160,7 @@ public class Game {
 
     public void removePlayer(Player player) {
         livingPlayers.remove(player);
+        inGamePlayers.remove(player);
 
         player.getInventory().clear();
 
@@ -176,6 +180,11 @@ public class Game {
         player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 
         GameControl.removePlayerFromGame(player);
+
+        for (Player p : inGamePlayers) {
+            p.sendMessage(player.getDisplayName() + " left the match!");
+            p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+        }
     }
 
     public RejectType kickPlayer(Player player) {
@@ -280,12 +289,11 @@ public class Game {
     protected void checkWin() {
         if (gameLogics.isOnlyOneTeamLeft()) {
             for (Player player : inGamePlayers) {
-                player.sendMessage("a");
                 if (matchmaker.getPlayersInTeam(gameLogics.getLastTeam()).contains(player)) {
-                    player.sendMessage("Your team won! gg");
+                    player.sendMessage(ChatColor.GOLD + "Your team won! gg");
                     rewardPlayer(player, RewardType.WIN);
                 } else {
-                    player.sendMessage("Team " + gameLogics.getLastTeam() + " won! gg");
+                    player.sendMessage(ChatColor.GOLD + "Team " + gameLogics.getLastTeam() + " won! gg");
                 }
             }
 
@@ -332,6 +340,14 @@ public class Game {
 
         Bukkit.getScheduler().cancelTask(clockTask);
 
+        scoreboardManager.generateTemplate();
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
+            for (Player player : inGamePlayers) {
+                scoreboardManager.setScoreboard(player);
+            }
+        }, 0L, 20L);
+
         matchmaker.teleportPlayers();
 
         startingTime = 10;
@@ -361,7 +377,11 @@ public class Game {
 
         livingPlayers.addAll(inGamePlayers);
 
+        noFall = true;
+
         destroyCages();
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(EggWarsReloaded.getEggWarsMain(), () -> noFall = false, 60L);
 
         for (Player player : livingPlayers) {
             player.setGameMode(GameMode.SURVIVAL);
@@ -373,7 +393,7 @@ public class Game {
         state = GameState.ENDING;
 
         for (Player player : inGamePlayers) {
-            player.sendMessage("The game ended!");
+            player.sendMessage(ChatColor.GOLD + "The game ended!");
             rewardPlayer(player, RewardType.GAME);
 
             Bukkit.getScheduler().runTask(EggWarsReloaded.getEggWarsMain(), () -> {
@@ -534,7 +554,7 @@ public class Game {
         matchmaker.hasTeamEgg.put(team, false);
 
         for (Player player : matchmaker.getPlayersInTeam(team)) {
-            player.sendTitle("Your egg has been destroyed!", "You will no longer respawn!", 10, 20, 10);
+            player.sendTitle(ChatColor.GOLD + "Your egg has been destroyed!", ChatColor.GOLD + "You will no longer respawn!", 10, 20, 10);
         }
     }
 

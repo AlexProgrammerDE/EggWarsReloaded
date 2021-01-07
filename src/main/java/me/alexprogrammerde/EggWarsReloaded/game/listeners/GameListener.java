@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class GameListener implements Listener {
     @EventHandler
@@ -61,5 +62,33 @@ public class GameListener implements Listener {
                 }
             }
         }
+    }
+
+    @EventHandler
+    public void onQuit(PlayerQuitEvent event) {
+        Player player = event.getPlayer();
+
+        if (GameControl.isInGame(player) ) {
+            event.setQuitMessage(null);
+            GameControl.getPlayerGame(player).removePlayer(player);
+        }
+    }
+
+    @EventHandler
+    public void onDamage2(EntityDamageEvent event) {
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
+
+            if (GameControl.isInGame(player) ) {
+                Game game = GameControl.getPlayerGame(player);
+
+                if (game.noFall) {
+                    if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+                        event.setCancelled(true);
+                    }
+                }
+            }
+        }
+
     }
 }

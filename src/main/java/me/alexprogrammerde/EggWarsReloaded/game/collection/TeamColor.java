@@ -1,5 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.game.collection;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 
 public enum TeamColor {
@@ -30,9 +31,30 @@ public enum TeamColor {
         return material;
     }
 
+    public ChatColor getColor() {
+        return ChatColor.of(name());
+    }
+
     @Override
     public String toString() {
         return name().toLowerCase().replaceAll("_", "");
+    }
+
+    public String getCapitalized() {
+        StringBuilder builder = new StringBuilder();
+
+        for (String str : toString().split(" ")) {
+            builder.append(capitalize(str));
+            builder.append(" ");
+        }
+
+        builder.deleteCharAt(builder.lastIndexOf(" "));
+
+        return builder.toString();
+    }
+
+    public char getFirstLetter() {
+        return name().charAt(0);
     }
 
     public static TeamColor fromString(String str) {
@@ -43,5 +65,13 @@ public enum TeamColor {
         }
 
         return TeamColor.WHITE;
+    }
+
+    public static String capitalize(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
     }
 }

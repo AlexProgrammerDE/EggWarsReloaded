@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -108,5 +109,9 @@ public class MatchMaker {
         }
 
         return players;
+    }
+
+    public Collection<String> getTeams() {
+        return playerInTeam.values();
     }
 }
