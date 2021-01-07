@@ -176,7 +176,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
 
             if (player.hasPermission("eggwarsreloaded.command.edit") && args[0].equals("edit") && args.length == 2) {
                 try {
-                    Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
+                    Set<String> arenas = ArenaManager.getArenas().getKeys(false);
 
                     StringUtil.copyPartialMatches(args[1], arenas, completions);
                     Collections.sort(completions);
@@ -186,7 +186,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
 
             if (player.hasPermission("eggwarsreloaded.command.delarena") && args[0].equals("delarena") && args.length == 2) {
                 try {
-                    Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
+                    Set<String> arenas = ArenaManager.getArenas().getKeys(false);
 
                     StringUtil.copyPartialMatches(args[1], arenas, completions);
                     Collections.sort(completions);
@@ -195,7 +195,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
             }
 
             if (player.hasPermission("eggwarsreloaded.command.join") && args[0].equals("join") && args.length == 2) {
-                Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
+                Set<String> arenas = ArenaManager.getArenas().getKeys(false);
                 Set<String> registeredArenas = new HashSet<>();
 
                 for (String arenaName : arenas) {
@@ -209,7 +209,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
             }
 
             if (player.hasPermission("eggwarsreloaded.command.endgame") && args[0].equals("endgame") && args.length == 2) {
-                Set<String> arenas = ArenaManager.getArenas().getConfigurationSection("arenas").getKeys(false);
+                Set<String> arenas = ArenaManager.getArenas().getKeys(false);
                 Set<String> registeredArenas = new HashSet<>();
 
                 for (String arenaName : arenas) {

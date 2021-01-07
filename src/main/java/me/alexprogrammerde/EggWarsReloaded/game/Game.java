@@ -4,6 +4,7 @@ import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.GameState;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.RejectType;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.RewardType;
+import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
 import net.md_5.bungee.api.ChatColor;
@@ -400,6 +401,8 @@ public class Game {
     }
 
     private void prepareArena() {
+        EggWarsReloaded.getEggWarsMain().worldManager.loadWorld(ArenaManager.getArenas().getString(arenaName + ".world"), World.Environment.NORMAL);
+
         World arena = Bukkit.getWorld(ArenaManager.getArenas().getString(arenaName + ".world"));
 
         // DON'T save actions the players do in the game
@@ -549,7 +552,7 @@ public class Game {
 
         sword.setItemMeta(swordMeta);
 
-        ItemStack block = new ItemStack(Material.WHITE_WOOL);
+        ItemStack block = new ItemStack(TeamColor.fromString(matchmaker.getTeamOfPlayer(player)).getMaterial());
 
         block.setAmount(64);
 

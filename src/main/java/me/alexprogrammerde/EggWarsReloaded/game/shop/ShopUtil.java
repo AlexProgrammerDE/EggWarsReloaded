@@ -12,7 +12,7 @@ public class ShopUtil {
         List<ItemStack> iron = new ArrayList<>();
 
         for (ItemStack item : player.getInventory().getContents()) {
-            if (item.getType() == Material.IRON_INGOT) {
+            if (item != null && item.getType() == Material.IRON_INGOT) {
                 iron.add(item);
             }
         }
@@ -24,7 +24,7 @@ public class ShopUtil {
         List<ItemStack> gold = new ArrayList<>();
 
         for (ItemStack item : player.getInventory().getContents()) {
-            if (item.getType() == Material.GOLD_INGOT) {
+            if (item != null && item.getType() == Material.GOLD_INGOT) {
                 gold.add(item);
             }
         }
@@ -36,7 +36,7 @@ public class ShopUtil {
         List<ItemStack> diamond = new ArrayList<>();
 
         for (ItemStack item : player.getInventory().getContents()) {
-            if (item.getType() == Material.DIAMOND) {
+            if (item != null && item.getType() == Material.DIAMOND) {
                 diamond.add(item);
             }
         }

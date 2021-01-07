@@ -11,20 +11,18 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 public class ShopListener implements Listener {
-    private final Game game;
-
-    public ShopListener(Game game) {
-        this.game = game;
-    }
-
     @EventHandler
     public void onClick(PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();
 
-        if (GameControl.isInGame(player) && game.state == GameState.RUNNING) {
-            if (event.getRightClicked().getType() == EntityType.VILLAGER) {
-                event.setCancelled(true);
-                Shop.setupShopMenu(game.arenaName, game.matchmaker.getTeamOfPlayer(player), player);
+        if (GameControl.isInGame(player)) {
+            Game game = GameControl.getPlayerGame(player);
+
+            if (game.state == GameState.RUNNING) {
+                if (event.getRightClicked().getType() == EntityType.VILLAGER) {
+                    event.setCancelled(true);
+                    Shop.setupShopMenu(game.matchmaker.getTeamOfPlayer(player), player);
+                }
             }
         }
     }

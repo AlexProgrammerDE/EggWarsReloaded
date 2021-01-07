@@ -6,6 +6,7 @@ import me.alexprogrammerde.EggWarsReloaded.game.Game;
 import me.alexprogrammerde.EggWarsReloaded.game.listeners.EggListener;
 import me.alexprogrammerde.EggWarsReloaded.game.listeners.GameListener;
 import me.alexprogrammerde.EggWarsReloaded.game.listeners.LobbyListener;
+import me.alexprogrammerde.EggWarsReloaded.game.listeners.ShopListener;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ConfigManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.world.FileWorldManager;
@@ -49,9 +50,11 @@ public class EggWarsReloaded extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new GameListener(), this);
         getServer().getPluginManager().registerEvents(new LobbyListener(), this);
         getServer().getPluginManager().registerEvents(new EggListener(), this);
+        getServer().getPluginManager().registerEvents(new ShopListener(), this);
 
         logger.info(ChatColor.LIGHT_PURPLE + "Loading arenas");
-        ConfigurationSection section = ArenaManager.getArenas().getConfigurationSection("arenas");
+        ConfigurationSection section = ArenaManager.getArenas();
+
         if (section == null) {
             logger.info(ChatColor.LIGHT_PURPLE + "No arenas found!");
         } else {

@@ -23,7 +23,8 @@ public class UtilCore {
     }
 
     public static Location convertLocation(String str) {
-        Preconditions.checkNotNull(str, "The string is not allowed to be null!");
+        if (str == null)
+            return null;
 
         String[] arr = str.split(" ");
 
@@ -31,7 +32,8 @@ public class UtilCore {
     }
 
     public static String convertString(Location loc) {
-        Preconditions.checkNotNull(loc, "The location is not allowed to be null!");
+        if (loc == null)
+            return null;
 
         return loc.getWorld().getName() + " " + loc.getX() + " " + loc.getY() + " " + loc.getZ() + " " + loc.getYaw() + " " + loc.getPitch();
     }
