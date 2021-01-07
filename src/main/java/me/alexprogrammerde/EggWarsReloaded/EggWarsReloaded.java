@@ -1,13 +1,18 @@
 package me.alexprogrammerde.EggWarsReloaded;
 
 import me.alexprogrammerde.EggWarsReloaded.admin.ArenaRepairer;
+import me.alexprogrammerde.EggWarsReloaded.commands.EggCommand;
 import me.alexprogrammerde.EggWarsReloaded.game.Game;
 import me.alexprogrammerde.EggWarsReloaded.game.listeners.GameListener;
 import me.alexprogrammerde.EggWarsReloaded.game.listeners.EggListener;
 import me.alexprogrammerde.EggWarsReloaded.game.listeners.LobbyListener;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ConfigManager;
+import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
+import me.alexprogrammerde.EggWarsReloaded.utils.world.FileWorldManager;
+import me.alexprogrammerde.EggWarsReloaded.utils.world.WorldManager;
 import org.bukkit.ChatColor;
+import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -23,6 +28,7 @@ public class EggWarsReloaded extends JavaPlugin {
     FileConfiguration arenas;
     FileConfiguration items;
     static EggWarsReloaded plugin;
+    public WorldManager worldManager = new FileWorldManager(this);
 
     public void onEnable() {
         plugin = this;
@@ -57,6 +63,8 @@ public class EggWarsReloaded extends JavaPlugin {
             } else {
                 logger.info(ChatColor.LIGHT_PURPLE + "Preparing arenas");
                 for (String arenaName : arenas) {
+                    worldManager.loadWorld(ArenaManager.getArenaWorld(arenaName), World.Environment.NORMAL);
+
                     if (ArenaManager.isArenaRegistered(arenaName)) {
                         new Game(arenaName);
                     }

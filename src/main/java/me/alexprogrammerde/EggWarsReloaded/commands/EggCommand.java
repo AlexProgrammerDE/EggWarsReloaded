@@ -1,10 +1,12 @@
-package me.alexprogrammerde.EggWarsReloaded;
+package me.alexprogrammerde.EggWarsReloaded.commands;
 
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.guis.EditMenu;
 import me.alexprogrammerde.EggWarsReloaded.game.GameControl;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
@@ -13,7 +15,7 @@ import java.util.*;
 
 public class EggCommand implements CommandExecutor, TabExecutor {
     private static final String[] PLAYER = {"help", "join"/*, "randomjoin"*/};
-    private static final String[] ADMIN = { /*"reload", */"addarena", "delarena", /*"kick", */"edit", "endgame"};
+    private static final String[] ADMIN = { "reload", "addarena", "delarena", /*"kick", */"edit", "endgame"};
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
@@ -69,8 +71,15 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 if (args[0].equals("addarena")) {
                     if (player.hasPermission("eggwarsreloaded.command.addarena")) {
                         if (args.length > 1) {
+                            ArenaManager.addArena(args[1]);
 
-                            player.teleport(new Location(Bukkit.getWorld(args[1]), 0, 0, 0));
+                            World world = EggWarsReloaded.getEggWarsMain().worldManager.createEmptyWorld(args[1], World.Environment.NORMAL);
+
+                            ArenaManager.setArenaWorld(args[1], args[1]);
+
+                            world.getBlockAt(0, 80, 0).setType(Material.BEDROCK);
+
+                            player.teleport(new Location(world, 0, 81, 0));
 
                             player.sendMessage("Added arena: " + args[1]);
                             player.sendMessage("Use /eggwars edit " + args[1] + " to set up the arena.");
@@ -123,7 +132,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 if (args[0].equals("edit")) {
                     if (player.hasPermission("eggwarsreloaded.command.edit")) {
                         if (args.length > 1) {
-                            if (ArenaManager.getArenas().contains(args[1])) {
+                            if (ArenaManager.getArenas().isSet(args[1])) {
                                 EditMenu.openEditMenu(args[1], player);
                             } else {
                                 player.sendMessage("Sorry a arena with this name doesn't exist.");

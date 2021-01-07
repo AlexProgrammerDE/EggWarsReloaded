@@ -30,6 +30,9 @@ items:
     register:
       name: "Register arena"
       slot: 18
+    save:
+      name: "Save the world"
+      slot: 22
   editteams:
     back:
       name: "Back to main menu"

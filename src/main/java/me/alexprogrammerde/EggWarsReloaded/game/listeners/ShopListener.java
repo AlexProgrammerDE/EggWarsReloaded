@@ -23,6 +23,7 @@ public class ShopListener implements Listener {
 
         if (GameControl.isInGame(player) && game.state == GameState.RUNNING) {
             if (event.getRightClicked().getType() == EntityType.VILLAGER) {
+                event.setCancelled(true);
                 Shop.setupShopMenu(game.arenaName, game.matchmaker.getTeamOfPlayer(player), player);
             }
         }

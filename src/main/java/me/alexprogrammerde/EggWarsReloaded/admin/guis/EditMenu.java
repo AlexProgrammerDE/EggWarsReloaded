@@ -5,6 +5,7 @@ import me.alexprogrammerde.EggWarsReloaded.admin.assistants.GeneratorAssistant;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
 import me.alexprogrammerde.EggWarsReloaded.utils.gui.GUI;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -33,6 +34,7 @@ public class EditMenu {
         ItemStack teams = new ItemStack(Material.WHITE_WOOL);
         ItemStack generators = new ItemStack(Material.DIAMOND_BLOCK);
         ItemStack size = new ItemStack(Material.ENDER_PEARL);
+        ItemStack save = new ItemStack(Material.CRAFTING_TABLE);
         ItemStack pos1;
         ItemStack pos2;
 
@@ -48,50 +50,52 @@ public class EditMenu {
             pos2 = new ItemStack(Material.IRON_INGOT);
         }
 
-        ItemMeta mainlobbymeta = mainLobby.getItemMeta();
-        ItemMeta waitinglobbymeta = waitingLobby.getItemMeta();
-        ItemMeta spectatormeta = spectator.getItemMeta();
-        ItemMeta registermeta = spectator.getItemMeta();
-        ItemMeta teamsmeta = teams.getItemMeta();
-        ItemMeta generatorsmeta = generators.getItemMeta();
-        ItemMeta sizemeta = size.getItemMeta();
+        ItemMeta mainLobbyMeta = mainLobby.getItemMeta();
+        ItemMeta waitingLobbyMeta = waitingLobby.getItemMeta();
+        ItemMeta spectatorMeta = spectator.getItemMeta();
+        ItemMeta registerMeta = spectator.getItemMeta();
+        ItemMeta teamsMeta = teams.getItemMeta();
+        ItemMeta generatorsMeta = generators.getItemMeta();
+        ItemMeta sizeMeta = size.getItemMeta();
         ItemMeta pos1meta = pos1.getItemMeta();
         ItemMeta pos2meta = pos2.getItemMeta();
+        ItemMeta saveMeta = save.getItemMeta();
 
         // Give item names from items.yml
-        mainlobbymeta.setDisplayName(items.getString("items.editmain.mainlobby.name"));
-        waitinglobbymeta.setDisplayName(items.getString("items.editmain.waitinglobby.name"));
-        spectatormeta.setDisplayName(items.getString("items.editmain.spectator.name"));
-        registermeta.setDisplayName(items.getString("items.editmain.register.name"));
-        teamsmeta.setDisplayName(items.getString("items.editmain.teams.name"));
-        generatorsmeta.setDisplayName(items.getString("items.editmain.generators.name"));
-        sizemeta.setDisplayName(items.getString("items.editmain.teamsize.name"));
+        mainLobbyMeta.setDisplayName(items.getString("items.editmain.mainlobby.name"));
+        waitingLobbyMeta.setDisplayName(items.getString("items.editmain.waitinglobby.name"));
+        spectatorMeta.setDisplayName(items.getString("items.editmain.spectator.name"));
+        registerMeta.setDisplayName(items.getString("items.editmain.register.name"));
+        teamsMeta.setDisplayName(items.getString("items.editmain.teams.name"));
+        generatorsMeta.setDisplayName(items.getString("items.editmain.generators.name"));
+        sizeMeta.setDisplayName(items.getString("items.editmain.teamsize.name"));
         pos1meta.setDisplayName(items.getString("items.editmain.pos1.name"));
         pos2meta.setDisplayName(items.getString("items.editmain.pos2.name"));
+        saveMeta.setDisplayName(items.getString("items.editmain.save.name"));
 
         if (ArenaManager.getArenas().contains(arenaName + ".mainlobby")) {
-            mainlobbymeta.addEnchant(Enchantment.DURABILITY, 0, true);
-            mainlobbymeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            mainLobbyMeta.addEnchant(Enchantment.DURABILITY, 0, true);
+            mainLobbyMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
         if (ArenaManager.getArenas().contains(arenaName + ".waitinglobby")) {
-            waitinglobbymeta.addEnchant(Enchantment.DURABILITY, 0, true);
-            waitinglobbymeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            waitingLobbyMeta.addEnchant(Enchantment.DURABILITY, 0, true);
+            waitingLobbyMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
         if (ArenaManager.getArenas().contains(arenaName + ".spectator")) {
-            spectatormeta.addEnchant(Enchantment.DURABILITY, 0, true);
-            spectatormeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            spectatorMeta.addEnchant(Enchantment.DURABILITY, 0, true);
+            spectatorMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
         if (ArenaManager.getArenas().contains(arenaName + ".register")) {
-            spectatormeta.addEnchant(Enchantment.DURABILITY, 0, true);
-            spectatormeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            spectatorMeta.addEnchant(Enchantment.DURABILITY, 0, true);
+            spectatorMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
         if (GeneratorAssistant.isAdding(player)) {
-            generatorsmeta.addEnchant(Enchantment.DURABILITY, 0, true);
-            generatorsmeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            generatorsMeta.addEnchant(Enchantment.DURABILITY, 0, true);
+            generatorsMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
 
         if (ArenaManager.getArenas().contains(arenaName + ".pos1")) {
@@ -180,24 +184,25 @@ public class EditMenu {
         pos1list.add("Use shift + left click to reset it.");
         pos2list.add("Use shift + left click to reset it.");
 
-        mainlobbymeta.setLore(mainlobbylist);
-        waitinglobbymeta.setLore(waitinglobbylist);
-        spectatormeta.setLore(spectatorlist);
-        registermeta.setLore(registerlist);
-        teamsmeta.setLore(teamslist);
-        sizemeta.setLore(sizelist);
+        mainLobbyMeta.setLore(mainlobbylist);
+        waitingLobbyMeta.setLore(waitinglobbylist);
+        spectatorMeta.setLore(spectatorlist);
+        registerMeta.setLore(registerlist);
+        teamsMeta.setLore(teamslist);
+        sizeMeta.setLore(sizelist);
         pos1meta.setLore(pos1list);
         pos2meta.setLore(pos2list);
 
-        mainLobby.setItemMeta(mainlobbymeta);
-        waitingLobby.setItemMeta(waitinglobbymeta);
-        spectator.setItemMeta(spectatormeta);
-        register.setItemMeta(registermeta);
-        teams.setItemMeta(teamsmeta);
-        generators.setItemMeta(generatorsmeta);
-        size.setItemMeta(sizemeta);
+        mainLobby.setItemMeta(mainLobbyMeta);
+        waitingLobby.setItemMeta(waitingLobbyMeta);
+        spectator.setItemMeta(spectatorMeta);
+        register.setItemMeta(registerMeta);
+        teams.setItemMeta(teamsMeta);
+        generators.setItemMeta(generatorsMeta);
+        size.setItemMeta(sizeMeta);
         pos1.setItemMeta(pos1meta);
         pos2.setItemMeta(pos2meta);
+        save.setItemMeta(saveMeta);
 
         GUI gui = new GUI(arenaName, 3, EggWarsReloaded.getEggWarsMain(), player);
 
@@ -420,6 +425,18 @@ public class EditMenu {
                 })
                 .addDefaultEvent(() -> {
                     ArenaManager.setArenaPos2(arenaName, player.getLocation());
+
+                    EditMenu.openEditMenu(arenaName, player);
+                });
+
+        gui.addItem(save, items.getInt("items.editmain.save.slot"))
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    player.teleport(new Location(Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName)), 0, 81, 0));
+
+                    EditMenu.openEditMenu(arenaName, player);
+                })
+                .addDefaultEvent(() -> {
+                    Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName)).save();
 
                     EditMenu.openEditMenu(arenaName, player);
                 });

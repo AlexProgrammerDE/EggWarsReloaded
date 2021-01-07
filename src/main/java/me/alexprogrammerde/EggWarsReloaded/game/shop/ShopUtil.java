@@ -32,16 +32,6 @@ public class ShopUtil {
         return gold;
     }
 
-    public static int convertToAmount(List<ItemStack> list) {
-        int i = 0;
-
-        for (ItemStack item : list) {
-            i = i + item.getAmount();
-        }
-
-        return i;
-    }
-
     public static List<ItemStack> getDiamonds(Player player) {
         List<ItemStack> diamond = new ArrayList<>();
 
@@ -54,27 +44,30 @@ public class ShopUtil {
         return diamond;
     }
 
+    public static int convertToAmount(List<ItemStack> list) {
+        int i = 0;
+
+        for (ItemStack item : list) {
+            i = i + item.getAmount();
+        }
+
+        return i;
+    }
+
     public static void buyItem(ShopItems item, Player player) {
         if (canPay(item.getPrice(), player)) {
             payPrice(item.getPrice(), player);
 
-            // TODO: Add item to his inventory here!
+            ShopItems.giveItem(player, item);
         } else {
             player.sendMessage("You don't have enough money to buy this!");
         }
     }
 
     private static boolean canPay(ItemPrice price, Player player) {
-        if (convertToAmount(getIron(player)) < price.getIron())
-            return false;
-
-        if (convertToAmount(getGold(player)) < price.getGold())
-            return false;
-
-        if (convertToAmount(getDiamonds(player)) < price.getDiamonds())
-            return false;
-
-        return true;
+        return convertToAmount(getIron(player)) >= price.getIron()
+                && convertToAmount(getGold(player)) >= price.getGold()
+                && convertToAmount(getDiamonds(player)) >= price.getDiamonds();
     }
 
     private static void payPrice(ItemPrice price, Player player) {

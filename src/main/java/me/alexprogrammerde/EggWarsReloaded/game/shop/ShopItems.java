@@ -1,5 +1,9 @@
 package me.alexprogrammerde.EggWarsReloaded.game.shop;
 
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
 public enum ShopItems {
     WOODEN_SWORD(new ItemPrice(0, 0, 0)),
 
@@ -17,5 +21,25 @@ public enum ShopItems {
 
     public ItemPrice getPrice() {
         return price;
+    }
+
+    public static void giveItem(Player player, ShopItems item) {
+        ItemStack itemStack = new ItemStack(Material.valueOf(item.toString()));
+
+        /*
+
+        if (item == ShopItems.WOODEN_SWORD) {
+
+        } else if (item == ShopItems.DIAMOND_SWORD) {
+
+        } else if (item == ShopItems.DIAMOND_CHESTPLATE) {
+
+        } else if (item == ShopItems.GOLDEN_APPLE) {
+
+        }
+
+       */
+
+        player.getInventory().addItem(itemStack);
     }
 }

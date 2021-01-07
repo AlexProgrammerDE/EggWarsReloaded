@@ -411,16 +411,7 @@ public class Game {
     }
 
     private void resetArena() {
-        EggWarsReloaded.getEggWarsMain().getLogger().info("a");
-
-        EggWarsReloaded.getEggWarsMain().getLogger().info(ArenaManager.getArenas().getString(arenaName + ".world"));
-        EggWarsReloaded.getEggWarsMain().getLogger().info(Bukkit.getWorld(ArenaManager.getArenas().getString(arenaName + ".world")).getName());
-
-
-        EggWarsReloaded.getEggWarsMain().getLogger().info("b");
-
-
-        EggWarsReloaded.getEggWarsMain().getLogger().info("c");
+        EggWarsReloaded.getEggWarsMain().worldManager.unloadWorld(ArenaManager.getArenas().getString(arenaName + ".world"), false,  ArenaManager.getMainLobby(arenaName));
     }
 
     private void placeCages() {
@@ -610,7 +601,7 @@ public class Game {
         steakMeta.setDisplayName(ChatColor.AQUA + "Beef Jerk");
         steakMeta.setLore(new ArrayList<String>() {
             {
-                add("uwu nom nom :(");
+                add("uwu nom nom :D");
             }
         });
 
