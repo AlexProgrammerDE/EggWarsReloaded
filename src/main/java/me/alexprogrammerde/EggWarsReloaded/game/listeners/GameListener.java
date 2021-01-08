@@ -3,6 +3,7 @@ package me.alexprogrammerde.EggWarsReloaded.game.listeners;
 import me.alexprogrammerde.EggWarsReloaded.game.Game;
 import me.alexprogrammerde.EggWarsReloaded.game.GameControl;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.GameState;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -73,6 +74,10 @@ public class GameListener implements Listener {
             Game game = GameControl.getPlayerGame(player);
 
             game.removePlayer(player);
+
+            for (Player p : game.inGamePlayers) {
+                p.sendMessage(ChatColor.GOLD + player.getDisplayName() + " left the match!");
+            }
 
             game.checkWin();
         }

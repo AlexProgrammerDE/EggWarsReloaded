@@ -29,8 +29,16 @@ import java.util.List;
 import java.util.Objects;
 
 public class Game {
-    protected final List<Player> inGamePlayers = new ArrayList<>();
+    /**
+     * Players currently in the arena/lobby
+     */
+    public final List<Player> inGamePlayers = new ArrayList<>();
+
+    /**
+     * Player currently playing inside the arena.
+     */
     protected final List<Player> livingPlayers = new ArrayList<>();
+
     public final List<String> usedTeams = new ArrayList<>();
 
     public final int maxPlayers;
@@ -112,7 +120,7 @@ public class Game {
 
         player.setFallDistance(0);
 
-        player.setLevel(0);
+        player.setExp(0);
         player.setFoodLevel(20);
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
 
@@ -160,7 +168,6 @@ public class Game {
 
     public void removePlayer(Player player) {
         livingPlayers.remove(player);
-        inGamePlayers.remove(player);
 
         player.getInventory().clear();
 
@@ -175,18 +182,13 @@ public class Game {
         player.setFallDistance(0);
 
         player.setGameMode(GameMode.SURVIVAL);
-        player.setLevel(0);
+        player.setExp(0);
         player.setFoodLevel(20);
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
 
         player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 
         GameControl.removePlayerFromGame(player);
-
-        for (Player p : inGamePlayers) {
-            p.sendMessage(player.getDisplayName() + " left the match!");
-            scoreboardManager.setScoreboard(p);
-        }
     }
 
     public RejectType kickPlayer(Player player) {
@@ -222,7 +224,10 @@ public class Game {
             }, 100);
         }
 
-        checkWin();
+        for (Player p : inGamePlayers) {
+            System.out.println("a");
+            System.out.println(p.getName());
+        }
     }
 
     private void respawnPlayer(Player player) {
@@ -236,7 +241,7 @@ public class Game {
 
         player.setGameMode(GameMode.SURVIVAL);
         player.getInventory().clear();
-        player.setLevel(0);
+        player.setExp(0);
         player.setFoodLevel(20);
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
 
@@ -254,13 +259,9 @@ public class Game {
 
         if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(killed))) {
             killed.sendMessage(ChatColor.GOLD + "You got killed by " + ChatColor.AQUA + killer.getDisplayName() + ChatColor.GOLD + "! You will respawn in 5 seconds!");
-        } else {
-            killed.sendMessage(ChatColor.GOLD + "You got killed by " + killer.getDisplayName() + ChatColor.GOLD + "! Your team has no egg, so you will not respawn now. Please wait till the game ends...");
-        }
-
-        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(killed))) {
             spectatorPlayer(killed, true);
         } else {
+            killed.sendMessage(ChatColor.GOLD + "You got killed by " + killer.getDisplayName() + ChatColor.GOLD + "! Your team has no egg, so you will not respawn now. Please wait till the game ends...");
             livingPlayers.remove(killed);
             spectatorPlayer(killed, false);
         }
@@ -275,13 +276,9 @@ public class Game {
 
         if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(player))) {
             player.sendMessage(ChatColor.GOLD + "You died! You will respawn in 5 seconds!");
-        } else {
-            player.sendMessage(ChatColor.GOLD + "You died! Your team has no egg, so you will not respawn now. Please wait till the game ends...");
-        }
-
-        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(player))) {
             spectatorPlayer(player, true);
         } else {
+            player.sendMessage(ChatColor.GOLD + "You died! Your team has no egg, so you will not respawn now. Please wait till the game ends...");
             livingPlayers.remove(player);
             spectatorPlayer(player, false);
         }
@@ -303,6 +300,11 @@ public class Game {
                 } else {
                     player.sendMessage(ChatColor.GOLD + "Team " + gameLogics.getLastTeam() + " won! gg");
                 }
+            }
+
+            for (Player p : inGamePlayers) {
+                System.out.println("b");
+                System.out.println(p.getName());
             }
 
             endGame();
@@ -401,6 +403,7 @@ public class Game {
         state = GameState.ENDING;
 
         for (Player player : inGamePlayers) {
+            System.out.println(player.getName());
             player.sendMessage(ChatColor.GOLD + "The game ended!");
             rewardPlayer(player, RewardType.GAME);
 
