@@ -15,8 +15,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 public class TeamMenu {
 
     public static void setupTeamMenu(String arenaName, Player player) {
-        FileConfiguration items = EggWarsReloaded.getEggWarsMain().getItems();
-        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
+        FileConfiguration items = EggWarsReloaded.get().getItems();
+        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
 
         // Load Data from storage
         ItemStack white = new ItemStack(Material.WHITE_WOOL);
@@ -100,7 +100,7 @@ public class TeamMenu {
         grayButton.setItemMeta(graybuttonmeta);
         back.setItemMeta(backmeta);
 
-        GUI gui = new GUI(arenaName, 5, EggWarsReloaded.getEggWarsMain(), player);
+        GUI gui = new GUI(arenaName, 5, EggWarsReloaded.get(), player);
 
         gui.addItem(white, items.getInt("items.editteams.white.slot"))
                 .addDefaultEvent(openTeam(player, arenaName, "white"));

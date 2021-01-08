@@ -28,7 +28,7 @@ public class ShopAssistant implements Listener {
         this.arenaName = arenaName;
         this.teamName = teamName;
 
-        Bukkit.getServer().getPluginManager().registerEvents(this, EggWarsReloaded.getEggWarsMain());
+        Bukkit.getServer().getPluginManager().registerEvents(this, EggWarsReloaded.get());
     }
 
     @EventHandler
@@ -52,7 +52,7 @@ public class ShopAssistant implements Listener {
     }
 
     public void ArmorStandInteract(Player player, Entity armorstand) {
-        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
 
         if (player == this.player && isAdding(player)) {
             Location villagerLocation = armorstand.getLocation();

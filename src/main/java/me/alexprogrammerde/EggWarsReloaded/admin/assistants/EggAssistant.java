@@ -28,7 +28,7 @@ public class EggAssistant implements Listener {
         this.arenaName = arenaName;
         this.teamName = teamName;
 
-        Bukkit.getServer().getPluginManager().registerEvents(this, EggWarsReloaded.getEggWarsMain());
+        Bukkit.getServer().getPluginManager().registerEvents(this, EggWarsReloaded.get());
     }
 
     @EventHandler

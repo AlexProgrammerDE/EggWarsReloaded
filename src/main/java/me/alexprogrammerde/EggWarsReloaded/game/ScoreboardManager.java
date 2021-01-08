@@ -8,8 +8,6 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -30,7 +28,7 @@ public class ScoreboardManager {
     public void setScoreboard(Player player) {
         Scoreboard playerScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
-        Objective objective = playerScoreboard.registerNewObjective("scoreboard", "dummy", ChatColor.YELLOW + "" + ChatColor.BOLD + "EggWarsReloaded");
+        Objective objective = playerScoreboard.registerNewObjective("scoreboard", "dummy", ChatColor.YELLOW + "" + ChatColor.BOLD + "Egg Wars");
 
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 
@@ -39,7 +37,7 @@ public class ScoreboardManager {
 
         text.add(ChatColor.GRAY + dtf.format(LocalDateTime.now()) + "");
 
-        text.add(" ");
+        text.add("");
 
         for (String team : teams) {
             TeamColor teamColor = TeamColor.fromString(team);
@@ -47,7 +45,7 @@ public class ScoreboardManager {
             String var1 = game.matchmaker.getTeamOfPlayer(player).equals(team) ? ChatColor.DARK_GRAY + " (You)" : "";
             String var2 = game.gameLogics.isTeamDead(team) ? ChatColor.RED + "✗" : ChatColor.GREEN + "✓";
 
-            text.add(teamColor.getColor() + "" + teamColor.getFirstLetter() + ChatColor.RESET + " " + team + ": " + var2 + var1);
+            text.add(teamColor.getColor() + "" + teamColor.getFirstLetter() + ChatColor.RESET + " " + teamColor.getCapitalized() + ": " + var2 + var1);
         }
 
         text.add(" ");

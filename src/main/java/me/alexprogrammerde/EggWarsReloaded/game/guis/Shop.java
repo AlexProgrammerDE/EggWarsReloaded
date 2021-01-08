@@ -10,7 +10,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class Shop {
     public static void setupShopMenu(String teamName, Player player) {
-        GUI gui = new GUI("Shop", 1, EggWarsReloaded.getEggWarsMain(), player);
+        GUI gui = new GUI("Shop", 1, EggWarsReloaded.get(), player);
 
         ItemStack woodenSword = new ItemStack(Material.WOODEN_SWORD);
         ItemStack diamondSword = new ItemStack(Material.DIAMOND_SWORD);

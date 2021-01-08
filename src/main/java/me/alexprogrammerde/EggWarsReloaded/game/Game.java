@@ -70,13 +70,13 @@ public class Game {
         matchmaker.readSpawns();
         gameLogics = new GameLogics(this);
 
-        EggWarsReloaded.getEggWarsMain().getLogger().info(ChatColor.GOLD + "Starting game for arena " + arenaName);
+        EggWarsReloaded.get().getLogger().info(ChatColor.GOLD + "Starting game for arena " + arenaName);
 
         registerGame();
 
         state = GameState.LOBBY;
 
-        taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
+        taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
             if (state == GameState.LOBBY || state == GameState.STARTING1) {
                 for (Player player : inGamePlayers) {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(ChatColor.AQUA + "The game will start shortly!").create());
@@ -166,6 +166,8 @@ public class Game {
 
         player.setVelocity(new Vector(0, 0, 0));
 
+        player.setGameMode(GameMode.SURVIVAL);
+
         player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".mainlobby")));
 
         player.setVelocity(new Vector(0, 0, 0));
@@ -183,7 +185,7 @@ public class Game {
 
         for (Player p : inGamePlayers) {
             p.sendMessage(player.getDisplayName() + " left the match!");
-            p.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+            scoreboardManager.setScoreboard(p);
         }
     }
 
@@ -192,9 +194,11 @@ public class Game {
             return RejectType.NOT_IN;
         }
 
-        Bukkit.getScheduler().runTask(EggWarsReloaded.getEggWarsMain(), () -> {
+        Bukkit.getScheduler().runTask(EggWarsReloaded.get(), () -> {
             removePlayer(player);
         });
+
+        checkWin();
 
         return RejectType.NONE;
     }
@@ -213,10 +217,12 @@ public class Game {
         player.setFallDistance(0);
 
         if (respawn) {
-            Bukkit.getScheduler().runTaskLater(EggWarsReloaded.getEggWarsMain(), () -> {
+            Bukkit.getScheduler().runTaskLater(EggWarsReloaded.get(), () -> {
                 respawnPlayer(player);
             }, 100);
         }
+
+        checkWin();
     }
 
     private void respawnPlayer(Player player) {
@@ -235,6 +241,8 @@ public class Game {
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
 
         givePlayerItems(player);
+
+        checkWin();
     }
 
     public void killPlayer(Player killed, Player killer) {
@@ -286,7 +294,7 @@ public class Game {
 
     }
 
-    protected void checkWin() {
+    public void checkWin() {
         if (gameLogics.isOnlyOneTeamLeft()) {
             for (Player player : inGamePlayers) {
                 if (matchmaker.getPlayersInTeam(gameLogics.getLastTeam()).contains(player)) {
@@ -322,7 +330,7 @@ public class Game {
             player.setLevel(startingTime);
         }
 
-        clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
+        clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
             startingTime--;
 
             for (Player player : inGamePlayers) {
@@ -330,7 +338,7 @@ public class Game {
             }
 
             if (startingTime == 10) {
-                Bukkit.getScheduler().runTask(EggWarsReloaded.getEggWarsMain(), this::startGame2);
+                Bukkit.getScheduler().runTask(EggWarsReloaded.get(), this::startGame2);
             }
         }, 20, 20);
     }
@@ -342,12 +350,6 @@ public class Game {
 
         scoreboardManager.generateTemplate();
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
-            for (Player player : inGamePlayers) {
-                scoreboardManager.setScoreboard(player);
-            }
-        }, 0L, 20L);
-
         matchmaker.teleportPlayers();
 
         startingTime = 10;
@@ -356,7 +358,7 @@ public class Game {
             player.setLevel(startingTime);
         }
 
-        clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.getEggWarsMain(), () -> {
+        clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
             startingTime--;
 
             for (Player player : inGamePlayers) {
@@ -364,7 +366,7 @@ public class Game {
             }
 
             if (startingTime == 0) {
-                Bukkit.getScheduler().runTask(EggWarsReloaded.getEggWarsMain(), this::runGame);
+                Bukkit.getScheduler().runTask(EggWarsReloaded.get(), this::runGame);
             }
         }, 20, 20);
     }
@@ -377,11 +379,17 @@ public class Game {
 
         livingPlayers.addAll(inGamePlayers);
 
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
+            for (Player player : inGamePlayers) {
+                scoreboardManager.setScoreboard(player);
+            }
+        }, 0L, 20L);
+
         noFall = true;
 
         destroyCages();
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(EggWarsReloaded.getEggWarsMain(), () -> noFall = false, 60L);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(EggWarsReloaded.get(), () -> noFall = false, 60L);
 
         for (Player player : livingPlayers) {
             player.setGameMode(GameMode.SURVIVAL);
@@ -396,9 +404,7 @@ public class Game {
             player.sendMessage(ChatColor.GOLD + "The game ended!");
             rewardPlayer(player, RewardType.GAME);
 
-            Bukkit.getScheduler().runTask(EggWarsReloaded.getEggWarsMain(), () -> {
-                removePlayer(player);
-            });
+            removePlayer(player);
         }
 
         inGamePlayers.clear();
@@ -421,7 +427,7 @@ public class Game {
     }
 
     private void prepareArena() {
-        EggWarsReloaded.getEggWarsMain().worldManager.loadWorld(ArenaManager.getArenas().getString(arenaName + ".world"), World.Environment.NORMAL);
+        EggWarsReloaded.get().worldManager.loadWorld(ArenaManager.getArenas().getString(arenaName + ".world"), World.Environment.NORMAL);
 
         World arena = Bukkit.getWorld(ArenaManager.getArenas().getString(arenaName + ".world"));
 
@@ -434,7 +440,7 @@ public class Game {
     }
 
     private void resetArena() {
-        EggWarsReloaded.getEggWarsMain().worldManager.unloadWorld(ArenaManager.getArenas().getString(arenaName + ".world"), false,  ArenaManager.getMainLobby(arenaName));
+        EggWarsReloaded.get().worldManager.unloadWorld(ArenaManager.getArenas().getString(arenaName + ".world"), false,  ArenaManager.getMainLobby(arenaName));
     }
 
     private void placeCages() {

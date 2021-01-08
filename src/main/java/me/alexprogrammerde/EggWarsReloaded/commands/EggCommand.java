@@ -26,12 +26,12 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 if (args[0].equals("help")) {
                     if (player.hasPermission("eggwarsreloaded.command.help")) {
                         if (player.hasPermission("eggwarsreloaded.admin")) {
-                            List<String> messagelist = EggWarsReloaded.getEggWarsMain().getLanguage().getStringList("command.help.adminhelp");
+                            List<String> messagelist = EggWarsReloaded.get().getLanguage().getStringList("command.help.adminhelp");
                             String[] messagearr = new String[messagelist.size()];
                             messagearr = messagelist.toArray(messagearr);
                             player.sendMessage(messagearr);
                         } else {
-                            List<String> messagelist = EggWarsReloaded.getEggWarsMain().getLanguage().getStringList("command.help.playerhelp");
+                            List<String> messagelist = EggWarsReloaded.get().getLanguage().getStringList("command.help.playerhelp");
                             String[] messagearr = new String[messagelist.size()];
                             messagearr = messagelist.toArray(messagearr);
                             player.sendMessage(messagearr);
@@ -64,7 +64,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 // Admin commands
                 if (args[0].equals("reload")) {
                     if (player.hasPermission("eggwarsreloaded.command.reload")) {
-                        EggWarsReloaded.getEggWarsMain().reloadConfig();
+                        EggWarsReloaded.get().reloadConfig();
                     }
                 }
 
@@ -73,7 +73,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                         if (args.length > 1) {
                             ArenaManager.addArena(args[1]);
 
-                            World world = EggWarsReloaded.getEggWarsMain().worldManager.createEmptyWorld(args[1], World.Environment.NORMAL);
+                            World world = EggWarsReloaded.get().worldManager.createEmptyWorld(args[1], World.Environment.NORMAL);
 
                             ArenaManager.setArenaWorld(args[1], args[1]);
 

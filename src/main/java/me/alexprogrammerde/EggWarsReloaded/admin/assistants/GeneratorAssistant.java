@@ -27,12 +27,12 @@ public class GeneratorAssistant implements Listener {
         this.player = player;
         this.arenaName = arenaName;
 
-        Bukkit.getServer().getPluginManager().registerEvents(this, EggWarsReloaded.getEggWarsMain());
+        Bukkit.getServer().getPluginManager().registerEvents(this, EggWarsReloaded.get());
     }
 
     @EventHandler
     public void onBlockInteract(BlockBreakEvent event) {
-        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
         Player player = event.getPlayer();
         Block block = event.getBlock();
         String blockLocationString = UtilCore.convertString(block.getLocation());
@@ -74,12 +74,12 @@ public class GeneratorAssistant implements Listener {
             }
 
             try {
-                EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
+                EggWarsReloaded.get().getArenas().save(EggWarsReloaded.get().getArenasFile());
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            EggWarsReloaded.getEggWarsMain().reloadArenas();
+            EggWarsReloaded.get().reloadArenas();
         }
     }
 

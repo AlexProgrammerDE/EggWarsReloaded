@@ -23,7 +23,7 @@ import java.util.List;
 public class EditMenu {
 
     public static void openEditMenu(String arenaName, Player player) {
-        FileConfiguration items = EggWarsReloaded.getEggWarsMain().getItems();
+        FileConfiguration items = EggWarsReloaded.get().getItems();
         FileConfiguration arenas = ArenaManager.getArenas();
 
         // Load Data from storage
@@ -204,7 +204,7 @@ public class EditMenu {
         pos2.setItemMeta(pos2meta);
         save.setItemMeta(saveMeta);
 
-        GUI gui = new GUI(arenaName, 3, EggWarsReloaded.getEggWarsMain(), player);
+        GUI gui = new GUI(arenaName, 3, EggWarsReloaded.get(), player);
 
         gui.addItem(mainLobby, items.getInt("items.editmain.mainlobby.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
@@ -296,11 +296,11 @@ public class EditMenu {
                             StringBuilder wrongteams = new StringBuilder();
 
                             for (String team : teams1) {
-                                EggWarsReloaded.getEggWarsMain().getLogger().info(team);
+                                EggWarsReloaded.get().getLogger().info(team);
                                 List<String> spawns = arenas.getStringList(arenaName + ".team." + team + ".spawn");
-                                EggWarsReloaded.getEggWarsMain().getLogger().info(spawns.toString());
-                                EggWarsReloaded.getEggWarsMain().getLogger().info(String.valueOf(spawns.size()));
-                                EggWarsReloaded.getEggWarsMain().getLogger().info(String.valueOf(ArenaManager.getTeamSize(team)));
+                                EggWarsReloaded.get().getLogger().info(spawns.toString());
+                                EggWarsReloaded.get().getLogger().info(String.valueOf(spawns.size()));
+                                EggWarsReloaded.get().getLogger().info(String.valueOf(ArenaManager.getTeamSize(team)));
 
                                 if (spawns.size() != ArenaManager.getTeamSize(arenaName)) {
                                     isWrong = true;
@@ -338,12 +338,12 @@ public class EditMenu {
                     arenas.set(arenaName + ".team", null);
 
                     try {
-                        EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
+                        EggWarsReloaded.get().getArenas().save(EggWarsReloaded.get().getArenasFile());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
-                    EggWarsReloaded.getEggWarsMain().reloadArenas();
+                    EggWarsReloaded.get().reloadArenas();
                     EditMenu.openEditMenu(arenaName, player);
 
                     player.sendMessage("Reset teams of arena: " + arenaName);
@@ -359,12 +359,12 @@ public class EditMenu {
                     arenas.set(arenaName + ".diamond", null);
 
                     try {
-                        EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
+                        EggWarsReloaded.get().getArenas().save(EggWarsReloaded.get().getArenasFile());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
-                    EggWarsReloaded.getEggWarsMain().reloadArenas();
+                    EggWarsReloaded.get().reloadArenas();
                     EditMenu.openEditMenu(arenaName, player);
                     player.sendMessage("Reset all generators of arena: " + arenaName);
                 })

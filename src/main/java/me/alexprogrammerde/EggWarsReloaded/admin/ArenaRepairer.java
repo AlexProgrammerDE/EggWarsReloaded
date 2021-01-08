@@ -19,11 +19,11 @@ public class ArenaRepairer implements Listener {
     // TODO Add Egg too (low prio)
     @EventHandler
     public void onVillagerKill(EntityDeathEvent event) {
-        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
 
         if (event.getEntity().getType() == EntityType.VILLAGER) {
             Villager villager = (Villager) event.getEntity();
-            EggWarsReloaded.getEggWarsMain().getLogger().info(villager.toString());
+            EggWarsReloaded.get().getLogger().info(villager.toString());
 
             for (String arenaName : arenas.getKeys(false)) {
                 for (String team : arenas.getConfigurationSection(arenaName + ".team").getKeys(false)) {
@@ -41,7 +41,7 @@ public class ArenaRepairer implements Listener {
 
                             ArenaManager.setShop(arenaName, team, newVillager.getUniqueId().toString(), villager.getLocation());
 
-                            EggWarsReloaded.getEggWarsMain().getLogger().info("Respawned shop. If you wish to delete it use the edit menu.");
+                            EggWarsReloaded.get().getLogger().info("Respawned shop. If you wish to delete it use the edit menu.");
                         }
                     }
                 }

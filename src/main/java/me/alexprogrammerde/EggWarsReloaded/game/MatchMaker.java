@@ -59,7 +59,7 @@ public class MatchMaker {
     }
 
     public boolean isTeamFull(String team) {
-        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
+        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
 
         int spawnCount = 0;
 

@@ -113,7 +113,7 @@ public class EggWarsReloaded extends JavaPlugin {
         this.items = new ConfigManager(this, "items.yml").getConfig();
     }
 
-    public static EggWarsReloaded getEggWarsMain() {
+    public static EggWarsReloaded get() {
         return plugin;
     }
 }

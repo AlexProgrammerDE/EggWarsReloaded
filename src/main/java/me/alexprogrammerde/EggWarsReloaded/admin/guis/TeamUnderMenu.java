@@ -24,8 +24,8 @@ import java.util.List;
 public class TeamUnderMenu {
 
     public static void setupTeamUnderMenu(String arenaName, String teamName, Player player) {
-        FileConfiguration items = EggWarsReloaded.getEggWarsMain().getItems();
-        FileConfiguration arenas = EggWarsReloaded.getEggWarsMain().getArenas();
+        FileConfiguration items = EggWarsReloaded.get().getItems();
+        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
 
         // Load Data from storage
         ItemStack shop;
@@ -142,7 +142,7 @@ public class TeamUnderMenu {
         respawn.setItemMeta(respawnmeta);
         back.setItemMeta(backmeta);
 
-        GUI gui = new GUI(arenaName, 3, EggWarsReloaded.getEggWarsMain(), player);
+        GUI gui = new GUI(arenaName, 3, EggWarsReloaded.get(), player);
 
         gui.addItem(shop, items.getInt("items.editteam.shop.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
@@ -218,12 +218,12 @@ public class TeamUnderMenu {
                                 arenas.set(arenaName + ".team." + teamName + ".spawn", strings);
 
                                 try {
-                                    EggWarsReloaded.getEggWarsMain().getArenas().save(EggWarsReloaded.getEggWarsMain().getArenasFile());
+                                    EggWarsReloaded.get().getArenas().save(EggWarsReloaded.get().getArenasFile());
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
 
-                                EggWarsReloaded.getEggWarsMain().reloadArenas();
+                                EggWarsReloaded.get().reloadArenas();
 
                                 player.sendMessage("[SpawnAssistant] Added spawn of team " + teamName + " to: " + playerlocation.getWorld().getName() + " " + playerlocation.getBlockX() + " " + playerlocation.getBlockY() + " " + playerlocation.getBlockZ());
                             } else {

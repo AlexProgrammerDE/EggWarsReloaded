@@ -70,7 +70,11 @@ public class GameListener implements Listener {
 
         if (GameControl.isInGame(player) ) {
             event.setQuitMessage(null);
-            GameControl.getPlayerGame(player).removePlayer(player);
+            Game game = GameControl.getPlayerGame(player);
+
+            game.removePlayer(player);
+
+            game.checkWin();
         }
     }
 
