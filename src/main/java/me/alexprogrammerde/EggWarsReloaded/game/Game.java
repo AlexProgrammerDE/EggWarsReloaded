@@ -114,7 +114,7 @@ public class Game {
 
         player.setVelocity(new Vector(0, 0, 0));
 
-        player.teleport(UtilCore.convertLocation(arenas.getString(arenaName + ".waitinglobby")));
+        player.teleport(ArenaManager.getWaitingLobby(arenaName));
 
         player.setVelocity(new Vector(0, 0, 0));
 
@@ -175,7 +175,7 @@ public class Game {
 
         player.setGameMode(GameMode.SURVIVAL);
 
-        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".mainlobby")));
+        player.teleport(ArenaManager.getMainLobby(arenaName));
 
         player.setVelocity(new Vector(0, 0, 0));
 
@@ -212,7 +212,7 @@ public class Game {
 
         player.setVelocity(new Vector(0, 0, 0));
 
-        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".spectator")));
+        player.teleport(ArenaManager.getSpectator(arenaName));
 
         player.setVelocity(new Vector(0, 0, 0));
 
@@ -389,7 +389,7 @@ public class Game {
 
         noFall = true;
 
-        destroyCages();
+        setCages(Material.AIR, Material.AIR);
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(EggWarsReloaded.get(), () -> noFall = false, 60L);
 
@@ -437,7 +437,7 @@ public class Game {
         // DON'T save actions the players do in the game
         arena.setAutoSave(false);
 
-        placeCages();
+        setCages(Material.GLASS, Material.BARRIER);
 
         placeAllEggs();
     }
@@ -445,8 +445,8 @@ public class Game {
     private void resetArena() {
         EggWarsReloaded.get().worldManager.unloadWorld(ArenaManager.getArenas().getString(arenaName + ".world"), false,  ArenaManager.getMainLobby(arenaName));
     }
-
-    private void placeCages() {
+    
+    public void setCages(Material material, Material topMaterial) {
         for (String team : usedTeams) {
             for (String spawn : ArenaManager.getArenas().getStringList(arenaName + ".team." + team + ".spawn")) {
                 Location loc = UtilCore.convertLocation(spawn);
@@ -474,74 +474,24 @@ public class Game {
 
                 Block top = new Location(world, x, y + 3, z).getBlock();
 
-                ground.setType(Material.GLASS);
+                ground.setType(material);
 
-                first1.setType(Material.GLASS);
-                first2.setType(Material.GLASS);
-                first3.setType(Material.GLASS);
-                first4.setType(Material.GLASS);
+                first1.setType(material);
+                first2.setType(material);
+                first3.setType(material);
+                first4.setType(material);
 
-                second1.setType(Material.GLASS);
-                second2.setType(Material.GLASS);
-                second3.setType(Material.GLASS);
-                second4.setType(Material.GLASS);
+                second1.setType(material);
+                second2.setType(material);
+                second3.setType(material);
+                second4.setType(material);
 
-                third1.setType(Material.GLASS);
-                third2.setType(Material.GLASS);
-                third3.setType(Material.GLASS);
-                third4.setType(Material.GLASS);
+                third1.setType(material);
+                third2.setType(material);
+                third3.setType(material);
+                third4.setType(material);
 
-                top.setType(Material.BARRIER);
-            }
-        }
-    }
-
-    private void destroyCages() {
-        for (String team : usedTeams) {
-            for (String spawn : ArenaManager.getArenas().getStringList(arenaName + ".team." + team + ".spawn")) {
-                Location loc = UtilCore.convertLocation(spawn);
-                World world = loc.getWorld();
-                double x = loc.getX();
-                double y = loc.getY();
-                double z = loc.getZ();
-
-                Block ground = new Location(world, x, y - 1, z).getBlock();
-
-                Block first1 = new Location(world, x - 1, y, z).getBlock();
-                Block first2 = new Location(world, x + 1, y, z).getBlock();
-                Block first3 = new Location(world, x, y, z + 1).getBlock();
-                Block first4 = new Location(world, x, y, z - 1).getBlock();
-
-                Block second1 = new Location(world, x - 1, y + 1, z).getBlock();
-                Block second2 = new Location(world, x + 1, y + 1, z).getBlock();
-                Block second3 = new Location(world, x, y + 1, z + 1).getBlock();
-                Block second4 = new Location(world, x, y + 1, z - 1).getBlock();
-
-                Block third1 = new Location(world, x - 1, y + 2, z).getBlock();
-                Block third2 = new Location(world, x + 1, y + 2, z).getBlock();
-                Block third3 = new Location(world, x, y + 2, z + 1).getBlock();
-                Block third4 = new Location(world, x, y + 2, z - 1).getBlock();
-
-                Block top = new Location(world, x, y + 3, z).getBlock();
-
-                ground.setType(Material.AIR);
-
-                first1.setType(Material.AIR);
-                first2.setType(Material.AIR);
-                first3.setType(Material.AIR);
-                first4.setType(Material.AIR);
-
-                second1.setType(Material.AIR);
-                second2.setType(Material.AIR);
-                second3.setType(Material.AIR);
-                second4.setType(Material.AIR);
-
-                third1.setType(Material.AIR);
-                third2.setType(Material.AIR);
-                third3.setType(Material.AIR);
-                third4.setType(Material.AIR);
-
-                top.setType(Material.AIR);
+                top.setType(topMaterial);
             }
         }
     }
