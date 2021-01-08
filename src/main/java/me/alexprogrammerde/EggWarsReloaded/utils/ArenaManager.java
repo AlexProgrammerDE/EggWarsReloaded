@@ -246,6 +246,7 @@ public class ArenaManager {
 
         return arenas.contains(arenaName + ".team." + teamName + ".egg")
                 && arenas.contains(arenaName + ".team." + teamName + ".shop")
-                && arenas.contains(arenaName + ".team." + teamName + ".spawn");
+                && arenas.contains(arenaName + ".team." + teamName + ".spawn")
+                && arenas.contains(arenaName + ".team." + teamName + ".respawn");
     }
 }

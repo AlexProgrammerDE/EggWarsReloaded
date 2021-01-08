@@ -196,9 +196,7 @@ public class Game {
             return RejectType.NOT_IN;
         }
 
-        Bukkit.getScheduler().runTask(EggWarsReloaded.get(), () -> {
-            removePlayer(player);
-        });
+        removePlayer(player);
 
         checkWin();
 
@@ -222,11 +220,6 @@ public class Game {
             Bukkit.getScheduler().runTaskLater(EggWarsReloaded.get(), () -> {
                 respawnPlayer(player);
             }, 100);
-        }
-
-        for (Player p : inGamePlayers) {
-            System.out.println("a");
-            System.out.println(p.getName());
         }
     }
 
@@ -300,11 +293,6 @@ public class Game {
                 } else {
                     player.sendMessage(ChatColor.GOLD + "Team " + gameLogics.getLastTeam() + " won! gg");
                 }
-            }
-
-            for (Player p : inGamePlayers) {
-                System.out.println("b");
-                System.out.println(p.getName());
             }
 
             endGame();
@@ -403,7 +391,6 @@ public class Game {
         state = GameState.ENDING;
 
         for (Player player : inGamePlayers) {
-            System.out.println(player.getName());
             player.sendMessage(ChatColor.GOLD + "The game ended!");
             rewardPlayer(player, RewardType.GAME);
 
