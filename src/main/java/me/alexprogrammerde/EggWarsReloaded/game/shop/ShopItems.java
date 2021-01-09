@@ -6,32 +6,43 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public enum ShopItems {
-    WOODEN_SWORD(new ItemPrice(0, 0, 0)),
+    WOODEN_SWORD(new ItemPrice(3, 0, 0)),
 
-    DIAMOND_SWORD(new ItemPrice(0, 0, 0)),
+    DIAMOND_SWORD(new ItemPrice(0, 4, 1)),
 
-    DIAMOND_CHESTPLATE(new ItemPrice(0, 0, 0)),
+    DIAMOND_CHESTPLATE(new ItemPrice(0, 2, 3)),
 
-    GOLDEN_APPLE(new ItemPrice(0, 0, 0)),
+    GOLDEN_APPLE(3, new ItemPrice(3, 2, 0)),
 
-    END_STONE(new ItemPrice(0, 0, 0)),
+    END_STONE(10, new ItemPrice(6, 0, 0)),
 
-    BOW(new ItemPrice(0, 0, 0)),
+    BOW(new ItemPrice(2, 5, 0)),
 
-    ARROW(new ItemPrice(0, 0, 0)),
+    ARROW(5, new ItemPrice(2, 0, 0)),
 
-    DIAMOND_PICKAXE(new ItemPrice(0, 0, 0)),
+    DIAMOND_PICKAXE(new ItemPrice(0, 2, 1)),
 
-    WHITE_WOOL(new ItemPrice(0, 0, 0));
+    WHITE_WOOL(15, new ItemPrice(1, 0, 0));
 
     private final ItemPrice price;
+    private final int amount;
 
     ShopItems(ItemPrice itemPrice) {
         this.price = itemPrice;
+        this.amount = 1;
+    }
+
+    ShopItems(int amount, ItemPrice itemPrice) {
+        this.price = itemPrice;
+        this.amount = amount;
     }
 
     public ItemPrice getPrice() {
         return price;
+    }
+
+    public int getAmount() {
+        return amount;
     }
 
     public Material getMaterial(TeamColor color) {
@@ -41,19 +52,7 @@ public enum ShopItems {
     public static void giveItem(Player player, ShopItems item, TeamColor color) {
         ItemStack itemStack = new ItemStack(item.getMaterial(color));
 
-        /*
-
-        if (item == ShopItems.WOODEN_SWORD) {
-
-        } else if (item == ShopItems.DIAMOND_SWORD) {
-
-        } else if (item == ShopItems.DIAMOND_CHESTPLATE) {
-
-        } else if (item == ShopItems.GOLDEN_APPLE) {
-
-        }
-
-       */
+        itemStack.setAmount(item.getAmount());
 
         player.getInventory().addItem(itemStack);
     }

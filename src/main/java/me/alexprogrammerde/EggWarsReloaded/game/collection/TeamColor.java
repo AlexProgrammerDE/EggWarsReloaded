@@ -57,7 +57,6 @@ public enum TeamColor {
         return name().charAt(0);
     }
 
-    //TODO: Make teamcolor fromString only needed when serializing
     public static TeamColor fromString(String str) {
         for (TeamColor color : TeamColor.values()) {
             if (str.toLowerCase().equals(color.toString())) {

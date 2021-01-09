@@ -6,7 +6,6 @@ import me.alexprogrammerde.EggWarsReloaded.game.shop.ShopItems;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -40,6 +39,7 @@ public class ItemBuilder {
     public ItemBuilder(ShopItems item, TeamColor color) {
         this.material = item.getMaterial(color);
         lore(item);
+        amount(item.getAmount());
     }
 
     /**

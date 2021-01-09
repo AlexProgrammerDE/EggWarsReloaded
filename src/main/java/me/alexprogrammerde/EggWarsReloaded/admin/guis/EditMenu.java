@@ -169,7 +169,7 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player);
                 })
                 .addDefaultEvent(() -> {
-                    if (ArenaManager.getArenas().contains(arenaName + "mainlobby")) {
+                    if (ArenaManager.getArenas().contains(arenaName + ".mainlobby")) {
                         player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
                     } else {
                         ArenaManager.setMainLobby(arenaName, player.getLocation());
@@ -192,7 +192,7 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player);
                 })
                 .addDefaultEvent(() -> {
-                    if (ArenaManager.getArenas().contains(arenaName + "waitinglobby")) {
+                    if (ArenaManager.getArenas().contains(arenaName + ".waitinglobby")) {
                         player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
                     } else {
                         ArenaManager.setWaitingLobby(arenaName, player.getLocation());

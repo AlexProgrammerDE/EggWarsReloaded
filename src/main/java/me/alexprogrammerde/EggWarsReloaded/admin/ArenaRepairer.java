@@ -24,7 +24,6 @@ public class ArenaRepairer implements Listener {
 
         if (event.getEntity().getType() == EntityType.VILLAGER) {
             Villager villager = (Villager) event.getEntity();
-            EggWarsReloaded.get().getLogger().info(villager.toString());
 
             for (String arenaName : arenas.getKeys(false)) {
                 for (String team : arenas.getConfigurationSection(arenaName + ".team").getKeys(false)) {
