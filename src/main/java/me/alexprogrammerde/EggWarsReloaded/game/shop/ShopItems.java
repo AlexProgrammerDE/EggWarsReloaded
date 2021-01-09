@@ -10,17 +10,19 @@ public enum ShopItems {
 
     DIAMOND_SWORD(new ItemPrice(0, 4, 1)),
 
-    DIAMOND_CHESTPLATE(new ItemPrice(0, 2, 3)),
+    COOKED_BEEF(3, new ItemPrice(2, 2, 0)),
 
     GOLDEN_APPLE(3, new ItemPrice(3, 2, 0)),
-
-    END_STONE(10, new ItemPrice(6, 0, 0)),
 
     BOW(new ItemPrice(2, 5, 0)),
 
     ARROW(5, new ItemPrice(2, 0, 0)),
 
+    DIAMOND_CHESTPLATE(new ItemPrice(0, 2, 3)),
+
     DIAMOND_PICKAXE(new ItemPrice(0, 2, 1)),
+
+    END_STONE(10, new ItemPrice(3, 0, 0)),
 
     WHITE_WOOL(15, new ItemPrice(1, 0, 0));
 

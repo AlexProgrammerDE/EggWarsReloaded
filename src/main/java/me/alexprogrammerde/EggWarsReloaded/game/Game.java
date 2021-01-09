@@ -10,6 +10,7 @@ import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
@@ -58,9 +59,11 @@ public class Game {
     private int clockTask;
 
     public boolean noFall = false;
+    public final EggWarsReloaded plugin;
 
-    public Game(String arenaName) {
+    public Game(String arenaName, EggWarsReloaded plugin) {
         this.arenaName = arenaName;
+        this.plugin = plugin;
 
         state = GameState.UNREGISTERED;
 
@@ -281,7 +284,25 @@ public class Game {
 
 
     private void rewardPlayer(Player player, RewardType reward) {
+        if (plugin.getEconomy() == null)
+            return;
 
+        double amount = 0;
+
+        if (reward == RewardType.GAME) {
+            amount = 3;
+        } else if (reward == RewardType.KILL) {
+            amount = 5;
+        } else if (reward == RewardType.WIN) {
+            amount = 8;
+        }
+
+        EconomyResponse r = plugin.getEconomy().depositPlayer(player, amount);
+        if (r.transactionSuccess()) {
+            player.sendMessage("Added " + r.amount + " to your depot!");
+        } else {
+            player.sendMessage("An error occured: " + r.errorMessage);
+        }
     }
 
     public void checkWin() {
@@ -413,7 +434,7 @@ public class Game {
     }
 
     private void createNewGame() {
-        GameControl.addGame(new Game(arenaName));
+        GameControl.addGame(new Game(arenaName, plugin));
     }
 
     private void prepareArena() {
