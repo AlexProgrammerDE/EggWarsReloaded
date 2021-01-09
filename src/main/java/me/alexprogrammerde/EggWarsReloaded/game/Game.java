@@ -226,7 +226,7 @@ public class Game {
     private void respawnPlayer(Player player) {
         player.setVelocity(new Vector(0, 0, 0));
 
-        player.teleport(UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".team." + matchmaker.getTeamOfPlayer(player) + ".respawn")));
+        player.teleport(ArenaManager.getRespawn(arenaName, matchmaker.getTeamOfPlayer(player)));
 
         player.setVelocity(new Vector(0, 0, 0));
 
@@ -417,9 +417,9 @@ public class Game {
     }
 
     private void prepareArena() {
-        EggWarsReloaded.get().worldManager.loadWorld(ArenaManager.getArenas().getString(arenaName + ".world"), World.Environment.NORMAL);
+        EggWarsReloaded.get().worldManager.loadWorld(ArenaManager.getArenaWorld(arenaName), World.Environment.NORMAL);
 
-        World arena = Bukkit.getWorld(ArenaManager.getArenas().getString(arenaName + ".world"));
+        World arena = Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName));
 
         // DON'T save actions the players do in the game
         arena.setAutoSave(false);
@@ -430,9 +430,9 @@ public class Game {
     }
 
     private void resetArena() {
-        EggWarsReloaded.get().worldManager.unloadWorld(ArenaManager.getArenas().getString(arenaName + ".world"), false,  ArenaManager.getMainLobby(arenaName));
+        EggWarsReloaded.get().worldManager.unloadWorld(ArenaManager.getArenaWorld(arenaName), false, ArenaManager.getMainLobby(arenaName));
     }
-    
+
     public void setCages(Material material, Material topMaterial) {
         for (String team : usedTeams) {
             for (String spawn : ArenaManager.getArenas().getStringList(arenaName + ".team." + team + ".spawn")) {

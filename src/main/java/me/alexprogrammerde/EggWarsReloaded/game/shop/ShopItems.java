@@ -23,6 +23,10 @@ public enum ShopItems {
         return price;
     }
 
+    public Material getMaterial() {
+        return Material.valueOf(toString());
+    }
+
     public static void giveItem(Player player, ShopItems item) {
         ItemStack itemStack = new ItemStack(Material.valueOf(item.toString()));
 

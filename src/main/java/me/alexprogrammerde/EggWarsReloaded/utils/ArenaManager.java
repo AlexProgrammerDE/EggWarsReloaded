@@ -204,9 +204,7 @@ public class ArenaManager {
     }
 
     public static void setFirstSpawn(String arenaName, String teamName, Location location) {
-        FileConfiguration arenas = ArenaManager.getArenas();
-
-        arenas.set(arenaName + ".team." + teamName + ".spawn", UtilCore.convertString(location));
+        getArenas().set(arenaName + ".team." + teamName + ".spawn", UtilCore.convertString(location));
 
         try {
             getArenas().save(EggWarsReloaded.get().getArenasFile());
@@ -218,9 +216,7 @@ public class ArenaManager {
     }
 
     public static void setRespawn(String arenaName, String teamName, Location location) {
-        FileConfiguration arenas = ArenaManager.getArenas();
-
-        arenas.set(arenaName + ".team." + teamName + ".respawn", UtilCore.convertString(location));
+        getArenas().set(arenaName + ".team." + teamName + ".respawn", UtilCore.convertString(location));
 
         try {
             getArenas().save(EggWarsReloaded.get().getArenasFile());
@@ -229,6 +225,10 @@ public class ArenaManager {
         }
 
         EggWarsReloaded.get().reloadArenas();
+    }
+
+    public static Location getRespawn(String arenaName, String teamName) {
+        return UtilCore.convertLocation(getArenas().getString(arenaName + ".team." + teamName + ".respawn"));
     }
 
     public static boolean isTeamRegistered(String arenaName, String teamName) {

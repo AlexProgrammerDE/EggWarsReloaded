@@ -15,7 +15,7 @@ import java.util.*;
 
 public class EggCommand implements CommandExecutor, TabExecutor {
     private static final String[] PLAYER = {"help", "join"/*, "randomjoin"*/};
-    private static final String[] ADMIN = { "reload", "addarena", "delarena", /*"kick", */"edit", "endgame"};
+    private static final String[] ADMIN = {"reload", "addarena", "delarena", /*"kick", */"edit", "endgame"};
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
@@ -55,6 +55,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                     }
                 }
 
+                // TODO: Randomjoin
                 /* if (args[0].equals("randomjoin")) {
                     if (player.hasPermission("eggwarsreloaded.command.randomjoin")) {
 
@@ -108,6 +109,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                     }
                 }
 
+                // TODO: Kicking
                 /* if (args[0].equals("kick")) {
                     if (player.hasPermission("eggwarsreloaded.command.kick")) {
 
