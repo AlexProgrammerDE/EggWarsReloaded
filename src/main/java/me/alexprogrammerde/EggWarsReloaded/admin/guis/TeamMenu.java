@@ -11,7 +11,6 @@ import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class TeamMenu {
 
@@ -23,12 +22,12 @@ public class TeamMenu {
         ItemStack white = new ItemBuilder(Material.WHITE_WOOL).name(items.getString("items.editteams.white.name")).build();
         ItemStack orange = new ItemBuilder(Material.ORANGE_WOOL).name(items.getString("items.editteams.orange.name")).build();
         ItemStack magenta = new ItemBuilder(Material.MAGENTA_WOOL).name(items.getString("items.editteams.magenta.name")).build();
-        ItemStack lightblue = new ItemBuilder(Material.LIGHT_BLUE_WOOL).name(items.getString("items.editteams.lightblue.name")).build();
+        ItemStack lightBlue = new ItemBuilder(Material.LIGHT_BLUE_WOOL).name(items.getString("items.editteams.lightblue.name")).build();
         ItemStack yellow = new ItemBuilder(Material.YELLOW_WOOL).name(items.getString("items.editteams.yellow.name")).build();
         ItemStack lime = new ItemBuilder(Material.LIME_WOOL).name(items.getString("items.editteams.lime.name")).build();
         ItemStack pink = new ItemBuilder(Material.PINK_WOOL).name(items.getString("items.editteams.pink.name")).build();
         ItemStack gray = new ItemBuilder(Material.GRAY_WOOL).name(items.getString("items.editteams.gray.name")).build();
-        ItemStack lightgray = new ItemBuilder(Material.LIGHT_GRAY_WOOL).name(items.getString("items.editteams.lightgray.name")).build();
+        ItemStack lightGray = new ItemBuilder(Material.LIGHT_GRAY_WOOL).name(items.getString("items.editteams.lightgray.name")).build();
         ItemStack cyan = new ItemBuilder(Material.CYAN_WOOL).name(items.getString("items.editteams.cyan.name")).build();
         ItemStack purple = new ItemBuilder(Material.PURPLE_WOOL).name(items.getString("items.editteams.purple.name")).build();
         ItemStack blue = new ItemBuilder(Material.BLUE_WOOL).name(items.getString("items.editteams.blue.name")).build();
@@ -51,7 +50,7 @@ public class TeamMenu {
         gui.addItem(magenta, items.getInt("items.editteams.magenta.slot"))
                 .addDefaultEvent(openTeam(player, arenaName, "magenta"));
 
-        gui.addItem(lightblue, items.getInt("items.editteams.lightblue.slot"))
+        gui.addItem(lightBlue, items.getInt("items.editteams.lightblue.slot"))
                 .addDefaultEvent(openTeam(player, arenaName, "lightblue"));
 
         gui.addItem(yellow, items.getInt("items.editteams.yellow.slot"))
@@ -66,7 +65,7 @@ public class TeamMenu {
         gui.addItem(gray, items.getInt("items.editteams.gray.slot"))
                 .addDefaultEvent(openTeam(player, arenaName, "gray"));
 
-        gui.addItem(lightgray, items.getInt("items.editteams.lightgray.slot"))
+        gui.addItem(lightGray, items.getInt("items.editteams.lightgray.slot"))
                 .addDefaultEvent(openTeam(player, arenaName, "lightgray"));
 
         gui.addItem(cyan, items.getInt("items.editteams.cyan.slot"))
