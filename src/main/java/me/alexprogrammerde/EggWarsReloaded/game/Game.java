@@ -39,7 +39,7 @@ public class Game {
      */
     protected final List<Player> livingPlayers = new ArrayList<>();
 
-    public final List<String> usedTeams = new ArrayList<>();
+    public final List<TeamColor> usedTeams = new ArrayList<>();
 
     public final int maxPlayers;
     public final int maxTeamPlayers;
@@ -65,8 +65,8 @@ public class Game {
         state = GameState.UNREGISTERED;
 
         for (String team : arenas.getConfigurationSection(arenaName + ".team").getKeys(false)) {
-            if (ArenaManager.isTeamRegistered(arenaName, team)) {
-                usedTeams.add(team);
+            if (ArenaManager.isTeamRegistered(arenaName, TeamColor.fromString(team))) {
+                usedTeams.add(TeamColor.fromString(team));
             }
         }
 
@@ -132,7 +132,7 @@ public class Game {
 
         matchmaker.findTeamForPlayer(player);
 
-        player.sendMessage(ChatColor.GOLD + "Your team: " + TeamColor.fromString(matchmaker.getTeamOfPlayer(player)).getColor() + matchmaker.getTeamOfPlayer(player));
+        player.sendMessage(ChatColor.GOLD + "Your team: " + matchmaker.getTeamOfPlayer(player).getColor() + matchmaker.getTeamOfPlayer(player));
 
         Scoreboard playerScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
 
@@ -143,7 +143,7 @@ public class Game {
         Score one = objective.getScore("");
         one.setScore(3);
 
-        Score two = objective.getScore(ChatColor.GOLD + "Your team: " + TeamColor.fromString(matchmaker.getTeamOfPlayer(player)).getColor() + matchmaker.getTeamOfPlayer(player));
+        Score two = objective.getScore(ChatColor.GOLD + "Your team: " + matchmaker.getTeamOfPlayer(player).getColor() + matchmaker.getTeamOfPlayer(player));
         two.setScore(2);
 
         Score three = objective.getScore(ChatColor.GOLD + "Arena: " + ChatColor.AQUA + arenaName);
@@ -434,7 +434,7 @@ public class Game {
     }
 
     public void setCages(Material material, Material topMaterial) {
-        for (String team : usedTeams) {
+        for (TeamColor team : usedTeams) {
             for (String spawn : ArenaManager.getArenas().getStringList(arenaName + ".team." + team + ".spawn")) {
                 Location loc = UtilCore.convertLocation(spawn);
                 World world = loc.getWorld();
@@ -486,7 +486,7 @@ public class Game {
     private void placeAllEggs() {
         List<Location> eggs = new ArrayList<>();
 
-        for (String team : usedTeams) {
+        for (TeamColor team : usedTeams) {
             eggs.add(UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".team." + team + ".egg")));
         }
 
@@ -495,7 +495,7 @@ public class Game {
         }
     }
 
-    public void eggDestroyed(String team) {
+    public void eggDestroyed(TeamColor team) {
         matchmaker.hasTeamEgg.remove(team);
         matchmaker.hasTeamEgg.put(team, false);
 
@@ -518,7 +518,7 @@ public class Game {
 
         sword.setItemMeta(swordMeta);
 
-        ItemStack block = new ItemStack(TeamColor.fromString(matchmaker.getTeamOfPlayer(player)).getMaterial());
+        ItemStack block = new ItemStack(matchmaker.getTeamOfPlayer(player).getMaterial());
 
         block.setAmount(64);
 

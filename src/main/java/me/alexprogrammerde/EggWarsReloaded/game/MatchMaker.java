@@ -1,6 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded.game;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
+import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
 import org.bukkit.GameMode;
@@ -17,17 +18,17 @@ public class MatchMaker {
     private final String arenaName;
 
     // This value is used as a storage for possible locations for players
-    private final HashMap<Location, String> spawns = new HashMap<>();
+    private final HashMap<Location, TeamColor> spawns = new HashMap<>();
 
-    private final HashMap<String, List<Location>> teams = new HashMap<>();
+    private final HashMap<TeamColor, List<Location>> teams = new HashMap<>();
 
     private final HashMap<Player, Location> playerInLocation = new HashMap<>();
 
-    protected final HashMap<Player, String> playerInTeam = new HashMap<>();
+    protected final HashMap<Player, TeamColor> playerInTeam = new HashMap<>();
 
     private final Game game;
 
-    protected final HashMap<String, Boolean> hasTeamEgg = new HashMap<>();
+    protected final HashMap<TeamColor, Boolean> hasTeamEgg = new HashMap<>();
 
     public MatchMaker(String arenaName, Game game) {
         this.arenaName = arenaName;
@@ -37,7 +38,7 @@ public class MatchMaker {
     public void readSpawns() {
         FileConfiguration arenas = ArenaManager.getArenas();
 
-        for (String team : game.usedTeams) {
+        for (TeamColor team : game.usedTeams) {
             hasTeamEgg.put(team, true);
 
             List<Location> tempList = new ArrayList<>();
@@ -58,7 +59,7 @@ public class MatchMaker {
         }
     }
 
-    public boolean isTeamFull(String team) {
+    public boolean isTeamFull(TeamColor team) {
         FileConfiguration arenas = EggWarsReloaded.get().getArenas();
 
         int spawnCount = 0;
@@ -72,7 +73,7 @@ public class MatchMaker {
         return spawnCount >= game.maxTeamPlayers;
     }
 
-    public void setTeam(Player player, String team) {
+    public void setTeam(Player player, TeamColor team) {
         if (!isTeamFull(team)) {
             for (Location loc : teams.get(team)) {
                 if (!playerInLocation.containsValue(loc)) {
@@ -95,11 +96,11 @@ public class MatchMaker {
         }
     }
 
-    public String getTeamOfPlayer(Player player) {
+    public TeamColor getTeamOfPlayer(Player player) {
         return playerInTeam.get(player);
     }
 
-    public List<Player> getPlayersInTeam(String team) {
+    public List<Player> getPlayersInTeam(TeamColor team) {
         List<Player> players = new ArrayList<>();
 
         for (Player player : playerInTeam.keySet()) {
@@ -111,7 +112,7 @@ public class MatchMaker {
         return players;
     }
 
-    public Collection<String> getTeams() {
+    public Collection<TeamColor> getTeams() {
         return playerInTeam.values();
     }
 }

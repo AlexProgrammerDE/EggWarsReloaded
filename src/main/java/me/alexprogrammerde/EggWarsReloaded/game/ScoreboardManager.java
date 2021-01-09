@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScoreboardManager {
-    private final List<String> teams = new ArrayList<>();
+    private final List<TeamColor> teams = new ArrayList<>();
     private final Game game;
 
     public ScoreboardManager(Game game) {
@@ -39,13 +39,11 @@ public class ScoreboardManager {
 
         text.add("");
 
-        for (String team : teams) {
-            TeamColor teamColor = TeamColor.fromString(team);
-
+        for (TeamColor team : teams) {
             String var1 = game.matchmaker.getTeamOfPlayer(player).equals(team) ? ChatColor.DARK_GRAY + " (You)" : "";
             String var2 = game.gameLogics.isTeamDead(team) ? ChatColor.RED + "✗" : ChatColor.GREEN + "✓";
 
-            text.add(teamColor.getColor() + "" + teamColor.getFirstLetter() + ChatColor.RESET + " " + teamColor.getCapitalized() + ": " + var2 + var1);
+            text.add(team.getColor() + "" + team.getFirstLetter() + ChatColor.RESET + " " + team.getCapitalized() + ": " + var2 + var1);
         }
 
         text.add(" ");

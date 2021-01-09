@@ -1,6 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded.admin;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
+import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
 import org.bukkit.Bukkit;
@@ -39,7 +40,7 @@ public class ArenaRepairer implements Listener {
                             newVillager.setCollidable(false);
                             newVillager.setInvulnerable(true);
 
-                            ArenaManager.setShop(arenaName, team, newVillager.getUniqueId().toString(), villager.getLocation());
+                            ArenaManager.setShop(arenaName, TeamColor.fromString(team), newVillager.getUniqueId().toString(), villager.getLocation());
 
                             EggWarsReloaded.get().getLogger().info("Respawned shop. If you wish to delete it use the edit menu.");
                         }

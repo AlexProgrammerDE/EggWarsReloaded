@@ -2,6 +2,7 @@ package me.alexprogrammerde.EggWarsReloaded.admin.assistants;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.guis.TeamUnderMenu;
+import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -19,9 +20,9 @@ public class EggAssistant implements Listener {
     private static final HashMap<Player, EggAssistant> assistants = new HashMap<>();
     private final Player player;
     private final String arenaName;
-    private final String teamName;
+    private final TeamColor teamName;
 
-    public EggAssistant(Player player, String arenaName, String teamName) {
+    public EggAssistant(Player player, String arenaName, TeamColor teamName) {
         assistants.put(player, this);
 
         this.player = player;

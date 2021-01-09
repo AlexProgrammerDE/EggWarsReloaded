@@ -1,5 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.game.shop;
 
+import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -54,11 +55,11 @@ public class ShopUtil {
         return i;
     }
 
-    public static void buyItem(ShopItems item, Player player) {
+    public static void buyItem(ShopItems item, Player player, TeamColor color) {
         if (canPay(item.getPrice(), player)) {
             payPrice(item.getPrice(), player);
 
-            ShopItems.giveItem(player, item);
+            ShopItems.giveItem(player, item, color);
         } else {
             player.sendMessage("You don't have enough money to buy this!");
         }

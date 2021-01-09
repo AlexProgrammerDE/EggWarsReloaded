@@ -1,6 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded.utils;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
+import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -89,7 +90,7 @@ public class ArenaManager {
         return UtilCore.convertLocation(getArenas().getString(arenaName + ".spectator"));
     }
 
-    public static void setArenaRegistered(String arenaName, boolean register, List<String> teams) {
+    public static void setArenaRegistered(String arenaName, boolean register, List<TeamColor> teams) {
         getArenas().set(arenaName + ".registered", register);
         getArenas().set(arenaName + ".registeredteams", teams);
 
@@ -124,7 +125,7 @@ public class ArenaManager {
         return getArenas().getBoolean(arenaName + ".registered");
     }
 
-    public static void setTeamRegistered(String arenaName, String teamName, boolean register) {
+    public static void setTeamRegistered(String arenaName, TeamColor teamName, boolean register) {
         getArenas().set(arenaName + ".team." + teamName + ".registered", register);
 
         try {
@@ -172,7 +173,7 @@ public class ArenaManager {
         EggWarsReloaded.get().reloadArenas();
     }
 
-    public static void setEgg(String arenaName, String teamName, Location eggLocation) {
+    public static void setEgg(String arenaName, TeamColor teamName, Location eggLocation) {
         getArenas().set(arenaName + ".team." + teamName + ".egg", UtilCore.convertString(eggLocation));
 
         try {
@@ -184,7 +185,7 @@ public class ArenaManager {
         EggWarsReloaded.get().reloadArenas();
     }
 
-    public static void setShop(String arenaName, String teamName, String uuid, Location location) {
+    public static void setShop(String arenaName, TeamColor teamName, String uuid, Location location) {
         FileConfiguration arenas = ArenaManager.getArenas();
 
         if (uuid == null || location == null) {
@@ -203,7 +204,7 @@ public class ArenaManager {
         EggWarsReloaded.get().reloadArenas();
     }
 
-    public static void setFirstSpawn(String arenaName, String teamName, Location location) {
+    public static void setFirstSpawn(String arenaName, TeamColor teamName, Location location) {
         getArenas().set(arenaName + ".team." + teamName + ".spawn", UtilCore.convertString(location));
 
         try {
@@ -215,7 +216,7 @@ public class ArenaManager {
         EggWarsReloaded.get().reloadArenas();
     }
 
-    public static void setRespawn(String arenaName, String teamName, Location location) {
+    public static void setRespawn(String arenaName, TeamColor teamName, Location location) {
         getArenas().set(arenaName + ".team." + teamName + ".respawn", UtilCore.convertString(location));
 
         try {
@@ -227,12 +228,12 @@ public class ArenaManager {
         EggWarsReloaded.get().reloadArenas();
     }
 
-    public static Location getRespawn(String arenaName, String teamName) {
-        return UtilCore.convertLocation(getArenas().getString(arenaName + ".team." + teamName + ".respawn"));
+    public static Location getRespawn(String arenaName, TeamColor team) {
+        return UtilCore.convertLocation(getArenas().getString(arenaName + ".team." + team.toString() + ".respawn"));
     }
 
-    public static boolean isTeamRegistered(String arenaName, String teamName) {
-        return getArenas().getBoolean(arenaName + ".team." + teamName + ".registered");
+    public static boolean isTeamRegistered(String arenaName, TeamColor team) {
+        return getArenas().getBoolean(arenaName + ".team." + team.toString() + ".registered");
     }
 
     public static boolean isArenaReady(String arenaName) {
@@ -241,7 +242,7 @@ public class ArenaManager {
         return true;
     }
 
-    public static boolean isTeamReady(String arenaName, String teamName) {
+    public static boolean isTeamReady(String arenaName, TeamColor teamName) {
         FileConfiguration arenas = ArenaManager.getArenas();
 
         return arenas.contains(arenaName + ".team." + teamName + ".egg")

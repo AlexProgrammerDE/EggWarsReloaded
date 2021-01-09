@@ -3,10 +3,7 @@ package me.alexprogrammerde.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.ArenaRepairer;
 import me.alexprogrammerde.EggWarsReloaded.commands.EggCommand;
 import me.alexprogrammerde.EggWarsReloaded.game.Game;
-import me.alexprogrammerde.EggWarsReloaded.game.listeners.EggListener;
-import me.alexprogrammerde.EggWarsReloaded.game.listeners.GameListener;
-import me.alexprogrammerde.EggWarsReloaded.game.listeners.LobbyListener;
-import me.alexprogrammerde.EggWarsReloaded.game.listeners.ShopListener;
+import me.alexprogrammerde.EggWarsReloaded.game.listeners.*;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ConfigManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.world.FileWorldManager;
@@ -51,6 +48,7 @@ public class EggWarsReloaded extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new LobbyListener(), this);
         getServer().getPluginManager().registerEvents(new EggListener(), this);
         getServer().getPluginManager().registerEvents(new ShopListener(), this);
+        getServer().getPluginManager().registerEvents(new ButtonListener(), this);
 
         logger.info(ChatColor.LIGHT_PURPLE + "Loading arenas");
         ConfigurationSection section = ArenaManager.getArenas();

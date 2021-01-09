@@ -2,6 +2,7 @@ package me.alexprogrammerde.EggWarsReloaded.admin.guis;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.assistants.GeneratorAssistant;
+import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ItemBuilder;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
@@ -87,28 +88,28 @@ public class EditMenu {
             pos2.enchant();
         }
 
-        mainLobby.addLore("Left click to set the main lobby.");
-        waitingLobby.addLore("Left click to set the waiting lobby.");
-        spectator.addLore("Left click to set the spectator spawn.");
-        teams.addLore("Left click to edit all teams.");
-        size.addLore("Click to increase teamsize. 4 is the maximum!");
-        pos1.addLore("Left click to set your position to pos1.");
-        pos2.addLore("Left click to set your position to pos2.");
+        mainLobby.lore("Left click to set the main lobby.");
+        waitingLobby.lore("Left click to set the waiting lobby.");
+        spectator.lore("Left click to set the spectator spawn.");
+        teams.lore("Left click to edit all teams.");
+        size.lore("Click to increase teamsize. 4 is the maximum!");
+        pos1.lore("Left click to set your position to pos1.");
+        pos2.lore("Left click to set your position to pos2.");
 
         if (arenas.getBoolean(arenaName + ".registered")) {
-            register.addLore("Left click to unregister the arena.");
+            register.lore("Left click to unregister the arena.");
         } else {
             if (ArenaManager.isArenaReady(arenaName)) {
-                register.addLore("Left click to register the arena");
+                register.lore("Left click to register the arena");
             } else {
-                register.addLore("There are still some steps left!");
+                register.lore("There are still some steps left!");
             }
         }
 
         if (ArenaManager.getArenas().contains(arenaName + ".mainlobby")) {
             Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".mainlobby"));
 
-            mainLobby.addLore("Current: " + location.getWorld().getName() + " "
+            mainLobby.lore("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
@@ -116,7 +117,7 @@ public class EditMenu {
 
         if (ArenaManager.getArenas().contains(arenaName + ".waitinglobby")) {
             Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".waitinglobby"));
-            waitingLobby.addLore("Current: " + location.getWorld().getName() + " "
+            waitingLobby.lore("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
@@ -124,7 +125,7 @@ public class EditMenu {
 
         if (ArenaManager.getArenas().contains(arenaName + ".spectator")) {
             Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".spectator"));
-            spectator.addLore("Current: " + location.getWorld().getName() + " "
+            spectator.lore("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
@@ -132,7 +133,7 @@ public class EditMenu {
 
         if (ArenaManager.getArenas().contains(arenaName + ".pos1")) {
             Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".pos1"));
-            pos1.addLore("Current: " + location.getWorld().getName() + " "
+            pos1.lore("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
@@ -140,19 +141,19 @@ public class EditMenu {
 
         if (ArenaManager.getArenas().contains(arenaName + ".pos2")) {
             Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".pos2"));
-            pos2.addLore("Current: " + location.getWorld().getName() + " "
+            pos2.lore("Current: " + location.getWorld().getName() + " "
                     + Math.round(location.getBlockX()) + " "
                     + Math.round(location.getBlockY()) + " "
                     + Math.round(location.getBlockZ()));
         }
 
-        size.addLore("Current: " + ArenaManager.getTeamSize(arenaName));
+        size.lore("Current: " + ArenaManager.getTeamSize(arenaName));
 
-        mainLobby.addLore("Use shift + left click to reset it.");
-        waitingLobby.addLore("Use shift + left click to reset it.");
-        spectator.addLore("Use shift + left click to reset it.");
-        pos1.addLore("Use shift + left click to reset it.");
-        pos2.addLore("Use shift + left click to reset it.");
+        mainLobby.lore("Use shift + left click to reset it.");
+        waitingLobby.lore("Use shift + left click to reset it.");
+        spectator.lore("Use shift + left click to reset it.");
+        pos1.lore("Use shift + left click to reset it.");
+        pos2.lore("Use shift + left click to reset it.");
 
         GUI gui = new GUI(arenaName, 3, EggWarsReloaded.get(), player);
 
@@ -213,7 +214,7 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player);
                 })
                 .addDefaultEvent(() -> {
-                    if (ArenaManager.getArenas().contains(arenaName + "spectator")) {
+                    if (ArenaManager.getArenas().contains(arenaName + ".spectator")) {
                         player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
                     } else {
                         ArenaManager.setSpectator(arenaName, player.getLocation());
@@ -231,11 +232,11 @@ public class EditMenu {
 
                         player.sendMessage("Unregistered arena: " + arenaName);
                     } else {
-                        List<String> teams1 = new ArrayList<>();
+                        List<TeamColor> teams1 = new ArrayList<>();
 
                         for (String team : arenas.getConfigurationSection(arenaName + ".team").getKeys(false)) {
-                            if (ArenaManager.isTeamRegistered(arenaName, team)) {
-                                teams1.add(team);
+                            if (ArenaManager.isTeamRegistered(arenaName, TeamColor.fromString(team))) {
+                                teams1.add(TeamColor.fromString(team));
                             }
                         }
 
@@ -245,12 +246,8 @@ public class EditMenu {
                             boolean isWrong = false;
                             StringBuilder wrongteams = new StringBuilder();
 
-                            for (String team : teams1) {
-                                EggWarsReloaded.get().getLogger().info(team);
+                            for (TeamColor team : teams1) {
                                 List<String> spawns = arenas.getStringList(arenaName + ".team." + team + ".spawn");
-                                EggWarsReloaded.get().getLogger().info(spawns.toString());
-                                EggWarsReloaded.get().getLogger().info(String.valueOf(spawns.size()));
-                                EggWarsReloaded.get().getLogger().info(String.valueOf(ArenaManager.getTeamSize(team)));
 
                                 if (spawns.size() != ArenaManager.getTeamSize(arenaName)) {
                                     isWrong = true;

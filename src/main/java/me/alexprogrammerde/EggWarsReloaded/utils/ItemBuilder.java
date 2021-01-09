@@ -1,10 +1,12 @@
 package me.alexprogrammerde.EggWarsReloaded.utils;
 
+import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import me.alexprogrammerde.EggWarsReloaded.game.shop.ItemPrice;
 import me.alexprogrammerde.EggWarsReloaded.game.shop.ShopItems;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -15,7 +17,7 @@ import java.util.List;
 /**
  * Only recommended for use in guis. Not giving those items to actual players.
  */
-@SuppressWarnings({"unused"})
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public class ItemBuilder {
     private final Material material;
     private String name = null;
@@ -35,9 +37,9 @@ public class ItemBuilder {
      * Build a brand new shop item!
      * @param item The shop item to produce
      */
-    public ItemBuilder(ShopItems item) {
-        this.material = item.getMaterial();
-        addLoreFor(item);
+    public ItemBuilder(ShopItems item, TeamColor color) {
+        this.material = item.getMaterial(color);
+        lore(item);
     }
 
     /**
@@ -72,17 +74,12 @@ public class ItemBuilder {
         return this;
     }
 
-    public ItemBuilder addLore(String lore) {
+    public ItemBuilder lore(String lore) {
         this.lore.add(lore);
         return this;
     }
 
-    public ItemBuilder enchant() {
-        this.enchant = true;
-        return this;
-    }
-
-    public ItemBuilder addLoreFor(ShopItems sItem) {
+    public ItemBuilder lore(ShopItems sItem) {
         ItemPrice price = sItem.getPrice();
 
         if (price.getDiamonds() > 0) {
@@ -101,6 +98,11 @@ public class ItemBuilder {
             this.lore.add(ChatColor.BLUE + "Get it free today!");
         }
 
+        return this;
+    }
+
+    public ItemBuilder enchant() {
+        this.enchant = true;
         return this;
     }
 

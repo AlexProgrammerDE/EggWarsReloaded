@@ -4,6 +4,7 @@ import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.assistants.EggAssistant;
 import me.alexprogrammerde.EggWarsReloaded.admin.assistants.GeneratorAssistant;
 import me.alexprogrammerde.EggWarsReloaded.admin.assistants.ShopAssistant;
+import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ItemBuilder;
 import me.alexprogrammerde.EggWarsReloaded.utils.gui.GUI;
@@ -42,194 +43,189 @@ public class TeamMenu {
         GUI gui = new GUI(arenaName, 5, EggWarsReloaded.get(), player);
 
         gui.addItem(white, items.getInt("items.editteams.white.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "white"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.WHITE));
 
         gui.addItem(orange, items.getInt("items.editteams.orange.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "orange"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.ORANGE));
 
         gui.addItem(magenta, items.getInt("items.editteams.magenta.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "magenta"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.MAGENTA));
 
         gui.addItem(lightBlue, items.getInt("items.editteams.lightblue.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "lightblue"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.LIGHT_BLUE));
 
         gui.addItem(yellow, items.getInt("items.editteams.yellow.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "yellow"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.YELLOW));
 
         gui.addItem(lime, items.getInt("items.editteams.lime.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "lime"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.LIME));
 
         gui.addItem(pink, items.getInt("items.editteams.pink.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "pink"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.PINK));
 
         gui.addItem(gray, items.getInt("items.editteams.gray.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "gray"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.GRAY));
 
         gui.addItem(lightGray, items.getInt("items.editteams.lightgray.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "lightgray"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.LIGHT_GRAY));
 
         gui.addItem(cyan, items.getInt("items.editteams.cyan.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "cyan"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.CYAN));
 
         gui.addItem(purple, items.getInt("items.editteams.purple.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "purple"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.PURPLE));
 
         gui.addItem(blue, items.getInt("items.editteams.blue.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "blue"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.BLUE));
 
         gui.addItem(brown, items.getInt("items.editteams.brown.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "brown"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.BROWN));
 
         gui.addItem(green, items.getInt("items.editteams.green.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "green"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.GREEN));
 
         gui.addItem(red, items.getInt("items.editteams.red.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "red"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.RED));
 
         gui.addItem(black, items.getInt("items.editteams.black.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, "black"));
+                .addDefaultEvent(openTeam(player, arenaName, TeamColor.BLACK));
 
 
         gui.addItem(back, items.getInt("items.editteams.back.slot"))
-                .addDefaultEvent(new Runnable() {
-                    @Override
-                    public void run() {
-                        EditMenu.openEditMenu(arenaName, player);
-                    }
-                });
+                .addDefaultEvent(() -> EditMenu.openEditMenu(arenaName, player));
 
 
         if (arenas.getBoolean(arenaName + ".team.white.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.white.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "white"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.WHITE));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.white.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "white"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.WHITE));
         }
         if (arenas.getBoolean(arenaName + ".team.orange.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.orange.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "orange"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.ORANGE));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.orange.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "orange"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.ORANGE));
         }
 
         if (arenas.getBoolean(arenaName + ".team.magenta.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.magenta.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "magenta"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.MAGENTA));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.magenta.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "magenta"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.MAGENTA));
         }
 
         if (arenas.getBoolean(arenaName + ".team.lightblue.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.lightblue.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "lightblue"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.LIGHT_BLUE));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.lightblue.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "lightblue"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.LIGHT_BLUE));
         }
 
         if (arenas.getBoolean(arenaName + ".team.yellow.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.yellow.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "yellow"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.YELLOW));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.yellow.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "yellow"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.YELLOW));
         }
 
         if (arenas.getBoolean(arenaName + ".team.lime.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.lime.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "lime"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.LIME));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.lime.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "lime"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.LIME));
         }
 
         if (arenas.getBoolean(arenaName + ".team.pink.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.pink.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "pink"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.PINK));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.pink.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "pink"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.PINK));
         }
 
         if (arenas.getBoolean(arenaName + ".team.gray.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.gray.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "gray"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.GRAY));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.gray.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "gray"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.GRAY));
         }
 
         if (arenas.getBoolean(arenaName + ".team.lightgray.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.lightgray.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "lightgray"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.LIGHT_GRAY));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.lightgray.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "lightgray"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.LIGHT_GRAY));
         }
 
         if (arenas.getBoolean(arenaName + ".team.cyan.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.cyan.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "cyan"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.CYAN));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.cyan.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "cyan"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.CYAN));
         }
 
         if (arenas.getBoolean(arenaName + ".team.purple.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.purple.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "purple"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.PURPLE));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.purple.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "purple"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.PURPLE));
         }
 
         if (arenas.getBoolean(arenaName + ".team.blue.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.blue.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "blue"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.BLUE));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.blue.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "blue"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.BLUE));
         }
 
         if (arenas.getBoolean(arenaName + ".team.brown.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.brown.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "brown"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.BROWN));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.brown.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "brown"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.BROWN));
         }
 
         if (arenas.getBoolean(arenaName + ".team.green.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.green.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "green"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.GREEN));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.green.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "green"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.GREEN));
         }
 
         if (arenas.getBoolean(arenaName + ".team.red.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.red.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "red"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.RED));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.red.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "red"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.RED));
         }
 
         if (arenas.getBoolean(arenaName + ".team.black.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.black.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "black"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.BLACK));
         } else {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.black.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, "black"));
+                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.BLACK));
         }
 
         gui.openGUI();
     }
 
-    private static Runnable openTeam(Player player, String arenaName, String teamName) {
+    private static Runnable openTeam(Player player, String arenaName, TeamColor teamName) {
         return () -> {
             TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
@@ -239,7 +235,7 @@ public class TeamMenu {
         };
     }
 
-    private static Runnable clickButton(Player player, String arenaName, String teamnName) {
+    private static Runnable clickButton(Player player, String arenaName, TeamColor teamnName) {
         return () -> {
             if (ArenaManager.isTeamReady(arenaName, teamnName)) {
                 if (ArenaManager.isTeamRegistered(arenaName, teamnName)) {

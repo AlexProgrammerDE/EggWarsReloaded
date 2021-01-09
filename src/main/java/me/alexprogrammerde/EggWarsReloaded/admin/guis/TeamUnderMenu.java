@@ -3,6 +3,7 @@ package me.alexprogrammerde.EggWarsReloaded.admin.guis;
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.assistants.EggAssistant;
 import me.alexprogrammerde.EggWarsReloaded.admin.assistants.ShopAssistant;
+import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ItemBuilder;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class TeamUnderMenu {
 
-    public static void setupTeamUnderMenu(String arenaName, String teamName, Player player) {
+    public static void setupTeamUnderMenu(String arenaName, TeamColor teamName, Player player) {
         FileConfiguration items = EggWarsReloaded.get().getItems();
         FileConfiguration arenas = EggWarsReloaded.get().getArenas();
 
@@ -45,43 +46,43 @@ public class TeamUnderMenu {
         respawn.name(items.getString("items.editteam.respawn.name"));
         back.name(items.getString("items.editteam.back.name"));
 
-        egg.addLore("Left click to start the egg assistant.");
+        egg.lore("Left click to start the egg assistant.");
 
         if (arenas.contains(arenaName + ".team." + teamName + ".egg")) {
             Location egglocation = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".team." + teamName + ".egg"));
 
-            egg.addLore("Current: " + egglocation.getWorld().getName() + " "
+            egg.lore("Current: " + egglocation.getWorld().getName() + " "
                     + Math.round(egglocation.getBlockX()) + " "
                     + Math.round(egglocation.getBlockY()) + " "
                     + Math.round(egglocation.getBlockZ()));
 
             egg.enchant();
 
-            egg.addLore("Use shift + left click to reset it.");
+            egg.lore("Use shift + left click to reset it.");
         }
 
-        shop.addLore("Left click to start the shop assistant.");
+        shop.lore("Left click to start the shop assistant.");
 
         if (arenas.contains(arenaName + ".team." + teamName + ".shop")) {
             Location shopLocation = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".team." + teamName + ".shop.location"));
 
-            shop.addLore("Current: " + shopLocation.getWorld().getName() + " "
+            shop.lore("Current: " + shopLocation.getWorld().getName() + " "
                     + Math.round(shopLocation.getBlockX()) + " "
                     + Math.round(shopLocation.getBlockY()) + " "
                     + Math.round(shopLocation.getBlockZ()));
 
             shop.enchant();
 
-            shop.addLore("Use shift + left click to reset it.");
+            shop.lore("Use shift + left click to reset it.");
         }
 
-        spawn.addLore("Left click to start the spawn assistant.");
+        spawn.lore("Left click to start the spawn assistant.");
 
         if (arenas.contains(arenaName + ".team." + teamName + ".spawn")) {
             for (String spawns : ArenaManager.getArenas().getStringList(arenaName + ".team." + teamName + ".spawn")) {
                 Location loc = UtilCore.convertLocation(spawns);
 
-                spawn.addLore(loc.getWorld().getName() + " "
+                spawn.lore(loc.getWorld().getName() + " "
                         + loc.getX() + " "
                         + loc.getY() + " "
                         + loc.getZ() + " "
@@ -91,15 +92,15 @@ public class TeamUnderMenu {
 
             spawn.enchant();
 
-            spawn.addLore("Use shift + left click to reset it.");
+            spawn.lore("Use shift + left click to reset it.");
         }
 
-        respawn.addLore("Left click to set your current place as the respawnpoint.");
+        respawn.lore("Left click to set your current place as the respawnpoint.");
 
         if (arenas.contains(arenaName + ".team." + teamName + ".respawn")) {
             Location loc = UtilCore.convertLocation(arenas.getString(arenaName + ".team." + teamName + ".respawn"));
 
-            respawn.addLore(loc.getWorld().getName() + " "
+            respawn.lore(loc.getWorld().getName() + " "
                     + loc.getX() + " "
                     + loc.getY() + " "
                     + loc.getZ() + " "
@@ -108,7 +109,7 @@ public class TeamUnderMenu {
 
             respawn.enchant();
 
-            respawn.addLore("Use shift + left click to reset it.");
+            respawn.lore("Use shift + left click to reset it.");
         }
 
         GUI gui = new GUI(arenaName, 3, EggWarsReloaded.get(), player);

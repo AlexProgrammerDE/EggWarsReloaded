@@ -40,4 +40,8 @@ public class GUI {
             guiItem.unregisterAllListeners();
         }
     }
+
+    public int getSize() {
+        return inv.getSize();
+    }
 }

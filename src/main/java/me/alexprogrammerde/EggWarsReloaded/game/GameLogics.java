@@ -1,5 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.game;
 
+import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class GameLogics {
     }
 
     public boolean isOnlyOneTeamLeft() {
-        List<String> teams = new ArrayList<>();
+        List<TeamColor> teams = new ArrayList<>();
 
         for (Player player : game.matchmaker.playerInTeam.keySet()) {
             if (game.livingPlayers.contains(player)) {
@@ -24,8 +25,8 @@ public class GameLogics {
         return teams.size() == 1;
     }
 
-    public String getLastTeam() {
-        List<String> teams = new ArrayList<>();
+    public TeamColor getLastTeam() {
+        List<TeamColor> teams = new ArrayList<>();
 
         for (Player player : game.matchmaker.playerInTeam.keySet()) {
             if (game.livingPlayers.contains(player)) {
@@ -36,7 +37,7 @@ public class GameLogics {
         return teams.get(0);
     }
 
-    public boolean isTeamDead(String team) {
+    public boolean isTeamDead(TeamColor team) {
         List<Player> players = new ArrayList<>();
 
         for (Player player : game.matchmaker.getPlayersInTeam(team)) {
