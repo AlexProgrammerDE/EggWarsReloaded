@@ -4,7 +4,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 
 public enum LobbyButtons {
-    // TODO Use LobbyButtons
+    // TODO: Use LobbyButtons
     FORCE_START(Material.DIAMOND, 2, ChatColor.AQUA  + "Force start");
 
     private final Material material;

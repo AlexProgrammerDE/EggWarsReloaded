@@ -30,12 +30,10 @@ public class ButtonListener implements Listener {
                 Game game = GameControl.getPlayerGame(player);
 
                 if (game.state == GameState.LOBBY || game.state == GameState.STARTING1) {
-                    if (player.getInventory().getHeldItemSlot() == 2) {
-                        if (hand.getType() == Material.DIAMOND) {
-                            if (player.hasPermission("eggwarsreloaded.forcestart")) {
-                                game.forceStart();
-                            }
-                        }
+                    if (player.getInventory().getHeldItemSlot() == 2
+                            && hand.getType() == Material.DIAMOND
+                            && player.hasPermission("eggwarsreloaded.forcestart")) {
+                        game.forceStart();
                     }
                 }
             }

@@ -9,15 +9,11 @@ import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class MatchMaker {
     private final String arenaName;
     private final Game game;
-    private final EggWarsReloaded plugin;
 
     // This value is used as a storage for possible locations for players
     private final HashMap<Location, TeamColor> spawns = new HashMap<>();
@@ -30,10 +26,9 @@ public class MatchMaker {
 
     protected final HashMap<TeamColor, Boolean> hasTeamEgg = new HashMap<>();
 
-    public MatchMaker(String arenaName, Game game, EggWarsReloaded plugin) {
+    public MatchMaker(String arenaName, Game game) {
         this.arenaName = arenaName;
         this.game = game;
-        this.plugin = plugin;
     }
 
     public void readSpawns() {
@@ -54,15 +49,13 @@ public class MatchMaker {
     }
 
     public void teleportPlayers() {
-        for (Player player : playerInLocation.keySet()) {
-            player.setGameMode(GameMode.ADVENTURE);
-            player.teleport(playerInLocation.get(player).getBlock().getLocation().add(0.5, 0, 0.5).setDirection(playerInLocation.get(player).getDirection()));
+        for (Map.Entry<Player, Location> entry : playerInLocation.entrySet()) {
+            entry.getKey().setGameMode(GameMode.ADVENTURE);
+            entry.getKey().teleport(entry.getValue().getBlock().getLocation().add(0.5, 0, 0.5).setDirection(entry.getValue().getDirection()));
         }
     }
 
     public boolean isTeamFull(TeamColor team) {
-        FileConfiguration arenas = plugin.getArenaConfig();
-
         int spawnCount = 0;
 
         for (Location loc : teams.get(team)) {

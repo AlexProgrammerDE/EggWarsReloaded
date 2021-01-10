@@ -8,6 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 public class UtilCore {
+    private UtilCore() {}
 
     public static void sendActionBar(Player player, String title) {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(title));

@@ -11,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class Shop {
+    private Shop() {}
+
     public static void setupShopMenu(TeamColor team, Player player, EggWarsReloaded plugin) {
         GUI gui = new GUI("Shop", 3, plugin, player);
 

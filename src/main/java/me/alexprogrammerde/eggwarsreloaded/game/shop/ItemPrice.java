@@ -1,11 +1,11 @@
 package me.alexprogrammerde.eggwarsreloaded.game.shop;
 
 public class ItemPrice {
-    public int iron;
+    private final int iron;
 
-    public int gold;
+    private final int gold;
 
-    public int diamonds;
+    private final int diamonds;
 
     public ItemPrice(int iron, int gold, int diamonds) {
         this.iron = iron;

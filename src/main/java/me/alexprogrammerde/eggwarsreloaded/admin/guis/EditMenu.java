@@ -22,6 +22,10 @@ import java.util.List;
 public class EditMenu {
     private static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "SetupAssistant" + ChatColor.GOLD + "] ";
 
+    private EditMenu() {
+
+    }
+
     public static void openEditMenu(String arenaName, Player player, EggWarsReloaded plugin) {
         FileConfiguration items = plugin.getItems();
         FileConfiguration arenas = ArenaManager.getArenas();
@@ -246,19 +250,19 @@ public class EditMenu {
                             player.sendMessage(prefix + "You need at least 2 teams registered!");
                         } else {
                             boolean isWrong = false;
-                            StringBuilder wrongteams = new StringBuilder();
+                            StringBuilder wrongTeams = new StringBuilder();
 
                             for (TeamColor team : teams1) {
                                 List<String> spawns = arenas.getStringList(arenaName + ".team." + team + ".spawn");
 
                                 if (spawns.size() != ArenaManager.getTeamSize(arenaName)) {
                                     isWrong = true;
-                                    wrongteams.append(" ").append(team);
+                                    wrongTeams.append(" ").append(team);
                                 }
                             }
 
                             if (isWrong) {
-                                player.sendMessage(prefix + "The following teams have not the set amount of spawns:" + wrongteams);
+                                player.sendMessage(prefix + "The following teams have not the set amount of spawns:" + wrongTeams);
                             } else {
                                 if (arenas.contains(arenaName + ".iron")) {
                                     if (arenas.contains(arenaName + ".gold")) {
@@ -292,14 +296,12 @@ public class EditMenu {
                         e.printStackTrace();
                     }
 
-                    plugin.reloadArenas();
+                    plugin.reloadConfig();
                     EditMenu.openEditMenu(arenaName, player, plugin);
 
                     player.sendMessage(prefix + "Reset teams of arena: " + arenaName);
                 })
-                .addDefaultEvent(() -> {
-                    TeamMenu.setupTeamMenu(arenaName, player, plugin);
-                });
+                .addDefaultEvent(() -> TeamMenu.setupTeamMenu(arenaName, player, plugin));
 
         gui.addItem(generators.build(), items.getInt("items.editmain.generators.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
@@ -313,7 +315,7 @@ public class EditMenu {
                         e.printStackTrace();
                     }
 
-                    plugin.reloadArenas();
+                    plugin.reloadConfig();
                     EditMenu.openEditMenu(arenaName, player, plugin);
                     player.sendMessage(prefix + "Reset all generators of arena: " + arenaName);
                 })

@@ -18,6 +18,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -125,6 +126,14 @@ public class EggWarsReloaded extends JavaPlugin {
 
     public WorldManager getManager() {
         return worldManager;
+    }
+
+    public File getArenasFile() {
+        return new File(getDataFolder(), "arenas.yml");
+    }
+
+    public void reloadArenas() {
+        this.arenaConfig = new ConfigManager(this, "arenas.yml").getConfig();
     }
 
     @Override

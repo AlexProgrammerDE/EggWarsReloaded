@@ -54,12 +54,10 @@ public class GameListener implements Listener {
             if (GameControl.isInGame(damager) && GameControl.isInGame(damaged)) {
                 Game game = GameControl.getPlayerGame(damaged);
 
-                if (game.state == GameState.RUNNING) {
-                    if((damaged.getHealth() - event.getDamage()) < 1) {
-                        event.setCancelled(true);
+                if (game.state == GameState.RUNNING && (damaged.getHealth() - event.getDamage()) < 1) {
+                    event.setCancelled(true);
 
-                        game.killPlayer(damaged, damager);
-                    }
+                    game.killPlayer(damaged, damager);
                 }
             }
         }
@@ -69,7 +67,7 @@ public class GameListener implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         Player player = event.getPlayer();
 
-        if (GameControl.isInGame(player) ) {
+        if (GameControl.isInGame(player)) {
             event.setQuitMessage(null);
             Game game = GameControl.getPlayerGame(player);
 
@@ -88,16 +86,13 @@ public class GameListener implements Listener {
         if (event.getEntity() instanceof Player) {
             Player player = (Player) event.getEntity();
 
-            if (GameControl.isInGame(player) ) {
+            if (GameControl.isInGame(player)) {
                 Game game = GameControl.getPlayerGame(player);
 
-                if (game.noFall) {
-                    if (event.getCause() == EntityDamageEvent.DamageCause.FALL) {
-                        event.setCancelled(true);
-                    }
+                if (game.noFall && event.getCause() == EntityDamageEvent.DamageCause.FALL) {
+                    event.setCancelled(true);
                 }
             }
         }
-
     }
 }

@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 public class ShopListener implements Listener {
     private final EggWarsReloaded plugin;
+
     public ShopListener(EggWarsReloaded plugin) {
         this.plugin = plugin;
     }
@@ -24,11 +25,9 @@ public class ShopListener implements Listener {
         if (GameControl.isInGame(player)) {
             Game game = GameControl.getPlayerGame(player);
 
-            if (game.state == GameState.RUNNING) {
-                if (event.getRightClicked().getType() == EntityType.VILLAGER) {
-                    event.setCancelled(true);
-                    Shop.setupShopMenu(game.matchmaker.getTeamOfPlayer(player), player, plugin);
-                }
+            if (game.state == GameState.RUNNING && event.getRightClicked().getType() == EntityType.VILLAGER) {
+                event.setCancelled(true);
+                Shop.setupShopMenu(game.matchmaker.getTeamOfPlayer(player), player, plugin);
             }
         }
     }

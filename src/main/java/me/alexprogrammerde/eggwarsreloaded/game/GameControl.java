@@ -11,6 +11,8 @@ public class GameControl {
     private static final HashMap<Player, Game> players = new HashMap<>();
     private static final List<Game> games = new ArrayList<>();
 
+    private GameControl() {}
+
     protected static void addGame(Game game) {
         games.add(game);
     }

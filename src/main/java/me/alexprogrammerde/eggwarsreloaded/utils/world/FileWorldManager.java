@@ -6,6 +6,7 @@ import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.util.List;
@@ -37,7 +38,8 @@ public class FileWorldManager implements WorldManager {
         worldCreator.environment(environment);
         worldCreator.generateStructures(false);
         worldCreator.generator(new ChunkGenerator() {
-            public final ChunkData generateChunkData(World world, Random random, int x, int z, BiomeGrid chunkGenerator) {
+            @Override
+            public final @NotNull ChunkData generateChunkData(@NotNull World world, @NotNull Random random, int x, int z, @NotNull BiomeGrid chunkGenerator) {
                 ChunkGenerator.ChunkData chunkData = createChunkData(world);
                 for (int i = 0; i < 16; i++) {
                     for (int j = 0; j < 16; j++) {
@@ -106,15 +108,12 @@ public class FileWorldManager implements WorldManager {
                         }
                     }
                 } else {
-                    OutputStream out;
-                    try (InputStream in = new FileInputStream(source)) {
-                        out = new FileOutputStream(target);
+                    try (InputStream in = new FileInputStream(source); OutputStream out = new FileOutputStream(target)) {
                         byte[] buffer = new byte['Ѐ'];
                         int length;
                         while ((length = in.read(buffer)) > 0)
                             out.write(buffer, 0, length);
                     }
-                    out.close();
                 }
             }
         } catch (FileNotFoundException e) {

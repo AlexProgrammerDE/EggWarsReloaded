@@ -46,6 +46,6 @@ public class GameLogics {
             }
         }
 
-        return players.size() == 0;
+        return players.isEmpty();
     }
 }
