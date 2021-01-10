@@ -1,7 +1,7 @@
-name: EggWarsReloaded
+name: eggwarsreloaded
 version: ${project.version}
 api-version: 1.16
-main: me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded
+main: me.alexprogrammerde.eggwarsreloaded.eggwarsreloaded
 author: AlexProgrammerDE
 description: ${project.description}
 website: https://pistonmaster.net/
