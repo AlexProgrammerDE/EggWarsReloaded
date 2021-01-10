@@ -16,6 +16,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -116,7 +117,8 @@ public class EggWarsReloaded extends JavaPlugin {
         return econ;
     }
 
-    public FileConfiguration getConfig() {
+    @Override
+    public @NotNull FileConfiguration getConfig() {
         return config;
     }
 
@@ -140,6 +142,7 @@ public class EggWarsReloaded extends JavaPlugin {
         this.arenas = new ConfigManager(this, "arenas.yml").getConfig();
     }
 
+    @Override
     public void reloadConfig() {
         this.config = new ConfigManager(this, "config.yml").getConfig();
         this.language = new ConfigManager(this, "language.yml").getConfig();

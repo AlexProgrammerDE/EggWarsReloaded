@@ -241,8 +241,6 @@ public class Game {
         player.setFoodLevel(20);
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
 
-        givePlayerItems(player);
-
         checkWin();
     }
 
@@ -404,7 +402,6 @@ public class Game {
 
         for (Player player : livingPlayers) {
             player.setGameMode(GameMode.SURVIVAL);
-            givePlayerItems(player);
         }
     }
 
@@ -523,84 +520,5 @@ public class Game {
         for (Player player : matchmaker.getPlayersInTeam(team)) {
             player.sendTitle(ChatColor.GOLD + "Your egg has been destroyed!", ChatColor.GOLD + "You will no longer respawn!", 10, 20, 10);
         }
-    }
-
-    private void givePlayerItems(Player player) {
-        ItemStack sword = new ItemStack(Material.NETHERITE_SWORD);
-
-        ItemMeta swordMeta = sword.getItemMeta();
-
-        swordMeta.setDisplayName(ChatColor.AQUA + "Just a normal sword...");
-        swordMeta.setLore(new ArrayList<String>() {
-            {
-                add("uwu its a me Loreio");
-            }
-        });
-
-        sword.setItemMeta(swordMeta);
-
-        ItemStack block = new ItemStack(matchmaker.getTeamOfPlayer(player).getMaterial());
-
-        block.setAmount(64);
-
-        ItemMeta blockMeta = block.getItemMeta();
-
-        blockMeta.setDisplayName(ChatColor.AQUA + "Bed");
-        blockMeta.setLore(new ArrayList<String>() {
-            {
-                add("uwu pls sleep on me ;)");
-            }
-        });
-
-        block.setItemMeta(blockMeta);
-
-        ItemStack bow = new ItemStack(Material.BOW);
-
-        ItemMeta bowMeta = bow.getItemMeta();
-
-        bowMeta.setDisplayName(ChatColor.AQUA + "Pistol");
-        bowMeta.setLore(new ArrayList<String>() {
-            {
-                add("uwu pew pew");
-            }
-        });
-
-        bowMeta.addEnchant(Enchantment.ARROW_INFINITE, 1, false);
-
-        bow.setItemMeta(bowMeta);
-
-        ItemStack arrow = new ItemStack(Material.ARROW);
-
-        ItemMeta arrowMeta = arrow.getItemMeta();
-
-        arrowMeta.setDisplayName(ChatColor.AQUA + "Bullet");
-        arrowMeta.setLore(new ArrayList<String>() {
-            {
-                add("uwu pls don't kill any1 irl :(");
-            }
-        });
-
-        arrow.setItemMeta(arrowMeta);
-
-        ItemStack steak = new ItemStack(Material.COOKED_BEEF);
-
-        steak.setAmount(16);
-
-        ItemMeta steakMeta = steak.getItemMeta();
-
-        steakMeta.setDisplayName(ChatColor.AQUA + "Beef Jerk");
-        steakMeta.setLore(new ArrayList<String>() {
-            {
-                add("uwu nom nom :D");
-            }
-        });
-
-        steak.setItemMeta(steakMeta);
-
-        player.getInventory().setItem(0, sword);
-        player.getInventory().setItem(1, block);
-        player.getInventory().setItem(2, bow);
-        player.getInventory().setItem(3, steak);
-        player.getInventory().setItem(10, arrow);
     }
 }

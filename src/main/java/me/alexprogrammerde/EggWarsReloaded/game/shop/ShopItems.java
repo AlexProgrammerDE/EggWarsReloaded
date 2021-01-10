@@ -10,7 +10,7 @@ public enum ShopItems {
 
     DIAMOND_SWORD(new ItemPrice(0, 4, 1)),
 
-    COOKED_BEEF(3, new ItemPrice(2, 2, 0)),
+    COOKED_BEEF(3, new ItemPrice(2, 1, 0)),
 
     GOLDEN_APPLE(3, new ItemPrice(3, 2, 0)),
 
