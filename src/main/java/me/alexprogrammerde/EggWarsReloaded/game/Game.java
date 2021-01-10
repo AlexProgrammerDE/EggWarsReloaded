@@ -345,7 +345,7 @@ public class Game {
             player.setLevel(startingTime);
 
             if (player.hasPermission("eggwarsreloaded.forcestart")) {
-                player.getInventory().setItem(3, new ItemBuilder(Material.DIAMOND).name(ChatColor.AQUA  + "Force start").build());
+                player.getInventory().setItem(2, new ItemBuilder(Material.DIAMOND).name(ChatColor.AQUA  + "Force start").build());
             }
         }
 
