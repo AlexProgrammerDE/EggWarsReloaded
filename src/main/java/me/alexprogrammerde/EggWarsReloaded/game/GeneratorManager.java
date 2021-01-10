@@ -70,7 +70,7 @@ public class GeneratorManager {
         addID(generator, Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
             if (game.state == GameState.RUNNING) {
                 for (String str : arenas.getStringList(game.arenaName + "." + generator.toString())) {
-                    UtilCore.convertLocation(str).getWorld().dropItem(UtilCore.convertLocation(str).add(0.5, 1.5, 0.5), new ItemStack(generator.getMaterial())).setVelocity(new Vector(0, 0.2, 0));
+                    UtilCore.convertLocation(str).getWorld().dropItem(UtilCore.convertLocation(str).add(0.5, 1, 0.5), new ItemStack(generator.getMaterial())).setVelocity(new Vector(0, 0.2, 0));
                 }
             }
         }, 0, newPeriod));
@@ -87,7 +87,7 @@ public class GeneratorManager {
         addID(generator, Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
             if (game.state == GameState.RUNNING) {
                 for (String str : arenas.getStringList(game.arenaName + "." + generator.toString())) {
-                    UtilCore.convertLocation(str).getWorld().dropItem(UtilCore.convertLocation(str).add(0.5, 1.5, 0.5), new ItemStack(generator.getMaterial())).setVelocity(new Vector(0, 0.2, 0));
+                    UtilCore.convertLocation(str).getWorld().dropItem(UtilCore.convertLocation(str).add(0.5, 1, 0.5), new ItemStack(generator.getMaterial())).setVelocity(new Vector(0, 0.2, 0));
                 }
             }
         }, generator.getDelay(), generator.getPeriod()));
