@@ -1,6 +1,7 @@
 package me.alexprogrammerde.EggWarsReloaded.game.shop;
 
 import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -46,13 +47,7 @@ public class ShopUtil {
     }
 
     public static int convertToAmount(List<ItemStack> list) {
-        int i = 0;
-
-        for (ItemStack item : list) {
-            i = i + item.getAmount();
-        }
-
-        return i;
+        return list.stream().mapToInt(ItemStack::getAmount).sum();
     }
 
     public static void buyItem(ShopItems item, Player player, TeamColor color) {
@@ -61,7 +56,7 @@ public class ShopUtil {
 
             ShopItems.giveItem(player, item, color);
         } else {
-            player.sendMessage("You don't have enough money to buy this!");
+            player.sendMessage(ChatColor.GOLD + "You don't have enough money to buy this!");
         }
     }
 
