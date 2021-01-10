@@ -1,13 +1,12 @@
 name: EggWarsReloaded
-version: 1.0.0
+version: ${project.version}
 api-version: 1.16
 main: me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded
 author: AlexProgrammerDE
-description: A awesome minigame.
-website: alexprogrammerde.github.io
+description: ${project.description}
+website: https://pistonmaster.net/
 load: POSTWORLD
 softdepend: [Multiverse-Core, Vault, PlaceholderAPI]
-authors: ["254n-m"]
 commands:
   eggwarsreloaded:
     aliases: [egg, eggwars]

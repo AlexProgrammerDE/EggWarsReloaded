@@ -6,12 +6,12 @@
 
     <groupId>me.alexprogrammerde</groupId>
     <artifactId>EggWarsReloaded</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.0-ALPHA</version>
     <packaging>jar</packaging>
 
     <name>EggWarsReloaded</name>
 
-    <description>A awesome minigame.</description>
+    <description>Get your own eggwars matches running on your server!</description>
 
     <build>
         <plugins>
