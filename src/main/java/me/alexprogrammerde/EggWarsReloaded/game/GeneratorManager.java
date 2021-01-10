@@ -14,11 +14,12 @@ import java.util.HashMap;
 public class GeneratorManager {
     public HashMap<Generator, Integer> hashMap = new HashMap<>();
     private final Game game;
-
-    public GeneratorManager(Game game) {
-
+    private final EggWarsReloaded plugin;
+    
+    public GeneratorManager(Game game, EggWarsReloaded plugin) {
         this.game = game;
-
+        this.plugin = plugin;
+        
         for (Generator generator : Generator.values()) {
             makeGenerator(generator);
         }
@@ -65,9 +66,9 @@ public class GeneratorManager {
         Bukkit.getScheduler().cancelTask(i);
         game.taskIds.remove(i);
 
-        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
+        FileConfiguration arenas = plugin.getArenas();
 
-        addID(generator, Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
+        addID(generator, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             if (game.state == GameState.RUNNING) {
                 for (String str : arenas.getStringList(game.arenaName + "." + generator.toString())) {
                     UtilCore.convertLocation(str).getWorld().dropItem(UtilCore.convertLocation(str).add(0.5, 1, 0.5), new ItemStack(generator.getMaterial())).setVelocity(new Vector(0, 0.2, 0));
@@ -82,9 +83,9 @@ public class GeneratorManager {
     }
 
     private void makeGenerator(Generator generator) {
-        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
+        FileConfiguration arenas = plugin.getArenas();
 
-        addID(generator, Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
+        addID(generator, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             if (game.state == GameState.RUNNING) {
                 for (String str : arenas.getStringList(game.arenaName + "." + generator.toString())) {
                     UtilCore.convertLocation(str).getWorld().dropItem(UtilCore.convertLocation(str).add(0.5, 1, 0.5), new ItemStack(generator.getMaterial())).setVelocity(new Vector(0, 0.2, 0));

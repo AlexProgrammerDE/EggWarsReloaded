@@ -23,15 +23,17 @@ public class EggAssistant implements Listener {
     private final String arenaName;
     private final TeamColor teamName;
     public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "EggAssistant" + ChatColor.GOLD + "] ";
+    private final EggWarsReloaded plugin;
 
-    public EggAssistant(Player player, String arenaName, TeamColor teamName) {
+    public EggAssistant(Player player, String arenaName, TeamColor teamName, EggWarsReloaded plugin) {
         assistants.put(player, this);
 
         this.player = player;
         this.arenaName = arenaName;
         this.teamName = teamName;
+        this.plugin = plugin;
 
-        Bukkit.getServer().getPluginManager().registerEvents(this, EggWarsReloaded.get());
+        Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler
@@ -53,7 +55,7 @@ public class EggAssistant implements Listener {
 
                         player.sendMessage(prefix + "Set dragon egg of team " + teamName + " to: " + eggLocation.getWorld().getName() + " " + eggLocation.getBlockX() + " " + eggLocation.getBlockY() + " " + eggLocation.getBlockZ());
 
-                        TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
+                        TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
                     }
                 }
             }

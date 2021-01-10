@@ -22,19 +22,21 @@ public class GeneratorAssistant implements Listener {
     private final Player player;
     private final String arenaName;
     public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "GeneratorAssistant" + ChatColor.GOLD + "] ";
+    private final EggWarsReloaded plugin;
 
-    public GeneratorAssistant(Player player, String arenaName) {
+    public GeneratorAssistant(Player player, String arenaName, EggWarsReloaded plugin) {
         assistants.put(player, this);
 
         this.player = player;
         this.arenaName = arenaName;
+        this.plugin = plugin;
 
-        Bukkit.getServer().getPluginManager().registerEvents(this, EggWarsReloaded.get());
+        Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler
     public void onBlockInteract(BlockBreakEvent event) {
-        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
+        FileConfiguration arenas = plugin.getArenas();
         Player player = event.getPlayer();
         Block block = event.getBlock();
         String blockLocationString = UtilCore.convertString(block.getLocation());
@@ -76,12 +78,12 @@ public class GeneratorAssistant implements Listener {
             }
 
             try {
-                EggWarsReloaded.get().getArenas().save(EggWarsReloaded.get().getArenasFile());
+                plugin.getArenas().save(plugin.getArenasFile());
             } catch (IOException e) {
                 e.printStackTrace();
             }
 
-            EggWarsReloaded.get().reloadArenas();
+            plugin.reloadArenas();
         }
     }
 

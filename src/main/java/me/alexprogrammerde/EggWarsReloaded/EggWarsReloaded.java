@@ -18,6 +18,7 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.geom.Area;
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
@@ -34,6 +35,7 @@ public class EggWarsReloaded extends JavaPlugin {
 
     public void onEnable() {
         plugin = this;
+        ArenaManager.setEggwarsMain(this);
         Logger log = getLogger();
 
         log.info(ChatColor.LIGHT_PURPLE + "Loading config");
@@ -55,13 +57,13 @@ public class EggWarsReloaded extends JavaPlugin {
         }
 
         log.info(ChatColor.LIGHT_PURPLE + "Registering command");
-        getServer().getPluginCommand("eggwarsreloaded").setExecutor(new EggCommand());
-        getServer().getPluginCommand("eggwarsreloaded").setTabCompleter(new EggCommand());
+        getServer().getPluginCommand("eggwarsreloaded").setExecutor(new EggCommand(this));
+        getServer().getPluginCommand("eggwarsreloaded").setTabCompleter(new EggCommand(this));
 
         log.info(ChatColor.LIGHT_PURPLE + "Registering listeners");
-        getServer().getPluginManager().registerEvents(new ArenaRepairer(), this);
+        getServer().getPluginManager().registerEvents(new ArenaRepairer(this), this);
         getServer().getPluginManager().registerEvents(new GameListener(), this);
-        getServer().getPluginManager().registerEvents(new LobbyListener(), this);
+        getServer().getPluginManager().registerEvents(new LobbyListener(this), this);
         getServer().getPluginManager().registerEvents(new EggListener(), this);
         getServer().getPluginManager().registerEvents(new ShopListener(), this);
         getServer().getPluginManager().registerEvents(new ButtonListener(), this);
@@ -148,9 +150,5 @@ public class EggWarsReloaded extends JavaPlugin {
         this.language = new ConfigManager(this, "language.yml").getConfig();
         this.arenas = new ConfigManager(this, "arenas.yml").getConfig();
         this.items = new ConfigManager(this, "items.yml").getConfig();
-    }
-
-    public static EggWarsReloaded get() {
-        return plugin;
     }
 }

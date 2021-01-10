@@ -16,6 +16,8 @@ import java.util.List;
 
 public class MatchMaker {
     private final String arenaName;
+    private final Game game;
+    private final EggWarsReloaded plugin;
 
     // This value is used as a storage for possible locations for players
     private final HashMap<Location, TeamColor> spawns = new HashMap<>();
@@ -26,13 +28,12 @@ public class MatchMaker {
 
     protected final HashMap<Player, TeamColor> playerInTeam = new HashMap<>();
 
-    private final Game game;
-
     protected final HashMap<TeamColor, Boolean> hasTeamEgg = new HashMap<>();
 
-    public MatchMaker(String arenaName, Game game) {
+    public MatchMaker(String arenaName, Game game, EggWarsReloaded plugin) {
         this.arenaName = arenaName;
         this.game = game;
+        this.plugin = plugin;
     }
 
     public void readSpawns() {
@@ -60,7 +61,7 @@ public class MatchMaker {
     }
 
     public boolean isTeamFull(TeamColor team) {
-        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
+        FileConfiguration arenas = plugin.getArenas();
 
         int spawnCount = 0;
 

@@ -16,11 +16,16 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import java.util.UUID;
 
 public class ArenaRepairer implements Listener {
+    private final EggWarsReloaded plugin;
+
+    public ArenaRepairer(EggWarsReloaded plugin) {
+        this.plugin = plugin;
+    }
 
     // TODO Add Egg too (low prio)
     @EventHandler
     public void onVillagerKill(EntityDeathEvent event) {
-        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
+        FileConfiguration arenas = plugin.getArenas();
 
         if (event.getEntity().getType() == EntityType.VILLAGER) {
             Villager villager = (Villager) event.getEntity();
@@ -41,7 +46,7 @@ public class ArenaRepairer implements Listener {
 
                             ArenaManager.setShop(arenaName, TeamColor.fromString(team), newVillager.getUniqueId().toString(), villager.getLocation());
 
-                            EggWarsReloaded.get().getLogger().info("Respawned shop. If you wish to delete it use the edit menu.");
+                            plugin.getLogger().info("Respawned shop. If you wish to delete it use the edit menu.");
                         }
                     }
                 }

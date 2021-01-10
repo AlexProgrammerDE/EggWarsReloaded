@@ -22,8 +22,8 @@ import java.util.List;
 public class EditMenu {
     private static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "SetupAssistant" + ChatColor.GOLD + "] ";
 
-    public static void openEditMenu(String arenaName, Player player) {
-        FileConfiguration items = EggWarsReloaded.get().getItems();
+    public static void openEditMenu(String arenaName, Player player, EggWarsReloaded plugin) {
+        FileConfiguration items = plugin.getItems();
         FileConfiguration arenas = ArenaManager.getArenas();
 
         // Load Data from storage
@@ -157,7 +157,7 @@ public class EditMenu {
         pos1.lore("Use shift + left click to reset it.");
         pos2.lore("Use shift + left click to reset it.");
 
-        GUI gui = new GUI(arenaName, 3, EggWarsReloaded.get(), player);
+        GUI gui = new GUI(arenaName, 3, plugin, player);
 
         gui.addItem(mainLobby.build(), items.getInt("items.editmain.mainlobby.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
@@ -168,7 +168,7 @@ public class EditMenu {
                         player.sendMessage(prefix + "Reset main lobby.");
                     }
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                 })
                 .addDefaultEvent(() -> {
                     if (ArenaManager.getArenas().contains(arenaName + ".mainlobby")) {
@@ -179,7 +179,7 @@ public class EditMenu {
                         player.sendMessage(prefix + "Set main lobby.");
                     }
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
         gui.addItem(waitingLobby.build(), items.getInt("items.editmain.waitinglobby.slot"))
@@ -191,7 +191,7 @@ public class EditMenu {
                         player.sendMessage(prefix + "Reset waiting lobby.");
                     }
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                 })
                 .addDefaultEvent(() -> {
                     if (ArenaManager.getArenas().contains(arenaName + ".waitinglobby")) {
@@ -201,7 +201,7 @@ public class EditMenu {
                         player.sendMessage(prefix + "Set waiting lobby.");
                     }
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
         gui.addItem(spectator.build(), items.getInt("items.editmain.spectator.slot"))
@@ -213,7 +213,7 @@ public class EditMenu {
                         player.sendMessage(prefix + "Reset spectator spawn.");
                     }
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                 })
                 .addDefaultEvent(() -> {
                     if (ArenaManager.getArenas().contains(arenaName + ".spectator")) {
@@ -224,7 +224,7 @@ public class EditMenu {
                         player.sendMessage(prefix + "Set spectator spawn.");
                     }
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
         gui.addItem(register.build(), items.getInt("items.editmain.register.slot"))
@@ -279,7 +279,7 @@ public class EditMenu {
                         }
                     }
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
         gui.addItem(teams.build(), items.getInt("items.editmain.teams.slot"))
@@ -287,18 +287,18 @@ public class EditMenu {
                     arenas.set(arenaName + ".team", null);
 
                     try {
-                        EggWarsReloaded.get().getArenas().save(EggWarsReloaded.get().getArenasFile());
+                        plugin.getArenas().save(plugin.getArenasFile());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
-                    EggWarsReloaded.get().reloadArenas();
-                    EditMenu.openEditMenu(arenaName, player);
+                    plugin.reloadArenas();
+                    EditMenu.openEditMenu(arenaName, player, plugin);
 
                     player.sendMessage(prefix + "Reset teams of arena: " + arenaName);
                 })
                 .addDefaultEvent(() -> {
-                    TeamMenu.setupTeamMenu(arenaName, player);
+                    TeamMenu.setupTeamMenu(arenaName, player, plugin);
                 });
 
         gui.addItem(generators.build(), items.getInt("items.editmain.generators.slot"))
@@ -308,13 +308,13 @@ public class EditMenu {
                     arenas.set(arenaName + ".diamond", null);
 
                     try {
-                        EggWarsReloaded.get().getArenas().save(EggWarsReloaded.get().getArenasFile());
+                        plugin.getArenas().save(plugin.getArenasFile());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
 
-                    EggWarsReloaded.get().reloadArenas();
-                    EditMenu.openEditMenu(arenaName, player);
+                    plugin.reloadArenas();
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                     player.sendMessage(prefix + "Reset all generators of arena: " + arenaName);
                 })
                 .addDefaultEvent(() -> {
@@ -323,9 +323,9 @@ public class EditMenu {
 
                         player.sendMessage(GeneratorAssistant.prefix + "You left generator adding mode.");
 
-                        EditMenu.openEditMenu(arenaName, player);
+                        EditMenu.openEditMenu(arenaName, player, plugin);
                     } else {
-                        new GeneratorAssistant(player, arenaName);
+                        new GeneratorAssistant(player, arenaName, plugin);
 
                         player.sendMessage(GeneratorAssistant.prefix + "You are in generator adding mode. Left click a iron/gold/diamond block and it gets added to the list.");
                         player.closeInventory();
@@ -335,7 +335,7 @@ public class EditMenu {
         gui.addItem(size.build(), items.getInt("items.editmain.teamsize.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setTeamSize(arenaName, 1);
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                     player.sendMessage(prefix + "Reset teamsize to 1 of arena: " + arenaName);
                 })
                 .addDefaultEvent(() -> {
@@ -349,45 +349,45 @@ public class EditMenu {
                         ArenaManager.setTeamSize(arenaName, size1 + 1);
                     }
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
         gui.addItem(pos1.build(), items.getInt("items.editmain.pos1.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setArenaPos1(arenaName, null);
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                     player.sendMessage(prefix + "Reset pos1");
                 })
                 .addDefaultEvent(() -> {
                     ArenaManager.setArenaPos1(arenaName, player.getLocation());
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
         gui.addItem(pos2.build(), items.getInt("items.editmain.pos2.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setArenaPos2(arenaName, null);
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                     player.sendMessage(prefix + "Reset pos2");
                 })
                 .addDefaultEvent(() -> {
                     ArenaManager.setArenaPos2(arenaName, player.getLocation());
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
         gui.addItem(save.build(), items.getInt("items.editmain.save.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     player.teleport(new Location(Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName)), 0, 81, 0));
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                 })
                 .addDefaultEvent(() -> {
                     Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName)).save();
 
-                    EditMenu.openEditMenu(arenaName, player);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
         gui.openGUI();

@@ -23,15 +23,17 @@ public class ShopAssistant implements Listener {
     private final String arenaName;
     private final TeamColor teamName;
     public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "EggAssistant" + ChatColor.GOLD + "] ";
+    private final EggWarsReloaded plugin;
 
-    public ShopAssistant(Player player, String arenaName, TeamColor teamName) {
+    public ShopAssistant(Player player, String arenaName, TeamColor teamName, EggWarsReloaded plugin) {
         assistants.put(player, this);
 
         this.player = player;
         this.arenaName = arenaName;
         this.teamName = teamName;
+        this.plugin = plugin;
 
-        Bukkit.getServer().getPluginManager().registerEvents(this, EggWarsReloaded.get());
+        Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler
@@ -55,7 +57,7 @@ public class ShopAssistant implements Listener {
     }
 
     public void ArmorStandInteract(Player player, Entity armorstand) {
-        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
+        FileConfiguration arenas = plugin.getArenas();
 
         if (player == this.player && isAdding(player)) {
             Location villagerLocation = armorstand.getLocation();
@@ -72,7 +74,7 @@ public class ShopAssistant implements Listener {
 
             player.sendMessage(prefix + "Set shop of team " + teamName + " to: " + villagerLocation.getWorld().getName() + " " + villagerLocation.getBlockX() + " " + villagerLocation.getBlockY() + " " + villagerLocation.getBlockZ());
 
-            TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
+            TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
         }
 
         removePlayer(player);

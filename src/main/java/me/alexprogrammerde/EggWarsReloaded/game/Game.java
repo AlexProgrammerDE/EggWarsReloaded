@@ -78,17 +78,17 @@ public class Game {
 
         maxTeamPlayers = arenas.getInt(arenaName + ".size");
         maxPlayers = usedTeams.size() * maxTeamPlayers;
-        matchmaker = new MatchMaker(arenaName, this);
+        matchmaker = new MatchMaker(arenaName, this, plugin);
         matchmaker.readSpawns();
         gameLogics = new GameLogics(this);
 
-        EggWarsReloaded.get().getLogger().info(ChatColor.GOLD + "Starting game for arena " + arenaName);
+        plugin.getLogger().info(ChatColor.GOLD + "Starting game for arena " + arenaName);
 
         registerGame();
 
         state = GameState.LOBBY;
 
-        taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
+        taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             if (state == GameState.LOBBY || state == GameState.STARTING1) {
                 for (Player player : inGamePlayers) {
                     player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(ChatColor.AQUA + "The game will start shortly!").create());
@@ -96,7 +96,7 @@ public class Game {
             }
         }, 0, 20));
 
-        new GeneratorManager(this);
+        new GeneratorManager(this, plugin);
     }
 
     public RejectType addPlayer(Player player) {
@@ -221,7 +221,7 @@ public class Game {
         player.setFallDistance(0);
 
         if (respawn) {
-            Bukkit.getScheduler().runTaskLater(EggWarsReloaded.get(), () -> respawnPlayer(player), 100);
+            Bukkit.getScheduler().runTaskLater(plugin, () -> respawnPlayer(player), 100);
         }
     }
 
@@ -349,7 +349,7 @@ public class Game {
             }
         }
 
-        clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
+        clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             startingTime--;
 
             for (Player player : inGamePlayers) {
@@ -357,7 +357,7 @@ public class Game {
             }
 
             if (startingTime == 10) {
-                Bukkit.getScheduler().runTask(EggWarsReloaded.get(), () -> startGame2(10));
+                Bukkit.getScheduler().runTask(plugin, () -> startGame2(10));
             }
         }, 20, 20);
     }
@@ -378,7 +378,7 @@ public class Game {
             player.setLevel(startingTime);
         }
 
-        clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
+        clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             startingTime--;
 
             for (Player player : inGamePlayers) {
@@ -386,7 +386,7 @@ public class Game {
             }
 
             if (startingTime == 0) {
-                Bukkit.getScheduler().runTask(EggWarsReloaded.get(), this::runGame);
+                Bukkit.getScheduler().runTask(plugin, this::runGame);
             }
         }, 20, 20);
     }
@@ -403,7 +403,7 @@ public class Game {
 
         livingPlayers.addAll(inGamePlayers);
 
-        taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
+        taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             for (Player player : inGamePlayers) {
                 scoreboardManager.setScoreboard(player);
             }
@@ -413,7 +413,7 @@ public class Game {
 
         setCages(Material.AIR, Material.AIR);
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(EggWarsReloaded.get(), () -> noFall = false, 60L);
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> noFall = false, 60L);
 
         for (Player player : livingPlayers) {
             player.setGameMode(GameMode.SURVIVAL);
@@ -450,7 +450,7 @@ public class Game {
     }
 
     private void prepareArena() {
-        EggWarsReloaded.get().worldManager.loadWorld(ArenaManager.getArenaWorld(arenaName), World.Environment.NORMAL);
+        plugin.worldManager.loadWorld(ArenaManager.getArenaWorld(arenaName), World.Environment.NORMAL);
 
         World arena = Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName));
 
@@ -463,7 +463,7 @@ public class Game {
     }
 
     private void resetArena() {
-        EggWarsReloaded.get().worldManager.unloadWorld(ArenaManager.getArenaWorld(arenaName), false, ArenaManager.getMainLobby(arenaName));
+        plugin.worldManager.unloadWorld(ArenaManager.getArenaWorld(arenaName), false, ArenaManager.getMainLobby(arenaName));
     }
 
     public void setCages(Material material, Material topMaterial) {

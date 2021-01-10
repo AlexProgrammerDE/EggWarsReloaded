@@ -11,15 +11,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class Shop {
-    public static void setupShopMenu(TeamColor team, Player player) {
-        GUI gui = new GUI("Shop", 3, EggWarsReloaded.get(), player);
+    public static void setupShopMenu(TeamColor team, Player player, EggWarsReloaded plugin) {
+        GUI gui = new GUI("Shop", 3, plugin, player);
 
         int i = 0;
         for (ShopItems shopItem : ShopItems.values()) {
             gui.addItem(new ItemBuilder(shopItem, team).build(), i).addDefaultEvent(() -> {
                 ShopUtil.buyItem(shopItem, player, team);
 
-                setupShopMenu(team, player);
+                setupShopMenu(team, player, plugin);
             });
             i++;
         }

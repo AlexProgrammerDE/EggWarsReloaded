@@ -13,6 +13,12 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class LobbyListener implements Listener {
+    private final EggWarsReloaded plugin;
+
+    public LobbyListener(EggWarsReloaded plugin) {
+        this.plugin = plugin;
+    }
+
     @EventHandler
     public void onItemClick(PlayerInteractEvent event) {
         Player player = event.getPlayer();
@@ -66,6 +72,6 @@ public class LobbyListener implements Listener {
     }
 
     private boolean isInLobby(Player player) {
-        return EggWarsReloaded.get().getConfig().getBoolean("lobbyprotect") && GameControl.isInGame(player) && GameControl.getPlayerGame(player).state != GameState.RUNNING;
+        return plugin.getConfig().getBoolean("lobbyprotect") && GameControl.isInGame(player) && GameControl.getPlayerGame(player).state != GameState.RUNNING;
     }
 }

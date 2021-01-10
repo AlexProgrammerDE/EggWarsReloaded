@@ -7,8 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 public class TeamMenu {
-    public static void setupTeamMenu(Inventory inventory, String arenaName, Player player) {
-        FileConfiguration items = EggWarsReloaded.get().getItems();
+    public static void setupTeamMenu(Inventory inventory, String arenaName, Player player, EggWarsReloaded plugin) {
+        FileConfiguration items = plugin.getItems();
         FileConfiguration arenas = ArenaManager.getArenas();
 
 

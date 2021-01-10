@@ -24,9 +24,9 @@ public class TeamUnderMenu {
     private static final String spawn = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "SpawnAssistant" + ChatColor.GOLD + "] ";
     private static final String respawn = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "RespawnAssistant" + ChatColor.GOLD + "] ";
 
-    public static void setupTeamUnderMenu(String arenaName, TeamColor teamName, Player player) {
-        FileConfiguration items = EggWarsReloaded.get().getItems();
-        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
+    public static void setupTeamUnderMenu(String arenaName, TeamColor teamName, Player player, EggWarsReloaded plugin) {
+        FileConfiguration items = plugin.getItems();
+        FileConfiguration arenas = plugin.getArenas();
 
         // Load Data from storage
         ItemBuilder shop;
@@ -115,7 +115,7 @@ public class TeamUnderMenu {
             respawn.lore("Use shift + left click to reset it.");
         }
 
-        GUI gui = new GUI(arenaName, 3, EggWarsReloaded.get(), player);
+        GUI gui = new GUI(arenaName, 3, plugin, player);
 
         gui.addItem(shop.build(), items.getInt("items.editteam.shop.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
@@ -123,7 +123,7 @@ public class TeamUnderMenu {
                     ArenaManager.setTeamRegistered(arenaName, teamName, false);
                     ArenaManager.setArenaRegistered(arenaName, false, null);
 
-                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
+                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
 
                     player.sendMessage(ShopAssistant.prefix + "Reset the shop and unregistered the team and the arena. Use /kill to remove the villager.");
                 })
@@ -131,7 +131,7 @@ public class TeamUnderMenu {
                     if (arenas.contains(arenaName + ".team." + teamName + ".shop")) {
                         player.sendMessage(ShopAssistant.prefix + "The shop is already set. Please reset it first.");
                     } else {
-                        new ShopAssistant(player, arenaName, teamName);
+                        new ShopAssistant(player, arenaName, teamName, plugin);
 
                         player.closeInventory();
                         player.sendMessage(ShopAssistant.prefix + "Click a armor stand to make him to a shop.");
@@ -144,7 +144,7 @@ public class TeamUnderMenu {
                     ArenaManager.setTeamRegistered(arenaName, teamName, false);
                     ArenaManager.setArenaRegistered(arenaName, false, null);
 
-                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
+                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
 
                     player.sendMessage(EggAssistant.prefix + "Reset the egg and unregistered the team and the arena. Remove the egg manually in creative mode.");
                 })
@@ -152,7 +152,7 @@ public class TeamUnderMenu {
                     if (arenas.contains(arenaName + ".team." + teamName + ".egg")) {
                         player.sendMessage(EggAssistant.prefix + "The egg is already set. Please reset it first.");
                     } else {
-                        new EggAssistant(player, arenaName, teamName);
+                        new EggAssistant(player, arenaName, teamName, plugin);
                         player.closeInventory();
                         player.sendMessage(EggAssistant.prefix + "You can now click a dragon egg to add it to the team.");
                     }
@@ -170,7 +170,7 @@ public class TeamUnderMenu {
                         player.sendMessage(spawn + "Sorry 4 spawns are the limit for one team.");
                     }
 
-                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
+                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
                 })
                 .addDefaultEvent(() -> {
                     if (arenas.getStringList(arenaName + ".team." + teamName + ".spawn").size() < 4) {
@@ -191,12 +191,12 @@ public class TeamUnderMenu {
                                 arenas.set(arenaName + ".team." + teamName + ".spawn", strings);
 
                                 try {
-                                    EggWarsReloaded.get().getArenas().save(EggWarsReloaded.get().getArenasFile());
+                                    plugin.getArenas().save(plugin.getArenasFile());
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
 
-                                EggWarsReloaded.get().reloadArenas();
+                                plugin.reloadArenas();
 
                                 player.sendMessage(spawn + "Added spawn of team " + teamName + " to: " + playerLocation.getWorld().getName() + " " + playerLocation.getBlockX() + " " + playerLocation.getBlockY() + " " + playerLocation.getBlockZ());
                             } else {
@@ -209,7 +209,7 @@ public class TeamUnderMenu {
                         player.sendMessage(spawn + "Sorry 4 spawns are the limit for one team.");
                     }
 
-                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
+                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
                 });
 
         gui.addItem(respawn.build(), items.getInt("items.editteam.respawn.slot"))
@@ -218,7 +218,7 @@ public class TeamUnderMenu {
                     ArenaManager.setArenaRegistered(arenaName, false, null);
                     ArenaManager.setRespawn(arenaName, teamName, null);
 
-                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
+                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
 
                     player.sendMessage(respawn + "Reset the respawn and unregistered the team and the arena.");
                 })
@@ -233,11 +233,11 @@ public class TeamUnderMenu {
                         player.sendMessage(respawn + "The respawn is already registered! Please reset it first!");
                     }
 
-                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
+                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
                 });
 
         gui.addItem(back.build(), items.getInt("items.editteam.back.slot"))
-                .addDefaultEvent(() -> TeamMenu.setupTeamMenu(arenaName, player));
+                .addDefaultEvent(() -> TeamMenu.setupTeamMenu(arenaName, player, plugin));
 
         gui.openGUI();
     }
