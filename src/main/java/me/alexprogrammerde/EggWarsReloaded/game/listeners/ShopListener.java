@@ -1,5 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.game.listeners;
 
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.game.Game;
 import me.alexprogrammerde.EggWarsReloaded.game.GameControl;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.GameState;
@@ -11,6 +12,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 
 public class ShopListener implements Listener {
+    private final EggWarsReloaded plugin;
+    public ShopListener(EggWarsReloaded plugin) {
+        this.plugin = plugin;
+    }
+
     @EventHandler
     public void onClick(PlayerInteractEntityEvent event) {
         Player player = event.getPlayer();
@@ -21,7 +27,7 @@ public class ShopListener implements Listener {
             if (game.state == GameState.RUNNING) {
                 if (event.getRightClicked().getType() == EntityType.VILLAGER) {
                     event.setCancelled(true);
-                    Shop.setupShopMenu(game.matchmaker.getTeamOfPlayer(player), player);
+                    Shop.setupShopMenu(game.matchmaker.getTeamOfPlayer(player), player, plugin);
                 }
             }
         }

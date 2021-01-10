@@ -141,7 +141,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                     if (player.hasPermission("eggwarsreloaded.command.edit")) {
                         if (args.length > 1) {
                             if (ArenaManager.getArenas().isSet(args[1])) {
-                                EditMenu.openEditMenu(args[1], player);
+                                EditMenu.openEditMenu(args[1], player, plugin);
                             } else {
                                 player.sendMessage("Sorry a arena with this name doesn't exist.");
                             }
