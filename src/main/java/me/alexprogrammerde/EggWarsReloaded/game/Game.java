@@ -6,6 +6,7 @@ import me.alexprogrammerde.EggWarsReloaded.game.collection.RejectType;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.RewardType;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
+import me.alexprogrammerde.EggWarsReloaded.utils.ItemBuilder;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
@@ -40,6 +41,9 @@ public class Game {
      */
     protected final List<Player> livingPlayers = new ArrayList<>();
 
+    /**
+     * Teams where people are in.
+     */
     public final List<TeamColor> usedTeams = new ArrayList<>();
 
     public final int maxPlayers;
@@ -330,6 +334,13 @@ public class Game {
         state = GameState.UNREGISTERED;
     }
 
+    public void forceStart() {
+        if (state == GameState.STARTING1) {
+            Bukkit.getScheduler().cancelTask(clockTask);
+            startGame2(5);
+        }
+    }
+
     private void startGame1() {
         state = GameState.STARTING1;
 
@@ -337,6 +348,10 @@ public class Game {
 
         for (Player player : inGamePlayers) {
             player.setLevel(startingTime);
+
+            if (player.hasPermission("eggwarsreloaded.forcestart")) {
+                player.getInventory().setItem(3, new ItemBuilder(Material.DIAMOND).name(ChatColor.AQUA  + "Force start").build());
+            }
         }
 
         clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
@@ -347,12 +362,12 @@ public class Game {
             }
 
             if (startingTime == 10) {
-                Bukkit.getScheduler().runTask(EggWarsReloaded.get(), this::startGame2);
+                Bukkit.getScheduler().runTask(EggWarsReloaded.get(), () -> startGame2(10));
             }
         }, 20, 20);
     }
 
-    private void startGame2() {
+    private void startGame2(int timeLeft) {
         state = GameState.STARTING2;
 
         Bukkit.getScheduler().cancelTask(clockTask);
@@ -361,9 +376,10 @@ public class Game {
 
         matchmaker.teleportPlayers();
 
-        startingTime = 10;
+        startingTime = timeLeft;
 
         for (Player player : inGamePlayers) {
+            player.getInventory().clear();
             player.setLevel(startingTime);
         }
 
@@ -385,6 +401,10 @@ public class Game {
         Bukkit.getScheduler().cancelTask(clockTask);
 
         state = GameState.RUNNING;
+
+        for (Player player : inGamePlayers) {
+            player.getInventory().clear();
+        }
 
         livingPlayers.addAll(inGamePlayers);
 

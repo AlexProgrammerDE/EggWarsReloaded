@@ -3,6 +3,9 @@ package me.alexprogrammerde.EggWarsReloaded.game.collection;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum TeamColor {
     WHITE(Material.WHITE_WOOL),
     ORANGE(Material.ORANGE_WOOL),
@@ -65,6 +68,20 @@ public enum TeamColor {
         }
 
         return TeamColor.WHITE;
+    }
+
+    public static List<String> toStringList(List<TeamColor> list) {
+        if (list == null) {
+            return null;
+        } else {
+            return new ArrayList<String>() {
+                {
+                    for (TeamColor color : list) {
+                        add(color.toString());
+                    }
+                }
+            };
+        }
     }
 
     public static String capitalize(String str) {

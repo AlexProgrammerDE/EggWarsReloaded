@@ -27,9 +27,9 @@ public class FileWorldManager implements WorldManager {
         if (Bukkit.getWorld(name) == null) {
             loadWorld(name, environment);
             return Bukkit.getWorld(name);
+        } else {
+            return Bukkit.getWorld(name);
         }
-
-        return null;
     }
 
     public boolean loadWorld(String worldName, Environment environment) {
