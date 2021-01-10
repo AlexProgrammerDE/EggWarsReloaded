@@ -9,32 +9,87 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
+import java.util.HashMap;
+
 public class GeneratorManager {
+    public HashMap<Generator, Integer> hashMap = new HashMap<>();
+    private final Game game;
+
     public GeneratorManager(Game game) {
+
+        this.game = game;
+
+        for (Generator generator : Generator.values()) {
+            makeGenerator(generator);
+        }
+    }
+
+    public enum Generator {
+        IRON(Material.IRON_INGOT, 20, 64),
+
+        GOLD(Material.GOLD_INGOT, 40, 160),
+
+        DIAMOND(Material.DIAMOND, 60, 320);
+
+        private final Material material;
+        private final int delay;
+        private final int period;
+
+        Generator(Material material, int delay, int period) {
+            this.material = material;
+            this.delay = delay;
+            this.period = period;
+        }
+
+        public Material getMaterial() {
+            return material;
+        }
+
+        public int getDelay() {
+            return delay;
+        }
+
+        public int getPeriod() {
+            return period;
+        }
+
+        @Override
+        public String toString() {
+            return name().toLowerCase();
+        }
+    }
+
+    public void newPeriod(Generator generator, int newPeriod) {
+        int i = hashMap.get(generator);
+
+        Bukkit.getScheduler().cancelTask(i);
+        game.taskIds.remove(i);
+
         FileConfiguration arenas = EggWarsReloaded.get().getArenas();
 
-        game.taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
+        addID(generator, Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
             if (game.state == GameState.RUNNING) {
-                for (String generator : arenas.getStringList(game.arenaName + ".iron")) {
-                    UtilCore.convertLocation(generator).getWorld().dropItem(UtilCore.convertLocation(generator).add(0.5, 1.5, 0.5), new ItemStack(Material.IRON_INGOT)).setVelocity(new Vector(0, 0.2, 0));
+                for (String str : arenas.getStringList(game.arenaName + "." + generator.toString())) {
+                    UtilCore.convertLocation(str).getWorld().dropItem(UtilCore.convertLocation(str).add(0.5, 1.5, 0.5), new ItemStack(generator.getMaterial())).setVelocity(new Vector(0, 0.2, 0));
                 }
             }
-        }, 20, 64));
+        }, 0, newPeriod));
+    }
 
-        game.taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
-            if (game.state == GameState.RUNNING) {
-                for (String generator : arenas.getStringList(game.arenaName + ".gold")) {
-                    UtilCore.convertLocation(generator).getWorld().dropItem(UtilCore.convertLocation(generator).add(0.5, 1.5, 0.5), new ItemStack(Material.GOLD_INGOT)).setVelocity(new Vector(0, 0.2, 0));
-                }
-            }
-        }, 40, 160));
+    private void addID(Generator generator, int id) {
+        game.taskIds.add(id);
+        hashMap.put(generator, id);
+    }
 
-        game.taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
+    private void makeGenerator(Generator generator) {
+        FileConfiguration arenas = EggWarsReloaded.get().getArenas();
+
+        addID(generator, Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
             if (game.state == GameState.RUNNING) {
-                for (String generator : arenas.getStringList(game.arenaName + ".diamond")) {
-                    UtilCore.convertLocation(generator).getWorld().dropItem(UtilCore.convertLocation(generator).add(0.5, 1.5, 0.5), new ItemStack(Material.DIAMOND)).setVelocity(new Vector(0, 0.2, 0));
+                for (String str : arenas.getStringList(game.arenaName + "." + generator.toString())) {
+                    UtilCore.convertLocation(str).getWorld().dropItem(UtilCore.convertLocation(str).add(0.5, 1.5, 0.5), new ItemStack(generator.getMaterial())).setVelocity(new Vector(0, 0.2, 0));
                 }
             }
-        }, 60, 320));
+        }, generator.getDelay(), generator.getPeriod()));
     }
 }

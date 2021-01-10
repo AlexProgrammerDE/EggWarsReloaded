@@ -10,6 +10,7 @@ import org.bukkit.World;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -18,7 +19,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
     private static final String[] ADMIN = {"reload", "addarena", "delarena", /*"kick", */"edit", "endgame"};
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String alias, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (args.length > 0) {
@@ -158,7 +159,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String alias, String[] args) {
         final List<String> completions = new ArrayList<>();
 
         if (sender instanceof Player) {

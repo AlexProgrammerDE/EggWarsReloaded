@@ -296,9 +296,9 @@ public class Game {
 
         EconomyResponse r = plugin.getEconomy().depositPlayer(player, amount);
         if (r.transactionSuccess()) {
-            player.sendMessage("Added " + r.amount + " to your depot!");
+            player.sendMessage(ChatColor.AQUA + "Added " + r.amount + " to your depot!");
         } else {
-            player.sendMessage("An error occured: " + r.errorMessage);
+            player.sendMessage(ChatColor.RED + "An error occured: " + r.errorMessage);
         }
     }
 
@@ -403,11 +403,11 @@ public class Game {
 
         livingPlayers.addAll(inGamePlayers);
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
+        taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(EggWarsReloaded.get(), () -> {
             for (Player player : inGamePlayers) {
                 scoreboardManager.setScoreboard(player);
             }
-        }, 0L, 20L);
+        }, 0L, 20L));
 
         noFall = true;
 
