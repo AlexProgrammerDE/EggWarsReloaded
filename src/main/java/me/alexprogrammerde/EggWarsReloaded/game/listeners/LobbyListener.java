@@ -1,5 +1,6 @@
 package me.alexprogrammerde.EggWarsReloaded.game.listeners;
 
+import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.game.GameControl;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.GameState;
 import org.bukkit.entity.Player;
@@ -65,6 +66,6 @@ public class LobbyListener implements Listener {
     }
 
     private boolean isInLobby(Player player) {
-        return GameControl.isInGame(player) && GameControl.getPlayerGame(player).state != GameState.RUNNING;
+        return EggWarsReloaded.get().getConfig().getBoolean("lobbyprotect") && GameControl.isInGame(player) && GameControl.getPlayerGame(player).state != GameState.RUNNING;
     }
 }

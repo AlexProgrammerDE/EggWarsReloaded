@@ -163,7 +163,7 @@ public class Game {
         }
 
         // TODO: Make player requirement optional and don't run it again if someone joins
-        int minPlayers = 2;
+        int minPlayers = usedTeams.size();
         if (inGamePlayers.size() >= minPlayers) {
             if (state == GameState.LOBBY) {
                 startGame1();
@@ -292,11 +292,11 @@ public class Game {
         double amount = 0;
 
         if (reward == RewardType.GAME) {
-            amount = 3;
+            amount = plugin.getConfig().getDouble("rewards.game");
         } else if (reward == RewardType.KILL) {
-            amount = 5;
+            amount = plugin.getConfig().getDouble("rewards.kill");
         } else if (reward == RewardType.WIN) {
-            amount = 8;
+            amount = plugin.getConfig().getDouble("rewards.win");
         }
 
         EconomyResponse r = plugin.getEconomy().depositPlayer(player, amount);
