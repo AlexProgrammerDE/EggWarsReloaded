@@ -4,6 +4,7 @@ import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.guis.TeamUnderMenu;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,6 +22,7 @@ public class EggAssistant implements Listener {
     private final Player player;
     private final String arenaName;
     private final TeamColor teamName;
+    public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "EggAssistant" + ChatColor.GOLD + "] ";
 
     public EggAssistant(Player player, String arenaName, TeamColor teamName) {
         assistants.put(player, this);
@@ -49,7 +51,7 @@ public class EggAssistant implements Listener {
 
                         removePlayer(player);
 
-                        player.sendMessage("[EggAssistant] Set dragon egg of team " + teamName + " to: " + eggLocation.getWorld().getName() + " " + eggLocation.getBlockX() + " " + eggLocation.getBlockY() + " " + eggLocation.getBlockZ());
+                        player.sendMessage(prefix + "Set dragon egg of team " + teamName + " to: " + eggLocation.getWorld().getName() + " " + eggLocation.getBlockX() + " " + eggLocation.getBlockY() + " " + eggLocation.getBlockZ());
 
                         TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
                     }

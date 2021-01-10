@@ -16,10 +16,7 @@ import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -71,7 +68,7 @@ public class Game {
 
         state = GameState.UNREGISTERED;
 
-        for (String team : arenas.getConfigurationSection(arenaName + ".team").getKeys(false)) {
+        for (String team : Objects.requireNonNull(arenas.getConfigurationSection(arenaName + ".team")).getKeys(false)) {
             if (ArenaManager.isTeamRegistered(arenaName, TeamColor.fromString(team))) {
                 usedTeams.add(TeamColor.fromString(team));
             }
@@ -141,7 +138,7 @@ public class Game {
 
         player.sendMessage(ChatColor.GOLD + "Your team: " + matchmaker.getTeamOfPlayer(player).getColor() + matchmaker.getTeamOfPlayer(player));
 
-        Scoreboard playerScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        Scoreboard playerScoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
 
         Objective objective = playerScoreboard.registerNewObjective("scoreboard", "dummy", "EggWarsReloaded");
 
@@ -193,7 +190,7 @@ public class Game {
         player.setFoodLevel(20);
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
 
-        player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+        player.setScoreboard(Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard());
 
         GameControl.removePlayerFromGame(player);
     }
@@ -224,9 +221,7 @@ public class Game {
         player.setFallDistance(0);
 
         if (respawn) {
-            Bukkit.getScheduler().runTaskLater(EggWarsReloaded.get(), () -> {
-                respawnPlayer(player);
-            }, 100);
+            Bukkit.getScheduler().runTaskLater(EggWarsReloaded.get(), () -> respawnPlayer(player), 100);
         }
     }
 
@@ -460,7 +455,7 @@ public class Game {
         World arena = Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName));
 
         // DON'T save actions the players do in the game
-        arena.setAutoSave(false);
+        Objects.requireNonNull(arena).setAutoSave(false);
 
         setCages(Material.GLASS, Material.BARRIER);
 

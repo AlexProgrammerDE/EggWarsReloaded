@@ -2,6 +2,7 @@ package me.alexprogrammerde.EggWarsReloaded.admin.assistants;
 
 import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -20,6 +21,7 @@ public class GeneratorAssistant implements Listener {
     private static final HashMap<Player, GeneratorAssistant> assistants = new HashMap<>();
     private final Player player;
     private final String arenaName;
+    public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "GeneratorAssistant" + ChatColor.GOLD + "] ";
 
     public GeneratorAssistant(Player player, String arenaName) {
         assistants.put(player, this);
@@ -43,33 +45,33 @@ public class GeneratorAssistant implements Listener {
                 List<String> generators = arenas.getStringList(arenaName + ".iron");
 
                 if (generators.contains(blockLocationString)) {
-                    player.sendMessage("[GeneratorAssistant] This block is already added!");
+                    player.sendMessage(prefix + "This block is already added!");
                 } else {
                     generators.add(blockLocationString);
                     arenas.set(arenaName + ".iron", generators);
-                    player.sendMessage("[GeneratorAssistant] Added iron block: " + blockLocationString);
+                    player.sendMessage(prefix + "Added iron block: " + blockLocationString);
                 }
             } else if (block.getType() == Material.GOLD_BLOCK) {
                 event.setCancelled(true);
                 List<String> generators = arenas.getStringList(arenaName + ".gold");
 
                 if (generators.contains(blockLocationString)) {
-                    player.sendMessage("[GeneratorAssistant] This block is already added!");
+                    player.sendMessage(prefix + "This block is already added!");
                 } else {
                     generators.add(blockLocationString);
                     arenas.set(arenaName + ".gold", generators);
-                    player.sendMessage("[GeneratorAssistant] Added gold block: " + blockLocationString);
+                    player.sendMessage(prefix + "Added gold block: " + blockLocationString);
                 }
             } else if (block.getType() == Material.DIAMOND_BLOCK) {
                 event.setCancelled(true);
                 List<String> generators = arenas.getStringList(arenaName + ".diamond");
 
                 if (generators.contains(blockLocationString)) {
-                    player.sendMessage("[GeneratorAssistant] This block is already added!");
+                    player.sendMessage(prefix + "This block is already added!");
                 } else {
                     generators.add(blockLocationString);
                     arenas.set(arenaName + ".diamond", generators);
-                    player.sendMessage("[GeneratorAssistant] Added diamond block: " + blockLocationString);
+                    player.sendMessage(prefix + "Added diamond block: " + blockLocationString);
                 }
             }
 

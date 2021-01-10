@@ -8,6 +8,7 @@ import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ItemBuilder;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
 import me.alexprogrammerde.EggWarsReloaded.utils.gui.GUI;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TeamUnderMenu {
+    private static final String spawn = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "SpawnAssistant" + ChatColor.GOLD + "] ";
+    private static final String respawn = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "RespawnAssistant" + ChatColor.GOLD + "] ";
 
     public static void setupTeamUnderMenu(String arenaName, TeamColor teamName, Player player) {
         FileConfiguration items = EggWarsReloaded.get().getItems();
@@ -122,16 +125,16 @@ public class TeamUnderMenu {
 
                     TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
-                    player.sendMessage("[ShopAssistant] Reset the shop and unregistered the team and the arena. Use /kill to remove the villager.");
+                    player.sendMessage(ShopAssistant.prefix + "Reset the shop and unregistered the team and the arena. Use /kill to remove the villager.");
                 })
                 .addDefaultEvent(() -> {
                     if (arenas.contains(arenaName + ".team." + teamName + ".shop")) {
-                        player.sendMessage("[ShopAssistant] The shop is already set. Please reset it first.");
+                        player.sendMessage(ShopAssistant.prefix + "The shop is already set. Please reset it first.");
                     } else {
                         new ShopAssistant(player, arenaName, teamName);
 
                         player.closeInventory();
-                        player.sendMessage("[ShopAssistant] Click a armor stand to make him to a shop.");
+                        player.sendMessage(ShopAssistant.prefix + "Click a armor stand to make him to a shop.");
                     }
                 });
 
@@ -143,15 +146,15 @@ public class TeamUnderMenu {
 
                     TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
-                    player.sendMessage("[EggAssistant] Reset the egg and unregistered the team and the arena. Remove the egg manually in creative mode.");
+                    player.sendMessage(EggAssistant.prefix + "Reset the egg and unregistered the team and the arena. Remove the egg manually in creative mode.");
                 })
                 .addDefaultEvent(() -> {
                     if (arenas.contains(arenaName + ".team." + teamName + ".egg")) {
-                        player.sendMessage("[EggAssistant] The egg is already set. Please reset it first.");
+                        player.sendMessage(EggAssistant.prefix + "The egg is already set. Please reset it first.");
                     } else {
                         new EggAssistant(player, arenaName, teamName);
                         player.closeInventory();
-                        player.sendMessage("[EggAssistant] You can now click a dragon egg to add it to the team.");
+                        player.sendMessage(EggAssistant.prefix + "You can now click a dragon egg to add it to the team.");
                     }
                 });
 
@@ -162,9 +165,9 @@ public class TeamUnderMenu {
                         ArenaManager.setArenaRegistered(arenaName, false, null);
                         ArenaManager.setFirstSpawn(arenaName, teamName, null);
 
-                        player.sendMessage("[SpawnAssistant] Reset the spawns and unregistered the team and the arena.");
+                        player.sendMessage(spawn + "Reset the spawns and unregistered the team and the arena.");
                     } else {
-                        player.sendMessage("[SpawnAssistant] Sorry 4 spawns are the limit for one team.");
+                        player.sendMessage(spawn + "Sorry 4 spawns are the limit for one team.");
                     }
 
                     TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
@@ -195,15 +198,15 @@ public class TeamUnderMenu {
 
                                 EggWarsReloaded.get().reloadArenas();
 
-                                player.sendMessage("[SpawnAssistant] Added spawn of team " + teamName + " to: " + playerLocation.getWorld().getName() + " " + playerLocation.getBlockX() + " " + playerLocation.getBlockY() + " " + playerLocation.getBlockZ());
+                                player.sendMessage(spawn + "Added spawn of team " + teamName + " to: " + playerLocation.getWorld().getName() + " " + playerLocation.getBlockX() + " " + playerLocation.getBlockY() + " " + playerLocation.getBlockZ());
                             } else {
-                                player.sendMessage("[SpawnAssistant] This location is already registered!");
+                                player.sendMessage(spawn + "This location is already registered!");
                             }
                         } else {
-                            player.sendMessage("[SpawnAssistant] The block under needs to be a a emerald block!");
+                            player.sendMessage(spawn + "The block under needs to be a a emerald block!");
                         }
                     } else {
-                        player.sendMessage("[SpawnAssistant] Sorry 4 spawns are the limit for one team.");
+                        player.sendMessage(spawn + "Sorry 4 spawns are the limit for one team.");
                     }
 
                     TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
@@ -217,7 +220,7 @@ public class TeamUnderMenu {
 
                     TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
 
-                    player.sendMessage("[RespawnAssistant] Reset the respawn and unregistered the team and the arena.");
+                    player.sendMessage(respawn + "Reset the respawn and unregistered the team and the arena.");
                 })
                 .addDefaultEvent(() -> {
                     Location playerLocation = player.getLocation();
@@ -225,9 +228,9 @@ public class TeamUnderMenu {
                     if (!arenas.contains(arenaName + ".team." + teamName + ".respawn")) {
                         ArenaManager.setRespawn(arenaName, teamName, playerLocation);
 
-                        player.sendMessage("[RespawnAssistant] Set respawn of team " + teamName + " to: " + playerLocation.getWorld().getName() + " " + playerLocation.getBlockX() + " " + playerLocation.getBlockY() + " " + playerLocation.getBlockZ());
+                        player.sendMessage(respawn + "Set respawn of team " + teamName + " to: " + playerLocation.getWorld().getName() + " " + playerLocation.getBlockX() + " " + playerLocation.getBlockY() + " " + playerLocation.getBlockZ());
                     } else {
-                        player.sendMessage("[RespawnAssistant] The respawn is already registered! Please reset it first!");
+                        player.sendMessage(respawn + "The respawn is already registered! Please reset it first!");
                     }
 
                     TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);

@@ -4,6 +4,7 @@ import me.alexprogrammerde.EggWarsReloaded.EggWarsReloaded;
 import me.alexprogrammerde.EggWarsReloaded.admin.guis.TeamUnderMenu;
 import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -21,6 +22,7 @@ public class ShopAssistant implements Listener {
     private final Player player;
     private final String arenaName;
     private final TeamColor teamName;
+    public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "EggAssistant" + ChatColor.GOLD + "] ";
 
     public ShopAssistant(Player player, String arenaName, TeamColor teamName) {
         assistants.put(player, this);
@@ -68,7 +70,7 @@ public class ShopAssistant implements Listener {
 
             ArenaManager.setShop(arenaName, teamName, shop.getUniqueId().toString(), shop.getLocation());
 
-            player.sendMessage("[ShopAssistant] Set shop of team " + teamName + " to: " + villagerLocation.getWorld().getName() + " " + villagerLocation.getBlockX() + " " + villagerLocation.getBlockY() + " " + villagerLocation.getBlockZ());
+            player.sendMessage(prefix + "Set shop of team " + teamName + " to: " + villagerLocation.getWorld().getName() + " " + villagerLocation.getBlockX() + " " + villagerLocation.getBlockY() + " " + villagerLocation.getBlockZ());
 
             TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player);
         }

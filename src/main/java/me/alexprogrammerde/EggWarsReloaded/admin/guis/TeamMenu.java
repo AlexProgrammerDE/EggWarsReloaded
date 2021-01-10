@@ -8,12 +8,14 @@ import me.alexprogrammerde.EggWarsReloaded.game.collection.TeamColor;
 import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ItemBuilder;
 import me.alexprogrammerde.EggWarsReloaded.utils.gui.GUI;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class TeamMenu {
+    private static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "SetupAssistant" + ChatColor.GOLD + "] ";
 
     public static void setupTeamMenu(String arenaName, Player player) {
         FileConfiguration items = EggWarsReloaded.get().getItems();
@@ -242,14 +244,14 @@ public class TeamMenu {
                     ArenaManager.setTeamRegistered(arenaName, teamnName, false);
                     ArenaManager.setArenaRegistered(arenaName, false, null);
 
-                    player.sendMessage("Unregistered team: " + teamnName);
+                    player.sendMessage(prefix + "Unregistered team: " + teamnName);
                 } else {
                     ArenaManager.setTeamRegistered(arenaName, teamnName, true);
 
-                    player.sendMessage("Registered team: " + teamnName);
+                    player.sendMessage(prefix + "Registered team: " + teamnName);
                 }
             } else {
-                player.sendMessage("This team is not ready! Please finish the team setup. (Click the wool)");
+                player.sendMessage(prefix + "This team is not ready! Please finish the team setup. (Click the wool)");
             }
 
             TeamMenu.setupTeamMenu(arenaName, player);

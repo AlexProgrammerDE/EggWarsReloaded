@@ -7,6 +7,7 @@ import me.alexprogrammerde.EggWarsReloaded.utils.ArenaManager;
 import me.alexprogrammerde.EggWarsReloaded.utils.ItemBuilder;
 import me.alexprogrammerde.EggWarsReloaded.utils.UtilCore;
 import me.alexprogrammerde.EggWarsReloaded.utils.gui.GUI;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EditMenu {
+    private static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "SetupAssistant" + ChatColor.GOLD + "] ";
 
     public static void openEditMenu(String arenaName, Player player) {
         FileConfiguration items = EggWarsReloaded.get().getItems();
@@ -163,18 +165,18 @@ public class EditMenu {
                         ArenaManager.setMainLobby(arenaName, null);
                         ArenaManager.setArenaRegistered(arenaName, false, null);
 
-                        player.sendMessage("Reset main lobby.");
+                        player.sendMessage(prefix + "Reset main lobby.");
                     }
 
                     EditMenu.openEditMenu(arenaName, player);
                 })
                 .addDefaultEvent(() -> {
                     if (ArenaManager.getArenas().contains(arenaName + ".mainlobby")) {
-                        player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
+                        player.sendMessage(prefix + "Sorry this is already set. Please reset it with: shift + click");
                     } else {
                         ArenaManager.setMainLobby(arenaName, player.getLocation());
 
-                        player.sendMessage("Set main lobby.");
+                        player.sendMessage(prefix + "Set main lobby.");
                     }
 
                     EditMenu.openEditMenu(arenaName, player);
@@ -186,17 +188,17 @@ public class EditMenu {
                         ArenaManager.setWaitingLobby(arenaName, null);
                         ArenaManager.setArenaRegistered(arenaName, false, null);
 
-                        player.sendMessage("Reset waiting lobby.");
+                        player.sendMessage(prefix + "Reset waiting lobby.");
                     }
 
                     EditMenu.openEditMenu(arenaName, player);
                 })
                 .addDefaultEvent(() -> {
                     if (ArenaManager.getArenas().contains(arenaName + ".waitinglobby")) {
-                        player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
+                        player.sendMessage(prefix + "Sorry this is already set. Please reset it with: shift + click");
                     } else {
                         ArenaManager.setWaitingLobby(arenaName, player.getLocation());
-                        player.sendMessage("Set waiting lobby.");
+                        player.sendMessage(prefix + "Set waiting lobby.");
                     }
 
                     EditMenu.openEditMenu(arenaName, player);
@@ -208,18 +210,18 @@ public class EditMenu {
                         ArenaManager.setSpectator(arenaName, null);
                         ArenaManager.setArenaRegistered(arenaName, false, null);
 
-                        player.sendMessage("Reset spectator spawn.");
+                        player.sendMessage(prefix + "Reset spectator spawn.");
                     }
 
                     EditMenu.openEditMenu(arenaName, player);
                 })
                 .addDefaultEvent(() -> {
                     if (ArenaManager.getArenas().contains(arenaName + ".spectator")) {
-                        player.sendMessage("Sorry this is already set. Please reset it with: shift + click");
+                        player.sendMessage(prefix + "Sorry this is already set. Please reset it with: shift + click");
                     } else {
                         ArenaManager.setSpectator(arenaName, player.getLocation());
 
-                        player.sendMessage("Set spectator spawn.");
+                        player.sendMessage(prefix + "Set spectator spawn.");
                     }
 
                     EditMenu.openEditMenu(arenaName, player);
@@ -230,7 +232,7 @@ public class EditMenu {
                     if (ArenaManager.isArenaRegistered(arenaName)) {
                         ArenaManager.setArenaRegistered(arenaName, false, null);
 
-                        player.sendMessage("Unregistered arena: " + arenaName);
+                        player.sendMessage(prefix + "Unregistered arena: " + arenaName);
                     } else {
                         List<TeamColor> teams1 = new ArrayList<>();
 
@@ -241,7 +243,7 @@ public class EditMenu {
                         }
 
                         if (teams1.size() < 2) {
-                            player.sendMessage("You need at least 2 teams registered!");
+                            player.sendMessage(prefix + "You need at least 2 teams registered!");
                         } else {
                             boolean isWrong = false;
                             StringBuilder wrongteams = new StringBuilder();
@@ -256,22 +258,22 @@ public class EditMenu {
                             }
 
                             if (isWrong) {
-                                player.sendMessage("The following teams have not the set amount of spawns:" + wrongteams);
+                                player.sendMessage(prefix + "The following teams have not the set amount of spawns:" + wrongteams);
                             } else {
                                 if (arenas.contains(arenaName + ".iron")) {
                                     if (arenas.contains(arenaName + ".gold")) {
                                         if (arenas.contains(arenaName + ".diamond")) {
 
                                             ArenaManager.setArenaRegistered(arenaName, true, teams1);
-                                            player.sendMessage("Registered arena " + arenaName);
+                                            player.sendMessage(prefix + "Registered arena " + arenaName);
                                         } else {
-                                            player.sendMessage("You need to set up at least one diamond generator!");
+                                            player.sendMessage(prefix + "You need to set up at least one diamond generator!");
                                         }
                                     } else {
-                                        player.sendMessage("You need to set up at least one gold generator!");
+                                        player.sendMessage(prefix + "You need to set up at least one gold generator!");
                                     }
                                 } else {
-                                    player.sendMessage("You need to set up at least one iron generator!");
+                                    player.sendMessage(prefix + "You need to set up at least one iron generator!");
                                 }
                             }
                         }
@@ -293,7 +295,7 @@ public class EditMenu {
                     EggWarsReloaded.get().reloadArenas();
                     EditMenu.openEditMenu(arenaName, player);
 
-                    player.sendMessage("Reset teams of arena: " + arenaName);
+                    player.sendMessage(prefix + "Reset teams of arena: " + arenaName);
                 })
                 .addDefaultEvent(() -> {
                     TeamMenu.setupTeamMenu(arenaName, player);
@@ -313,19 +315,19 @@ public class EditMenu {
 
                     EggWarsReloaded.get().reloadArenas();
                     EditMenu.openEditMenu(arenaName, player);
-                    player.sendMessage("Reset all generators of arena: " + arenaName);
+                    player.sendMessage(prefix + "Reset all generators of arena: " + arenaName);
                 })
                 .addDefaultEvent(() -> {
                     if (GeneratorAssistant.isAdding(player)) {
                         GeneratorAssistant.removePlayer(player);
 
-                        player.sendMessage("[GeneratorAssistant] You left generator adding mode.");
+                        player.sendMessage(GeneratorAssistant.prefix + "You left generator adding mode.");
 
                         EditMenu.openEditMenu(arenaName, player);
                     } else {
                         new GeneratorAssistant(player, arenaName);
 
-                        player.sendMessage("[GeneratorAssistant] You are in generator adding mode. Left click a iron/gold/diamond block and it gets added to the list.");
+                        player.sendMessage(GeneratorAssistant.prefix + "You are in generator adding mode. Left click a iron/gold/diamond block and it gets added to the list.");
                         player.closeInventory();
                     }
                 });
@@ -334,7 +336,7 @@ public class EditMenu {
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setTeamSize(arenaName, 1);
                     EditMenu.openEditMenu(arenaName, player);
-                    player.sendMessage("Reset teamsize to 1 of arena: " + arenaName);
+                    player.sendMessage(prefix + "Reset teamsize to 1 of arena: " + arenaName);
                 })
                 .addDefaultEvent(() -> {
                     int size1 = ArenaManager.getTeamSize(arenaName);
@@ -342,7 +344,7 @@ public class EditMenu {
                     if (size1 == 4) {
                         ArenaManager.setTeamSize(arenaName, 1);
                         ArenaManager.setArenaRegistered(arenaName, false, null);
-                        player.sendMessage("Changed the team size and unregistered the arena.");
+                        player.sendMessage(prefix + "Changed the team size and unregistered the arena.");
                     } else {
                         ArenaManager.setTeamSize(arenaName, size1 + 1);
                     }
@@ -355,7 +357,7 @@ public class EditMenu {
                     ArenaManager.setArenaPos1(arenaName, null);
 
                     EditMenu.openEditMenu(arenaName, player);
-                    player.sendMessage("Reset pos1");
+                    player.sendMessage(prefix + "Reset pos1");
                 })
                 .addDefaultEvent(() -> {
                     ArenaManager.setArenaPos1(arenaName, player.getLocation());
@@ -368,7 +370,7 @@ public class EditMenu {
                     ArenaManager.setArenaPos2(arenaName, null);
 
                     EditMenu.openEditMenu(arenaName, player);
-                    player.sendMessage("Reset pos2");
+                    player.sendMessage(prefix + "Reset pos2");
                 })
                 .addDefaultEvent(() -> {
                     ArenaManager.setArenaPos2(arenaName, player.getLocation());
