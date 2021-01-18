@@ -72,6 +72,6 @@ public class LobbyListener implements Listener {
     }
 
     private boolean isInLobby(Player player) {
-        return plugin.getConfig().getBoolean("lobbyprotect") && GameControl.isInGame(player) && GameControl.getPlayerGame(player).state != GameState.RUNNING;
+        return plugin.getConfig().getBoolean("lobbyprotect") && GameControl.isInGame(player) && GameControl.getPlayerGame(player).getState() != GameState.RUNNING;
     }
 }

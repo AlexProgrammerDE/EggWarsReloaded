@@ -18,6 +18,7 @@ import org.bukkit.event.inventory.InventoryAction;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class EditMenu {
     private static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "SetupAssistant" + ChatColor.GOLD + "] ";
@@ -116,41 +117,41 @@ public class EditMenu {
             Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".mainlobby"));
 
             mainLobby.lore("Current: " + location.getWorld().getName() + " "
-                    + Math.round(location.getBlockX()) + " "
-                    + Math.round(location.getBlockY()) + " "
-                    + Math.round(location.getBlockZ()));
+                    + location.getBlockX() + " "
+                    + location.getBlockY() + " "
+                    + location.getBlockZ());
         }
 
         if (ArenaManager.getArenas().contains(arenaName + ".waitinglobby")) {
             Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".waitinglobby"));
             waitingLobby.lore("Current: " + location.getWorld().getName() + " "
-                    + Math.round(location.getBlockX()) + " "
-                    + Math.round(location.getBlockY()) + " "
-                    + Math.round(location.getBlockZ()));
+                    + location.getBlockX() + " "
+                    + location.getBlockY() + " "
+                    + location.getBlockZ());
         }
 
         if (ArenaManager.getArenas().contains(arenaName + ".spectator")) {
             Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".spectator"));
             spectator.lore("Current: " + location.getWorld().getName() + " "
-                    + Math.round(location.getBlockX()) + " "
-                    + Math.round(location.getBlockY()) + " "
-                    + Math.round(location.getBlockZ()));
+                    + location.getBlockX() + " "
+                    + location.getBlockY() + " "
+                    + location.getBlockZ());
         }
 
         if (ArenaManager.getArenas().contains(arenaName + ".pos1")) {
             Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".pos1"));
             pos1.lore("Current: " + location.getWorld().getName() + " "
-                    + Math.round(location.getBlockX()) + " "
-                    + Math.round(location.getBlockY()) + " "
-                    + Math.round(location.getBlockZ()));
+                    + location.getBlockX() + " "
+                    + location.getBlockY() + " "
+                    + location.getBlockZ());
         }
 
         if (ArenaManager.getArenas().contains(arenaName + ".pos2")) {
             Location location = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".pos2"));
             pos2.lore("Current: " + location.getWorld().getName() + " "
-                    + Math.round(location.getBlockX()) + " "
-                    + Math.round(location.getBlockY()) + " "
-                    + Math.round(location.getBlockZ()));
+                    + location.getBlockX() + " "
+                    + location.getBlockY() + " "
+                    + location.getBlockZ());
         }
 
         size.lore("Current: " + ArenaManager.getTeamSize(arenaName));
@@ -240,7 +241,7 @@ public class EditMenu {
                     } else {
                         List<TeamColor> teams1 = new ArrayList<>();
 
-                        for (String team : arenas.getConfigurationSection(arenaName + ".team").getKeys(false)) {
+                        for (String team : Objects.requireNonNull(arenas.getConfigurationSection(arenaName + ".team")).getKeys(false)) {
                             if (ArenaManager.isTeamRegistered(arenaName, TeamColor.fromString(team))) {
                                 teams1.add(TeamColor.fromString(team));
                             }
@@ -387,7 +388,7 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player, plugin);
                 })
                 .addDefaultEvent(() -> {
-                    Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName)).save();
+                    Objects.requireNonNull(Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName))).save();
 
                     EditMenu.openEditMenu(arenaName, player, plugin);
                 });

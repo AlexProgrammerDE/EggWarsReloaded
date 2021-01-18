@@ -1,6 +1,5 @@
 package me.alexprogrammerde.eggwarsreloaded.game;
 
-import me.alexprogrammerde.eggwarsreloaded.EggWarsReloaded;
 import me.alexprogrammerde.eggwarsreloaded.game.collection.TeamColor;
 import me.alexprogrammerde.eggwarsreloaded.utils.ArenaManager;
 import me.alexprogrammerde.eggwarsreloaded.utils.UtilCore;
@@ -18,13 +17,13 @@ public class MatchMaker {
     // This value is used as a storage for possible locations for players
     private final HashMap<Location, TeamColor> spawns = new HashMap<>();
 
-    private final HashMap<TeamColor, List<Location>> teams = new HashMap<>();
+    private final Map<TeamColor, List<Location>> teams = new EnumMap<>(TeamColor.class);
 
     private final HashMap<Player, Location> playerInLocation = new HashMap<>();
 
     protected final HashMap<Player, TeamColor> playerInTeam = new HashMap<>();
 
-    protected final HashMap<TeamColor, Boolean> hasTeamEgg = new HashMap<>();
+    protected final Map<TeamColor, Boolean> hasTeamEgg = new EnumMap<>(TeamColor.class);
 
     public MatchMaker(String arenaName, Game game) {
         this.arenaName = arenaName;
@@ -81,10 +80,10 @@ public class MatchMaker {
 
     public void findTeamForPlayer(Player player) {
         if (!spawns.isEmpty()) {
-            for (Location loc : spawns.keySet()) {
-                playerInLocation.put(player, loc);
-                playerInTeam.put(player, spawns.get(loc));
-                spawns.remove(loc);
+            for (Map.Entry<Location, TeamColor> entry : spawns.entrySet()) {
+                playerInLocation.put(player, entry.getKey());
+                playerInTeam.put(player, entry.getValue());
+                spawns.remove(entry.getKey());
                 break;
             }
         }
@@ -97,9 +96,9 @@ public class MatchMaker {
     public List<Player> getPlayersInTeam(TeamColor team) {
         List<Player> players = new ArrayList<>();
 
-        for (Player player : playerInTeam.keySet()) {
-            if (playerInTeam.get(player).equals(team)) {
-                players.add(player);
+        for (Map.Entry<Player, TeamColor> entry : playerInTeam.entrySet()) {
+            if (entry.getValue().equals(team)) {
+                players.add(entry.getKey());
             }
         }
 

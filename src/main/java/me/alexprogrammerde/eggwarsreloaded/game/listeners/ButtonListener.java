@@ -29,12 +29,10 @@ public class ButtonListener implements Listener {
             if (GameControl.isInGame(player)) {
                 Game game = GameControl.getPlayerGame(player);
 
-                if (game.state == GameState.LOBBY || game.state == GameState.STARTING1) {
-                    if (player.getInventory().getHeldItemSlot() == 2
-                            && hand.getType() == Material.DIAMOND
-                            && player.hasPermission("eggwarsreloaded.forcestart")) {
-                        game.forceStart();
-                    }
+                if (game.getState() == GameState.LOBBY || game.getState() == GameState.STARTING1 && player.getInventory().getHeldItemSlot() == 2
+                        && hand.getType() == Material.DIAMOND
+                        && player.hasPermission("eggwarsreloaded.forcestart")) {
+                    game.forceStart();
                 }
             }
         }
@@ -48,7 +46,7 @@ public class ButtonListener implements Listener {
             if (GameControl.isInGame(player)) {
                 Game game = GameControl.getPlayerGame(player);
 
-                if (game.state == GameState.LOBBY || game.state == GameState.STARTING1) {
+                if (game.getState() == GameState.LOBBY || game.getState() == GameState.STARTING1) {
                     event.setCancelled(true);
                 }
             }
@@ -62,7 +60,7 @@ public class ButtonListener implements Listener {
         if (GameControl.isInGame(player)) {
             Game game = GameControl.getPlayerGame(player);
 
-            if (game.state == GameState.LOBBY || game.state == GameState.STARTING1) {
+            if (game.getState() == GameState.LOBBY || game.getState() == GameState.STARTING1) {
                 event.setCancelled(true);
             }
         }
@@ -75,7 +73,7 @@ public class ButtonListener implements Listener {
         if (GameControl.isInGame(player)) {
             Game game = GameControl.getPlayerGame(player);
 
-            if (game.state == GameState.LOBBY || game.state == GameState.STARTING1) {
+            if (game.getState() == GameState.LOBBY || game.getState() == GameState.STARTING1) {
                 event.setCancelled(true);
             }
         }

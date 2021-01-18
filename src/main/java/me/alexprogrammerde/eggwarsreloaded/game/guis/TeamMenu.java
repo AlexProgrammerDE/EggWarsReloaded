@@ -8,5 +8,7 @@ public class TeamMenu {
     private TeamMenu() {}
 
     public static void setupTeamMenu(Inventory inventory, String arenaName, Player player, EggWarsReloaded plugin) {
+        // TODO
+        throw new UnsupportedOperationException("Still not implemented!");
     }
 }

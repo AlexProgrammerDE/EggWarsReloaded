@@ -26,7 +26,7 @@ public class EggListener implements Listener {
         if (GameControl.isInGame(player)) {
             Game game = GameControl.getPlayerGame(player);
 
-            if (game.state == GameState.RUNNING
+            if (game.getState() == GameState.RUNNING
                     && player.getGameMode() == GameMode.SURVIVAL
                     && (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_BLOCK)
                     && Objects.requireNonNull(event.getClickedBlock()).getType() == Material.DRAGON_EGG) {

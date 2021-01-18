@@ -11,6 +11,8 @@ import java.util.List;
 public class ArenaManager {
     private static EggWarsReloaded plugin;
 
+    private ArenaManager() {}
+
     public static void setEggwarsMain(EggWarsReloaded plugin) {
         ArenaManager.plugin = plugin;
     }

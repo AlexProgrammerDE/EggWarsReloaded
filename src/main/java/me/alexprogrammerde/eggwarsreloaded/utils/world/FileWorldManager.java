@@ -9,6 +9,7 @@ import org.bukkit.generator.ChunkGenerator;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -27,10 +28,9 @@ public class FileWorldManager implements WorldManager {
     public World createEmptyWorld(String name, Environment environment) {
         if (Bukkit.getWorld(name) == null) {
             loadWorld(name, environment);
-            return Bukkit.getWorld(name);
-        } else {
-            return Bukkit.getWorld(name);
         }
+
+        return Bukkit.getWorld(name);
     }
 
     public boolean loadWorld(String worldName, Environment environment) {
@@ -139,12 +139,20 @@ public class FileWorldManager implements WorldManager {
                     if (file.isDirectory()) {
                         deleteWorld(file);
                     } else {
-                        file.delete();
+                        try {
+                            Files.delete(file.toPath());
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }
         }
 
-        path.delete();
+        try {
+            Files.delete(path.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

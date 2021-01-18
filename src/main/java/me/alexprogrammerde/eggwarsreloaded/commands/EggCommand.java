@@ -69,10 +69,8 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 } */
 
                 // Admin commands
-                if (args[0].equals("reload")) {
-                    if (player.hasPermission("eggwarsreloaded.command.reload")) {
-                        plugin.reloadConfig();
-                    }
+                if (args[0].equals("reload") && player.hasPermission("eggwarsreloaded.command.reload")) {
+                    plugin.reloadConfig();
                 }
 
                 if (args[0].equals("addarena")) {
@@ -189,6 +187,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                     StringUtil.copyPartialMatches(args[1], arenas, completions);
                     Collections.sort(completions);
                 } catch (NullPointerException ignored) {
+                    // ignored
                 }
             }
 
@@ -199,6 +198,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                     StringUtil.copyPartialMatches(args[1], arenas, completions);
                     Collections.sort(completions);
                 } catch (NullPointerException ignored) {
+                    // ignored
                 }
             }
 

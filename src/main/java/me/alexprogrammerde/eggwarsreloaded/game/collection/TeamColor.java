@@ -40,7 +40,7 @@ public enum TeamColor {
 
     @Override
     public String toString() {
-        return name().toLowerCase().replaceAll("_", "");
+        return name().toLowerCase().replace("_", "");
     }
 
     public String getCapitalized() {
@@ -62,7 +62,7 @@ public enum TeamColor {
 
     public static TeamColor fromString(String str) {
         for (TeamColor color : TeamColor.values()) {
-            if (str.toLowerCase().equals(color.toString())) {
+            if (str.equalsIgnoreCase(color.toString())) {
                 return color;
             }
         }
@@ -74,13 +74,13 @@ public enum TeamColor {
         if (list == null) {
             return null;
         } else {
-            return new ArrayList<String>() {
-                {
-                    for (TeamColor color : list) {
-                        add(color.toString());
-                    }
-                }
-            };
+            List<String> l = new ArrayList<>();
+
+            for (TeamColor color : list) {
+                l.add(color.toString());
+            }
+
+            return l;
         }
     }
 

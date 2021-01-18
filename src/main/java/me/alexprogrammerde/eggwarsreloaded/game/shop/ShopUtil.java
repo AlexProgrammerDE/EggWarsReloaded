@@ -80,16 +80,17 @@ public class ShopUtil {
         for (ItemStack item : list) {
             int amountOfItem = item.getAmount();
 
-            if (i == amountOfItem) {
-                item.setAmount(0);
-
-                break;
-            } else if (i > amountOfItem) {
+            if (i > amountOfItem) {
                 item.setAmount(0);
 
                 i = i - amountOfItem;
-            } else { // i < amountOfItem
-                item.setAmount(amountOfItem - i);
+            } else {
+                if (i == amountOfItem) {
+                    item.setAmount(0);
+                } else {
+                    item.setAmount(amountOfItem - i);
+                }
+
                 break;
             }
         }

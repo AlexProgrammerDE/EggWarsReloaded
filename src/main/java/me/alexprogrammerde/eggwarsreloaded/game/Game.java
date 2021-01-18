@@ -52,14 +52,22 @@ public class Game {
 
     protected final List<Integer> taskIds = new ArrayList<>();
 
-    public GameState state;
+    public GameState getState() {
+        return state;
+    }
+
+    private GameState state;
     public final GameLogics gameLogics;
     public final MatchMaker matchmaker;
     private final ScoreboardManager scoreboardManager = new ScoreboardManager(this);
 
     private int clockTask;
 
-    public boolean noFall = false;
+    public boolean isNoFall() {
+        return noFall;
+    }
+
+    private boolean noFall = false;
     public final EggWarsReloaded plugin;
 
     public Game(String arenaName, EggWarsReloaded plugin) {
@@ -78,11 +86,11 @@ public class Game {
 
         maxTeamPlayers = arenas.getInt(arenaName + ".size");
         maxPlayers = usedTeams.size() * maxTeamPlayers;
-        matchmaker = new MatchMaker(arenaName, this, plugin);
+        matchmaker = new MatchMaker(arenaName, this);
         matchmaker.readSpawns();
         gameLogics = new GameLogics(this);
 
-        plugin.getLogger().info(ChatColor.GOLD + "Starting game for arena " + arenaName);
+        plugin.getLogger().info(ChatColor.GOLD + "Starting game for arena: " + arenaName);
 
         registerGame();
 
@@ -161,10 +169,8 @@ public class Game {
 
         // TODO: Make player requirement optional and don't run it again if someone joins
         int minPlayers = usedTeams.size();
-        if (inGamePlayers.size() >= minPlayers) {
-            if (state == GameState.LOBBY) {
-                startGame1();
-            }
+        if (inGamePlayers.size() >= minPlayers && state == GameState.LOBBY) {
+            startGame1();
         }
 
         return RejectType.NONE;
@@ -250,7 +256,7 @@ public class Game {
             livePlayer.sendMessage(ChatColor.RED + killer.getDisplayName() + ChatColor.GOLD + " killed " + ChatColor.AQUA + killed.getDisplayName() + ChatColor.GOLD + "!");
         }
 
-        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(killed))) {
+        if (Boolean.TRUE.equals(matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(killed)))) {
             killed.sendMessage(ChatColor.GOLD + "You got killed by " + ChatColor.AQUA + killer.getDisplayName() + ChatColor.GOLD + "! You will respawn in 5 seconds!");
             spectatorPlayer(killed, true);
         } else {
@@ -267,7 +273,7 @@ public class Game {
             livePlayer.sendMessage(ChatColor.BLUE + player.getDisplayName() + ChatColor.GOLD + " died! :(");
         }
 
-        if (matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(player))) {
+        if (Boolean.TRUE.equals(matchmaker.hasTeamEgg.get(matchmaker.getTeamOfPlayer(player)))) {
             player.sendMessage(ChatColor.GOLD + "You died! You will respawn in 5 seconds!");
             spectatorPlayer(player, true);
         } else {
@@ -345,7 +351,7 @@ public class Game {
             player.setLevel(startingTime);
 
             if (player.hasPermission("eggwarsreloaded.forcestart")) {
-                player.getInventory().setItem(2, new ItemBuilder(Material.DIAMOND).name(ChatColor.AQUA  + "Force start").build());
+                player.getInventory().setItem(2, new ItemBuilder(Material.DIAMOND).name(ChatColor.AQUA + "Force start").build());
             }
         }
 

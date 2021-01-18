@@ -9,10 +9,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
-import java.util.HashMap;
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class GeneratorManager {
-    public HashMap<Generator, Integer> hashMap = new HashMap<>();
+    private final Map<Generator, Integer> hashMap = new EnumMap<>(Generator.class);
     private final Game game;
     private final EggWarsReloaded plugin;
     
@@ -66,15 +68,7 @@ public class GeneratorManager {
         Bukkit.getScheduler().cancelTask(i);
         game.taskIds.remove(i);
 
-        FileConfiguration arenas = plugin.getArenaConfig();
-
-        addID(generator, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
-            if (game.state == GameState.RUNNING) {
-                for (String str : arenas.getStringList(game.arenaName + "." + generator.toString())) {
-                    UtilCore.convertLocation(str).getWorld().dropItem(UtilCore.convertLocation(str).add(0.5, 1, 0.5), new ItemStack(generator.getMaterial())).setVelocity(new Vector(0, 0.2, 0));
-                }
-            }
-        }, 0, newPeriod));
+        addID(generator, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, getRun(generator), 0, newPeriod));
     }
 
     private void addID(Generator generator, int id) {
@@ -83,14 +77,18 @@ public class GeneratorManager {
     }
 
     private void makeGenerator(Generator generator) {
+        addID(generator, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, getRun(generator), generator.getDelay(), generator.getPeriod()));
+    }
+
+    private Runnable getRun(Generator generator) {
         FileConfiguration arenas = plugin.getArenaConfig();
 
-        addID(generator, Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
-            if (game.state == GameState.RUNNING) {
+        return () -> {
+            if (game.getState() == GameState.RUNNING) {
                 for (String str : arenas.getStringList(game.arenaName + "." + generator.toString())) {
-                    UtilCore.convertLocation(str).getWorld().dropItem(UtilCore.convertLocation(str).add(0.5, 1, 0.5), new ItemStack(generator.getMaterial())).setVelocity(new Vector(0, 0.2, 0));
+                    Objects.requireNonNull(UtilCore.convertLocation(str).getWorld()).dropItem(UtilCore.convertLocation(str).add(0.5, 1, 0.5), new ItemStack(generator.getMaterial())).setVelocity(new Vector(0, 0.2, 0));
                 }
             }
-        }, generator.getDelay(), generator.getPeriod()));
+        };
     }
 }
