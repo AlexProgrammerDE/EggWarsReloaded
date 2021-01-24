@@ -297,7 +297,7 @@ public class EditMenu {
                         e.printStackTrace();
                     }
 
-                    plugin.reloadConfig();
+                    plugin.loadConfig();
                     EditMenu.openEditMenu(arenaName, player, plugin);
 
                     player.sendMessage(prefix + "Reset teams of arena: " + arenaName);
@@ -316,7 +316,7 @@ public class EditMenu {
                         e.printStackTrace();
                     }
 
-                    plugin.reloadConfig();
+                    plugin.loadConfig();
                     EditMenu.openEditMenu(arenaName, player, plugin);
                     player.sendMessage(prefix + "Reset all generators of arena: " + arenaName);
                 })

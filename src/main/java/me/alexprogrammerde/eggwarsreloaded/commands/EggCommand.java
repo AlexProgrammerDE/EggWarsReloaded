@@ -70,7 +70,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
 
                 // Admin commands
                 if (args[0].equals("reload") && player.hasPermission("eggwarsreloaded.command.reload")) {
-                    plugin.reloadConfig();
+                    plugin.loadConfig();
                 }
 
                 if (args[0].equals("addarena")) {

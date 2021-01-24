@@ -26,6 +26,7 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 public class Game {
     /**
@@ -42,6 +43,8 @@ public class Game {
      * Teams where people are in.
      */
     public final List<TeamColor> usedTeams = new ArrayList<>();
+
+    public final List<Player> deadPlayers = new ArrayList<>();
 
     public final int maxPlayers;
     public final int maxTeamPlayers;
@@ -69,6 +72,7 @@ public class Game {
 
     private boolean noFall = false;
     public final EggWarsReloaded plugin;
+    public final Random random = new Random();
 
     public Game(String arenaName, EggWarsReloaded plugin) {
         this.arenaName = arenaName;
@@ -105,6 +109,8 @@ public class Game {
         }, 0, 20));
 
         new GeneratorManager(this, plugin);
+
+        plugin
     }
 
     public RejectType addPlayer(Player player) {
@@ -167,8 +173,8 @@ public class Game {
             lobbyPlayer.sendMessage(ChatColor.GOLD + "[ " + ChatColor.AQUA + "+" + ChatColor.GOLD + " ] " + player.getDisplayName() + " " + inGamePlayers.size() + "/" + maxPlayers);
         }
 
-        // TODO: Make player requirement optional and don't run it again if someone joins
-        int minPlayers = usedTeams.size();
+        // TODO: Make player requirement optional
+        int minPlayers = 2;
         if (inGamePlayers.size() >= minPlayers && state == GameState.LOBBY) {
             startGame1();
         }
@@ -232,6 +238,8 @@ public class Game {
     }
 
     private void respawnPlayer(Player player) {
+        deadPlayers.remove(player);
+
         player.setVelocity(new Vector(0, 0, 0));
 
         player.teleport(ArenaManager.getRespawn(arenaName, matchmaker.getTeamOfPlayer(player)));
@@ -250,6 +258,11 @@ public class Game {
     }
 
     public void killPlayer(Player killed, Player killer) {
+        if (deadPlayers.contains(killed))
+            return;
+
+        deadPlayers.add(killed);
+
         rewardPlayer(killer, RewardType.KILL);
 
         for (Player livePlayer : inGamePlayers) {
@@ -269,6 +282,11 @@ public class Game {
     }
 
     public void deathPlayer(Player player) {
+        if (deadPlayers.contains(player))
+            return;
+
+        deadPlayers.add(player);
+
         for (Player livePlayer : inGamePlayers) {
             livePlayer.sendMessage(ChatColor.BLUE + player.getDisplayName() + ChatColor.GOLD + " died! :(");
         }
@@ -284,7 +302,6 @@ public class Game {
 
         checkWin();
     }
-
 
     private void rewardPlayer(Player player, RewardType reward) {
         if (plugin.getEconomy() == null)

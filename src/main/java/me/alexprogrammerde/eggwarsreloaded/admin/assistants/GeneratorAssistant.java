@@ -83,7 +83,7 @@ public class GeneratorAssistant implements Listener {
                 e.printStackTrace();
             }
 
-            plugin.reloadConfig();
+            plugin.loadConfig();
         }
     }
 

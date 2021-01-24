@@ -1,5 +1,6 @@
 package me.alexprogrammerde.eggwarsreloaded;
 
+import lombok.Getter;
 import me.alexprogrammerde.eggwarsreloaded.admin.ArenaRepairer;
 import me.alexprogrammerde.eggwarsreloaded.commands.EggCommand;
 import me.alexprogrammerde.eggwarsreloaded.game.Game;
@@ -7,6 +8,7 @@ import me.alexprogrammerde.eggwarsreloaded.game.listeners.*;
 import me.alexprogrammerde.eggwarsreloaded.utils.ArenaManager;
 import me.alexprogrammerde.eggwarsreloaded.utils.ConfigManager;
 import me.alexprogrammerde.eggwarsreloaded.utils.EggwarsExpansion;
+import me.alexprogrammerde.eggwarsreloaded.utils.SignManager;
 import me.alexprogrammerde.eggwarsreloaded.utils.world.FileWorldManager;
 import me.alexprogrammerde.eggwarsreloaded.utils.world.WorldManager;
 import net.md_5.bungee.api.ChatColor;
@@ -24,22 +26,30 @@ import java.util.logging.Logger;
 
 public class EggWarsReloaded extends JavaPlugin {
     FileConfiguration config;
+
+    @Getter
     FileConfiguration language;
+    @Getter
     FileConfiguration arenaConfig;
+    @Getter
     FileConfiguration items;
-    private WorldManager worldManager = new FileWorldManager(this);
+    @Getter
+    FileConfiguration signs;
+
+    private final WorldManager worldManager = new FileWorldManager(this);
     private Economy econ = null;
+
+    @Getter
+    private SignManager signManager;
 
     @Override
     public void onEnable() {
         ArenaManager.setEggwarsMain(this);
         Logger log = getLogger();
+        signManager = new SignManager(this);
 
         log.info(ChatColor.LIGHT_PURPLE + "Loading config");
-        this.config = new ConfigManager(this, "config.yml").getConfig();
-        this.language = new ConfigManager(this, "language.yml").getConfig();
-        this.arenaConfig = new ConfigManager(this, "arenas.yml").getConfig();
-        this.items = new ConfigManager(this, "items.yml").getConfig();
+        loadConfig();
 
         log.info(ChatColor.LIGHT_PURPLE + "Looking for hooks");
         if (setupEconomy()) {
@@ -86,6 +96,9 @@ public class EggWarsReloaded extends JavaPlugin {
                 }
             }
         }
+
+        signManager.detectSigns();
+        getServer().getPluginManager().registerEvents(signManager, this);
     }
 
     private boolean setupEconomy() {
@@ -112,22 +125,6 @@ public class EggWarsReloaded extends JavaPlugin {
         return config;
     }
 
-    public FileConfiguration getLanguage() {
-        return language;
-    }
-
-    public FileConfiguration getArenaConfig() {
-        return arenaConfig;
-    }
-
-    public FileConfiguration getItems() {
-        return items;
-    }
-
-    public WorldManager getManager() {
-        return worldManager;
-    }
-
     public File getArenasFile() {
         return new File(getDataFolder(), "arenas.yml");
     }
@@ -136,11 +133,11 @@ public class EggWarsReloaded extends JavaPlugin {
         this.arenaConfig = new ConfigManager(this, "arenas.yml").getConfig();
     }
 
-    @Override
-    public void reloadConfig() {
+    public void loadConfig() {
         this.config = new ConfigManager(this, "config.yml").getConfig();
         this.language = new ConfigManager(this, "language.yml").getConfig();
         this.arenaConfig = new ConfigManager(this, "arenas.yml").getConfig();
         this.items = new ConfigManager(this, "items.yml").getConfig();
+        this.signs = new ConfigManager(this, "signs.yml").getConfig();
     }
 }

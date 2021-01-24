@@ -7,27 +7,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum TeamColor {
-    WHITE(Material.WHITE_WOOL),
-    ORANGE(Material.ORANGE_WOOL),
-    MAGENTA(Material.MAGENTA_WOOL),
-    LIGHT_BLUE(Material.LIGHT_BLUE_WOOL),
-    YELLOW(Material.YELLOW_WOOL),
-    LIME(Material.LIME_WOOL),
-    PINK(Material.PINK_WOOL),
-    GRAY(Material.GRAY_WOOL),
-    LIGHT_GRAY(Material.LIGHT_GRAY_WOOL),
-    CYAN(Material.CYAN_WOOL),
-    PURPLE(Material.PURPLE_WOOL),
-    BLUE(Material.BLUE_WOOL),
-    BROWN(Material.BROWN_WOOL),
-    GREEN(Material.GREEN_WOOL),
-    RED(Material.RED_WOOL),
-    BLACK(Material.BLACK_WOOL);
+    WHITE(Material.WHITE_WOOL, ChatColor.WHITE),
+    ORANGE(Material.ORANGE_WOOL, ChatColor.GOLD),
+    MAGENTA(Material.MAGENTA_WOOL, ChatColor.DARK_PURPLE),
+    LIGHT_BLUE(Material.LIGHT_BLUE_WOOL, ChatColor.BLUE),
+    YELLOW(Material.YELLOW_WOOL, ChatColor.YELLOW),
+    LIME(Material.LIME_WOOL, ChatColor.GREEN),
+    PINK(Material.PINK_WOOL, ChatColor.LIGHT_PURPLE),
+    GRAY(Material.GRAY_WOOL, ChatColor.DARK_GRAY),
+    LIGHT_GRAY(Material.LIGHT_GRAY_WOOL, ChatColor.GRAY),
+    CYAN(Material.CYAN_WOOL, ChatColor.AQUA),
+    PURPLE(Material.PURPLE_WOOL, ChatColor.LIGHT_PURPLE),
+    BLUE(Material.BLUE_WOOL, ChatColor.DARK_BLUE),
+    BROWN(Material.BROWN_WOOL, ChatColor.BLACK), // todo bad
+    GREEN(Material.GREEN_WOOL, ChatColor.DARK_GREEN),
+    RED(Material.RED_WOOL, ChatColor.RED),
+    BLACK(Material.BLACK_WOOL, ChatColor.BLACK);
     
     Material material;
+    ChatColor color;
     
-    TeamColor(Material material) {
+    TeamColor(Material material, ChatColor color) {
         this.material = material;
+        this.color = color;
     }
     
     public Material getMaterial() {
@@ -35,7 +37,7 @@ public enum TeamColor {
     }
 
     public ChatColor getColor() {
-        return ChatColor.of(name());
+        return color;
     }
 
     @Override

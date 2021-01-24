@@ -6,7 +6,7 @@ author: AlexProgrammerDE
 description: ${project.description}
 website: https://pistonmaster.net/
 load: POSTWORLD
-softdepend: [Multiverse-Core, Vault, PlaceholderAPI]
+softdepend: [Multiverse-Core, Vault, PlaceholderAPI, HolographicDisplays]
 commands:
   eggwarsreloaded:
     aliases: [egg, eggwars]

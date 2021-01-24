@@ -80,12 +80,12 @@ public class MatchMaker {
 
     public void findTeamForPlayer(Player player) {
         if (!spawns.isEmpty()) {
-            for (Map.Entry<Location, TeamColor> entry : spawns.entrySet()) {
-                playerInLocation.put(player, entry.getKey());
-                playerInTeam.put(player, entry.getValue());
-                spawns.remove(entry.getKey());
-                break;
-            }
+            List<Location> keysAsArray = new ArrayList<>(spawns.keySet());
+            Location loc = keysAsArray.get(game.random.nextInt(keysAsArray.size()));
+
+            playerInLocation.put(player, loc);
+            playerInTeam.put(player, spawns.get(loc));
+            spawns.remove(loc);
         }
     }
 

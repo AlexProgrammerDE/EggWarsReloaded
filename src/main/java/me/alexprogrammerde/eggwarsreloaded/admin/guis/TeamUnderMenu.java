@@ -196,7 +196,7 @@ public class TeamUnderMenu {
                                     e.printStackTrace();
                                 }
 
-                                plugin.reloadConfig();
+                                plugin.loadConfig();
 
                                 player.sendMessage(spawn + "Added spawn of team " + teamName + " to: " + playerLocation.getWorld().getName() + " " + playerLocation.getBlockX() + " " + playerLocation.getBlockY() + " " + playerLocation.getBlockZ());
                             } else {
