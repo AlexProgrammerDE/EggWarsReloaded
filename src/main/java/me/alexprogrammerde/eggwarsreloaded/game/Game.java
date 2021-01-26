@@ -1,5 +1,6 @@
 package me.alexprogrammerde.eggwarsreloaded.game;
 
+import lombok.Getter;
 import me.alexprogrammerde.eggwarsreloaded.EggWarsReloaded;
 import me.alexprogrammerde.eggwarsreloaded.game.collection.GameState;
 import me.alexprogrammerde.eggwarsreloaded.game.collection.RejectType;
@@ -51,6 +52,7 @@ public class Game {
     private int startingTime;
 
     final FileConfiguration arenas = ArenaManager.getArenas();
+    @Getter
     public final String arenaName;
 
     protected final List<Integer> taskIds = new ArrayList<>();
@@ -102,15 +104,11 @@ public class Game {
 
         taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             if (state == GameState.LOBBY || state == GameState.STARTING1) {
-                for (Player player : inGamePlayers) {
-                    player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(ChatColor.AQUA + "The game will start shortly!").create());
-                }
+                inGamePlayers.forEach(player -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(ChatColor.AQUA + "The game will start shortly!").create()));
             }
         }, 0, 20));
 
         new GeneratorManager(this, plugin);
-
-        plugin
     }
 
     public RejectType addPlayer(Player player) {
@@ -375,9 +373,7 @@ public class Game {
         clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             startingTime--;
 
-            for (Player player : inGamePlayers) {
-                player.setLevel(startingTime);
-            }
+            inGamePlayers.forEach(player -> player.setLevel(startingTime));
 
             if (startingTime == 10) {
                 Bukkit.getScheduler().runTask(plugin, () -> startGame2(10));
@@ -404,9 +400,7 @@ public class Game {
         clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             startingTime--;
 
-            for (Player player : inGamePlayers) {
-                player.setLevel(startingTime);
-            }
+            inGamePlayers.forEach(player -> player.setLevel(startingTime));
 
             if (startingTime == 0) {
                 Bukkit.getScheduler().runTask(plugin, this::runGame);
@@ -426,11 +420,7 @@ public class Game {
 
         livingPlayers.addAll(inGamePlayers);
 
-        taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
-            for (Player player : inGamePlayers) {
-                scoreboardManager.setScoreboard(player);
-            }
-        }, 0L, 20L));
+        taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> inGamePlayers.forEach(scoreboardManager::setScoreboard), 0L, 20L));
 
         noFall = true;
 
@@ -473,7 +463,7 @@ public class Game {
     }
 
     private void prepareArena() {
-        plugin.getManager().loadWorld(ArenaManager.getArenaWorld(arenaName), World.Environment.NORMAL);
+        plugin.getWorldManager().loadWorld(ArenaManager.getArenaWorld(arenaName), World.Environment.NORMAL);
 
         World arena = Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName));
 
@@ -486,7 +476,7 @@ public class Game {
     }
 
     private void resetArena() {
-        plugin.getManager().unloadWorld(ArenaManager.getArenaWorld(arenaName), false, ArenaManager.getMainLobby(arenaName));
+        plugin.getWorldManager().unloadWorld(ArenaManager.getArenaWorld(arenaName), false, ArenaManager.getMainLobby(arenaName));
     }
 
     public void setCages(Material material, Material topMaterial) {

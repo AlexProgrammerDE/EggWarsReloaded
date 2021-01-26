@@ -17,6 +17,8 @@ import org.bukkit.inventory.ItemStack;
 public class TeamMenu {
     private static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "SetupAssistant" + ChatColor.GOLD + "] ";
 
+    private TeamMenu() {}
+
     public static void setupTeamMenu(String arenaName, Player player, EggWarsReloaded plugin) {
         FileConfiguration items = plugin.getItems();
         FileConfiguration arenas = plugin.getArenaConfig();
@@ -32,9 +34,7 @@ public class TeamMenu {
         ItemStack gray = new ItemBuilder(Material.GRAY_WOOL).name(items.getString("items.editteams.gray.name")).build();
         ItemStack lightGray = new ItemBuilder(Material.LIGHT_GRAY_WOOL).name(items.getString("items.editteams.lightgray.name")).build();
         ItemStack cyan = new ItemBuilder(Material.CYAN_WOOL).name(items.getString("items.editteams.cyan.name")).build();
-        ItemStack purple = new ItemBuilder(Material.PURPLE_WOOL).name(items.getString("items.editteams.purple.name")).build();
         ItemStack blue = new ItemBuilder(Material.BLUE_WOOL).name(items.getString("items.editteams.blue.name")).build();
-        ItemStack brown = new ItemBuilder(Material.BROWN_WOOL).name(items.getString("items.editteams.brown.name")).build();
         ItemStack green = new ItemBuilder(Material.GREEN_WOOL).name(items.getString("items.editteams.green.name")).build();
         ItemStack red = new ItemBuilder(Material.RED_WOOL).name(items.getString("items.editteams.red.name")).build();
         ItemStack black = new ItemBuilder(Material.BLACK_WOOL).name(items.getString("items.editteams.black.name")).build();
@@ -74,14 +74,8 @@ public class TeamMenu {
         gui.addItem(cyan, items.getInt("items.editteams.cyan.slot"))
                 .addDefaultEvent(openTeam(player, arenaName, TeamColor.CYAN, plugin));
 
-        gui.addItem(purple, items.getInt("items.editteams.purple.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, TeamColor.PURPLE, plugin));
-
         gui.addItem(blue, items.getInt("items.editteams.blue.slot"))
                 .addDefaultEvent(openTeam(player, arenaName, TeamColor.BLUE, plugin));
-
-        gui.addItem(brown, items.getInt("items.editteams.brown.slot"))
-                .addDefaultEvent(openTeam(player, arenaName, TeamColor.BROWN, plugin));
 
         gui.addItem(green, items.getInt("items.editteams.green.slot"))
                 .addDefaultEvent(openTeam(player, arenaName, TeamColor.GREEN, plugin));
@@ -176,14 +170,6 @@ public class TeamMenu {
                     .addDefaultEvent(clickButton(player, arenaName, TeamColor.CYAN, plugin));
         }
 
-        if (arenas.getBoolean(arenaName + ".team.purple.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.purple.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.PURPLE, plugin));
-        } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.purple.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.PURPLE, plugin));
-        }
-
         if (arenas.getBoolean(arenaName + ".team.blue.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.blue.buttonslot"))
                     .addDefaultEvent(clickButton(player, arenaName, TeamColor.BLUE, plugin));
@@ -191,15 +177,6 @@ public class TeamMenu {
             gui.addItem(grayButton.clone(), items.getInt("items.editteams.blue.buttonslot"))
                     .addDefaultEvent(clickButton(player, arenaName, TeamColor.BLUE, plugin));
         }
-
-        if (arenas.getBoolean(arenaName + ".team.brown.registered")) {
-            gui.addItem(greenButton.clone(), items.getInt("items.editteams.brown.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.BROWN, plugin));
-        } else {
-            gui.addItem(grayButton.clone(), items.getInt("items.editteams.brown.buttonslot"))
-                    .addDefaultEvent(clickButton(player, arenaName, TeamColor.BROWN, plugin));
-        }
-
         if (arenas.getBoolean(arenaName + ".team.green.registered")) {
             gui.addItem(greenButton.clone(), items.getInt("items.editteams.green.buttonslot"))
                     .addDefaultEvent(clickButton(player, arenaName, TeamColor.GREEN, plugin));

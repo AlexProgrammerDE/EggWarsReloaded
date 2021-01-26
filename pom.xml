@@ -6,7 +6,7 @@
 
     <groupId>me.alexprogrammerde</groupId>
     <artifactId>EggWarsReloaded</artifactId>
-    <version>1.0.0-ALPHA</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
 
     <name>EggWarsReloaded</name>

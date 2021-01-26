@@ -17,9 +17,7 @@ public enum TeamColor {
     GRAY(Material.GRAY_WOOL, ChatColor.DARK_GRAY),
     LIGHT_GRAY(Material.LIGHT_GRAY_WOOL, ChatColor.GRAY),
     CYAN(Material.CYAN_WOOL, ChatColor.AQUA),
-    PURPLE(Material.PURPLE_WOOL, ChatColor.LIGHT_PURPLE),
     BLUE(Material.BLUE_WOOL, ChatColor.DARK_BLUE),
-    BROWN(Material.BROWN_WOOL, ChatColor.BLACK), // todo bad
     GREEN(Material.GREEN_WOOL, ChatColor.DARK_GREEN),
     RED(Material.RED_WOOL, ChatColor.RED),
     BLACK(Material.BLACK_WOOL, ChatColor.BLACK);

@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class SignManager implements Listener {
     private final EggWarsReloaded plugin;
-    Map<Location, Game> signs = new HashMap<>();
+    private final Map<Location, Game> signs = new HashMap<>();
 
     public SignManager(EggWarsReloaded plugin) {
         this.plugin = plugin;
@@ -54,7 +54,7 @@ public class SignManager implements Listener {
         for (Map.Entry<Location, Game> entry : signs.entrySet()) {
             Sign sign = (Sign) entry.getKey().getBlock();
 
-            sign.setLine(1, entry.getValue().arenaName);
+            sign.setLine(0, entry.getValue().arenaName);
             sign.setLine(2, entry.getValue().inGamePlayers.size() + "/" + entry.getValue().maxPlayers);
             sign.setLine(3, entry.getValue().getState().name());
         }

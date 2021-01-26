@@ -77,18 +77,10 @@ items:
       name: "Cyan Team"
       slot: 28
       buttonslot: 37
-    purple:
-      name: "Purple Team"
-      slot: 29
-      buttonslot: 38
     blue:
       name: "Blue Team"
       slot: 30
       buttonslot: 39
-    brown:
-      name: "Brown Team"
-      slot: 32
-      buttonslot: 41
     green:
       name: "Green Team"
       slot: 33

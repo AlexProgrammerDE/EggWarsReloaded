@@ -7,7 +7,6 @@ import me.alexprogrammerde.eggwarsreloaded.utils.ArenaManager;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -41,7 +40,7 @@ public class ShopAssistant implements Listener {
         Player player = event.getPlayer();
 
         if (event.getRightClicked() instanceof ArmorStand) {
-            ArmorStandInteract(player, event.getRightClicked());
+            armorStandInteract(player, event.getRightClicked());
         }
     }
 
@@ -51,14 +50,12 @@ public class ShopAssistant implements Listener {
             Player player = (Player) event.getDamager();
 
             if (event.getEntity() instanceof ArmorStand) {
-                ArmorStandInteract(player, event.getEntity());
+                armorStandInteract(player, event.getEntity());
             }
         }
     }
 
-    public void ArmorStandInteract(Player player, Entity armorstand) {
-        FileConfiguration arenas = plugin.getArenaConfig();
-
+    public void armorStandInteract(Player player, Entity armorstand) {
         if (player == this.player && isAdding(player)) {
             Location villagerLocation = armorstand.getLocation();
             armorstand.remove();

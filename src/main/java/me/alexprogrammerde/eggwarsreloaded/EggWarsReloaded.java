@@ -36,6 +36,7 @@ public class EggWarsReloaded extends JavaPlugin {
     @Getter
     FileConfiguration signs;
 
+    @Getter
     private final WorldManager worldManager = new FileWorldManager(this);
     private Economy econ = null;
 

@@ -1,11 +1,14 @@
 package me.alexprogrammerde.eggwarsreloaded.game;
 
+import me.alexprogrammerde.eggwarsreloaded.game.collection.GameState;
 import me.alexprogrammerde.eggwarsreloaded.game.collection.RejectType;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class GameControl {
     private static final HashMap<Player, Game> players = new HashMap<>();
@@ -58,5 +61,23 @@ public class GameControl {
         }
 
         return returnedGame;
+    }
+
+    public static RejectType randomJoin(Player player) {
+        if (isInGame(player))
+            return RejectType.ALREADY_IN;
+
+        for (Game game : games) {
+            if (game.getState() == GameState.LOBBY) {
+                addPlayer(player, game);
+                return RejectType.NONE;
+            }
+        }
+
+        return RejectType.FULL;
+    }
+
+    public static List<String> getRegisteredArenas() {
+        return games.stream().map(Game::getArenaName).collect(Collectors.toList());
     }
 }

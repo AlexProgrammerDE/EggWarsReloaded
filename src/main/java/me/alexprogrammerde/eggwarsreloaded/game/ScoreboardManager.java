@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ScoreboardManager {
     private final List<TeamColor> teams = new ArrayList<>();
@@ -26,7 +27,7 @@ public class ScoreboardManager {
     }
 
     public void setScoreboard(Player player) {
-        Scoreboard playerScoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        Scoreboard playerScoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
 
         Objective objective = playerScoreboard.registerNewObjective("scoreboard", "dummy", ChatColor.YELLOW + "" + ChatColor.BOLD + "Egg Wars");
 

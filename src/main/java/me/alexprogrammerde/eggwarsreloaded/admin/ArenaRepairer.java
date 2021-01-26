@@ -6,12 +6,16 @@ import me.alexprogrammerde.eggwarsreloaded.utils.ArenaManager;
 import me.alexprogrammerde.eggwarsreloaded.utils.UtilCore;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 
 import java.util.UUID;
 
@@ -22,13 +26,11 @@ public class ArenaRepairer implements Listener {
         this.plugin = plugin;
     }
 
-    // TODO Add Egg too (low prio)
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onVillagerKill(EntityDeathEvent event) {
-        FileConfiguration arenas = plugin.getArenaConfig();
-
         if (event.getEntity().getType() == EntityType.VILLAGER) {
             Villager villager = (Villager) event.getEntity();
+            FileConfiguration arenas = plugin.getArenaConfig();
 
             for (String arenaName : arenas.getKeys(false)) {
                 for (String team : arenas.getConfigurationSection(arenaName + ".team").getKeys(false)) {
@@ -47,6 +49,31 @@ public class ArenaRepairer implements Listener {
                             ArenaManager.setShop(arenaName, TeamColor.fromString(team), newVillager.getUniqueId().toString(), villager.getLocation());
 
                             plugin.getLogger().info("Respawned shop. If you wish to delete it use the edit menu.");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onTouch(PlayerInteractEvent event) {
+        if (event.hasBlock()) {
+            Block block = event.getClickedBlock();
+
+            if (block != null && block.getType() == Material.DRAGON_EGG) {
+                FileConfiguration arenas = plugin.getArenaConfig();
+
+                for (String arenaName : arenas.getKeys(false)) {
+                    for (String team : arenas.getConfigurationSection(arenaName + ".team").getKeys(false)) {
+                        if (arenas.contains(arenaName + ".team." + team + ".egg")) {
+                            Location eggLocation = UtilCore.convertLocation(arenas.getString(arenaName + ".team." + team + ".egg"));
+
+                            if (block.getLocation().equals(eggLocation)) {
+                                event.setCancelled(true);
+
+                                plugin.getLogger().info("Respawned shop. If you wish to delete it use the edit menu.");
+                            }
                         }
                     }
                 }

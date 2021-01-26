@@ -7,11 +7,13 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class ArenaManager {
     private static EggWarsReloaded plugin;
 
-    private ArenaManager() {}
+    private ArenaManager() {
+    }
 
     public static void setEggwarsMain(EggWarsReloaded plugin) {
         ArenaManager.plugin = plugin;
@@ -21,69 +23,21 @@ public class ArenaManager {
         return plugin.getArenaConfig();
     }
 
-    public static void setArenaWorld(String arenaName, String world) {
-        getArenas().set(arenaName + ".world", world);
+    public static void addArena(String arenaName) {
+        getArenas().createSection(arenaName);
+        getArenas().set(arenaName + ".size", 1);
 
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
+        save();
     }
 
     public static String getArenaWorld(String arenaName) {
         return getArenas().getString(arenaName + ".world");
     }
 
-    public static void addArena(String arenaName) {
-        getArenas().createSection(arenaName);
-        getArenas().set(arenaName + ".size", 1);
+    public static void setArenaWorld(String arenaName, String world) {
+        getArenas().set(arenaName + ".world", world);
 
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
-    }
-
-    public static void setMainLobby(String arenaName, Location location) {
-        getArenas().set(arenaName + ".mainlobby", UtilCore.convertString(location));
-
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
-    }
-
-    public static void setWaitingLobby(String arenaName, Location location) {
-        getArenas().set(arenaName + ".waitinglobby", UtilCore.convertString(location));
-
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
-    }
-
-    public static void setSpectator(String arenaName, Location location) {
-        getArenas().set(arenaName + ".spectator", UtilCore.convertString(location));
-
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
+        save();
     }
 
     public static Location getMainLobby(String arenaName) {
@@ -98,99 +52,69 @@ public class ArenaManager {
         return UtilCore.convertLocation(getArenas().getString(arenaName + ".spectator"));
     }
 
+    public static void setMainLobby(String arenaName, Location location) {
+        getArenas().set(arenaName + ".mainlobby", UtilCore.convertString(location));
+
+        save();
+    }
+
+    public static void setWaitingLobby(String arenaName, Location location) {
+        getArenas().set(arenaName + ".waitinglobby", UtilCore.convertString(location));
+
+        save();
+    }
+
+    public static void setSpectator(String arenaName, Location location) {
+        getArenas().set(arenaName + ".spectator", UtilCore.convertString(location));
+
+        save();
+    }
+
     public static void setArenaRegistered(String arenaName, boolean register, List<TeamColor> teams) {
         getArenas().set(arenaName + ".registered", register);
         getArenas().set(arenaName + ".registeredteams", TeamColor.toStringList(teams));
 
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        save();
+    }
 
-        plugin.reloadArenas();
+    public static int getTeamSize(String arenaName) {
+        return getArenas().getInt(arenaName + ".size");
     }
 
     public static void setTeamSize(String arenaName, Integer size) {
         getArenas().set(arenaName + ".size", size);
 
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
-    }
-
-    public static int getTeamSize(String arenaName) {
-        FileConfiguration arenas = getArenas();
-
-        return arenas.getInt(arenaName + ".size");
-    }
-
-    public static boolean isArenaRegistered(String arenaName) {
-        return getArenas().getBoolean(arenaName + ".registered");
+        save();
     }
 
     public static void setTeamRegistered(String arenaName, TeamColor team, boolean register) {
         getArenas().set(arenaName + ".team." + team + ".registered", register);
 
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
+        save();
     }
 
     public static void setArenaPos1(String arenaName, Location pos1) {
         getArenas().set(arenaName + ".pos1", UtilCore.convertString(pos1));
 
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
+        save();
     }
 
     public static void setArenaPos2(String arenaName, Location pos2) {
         getArenas().set(arenaName + ".pos2", UtilCore.convertString(pos2));
 
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
+        save();
     }
 
     public static void deleteArena(String arenaName) {
         getArenas().set(arenaName, null);
 
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
+        save();
     }
 
     public static void setEgg(String arenaName, TeamColor team, Location eggLocation) {
         getArenas().set(arenaName + ".team." + team + ".egg", UtilCore.convertString(eggLocation));
 
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
+        save();
     }
 
     public static void setShop(String arenaName, TeamColor team, String uuid, Location location) {
@@ -203,41 +127,27 @@ public class ArenaManager {
             arenas.set(arenaName + ".team." + team + ".shop.location", UtilCore.convertString(location));
         }
 
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
+        save();
     }
 
     public static void setFirstSpawn(String arenaName, TeamColor team, Location location) {
         getArenas().set(arenaName + ".team." + team + ".spawn", UtilCore.convertString(location));
 
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
+        save();
     }
 
     public static void setRespawn(String arenaName, TeamColor team, Location location) {
         getArenas().set(arenaName + ".team." + team + ".respawn", UtilCore.convertString(location));
 
-        try {
-            getArenas().save(plugin.getArenasFile());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        plugin.reloadArenas();
+        save();
     }
 
     public static Location getRespawn(String arenaName, TeamColor team) {
         return UtilCore.convertLocation(getArenas().getString(arenaName + ".team." + team.toString() + ".respawn"));
+    }
+
+    public static boolean isArenaRegistered(String arenaName) {
+        return getArenas().getBoolean(arenaName + ".registered");
     }
 
     public static boolean isTeamRegistered(String arenaName, TeamColor team) {
@@ -245,9 +155,30 @@ public class ArenaManager {
     }
 
     public static boolean isArenaReady(String arenaName) {
-        // TODO: Add checks
+        FileConfiguration arenas = ArenaManager.getArenas();
 
-        return true;
+        if (!areEnoughTeamsRegistered(arenaName))
+            return false;
+
+        return arenas.contains(arenaName + ".world")
+                && arenas.contains(arenaName + ".pos1")
+                && arenas.contains(arenaName + ".pos2")
+                && arenas.contains(arenaName + ".size")
+                && arenas.contains(arenaName + ".mainlobby")
+                && arenas.contains(arenaName + ".waitinglobby")
+                && arenas.contains(arenaName + ".spectator");
+    }
+
+    private static boolean areEnoughTeamsRegistered(String arenaName) {
+        FileConfiguration arenas = ArenaManager.getArenas();
+        int registeredTeams = 0;
+
+        for (String team : Objects.requireNonNull(arenas.getConfigurationSection(arenaName + ".team")).getKeys(false)) {
+            if (isTeamRegistered(arenaName, TeamColor.fromString(team)))
+                registeredTeams++;
+        }
+
+        return registeredTeams >= 2;
     }
 
     public static boolean isTeamReady(String arenaName, TeamColor team) {
@@ -257,5 +188,15 @@ public class ArenaManager {
                 && arenas.contains(arenaName + ".team." + team + ".shop")
                 && arenas.contains(arenaName + ".team." + team + ".spawn")
                 && arenas.contains(arenaName + ".team." + team + ".respawn");
+    }
+
+    private static void save() {
+        try {
+            getArenas().save(plugin.getArenasFile());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        plugin.reloadArenas();
     }
 }
