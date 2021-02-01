@@ -62,6 +62,7 @@ public class EggWarsReloaded extends JavaPlugin {
         }
 
         new StatsManager().setInstance(this);
+        new LeaderboardManager().setInstance(this);
 
         log.info(ChatColor.LIGHT_PURPLE + "Registering command");
         getServer().getPluginCommand("eggwarsreloaded").setExecutor(new EggCommand(this));
