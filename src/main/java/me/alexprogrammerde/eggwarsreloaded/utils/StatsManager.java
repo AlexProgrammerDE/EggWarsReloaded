@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.UUID;
 
 public class StatsManager {
     private static EggWarsReloaded plugin;
@@ -30,7 +29,6 @@ public class StatsManager {
 
     public static void rewardPlayer(OfflinePlayer player, Type type) {
         FileConfiguration config = plugin.getStats();
-        UUID uuid = player.getUniqueId();
 
         if (type == Type.WIN) {
             incrementStat(player, "wins");

@@ -8,6 +8,7 @@ import me.alexprogrammerde.eggwarsreloaded.game.collection.RewardType;
 import me.alexprogrammerde.eggwarsreloaded.game.collection.TeamColor;
 import me.alexprogrammerde.eggwarsreloaded.utils.ArenaManager;
 import me.alexprogrammerde.eggwarsreloaded.utils.ItemBuilder;
+import me.alexprogrammerde.eggwarsreloaded.utils.StatsManager;
 import me.alexprogrammerde.eggwarsreloaded.utils.UtilCore;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
@@ -261,6 +262,9 @@ public class Game {
             spectatorPlayer(killed, false);
         }
 
+        StatsManager.rewardPlayer(killed, StatsManager.Type.DEATH);
+        StatsManager.rewardPlayer(killer, StatsManager.Type.KILL);
+
         checkWin();
     }
 
@@ -282,6 +286,8 @@ public class Game {
             livingPlayers.remove(player);
             spectatorPlayer(player, false);
         }
+
+        StatsManager.rewardPlayer(player, StatsManager.Type.DEATH);
 
         checkWin();
     }
@@ -313,9 +319,12 @@ public class Game {
             for (Player player : inGamePlayers) {
                 if (matchmaker.getPlayersInTeam(gameLogics.getLastTeam()).contains(player)) {
                     player.sendMessage(ChatColor.GOLD + "Your team won! gg");
+
                     rewardPlayer(player, RewardType.WIN);
+                    StatsManager.rewardPlayer(player, StatsManager.Type.WIN);
                 } else {
                     player.sendMessage(ChatColor.GOLD + "Team " + gameLogics.getLastTeam() + " won! gg");
+                    StatsManager.rewardPlayer(player, StatsManager.Type.LOSE);
                 }
             }
 
@@ -432,6 +441,7 @@ public class Game {
         for (Player player : inGamePlayers) {
             player.sendMessage(ChatColor.GOLD + "The game ended!");
             rewardPlayer(player, RewardType.GAME);
+            StatsManager.rewardPlayer(player, StatsManager.Type.GAME);
 
             removePlayer(player);
         }
