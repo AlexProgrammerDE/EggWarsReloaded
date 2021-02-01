@@ -19,13 +19,14 @@ import java.util.List;
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class ItemBuilder {
     private final Material material;
+    boolean enchant = false;
     private String name = null;
     private List<String> lore = new ArrayList<>();
     private int amount = 1;
-    boolean enchant = false;
 
     /**
      * Build a brand new item!
+     *
      * @param material The material to use
      */
     public ItemBuilder(Material material) {
@@ -34,6 +35,7 @@ public class ItemBuilder {
 
     /**
      * Build a brand new shop item!
+     *
      * @param item The shop item to produce
      */
     public ItemBuilder(ShopItems item, TeamColor color) {
@@ -44,6 +46,7 @@ public class ItemBuilder {
 
     /**
      * Create a modified version of an iem!
+     *
      * @param item The item to modify
      */
     public ItemBuilder(ItemStack item) {

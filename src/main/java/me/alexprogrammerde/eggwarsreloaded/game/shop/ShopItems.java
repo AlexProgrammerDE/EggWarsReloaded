@@ -39,6 +39,14 @@ public enum ShopItems {
         this.amount = amount;
     }
 
+    public static void giveItem(Player player, ShopItems item, TeamColor color) {
+        ItemStack itemStack = new ItemStack(item.getMaterial(color));
+
+        itemStack.setAmount(item.getAmount());
+
+        player.getInventory().addItem(itemStack);
+    }
+
     public ItemPrice getPrice() {
         return price;
     }
@@ -49,13 +57,5 @@ public enum ShopItems {
 
     public Material getMaterial(TeamColor color) {
         return Material.valueOf(toString()) == Material.WHITE_WOOL ? color.getMaterial() : Material.valueOf(toString());
-    }
-
-    public static void giveItem(Player player, ShopItems item, TeamColor color) {
-        ItemStack itemStack = new ItemStack(item.getMaterial(color));
-
-        itemStack.setAmount(item.getAmount());
-
-        player.getInventory().addItem(itemStack);
     }
 }

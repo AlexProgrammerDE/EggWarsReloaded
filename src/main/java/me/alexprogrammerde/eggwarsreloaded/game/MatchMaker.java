@@ -11,19 +11,14 @@ import org.bukkit.entity.Player;
 import java.util.*;
 
 public class MatchMaker {
+    protected final HashMap<Player, TeamColor> playerInTeam = new HashMap<>();
+    protected final Map<TeamColor, Boolean> hasTeamEgg = new EnumMap<>(TeamColor.class);
     private final String arenaName;
     private final Game game;
-
     // This value is used as a storage for possible locations for players
     private final HashMap<Location, TeamColor> spawns = new HashMap<>();
-
     private final Map<TeamColor, List<Location>> teams = new EnumMap<>(TeamColor.class);
-
     private final HashMap<Player, Location> playerInLocation = new HashMap<>();
-
-    protected final HashMap<Player, TeamColor> playerInTeam = new HashMap<>();
-
-    protected final Map<TeamColor, Boolean> hasTeamEgg = new EnumMap<>(TeamColor.class);
 
     public MatchMaker(String arenaName, Game game) {
         this.arenaName = arenaName;

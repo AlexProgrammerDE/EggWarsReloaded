@@ -18,11 +18,11 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.HashMap;
 
 public class EggAssistant implements Listener {
+    public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "EggAssistant" + ChatColor.GOLD + "] ";
     private static final HashMap<Player, EggAssistant> assistants = new HashMap<>();
     private final Player player;
     private final String arenaName;
     private final TeamColor teamName;
-    public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "EggAssistant" + ChatColor.GOLD + "] ";
     private final EggWarsReloaded plugin;
 
     public EggAssistant(Player player, String arenaName, TeamColor teamName, EggWarsReloaded plugin) {
@@ -34,6 +34,16 @@ public class EggAssistant implements Listener {
         this.plugin = plugin;
 
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
+    public static boolean isAdding(Player player) {
+        return assistants.containsKey(player);
+    }
+
+    public static void removePlayer(Player player) {
+        HandlerList.unregisterAll(assistants.get(player));
+
+        assistants.remove(player);
     }
 
     @EventHandler
@@ -60,15 +70,5 @@ public class EggAssistant implements Listener {
                 }
             }
         }
-    }
-
-    public static boolean isAdding(Player player) {
-        return assistants.containsKey(player);
-    }
-
-    public static void removePlayer(Player player) {
-        HandlerList.unregisterAll(assistants.get(player));
-
-        assistants.remove(player);
     }
 }

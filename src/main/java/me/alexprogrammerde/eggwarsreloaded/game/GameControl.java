@@ -7,14 +7,14 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class GameControl {
     private static final HashMap<Player, Game> players = new HashMap<>();
     private static final List<Game> games = new ArrayList<>();
 
-    private GameControl() {}
+    private GameControl() {
+    }
 
     protected static void addGame(Game game) {
         games.add(game);

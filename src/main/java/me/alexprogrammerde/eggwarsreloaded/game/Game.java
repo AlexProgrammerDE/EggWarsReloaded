@@ -24,6 +24,7 @@ import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.util.Vector;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -34,48 +35,33 @@ public class Game {
      * Players currently in the arena/lobby
      */
     public final List<Player> inGamePlayers = new ArrayList<>();
-
-    /**
-     * Player currently playing inside the arena.
-     */
-    protected final List<Player> livingPlayers = new ArrayList<>();
-
     /**
      * Teams where people are in.
      */
     public final List<TeamColor> usedTeams = new ArrayList<>();
-
     public final List<Player> deadPlayers = new ArrayList<>();
-
     public final int maxPlayers;
     public final int maxTeamPlayers;
-    private int startingTime;
-
-    final FileConfiguration arenas = ArenaManager.getArenas();
     @Getter
     public final String arenaName;
-
-    protected final List<Integer> taskIds = new ArrayList<>();
-
-    public GameState getState() {
-        return state;
-    }
-
-    private GameState state;
     public final GameLogics gameLogics;
     public final MatchMaker matchmaker;
-    private final ScoreboardManager scoreboardManager = new ScoreboardManager(this);
-
-    private int clockTask;
-
-    public boolean isNoFall() {
-        return noFall;
-    }
-
-    private boolean noFall = false;
     public final EggWarsReloaded plugin;
     public final Random random = new Random();
-
+    /**
+     * Player currently playing inside the arena.
+     */
+    protected final List<Player> livingPlayers = new ArrayList<>();
+    protected final List<Integer> taskIds = new ArrayList<>();
+    final FileConfiguration arenas = ArenaManager.getArenas();
+    private final ScoreboardManager scoreboardManager = new ScoreboardManager(this);
+    private int startingTime;
+    private GameState state;
+    private int clockTask;
+    private @Getter
+    boolean noFall = false;
+    private @Getter
+    Instant gameStart;
     public Game(String arenaName, EggWarsReloaded plugin) {
         this.arenaName = arenaName;
         this.plugin = plugin;
@@ -111,18 +97,19 @@ public class Game {
         new GeneratorManager(this, plugin);
     }
 
+    public GameState getState() {
+        return state;
+    }
+
     public RejectType addPlayer(Player player) {
-        if (inGamePlayers.contains(player)) {
+        if (inGamePlayers.contains(player))
             return RejectType.ALREADY_IN;
-        }
 
-        if (!(state == GameState.LOBBY || state == GameState.STARTING1)) {
+        if (!(state == GameState.LOBBY || state == GameState.STARTING1))
             return RejectType.ALREADY_PLAYING;
-        }
 
-        if (inGamePlayers.size() >= maxPlayers) {
+        if (inGamePlayers.size() >= maxPlayers)
             return RejectType.FULL;
-        }
 
         // Remove everything the player had
         player.getInventory().clear();
@@ -167,15 +154,12 @@ public class Game {
 
         player.setScoreboard(playerScoreboard);
 
-        for (Player lobbyPlayer : inGamePlayers) {
+        for (Player lobbyPlayer : inGamePlayers)
             lobbyPlayer.sendMessage(ChatColor.GOLD + "[ " + ChatColor.AQUA + "+" + ChatColor.GOLD + " ] " + player.getDisplayName() + " " + inGamePlayers.size() + "/" + maxPlayers);
-        }
 
-        // TODO: Make player requirement optional
         int minPlayers = 2;
-        if (inGamePlayers.size() >= minPlayers && state == GameState.LOBBY) {
+        if (inGamePlayers.size() >= minPlayers && state == GameState.LOBBY)
             startGame1();
-        }
 
         return RejectType.NONE;
     }
@@ -206,9 +190,8 @@ public class Game {
     }
 
     public RejectType kickPlayer(Player player) {
-        if (!inGamePlayers.contains(player)) {
+        if (!inGamePlayers.contains(player))
             return RejectType.NOT_IN;
-        }
 
         removePlayer(player);
 
@@ -262,6 +245,8 @@ public class Game {
         deadPlayers.add(killed);
 
         rewardPlayer(killer, RewardType.KILL);
+
+        killer.playSound(killer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 2);
 
         for (Player livePlayer : inGamePlayers) {
             livePlayer.sendMessage(ChatColor.RED + killer.getDisplayName() + ChatColor.GOLD + " killed " + ChatColor.AQUA + killed.getDisplayName() + ChatColor.GOLD + "!");
@@ -319,7 +304,7 @@ public class Game {
         if (r.transactionSuccess()) {
             player.sendMessage(ChatColor.AQUA + "Added " + r.amount + " to your depot!");
         } else {
-            player.sendMessage(ChatColor.RED + "An error occured: " + r.errorMessage);
+            player.sendMessage(ChatColor.RED + "An error occurred: " + r.errorMessage);
         }
     }
 
@@ -373,7 +358,10 @@ public class Game {
         clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             startingTime--;
 
-            inGamePlayers.forEach(player -> player.setLevel(startingTime));
+            inGamePlayers.forEach(player -> {
+                player.setLevel(startingTime);
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 1, 2);
+            });
 
             if (startingTime == 10) {
                 Bukkit.getScheduler().runTask(plugin, () -> startGame2(10));
@@ -400,7 +388,10 @@ public class Game {
         clockTask = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
             startingTime--;
 
-            inGamePlayers.forEach(player -> player.setLevel(startingTime));
+            inGamePlayers.forEach(player -> {
+                player.setLevel(startingTime);
+                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 1, 2);
+            });
 
             if (startingTime == 0) {
                 Bukkit.getScheduler().runTask(plugin, this::runGame);
@@ -413,6 +404,8 @@ public class Game {
         Bukkit.getScheduler().cancelTask(clockTask);
 
         state = GameState.RUNNING;
+
+        gameStart = Instant.now();
 
         for (Player player : inGamePlayers) {
             player.getInventory().clear();

@@ -6,10 +6,10 @@ author: AlexProgrammerDE
 description: ${project.description}
 website: https://pistonmaster.net/
 load: POSTWORLD
-softdepend: [Multiverse-Core, Vault, PlaceholderAPI, HolographicDisplays]
+softdepend: [ Multiverse-Core, Vault, PlaceholderAPI, HolographicDisplays ]
 commands:
   eggwarsreloaded:
-    aliases: [egg, eggwars]
+    aliases: [ egg, eggwars ]
     permission: eggwarsreloaded.command
     permission-message: You have no permission to run this command!
 permissions:

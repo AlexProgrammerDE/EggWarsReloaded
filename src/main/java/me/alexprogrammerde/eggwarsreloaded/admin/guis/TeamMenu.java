@@ -17,7 +17,8 @@ import org.bukkit.inventory.ItemStack;
 public class TeamMenu {
     private static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "SetupAssistant" + ChatColor.GOLD + "] ";
 
-    private TeamMenu() {}
+    private TeamMenu() {
+    }
 
     public static void setupTeamMenu(String arenaName, Player player, EggWarsReloaded plugin) {
         FileConfiguration items = plugin.getItems();

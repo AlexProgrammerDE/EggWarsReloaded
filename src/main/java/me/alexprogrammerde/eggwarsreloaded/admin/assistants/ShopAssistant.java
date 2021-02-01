@@ -17,11 +17,11 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import java.util.HashMap;
 
 public class ShopAssistant implements Listener {
+    public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "EggAssistant" + ChatColor.GOLD + "] ";
     private static final HashMap<Player, ShopAssistant> assistants = new HashMap<>();
     private final Player player;
     private final String arenaName;
     private final TeamColor teamName;
-    public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "EggAssistant" + ChatColor.GOLD + "] ";
     private final EggWarsReloaded plugin;
 
     public ShopAssistant(Player player, String arenaName, TeamColor teamName, EggWarsReloaded plugin) {
@@ -33,6 +33,16 @@ public class ShopAssistant implements Listener {
         this.plugin = plugin;
 
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
+    public static boolean isAdding(Player player) {
+        return assistants.containsKey(player);
+    }
+
+    public static void removePlayer(Player player) {
+        HandlerList.unregisterAll(assistants.get(player));
+
+        assistants.remove(player);
     }
 
     @EventHandler
@@ -67,6 +77,9 @@ public class ShopAssistant implements Listener {
             shop.setCollidable(false);
             shop.setInvulnerable(true);
 
+            shop.setCustomName(ChatColor.GOLD + "Shop");
+            shop.setCustomNameVisible(true);
+
             ArenaManager.setShop(arenaName, teamName, shop.getUniqueId().toString(), shop.getLocation());
 
             player.sendMessage(prefix + "Set shop of team " + teamName + " to: " + villagerLocation.getWorld().getName() + " " + villagerLocation.getBlockX() + " " + villagerLocation.getBlockY() + " " + villagerLocation.getBlockZ());
@@ -75,15 +88,5 @@ public class ShopAssistant implements Listener {
         }
 
         removePlayer(player);
-    }
-
-    public static boolean isAdding(Player player) {
-        return assistants.containsKey(player);
-    }
-
-    public static void removePlayer(Player player) {
-        HandlerList.unregisterAll(assistants.get(player));
-
-        assistants.remove(player);
     }
 }

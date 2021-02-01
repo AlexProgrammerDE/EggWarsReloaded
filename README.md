@@ -1,13 +1,16 @@
 # EggWarsReloaded
+
 [![Discord embed](https://discordapp.com/api/guilds/739784741124833301/embed.png)](https://discord.gg/CDrcxzH)
 
 -----
 **Get your own eggwars matches running on your server!**
 
 ## Notice
+
 This plugin is in its alpha state and **WILL** receive breaking changes.
 
 ## Permissions
+
 ```yaml
 permissions:
   eggwarsreloaded.*:

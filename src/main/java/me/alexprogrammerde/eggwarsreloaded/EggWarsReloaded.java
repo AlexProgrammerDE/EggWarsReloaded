@@ -25,8 +25,9 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 public class EggWarsReloaded extends JavaPlugin {
+    @Getter
+    private final WorldManager worldManager = new FileWorldManager(this);
     FileConfiguration config;
-
     @Getter
     FileConfiguration language;
     @Getter
@@ -35,9 +36,8 @@ public class EggWarsReloaded extends JavaPlugin {
     FileConfiguration items;
     @Getter
     FileConfiguration signs;
-
     @Getter
-    private final WorldManager worldManager = new FileWorldManager(this);
+    FileConfiguration stats;
     private Economy econ = null;
 
     @Getter
@@ -130,8 +130,16 @@ public class EggWarsReloaded extends JavaPlugin {
         return new File(getDataFolder(), "arenas.yml");
     }
 
+    public File getStatsFile() {
+        return new File(getDataFolder(), "stats.yml");
+    }
+
     public void reloadArenas() {
         this.arenaConfig = new ConfigManager(this, "arenas.yml").getConfig();
+    }
+
+    public void reloadStats() {
+        this.stats = new ConfigManager(this, "stats.yml").getConfig();
     }
 
     public void loadConfig() {
@@ -140,5 +148,6 @@ public class EggWarsReloaded extends JavaPlugin {
         this.arenaConfig = new ConfigManager(this, "arenas.yml").getConfig();
         this.items = new ConfigManager(this, "items.yml").getConfig();
         this.signs = new ConfigManager(this, "signs.yml").getConfig();
+        this.stats = new ConfigManager(this, "stats.yml").getConfig();
     }
 }

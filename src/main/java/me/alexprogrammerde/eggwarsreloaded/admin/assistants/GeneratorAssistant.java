@@ -18,10 +18,10 @@ import java.util.HashMap;
 import java.util.List;
 
 public class GeneratorAssistant implements Listener {
+    public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "GeneratorAssistant" + ChatColor.GOLD + "] ";
     private static final HashMap<Player, GeneratorAssistant> assistants = new HashMap<>();
     private final Player player;
     private final String arenaName;
-    public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "GeneratorAssistant" + ChatColor.GOLD + "] ";
     private final EggWarsReloaded plugin;
 
     public GeneratorAssistant(Player player, String arenaName, EggWarsReloaded plugin) {
@@ -32,6 +32,16 @@ public class GeneratorAssistant implements Listener {
         this.plugin = plugin;
 
         Bukkit.getServer().getPluginManager().registerEvents(this, plugin);
+    }
+
+    public static boolean isAdding(Player player) {
+        return assistants.containsKey(player);
+    }
+
+    public static void removePlayer(Player player) {
+        HandlerList.unregisterAll(assistants.get(player));
+
+        assistants.remove(player);
     }
 
     @EventHandler
@@ -85,15 +95,5 @@ public class GeneratorAssistant implements Listener {
 
             plugin.loadConfig();
         }
-    }
-
-    public static boolean isAdding(Player player) {
-        return assistants.containsKey(player);
-    }
-
-    public static void removePlayer(Player player) {
-        HandlerList.unregisterAll(assistants.get(player));
-
-        assistants.remove(player);
     }
 }

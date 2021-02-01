@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShopUtil {
-    private ShopUtil() {}
+    private ShopUtil() {
+    }
 
     public static List<ItemStack> getIron(Player player) {
         List<ItemStack> iron = new ArrayList<>();
