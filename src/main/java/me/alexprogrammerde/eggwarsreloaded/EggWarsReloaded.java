@@ -5,10 +5,7 @@ import me.alexprogrammerde.eggwarsreloaded.admin.ArenaRepairer;
 import me.alexprogrammerde.eggwarsreloaded.commands.EggCommand;
 import me.alexprogrammerde.eggwarsreloaded.game.Game;
 import me.alexprogrammerde.eggwarsreloaded.game.listeners.*;
-import me.alexprogrammerde.eggwarsreloaded.utils.ArenaManager;
-import me.alexprogrammerde.eggwarsreloaded.utils.ConfigManager;
-import me.alexprogrammerde.eggwarsreloaded.utils.EggwarsExpansion;
-import me.alexprogrammerde.eggwarsreloaded.utils.SignManager;
+import me.alexprogrammerde.eggwarsreloaded.utils.*;
 import me.alexprogrammerde.eggwarsreloaded.utils.world.FileWorldManager;
 import me.alexprogrammerde.eggwarsreloaded.utils.world.WorldManager;
 import net.md_5.bungee.api.ChatColor;
@@ -64,6 +61,8 @@ public class EggWarsReloaded extends JavaPlugin {
             new EggwarsExpansion(this).register();
         }
 
+        new StatsManager().setInstance(this);
+
         log.info(ChatColor.LIGHT_PURPLE + "Registering command");
         getServer().getPluginCommand("eggwarsreloaded").setExecutor(new EggCommand(this));
         getServer().getPluginCommand("eggwarsreloaded").setTabCompleter(new EggCommand(this));
@@ -109,9 +108,8 @@ public class EggWarsReloaded extends JavaPlugin {
 
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
 
-        if (rsp == null) {
+        if (rsp == null)
             return false;
-        }
 
         econ = rsp.getProvider();
         return true;

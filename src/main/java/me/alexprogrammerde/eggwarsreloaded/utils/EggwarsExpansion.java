@@ -71,6 +71,13 @@ public class EggwarsExpansion extends PlaceholderExpansion {
      */
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String identifier) {
+        if (player == null)
+            return "";
+
+        if (StatsManager.isValidStat(identifier)) {
+            return String.valueOf(StatsManager.getStat(player, identifier));
+        }
+
         // We return null if an invalid placeholder (f.e. %example_placeholder3%)
         // was provided
         return null;

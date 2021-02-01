@@ -2,6 +2,7 @@ package me.alexprogrammerde.eggwarsreloaded.game;
 
 import me.alexprogrammerde.eggwarsreloaded.game.collection.GameState;
 import me.alexprogrammerde.eggwarsreloaded.game.collection.RejectType;
+import me.alexprogrammerde.eggwarsreloaded.utils.StatsManager;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -25,6 +26,8 @@ public class GameControl {
     }
 
     public static RejectType addPlayer(Player player, Game game) {
+        StatsManager.addPlayer(player);
+
         players.put(player, game);
 
         return game.addPlayer(player);
