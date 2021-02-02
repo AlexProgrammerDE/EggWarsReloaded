@@ -58,10 +58,6 @@ public class LeaderboardManager {
         }
     }
 
-    public void setInstance(EggWarsReloaded plugin) {
-        LeaderboardManager.plugin = plugin;
-    }
-
     // function to sort hashmap by values
     private static Map<OfflinePlayer, Integer> sortByValue(Map<OfflinePlayer, Integer> hm) {
         // Create a list from elements of HashMap
@@ -78,5 +74,9 @@ public class LeaderboardManager {
             temp.put(aa.getKey(), aa.getValue());
 
         return temp;
+    }
+
+    public void setInstance(EggWarsReloaded plugin) {
+        LeaderboardManager.plugin = plugin;
     }
 }

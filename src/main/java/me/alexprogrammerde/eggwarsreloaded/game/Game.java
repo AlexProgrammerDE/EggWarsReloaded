@@ -63,6 +63,7 @@ public class Game {
     boolean noFall = false;
     private @Getter
     Instant gameStart;
+
     public Game(String arenaName, EggWarsReloaded plugin) {
         this.arenaName = arenaName;
         this.plugin = plugin;

@@ -70,15 +70,15 @@ public class StatsManager {
         plugin.reloadStats();
     }
 
+    public void setInstance(EggWarsReloaded plugin) {
+        StatsManager.plugin = plugin;
+    }
+
     public enum Type {
         WIN,
         DEATH,
         KILL,
         GAME,
         LOSE
-    }
-
-    public void setInstance(EggWarsReloaded plugin) {
-        StatsManager.plugin = plugin;
     }
 }
