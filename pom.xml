@@ -76,6 +76,10 @@
             <id>codemc-repo</id>
             <url>https://repo.codemc.io/repository/maven-public/</url>
         </repository>
+        <repository>
+            <id>inventive-repo</id>
+            <url>https://repo.inventivetalent.org/content/groups/public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -120,7 +124,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>RELEASE</version>
-            <scope>compile</scope>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.inventivetalent.spiget-update</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>1.4.2-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

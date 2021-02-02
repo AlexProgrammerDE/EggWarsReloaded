@@ -10,6 +10,7 @@ import me.alexprogrammerde.eggwarsreloaded.utils.world.FileWorldManager;
 import me.alexprogrammerde.eggwarsreloaded.utils.world.WorldManager;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.Economy;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -100,12 +101,14 @@ public class EggWarsReloaded extends JavaPlugin {
 
         signManager.detectSigns();
         getServer().getPluginManager().registerEvents(signManager, this);
+
+        log.info(ChatColor.LIGHT_PURPLE + "Loading metrics");
+        new Metrics(this, 10135);
     }
 
     private boolean setupEconomy() {
-        if (getServer().getPluginManager().getPlugin("Vault") == null) {
+        if (getServer().getPluginManager().getPlugin("Vault") == null)
             return false;
-        }
 
         RegisteredServiceProvider<Economy> rsp = getServer().getServicesManager().getRegistration(Economy.class);
 

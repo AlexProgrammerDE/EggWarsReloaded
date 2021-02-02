@@ -3,6 +3,7 @@ package me.alexprogrammerde.eggwarsreloaded.utils;
 import me.alexprogrammerde.eggwarsreloaded.EggWarsReloaded;
 import me.alexprogrammerde.eggwarsreloaded.game.collection.TeamColor;
 import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.io.IOException;
@@ -172,8 +173,12 @@ public class ArenaManager {
     private static boolean areEnoughTeamsRegistered(String arenaName) {
         FileConfiguration arenas = ArenaManager.getArenas();
         int registeredTeams = 0;
+        ConfigurationSection section = arenas.getConfigurationSection(arenaName + ".team");
 
-        for (String team : Objects.requireNonNull(arenas.getConfigurationSection(arenaName + ".team")).getKeys(false)) {
+        if (section == null)
+            return false;
+
+        for (String team : section.getKeys(false)) {
             if (isTeamRegistered(arenaName, TeamColor.fromString(team)))
                 registeredTeams++;
         }

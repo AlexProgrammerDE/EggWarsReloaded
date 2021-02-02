@@ -2,6 +2,7 @@ package me.alexprogrammerde.eggwarsreloaded.admin.guis;
 
 import me.alexprogrammerde.eggwarsreloaded.EggWarsReloaded;
 import me.alexprogrammerde.eggwarsreloaded.admin.assistants.GeneratorAssistant;
+import me.alexprogrammerde.eggwarsreloaded.game.Game;
 import me.alexprogrammerde.eggwarsreloaded.game.collection.TeamColor;
 import me.alexprogrammerde.eggwarsreloaded.utils.ArenaManager;
 import me.alexprogrammerde.eggwarsreloaded.utils.ItemBuilder;
@@ -270,6 +271,7 @@ public class EditMenu {
                                         if (arenas.contains(arenaName + ".diamond")) {
 
                                             ArenaManager.setArenaRegistered(arenaName, true, teams1);
+                                            new Game(arenaName, plugin);
                                             player.sendMessage(prefix + "Registered arena " + arenaName);
                                         } else {
                                             player.sendMessage(prefix + "You need to set up at least one diamond generator!");

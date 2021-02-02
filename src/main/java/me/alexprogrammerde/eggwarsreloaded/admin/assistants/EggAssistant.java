@@ -54,19 +54,17 @@ public class EggAssistant implements Listener {
             if (player == this.player && isAdding(player)) {
                 // Ok it's time to assist the player with the egg
 
-                if (assistants.containsKey(player)) {
-                    if (event.getClickedBlock().getType() == Material.DRAGON_EGG) {
-                        event.setCancelled(true);
-                        Location eggLocation = event.getClickedBlock().getLocation();
+                if (assistants.containsKey(player) && event.getClickedBlock().getType() == Material.DRAGON_EGG) {
+                    event.setCancelled(true);
+                    Location eggLocation = event.getClickedBlock().getLocation();
 
-                        ArenaManager.setEgg(arenaName, teamName, eggLocation);
+                    ArenaManager.setEgg(arenaName, teamName, eggLocation);
 
-                        removePlayer(player);
+                    removePlayer(player);
 
-                        player.sendMessage(prefix + "Set dragon egg of team " + teamName + " to: " + eggLocation.getWorld().getName() + " " + eggLocation.getBlockX() + " " + eggLocation.getBlockY() + " " + eggLocation.getBlockZ());
+                    player.sendMessage(prefix + "Set dragon egg of team " + teamName + " to: " + eggLocation.getWorld().getName() + " " + eggLocation.getBlockX() + " " + eggLocation.getBlockY() + " " + eggLocation.getBlockZ());
 
-                        TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
-                    }
+                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
                 }
             }
         }
