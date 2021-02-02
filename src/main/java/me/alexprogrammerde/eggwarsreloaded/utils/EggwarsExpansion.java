@@ -98,8 +98,14 @@ public class EggwarsExpansion extends PlaceholderExpansion {
 
     private String getProperThing(Map.Entry<OfflinePlayer, Integer> entry, String str) {
         if (str.equalsIgnoreCase("name")) {
+            if (entry == null)
+                return "None";
+
             return entry.getKey().getName();
         } else {
+            if (entry == null)
+                return "0";
+
             return String.valueOf(entry.getValue());
         }
     }

@@ -28,57 +28,61 @@ public class EggCommand implements CommandExecutor, TabExecutor {
             Player player = (Player) sender;
             if (args.length > 0) {
                 // Player commands
-                if (args[0].equals("help")) {
-                    if (player.hasPermission("eggwarsreloaded.command.help")) {
-                        if (player.hasPermission("eggwarsreloaded.admin")) {
-                            List<String> messageList = plugin.getLanguage().getStringList("command.help.adminhelp");
-                            String[] messageArr = new String[messageList.size()];
-                            messageArr = messageList.toArray(messageArr);
-                            player.sendMessage(messageArr);
-                        } else {
-                            List<String> messageList = plugin.getLanguage().getStringList("command.help.playerhelp");
-                            String[] messageArr = new String[messageList.size()];
-                            messageArr = messageList.toArray(messageArr);
-                            player.sendMessage(messageArr);
-                        }
-                    } else {
-                        player.sendMessage("You have no permission!");
-                    }
-                } else if (args[0].equals("join")) {
-                    if (player.hasPermission("eggwarsreloaded.command.join")) {
-                        if (args.length > 1) {
-                            if (ArenaManager.isArenaRegistered(args[1])) {
-                                GameControl.addPlayer(player, GameControl.getGame(args[1]));
+                switch (args[0]) {
+                    case "help":
+                        if (player.hasPermission("eggwarsreloaded.command.help")) {
+                            if (player.hasPermission("eggwarsreloaded.admin")) {
+                                List<String> messageList = plugin.getLanguage().getStringList("command.help.adminhelp");
+                                String[] messageArr = new String[messageList.size()];
+                                messageArr = messageList.toArray(messageArr);
+                                player.sendMessage(messageArr);
                             } else {
-                                player.sendMessage("Sorry a arena with this name doesn't exist.");
+                                List<String> messageList = plugin.getLanguage().getStringList("command.help.playerhelp");
+                                String[] messageArr = new String[messageList.size()];
+                                messageArr = messageList.toArray(messageArr);
+                                player.sendMessage(messageArr);
                             }
+                        } else {
+                            player.sendMessage("You have no permission!");
                         }
-                    } else {
-                        player.sendMessage("You have no permission!");
-                    }
-                } else if (args[0].equals("randomjoin")) {
-                    if (player.hasPermission("eggwarsreloaded.command.randomjoin")) {
-                        player.sendMessage("Searching a game for you!");
-                        RejectType reject = GameControl.randomJoin(player);
+                        break;
+                    case "join":
+                        if (player.hasPermission("eggwarsreloaded.command.join")) {
+                            if (args.length > 1) {
+                                if (ArenaManager.isArenaRegistered(args[1])) {
+                                    GameControl.addPlayer(player, GameControl.getGame(args[1]));
+                                } else {
+                                    player.sendMessage("Sorry a arena with this name doesn't exist.");
+                                }
+                            }
+                        } else {
+                            player.sendMessage("You have no permission!");
+                        }
+                        break;
+                    case "randomjoin":
+                        if (player.hasPermission("eggwarsreloaded.command.randomjoin")) {
+                            player.sendMessage("Searching a game for you!");
+                            RejectType reject = GameControl.randomJoin(player);
 
-                        if (reject == RejectType.ALREADY_IN) {
-                            player.sendMessage(ChatColor.RED + "You are already playing!");
-                        } else if (reject == RejectType.FULL) {
-                            player.sendMessage("All games are full!");
+                            if (reject == RejectType.ALREADY_IN) {
+                                player.sendMessage(ChatColor.RED + "You are already playing!");
+                            } else if (reject == RejectType.FULL) {
+                                player.sendMessage("All games are full!");
+                            }
+                        } else {
+                            player.sendMessage("You have no permission!");
                         }
-                    } else {
-                        player.sendMessage("You have no permission!");
-                    }
-                } else
+                        break;
 
                     // Admin commands
-                    if (args[0].equals("reload")) {
+                    case "reload":
                         if (player.hasPermission("eggwarsreloaded.command.reload")) {
                             plugin.loadConfig();
                         } else {
                             player.sendMessage("You have no permission!");
                         }
-                    } else if (args[0].equals("addarena")) {
+                        break;
+                    case "addarena":
                         if (player.hasPermission("eggwarsreloaded.command.addarena")) {
                             if (args.length > 1) {
                                 ArenaManager.addArena(args[1]);
@@ -99,7 +103,8 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage("You have no permission!");
                         }
-                    } else if (args[0].equals("delarena")) {
+                        break;
+                    case "delarena":
                         if (player.hasPermission("eggwarsreloaded.command.delarena")) {
                             if (args.length > 1) {
                                 if (ArenaManager.getArenas().contains(args[1])) {
@@ -114,7 +119,8 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage("You have no permission!");
                         }
-                    } else if (args[0].equals("kick")) {
+                        break;
+                    case "kick":
                         if (player.hasPermission("eggwarsreloaded.command.kick")) {
                             if (args.length > 1) {
                                 Player target = Bukkit.getPlayer(args[1]);
@@ -132,7 +138,8 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage("You have no permission!");
                         }
-                    } else if (args[0].equals("endgame")) {
+                        break;
+                    case "endgame":
                         if (player.hasPermission("eggwarsreloaded.command.endgame")) {
                             if (args.length > 1) {
                                 if (ArenaManager.isArenaRegistered(args[1])) {
@@ -144,7 +151,8 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage("You have no permission!");
                         }
-                    } else if (args[0].equals("edit")) {
+                        break;
+                    case "edit":
                         if (player.hasPermission("eggwarsreloaded.command.edit")) {
                             if (args.length > 1) {
                                 if (ArenaManager.getArenas().isSet(args[1])) {
@@ -158,7 +166,10 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                         } else {
                             player.sendMessage("You have no permission!");
                         }
-                    }
+                        break;
+                    default:
+                        return false;
+                }
             }
         }
 
@@ -220,7 +231,6 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                 StringUtil.copyPartialMatches(args[1], GameControl.getRegisteredArenas(), completions);
                 Collections.sort(completions);
             }
-
         }
 
         // Console support soon?
