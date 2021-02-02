@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class TeamMenu {
-    private static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "SetupAssistant" + ChatColor.GOLD + "] ";
+    private static final String PREFIX = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "SetupAssistant" + ChatColor.GOLD + "] ";
 
     private TeamMenu() {
     }
@@ -222,14 +222,14 @@ public class TeamMenu {
                     ArenaManager.setTeamRegistered(arenaName, teamName, false);
                     ArenaManager.setArenaRegistered(arenaName, false, null);
 
-                    player.sendMessage(prefix + "Unregistered team: " + teamName);
+                    player.sendMessage(PREFIX + "Unregistered team: " + teamName);
                 } else {
                     ArenaManager.setTeamRegistered(arenaName, teamName, true);
 
-                    player.sendMessage(prefix + "Registered team: " + teamName);
+                    player.sendMessage(PREFIX + "Registered team: " + teamName);
                 }
             } else {
-                player.sendMessage(prefix + "This team is not ready! Please finish the team setup. (Click the wool)");
+                player.sendMessage(PREFIX + "This team is not ready! Please finish the team setup. (Click the wool)");
             }
 
             TeamMenu.setupTeamMenu(arenaName, player, plugin);

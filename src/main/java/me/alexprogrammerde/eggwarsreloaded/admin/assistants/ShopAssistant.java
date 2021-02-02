@@ -17,7 +17,7 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import java.util.HashMap;
 
 public class ShopAssistant implements Listener {
-    public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "EggAssistant" + ChatColor.GOLD + "] ";
+    public static final String PREFIX = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "EggAssistant" + ChatColor.GOLD + "] ";
     private static final HashMap<Player, ShopAssistant> assistants = new HashMap<>();
     private final Player player;
     private final String arenaName;
@@ -82,7 +82,7 @@ public class ShopAssistant implements Listener {
 
             ArenaManager.setShop(arenaName, teamName, shop.getUniqueId().toString(), shop.getLocation());
 
-            player.sendMessage(prefix + "Set shop of team " + teamName + " to: " + villagerLocation.getWorld().getName() + " " + villagerLocation.getBlockX() + " " + villagerLocation.getBlockY() + " " + villagerLocation.getBlockZ());
+            player.sendMessage(PREFIX + "Set shop of team " + teamName + " to: " + villagerLocation.getWorld().getName() + " " + villagerLocation.getBlockX() + " " + villagerLocation.getBlockY() + " " + villagerLocation.getBlockZ());
 
             TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
         }

@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import java.util.HashMap;
 
 public class EggAssistant implements Listener {
-    public static final String prefix = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "EggAssistant" + ChatColor.GOLD + "] ";
+    public static final String PREFIX = ChatColor.GOLD + "[" + ChatColor.DARK_PURPLE + "EggAssistant" + ChatColor.GOLD + "] ";
     private static final HashMap<Player, EggAssistant> assistants = new HashMap<>();
     private final Player player;
     private final String arenaName;
@@ -51,21 +51,17 @@ public class EggAssistant implements Listener {
         if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Player player = event.getPlayer();
 
-            if (player == this.player && isAdding(player)) {
-                // Ok it's time to assist the player with the egg
+            if (player == this.player && isAdding(player) && assistants.containsKey(player) && event.getClickedBlock().getType() == Material.DRAGON_EGG) {
+                event.setCancelled(true);
+                Location eggLocation = event.getClickedBlock().getLocation();
 
-                if (assistants.containsKey(player) && event.getClickedBlock().getType() == Material.DRAGON_EGG) {
-                    event.setCancelled(true);
-                    Location eggLocation = event.getClickedBlock().getLocation();
+                ArenaManager.setEgg(arenaName, teamName, eggLocation);
 
-                    ArenaManager.setEgg(arenaName, teamName, eggLocation);
+                removePlayer(player);
 
-                    removePlayer(player);
+                player.sendMessage(PREFIX + "Set dragon egg of team " + teamName + " to: " + eggLocation.getWorld().getName() + " " + eggLocation.getBlockX() + " " + eggLocation.getBlockY() + " " + eggLocation.getBlockZ());
 
-                    player.sendMessage(prefix + "Set dragon egg of team " + teamName + " to: " + eggLocation.getWorld().getName() + " " + eggLocation.getBlockX() + " " + eggLocation.getBlockY() + " " + eggLocation.getBlockZ());
-
-                    TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
-                }
+                TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
             }
         }
     }
