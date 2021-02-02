@@ -5,6 +5,8 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
+
 public class EggwarsExpansion extends PlaceholderExpansion {
     private final EggWarsReloaded plugin;
 
@@ -71,15 +73,34 @@ public class EggwarsExpansion extends PlaceholderExpansion {
      */
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String identifier) {
-        if (player == null)
-            return "";
-
-        if (StatsManager.isValidStat(identifier)) {
+        if (player != null && StatsManager.isValidStat(identifier)) {
             return String.valueOf(StatsManager.getStat(player, identifier));
+        }
+
+        String[] split = identifier.split("_");
+
+        if (split.length > 2
+                && (split[2].equalsIgnoreCase("name") || split[2].equalsIgnoreCase("value"))
+                && StatsManager.isValidStat(split[1])) {
+            if (split[0].equalsIgnoreCase("top1")) {
+                return getProperThing(LeaderboardManager.getTop1(split[1]), split[2]);
+            } else if (split[0].equalsIgnoreCase("top2")) {
+                return getProperThing(LeaderboardManager.getTop2(split[1]), split[2]);
+            } else if (split[0].equalsIgnoreCase("top3")) {
+                return getProperThing(LeaderboardManager.getTop3(split[1]), split[2]);
+            }
         }
 
         // We return null if an invalid placeholder (f.e. %example_placeholder3%)
         // was provided
         return null;
+    }
+
+    private String getProperThing(Map.Entry<OfflinePlayer, Integer> entry, String str) {
+        if (str.equalsIgnoreCase("name")) {
+            return entry.getKey().getName();
+        } else {
+            return String.valueOf(entry.getValue());
+        }
     }
 }

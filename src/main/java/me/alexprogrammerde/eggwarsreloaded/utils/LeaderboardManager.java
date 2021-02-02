@@ -70,6 +70,8 @@ public class LeaderboardManager {
         // Sort the list
         list.sort(Map.Entry.comparingByValue());
 
+        Collections.reverse(list);
+
         // put data from sorted list to hashmap
         Map<OfflinePlayer, Integer> temp = new LinkedHashMap<>();
         for (Map.Entry<OfflinePlayer, Integer> aa : list)

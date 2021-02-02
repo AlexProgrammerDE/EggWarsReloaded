@@ -28,8 +28,6 @@ public class StatsManager {
     }
 
     public static void rewardPlayer(OfflinePlayer player, Type type) {
-        FileConfiguration config = plugin.getStats();
-
         if (type == Type.WIN) {
             incrementStat(player, "wins");
             incrementStat(player, "winstreak");
@@ -40,14 +38,14 @@ public class StatsManager {
         } else if (type == Type.GAME) {
             incrementStat(player, "games");
         } else if (type == Type.LOSE) {
-            config.set(player.getUniqueId() + ".winstreak", 0);
+            plugin.getStats().set(player.getUniqueId() + ".winstreak", 0);
         }
+
+        save();
     }
 
     public static int getStat(OfflinePlayer player, String stat) {
-        FileConfiguration config = plugin.getStats();
-
-        return config.getInt(player.getUniqueId() + "." + stat);
+        return plugin.getStats().getInt(player.getUniqueId() + "." + stat);
     }
 
     private static void incrementStat(OfflinePlayer player, String stat) {
