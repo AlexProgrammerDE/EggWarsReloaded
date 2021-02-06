@@ -3,7 +3,7 @@
 [![Discord embed](https://discordapp.com/api/guilds/739784741124833301/embed.png)](https://discord.gg/CDrcxzH)
 
 -----
-**Get your own eggwars matches running on your server!**
+**Best free eggwars plugin out there!**
 
 ## Notice
 
