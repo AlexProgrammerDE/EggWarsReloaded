@@ -26,9 +26,8 @@ public class FileWorldManager implements WorldManager {
     }
 
     public World createEmptyWorld(String name, Environment environment) {
-        if (Bukkit.getWorld(name) == null) {
+        if (Bukkit.getWorld(name) == null)
             loadWorld(name, environment);
-        }
 
         return Bukkit.getWorld(name);
     }

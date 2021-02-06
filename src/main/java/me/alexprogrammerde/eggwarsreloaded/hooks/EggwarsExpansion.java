@@ -1,6 +1,8 @@
-package me.alexprogrammerde.eggwarsreloaded.utils;
+package me.alexprogrammerde.eggwarsreloaded.hooks;
 
 import me.alexprogrammerde.eggwarsreloaded.EggWarsReloaded;
+import me.alexprogrammerde.eggwarsreloaded.utils.LeaderboardManager;
+import me.alexprogrammerde.eggwarsreloaded.utils.StatsManager;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;

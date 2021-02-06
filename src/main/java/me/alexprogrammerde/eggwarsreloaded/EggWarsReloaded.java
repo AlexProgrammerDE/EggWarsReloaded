@@ -5,6 +5,7 @@ import me.alexprogrammerde.eggwarsreloaded.admin.ArenaRepairer;
 import me.alexprogrammerde.eggwarsreloaded.commands.EggCommand;
 import me.alexprogrammerde.eggwarsreloaded.game.Game;
 import me.alexprogrammerde.eggwarsreloaded.game.listeners.*;
+import me.alexprogrammerde.eggwarsreloaded.hooks.EggwarsExpansion;
 import me.alexprogrammerde.eggwarsreloaded.utils.*;
 import me.alexprogrammerde.eggwarsreloaded.utils.world.FileWorldManager;
 import me.alexprogrammerde.eggwarsreloaded.utils.world.WorldManager;
@@ -19,6 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -61,6 +63,15 @@ public class EggWarsReloaded extends JavaPlugin {
             log.info(ChatColor.LIGHT_PURPLE + "Hooked into PlaceholderAPI!");
             new EggwarsExpansion(this).register();
         }
+
+        /* Preparation for upcoming Parties support
+        if (getServer().getPluginManager().getPlugin("Parties") != null) {
+            if (Objects.requireNonNull(getServer().getPluginManager().getPlugin("Parties")).isEnabled()) {
+
+            }
+        }
+
+         */
 
         new StatsManager().setInstance(this);
         new LeaderboardManager().setInstance(this);

@@ -14,8 +14,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 
 public class EggCommand implements CommandExecutor, TabExecutor {
-    private static final String[] PLAYER = {"help", "join"/*, "randomjoin"*/};
-    private static final String[] ADMIN = {"reload", "addarena", "delarena", /*"kick", */"edit", "endgame"};
+    private static final String[] PLAYER = {"help", "join", "randomjoin"};
+    private static final String[] ADMIN = {"reload", "addarena", "delarena", "kick", "edit", "endgame"};
     private final EggWarsReloaded plugin;
 
     public EggCommand(EggWarsReloaded plugin) {
@@ -26,6 +26,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String alias, String[] args) {
         if (sender instanceof Player) {
             Player player = (Player) sender;
+
             if (args.length > 0) {
                 // Player commands
                 switch (args[0]) {
@@ -170,6 +171,8 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                     default:
                         return false;
                 }
+            } else {
+                return false;
             }
         }
 

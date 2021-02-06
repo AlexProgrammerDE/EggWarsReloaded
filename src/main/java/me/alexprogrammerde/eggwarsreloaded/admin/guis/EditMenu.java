@@ -385,7 +385,7 @@ public class EditMenu {
 
         gui.addItem(save.build(), items.getInt("items.editmain.save.slot"))
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
-                    player.teleport(new Location(Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName)), 0, 81, 0));
+                    player.teleport(Objects.requireNonNull(Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName))).getSpawnLocation());
 
                     EditMenu.openEditMenu(arenaName, player, plugin);
                 })
