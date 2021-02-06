@@ -1,9 +1,9 @@
 package net.pistonmaster.eggwarsreloaded.utils;
 
+import net.md_5.bungee.api.ChatColor;
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
 import net.pistonmaster.eggwarsreloaded.game.shop.ItemPrice;
 import net.pistonmaster.eggwarsreloaded.game.shop.ShopItems;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;

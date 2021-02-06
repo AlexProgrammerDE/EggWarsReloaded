@@ -1,5 +1,6 @@
 package net.pistonmaster.eggwarsreloaded.admin.guis;
 
+import net.md_5.bungee.api.ChatColor;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.admin.assistants.GeneratorAssistant;
 import net.pistonmaster.eggwarsreloaded.game.Game;
@@ -8,7 +9,6 @@ import net.pistonmaster.eggwarsreloaded.utils.ArenaManager;
 import net.pistonmaster.eggwarsreloaded.utils.ItemBuilder;
 import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
 import net.pistonmaster.eggwarsreloaded.utils.gui.GUI;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

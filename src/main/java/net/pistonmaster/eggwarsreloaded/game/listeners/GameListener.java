@@ -1,9 +1,9 @@
 package net.pistonmaster.eggwarsreloaded.game.listeners;
 
+import net.md_5.bungee.api.ChatColor;
 import net.pistonmaster.eggwarsreloaded.game.Game;
 import net.pistonmaster.eggwarsreloaded.game.GameControl;
 import net.pistonmaster.eggwarsreloaded.game.collection.GameState;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

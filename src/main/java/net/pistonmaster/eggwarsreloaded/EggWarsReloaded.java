@@ -1,18 +1,16 @@
 package net.pistonmaster.eggwarsreloaded;
 
 import lombok.Getter;
+import net.md_5.bungee.api.ChatColor;
+import net.milkbowl.vault.economy.Economy;
 import net.pistonmaster.eggwarsreloaded.admin.ArenaRepairer;
 import net.pistonmaster.eggwarsreloaded.commands.EggCommand;
 import net.pistonmaster.eggwarsreloaded.game.Game;
-import me.alexprogrammerde.eggwarsreloaded.game.listeners.*;
+import net.pistonmaster.eggwarsreloaded.game.listeners.*;
 import net.pistonmaster.eggwarsreloaded.hooks.EggwarsExpansion;
-import me.alexprogrammerde.eggwarsreloaded.utils.*;
+import net.pistonmaster.eggwarsreloaded.utils.*;
 import net.pistonmaster.eggwarsreloaded.utils.world.FileWorldManager;
 import net.pistonmaster.eggwarsreloaded.utils.world.WorldManager;
-import net.md_5.bungee.api.ChatColor;
-import net.milkbowl.vault.economy.Economy;
-import net.pistonmaster.eggwarsreloaded.game.listeners.*;
-import net.pistonmaster.eggwarsreloaded.utils.*;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;

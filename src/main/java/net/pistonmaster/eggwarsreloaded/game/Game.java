@@ -1,6 +1,10 @@
 package net.pistonmaster.eggwarsreloaded.game;
 
 import lombok.Getter;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.milkbowl.vault.economy.EconomyResponse;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.game.collection.GameState;
 import net.pistonmaster.eggwarsreloaded.game.collection.RejectType;
@@ -10,10 +14,6 @@ import net.pistonmaster.eggwarsreloaded.utils.ArenaManager;
 import net.pistonmaster.eggwarsreloaded.utils.ItemBuilder;
 import net.pistonmaster.eggwarsreloaded.utils.StatsManager;
 import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;

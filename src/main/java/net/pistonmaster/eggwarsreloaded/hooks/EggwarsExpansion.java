@@ -1,9 +1,9 @@
 package net.pistonmaster.eggwarsreloaded.hooks;
 
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.utils.LeaderboardManager;
 import net.pistonmaster.eggwarsreloaded.utils.StatsManager;
-import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 

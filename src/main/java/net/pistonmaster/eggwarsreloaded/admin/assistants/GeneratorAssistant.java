@@ -1,8 +1,8 @@
 package net.pistonmaster.eggwarsreloaded.admin.assistants;
 
+import net.md_5.bungee.api.ChatColor;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;

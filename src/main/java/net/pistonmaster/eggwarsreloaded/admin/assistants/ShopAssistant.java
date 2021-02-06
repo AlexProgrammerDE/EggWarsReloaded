@@ -1,10 +1,10 @@
 package net.pistonmaster.eggwarsreloaded.admin.assistants;
 
+import net.md_5.bungee.api.ChatColor;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.admin.guis.TeamUnderMenu;
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
 import net.pistonmaster.eggwarsreloaded.utils.ArenaManager;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.*;
