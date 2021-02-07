@@ -11,7 +11,7 @@ import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
 import net.pistonmaster.eggwarsreloaded.utils.gui.GUI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryAction;
@@ -33,27 +33,27 @@ public class EditMenu {
         FileConfiguration arenas = ArenaManager.getArenas();
 
         // Load Data from storage
-        ItemBuilder mainLobby = new ItemBuilder(Material.GREEN_CONCRETE);
-        ItemBuilder waitingLobby = new ItemBuilder(Material.RED_CONCRETE);
-        ItemBuilder spectator = new ItemBuilder(Material.YELLOW_CONCRETE);
-        ItemBuilder register = new ItemBuilder(Material.END_CRYSTAL);
-        ItemBuilder teams = new ItemBuilder(Material.WHITE_WOOL);
-        ItemBuilder generators = new ItemBuilder(Material.DIAMOND_BLOCK);
-        ItemBuilder size = new ItemBuilder(Material.ENDER_PEARL);
-        ItemBuilder save = new ItemBuilder(Material.CRAFTING_TABLE);
+        ItemBuilder mainLobby = new ItemBuilder(XMaterial.GREEN_CONCRETE);
+        ItemBuilder waitingLobby = new ItemBuilder(XMaterial.RED_CONCRETE);
+        ItemBuilder spectator = new ItemBuilder(XMaterial.YELLOW_CONCRETE);
+        ItemBuilder register = new ItemBuilder(XMaterial.END_CRYSTAL);
+        ItemBuilder teams = new ItemBuilder(XMaterial.WHITE_WOOL);
+        ItemBuilder generators = new ItemBuilder(XMaterial.DIAMOND_BLOCK);
+        ItemBuilder size = new ItemBuilder(XMaterial.ENDER_PEARL);
+        ItemBuilder save = new ItemBuilder(XMaterial.CRAFTING_TABLE);
         ItemBuilder pos1;
         ItemBuilder pos2;
 
         if (arenas.contains(arenaName + ".pos1")) {
-            pos1 = new ItemBuilder(Material.GOLD_INGOT);
+            pos1 = new ItemBuilder(XMaterial.GOLD_INGOT);
         } else {
-            pos1 = new ItemBuilder(Material.IRON_INGOT);
+            pos1 = new ItemBuilder(XMaterial.IRON_INGOT);
         }
 
         if (arenas.contains(arenaName + ".pos2")) {
-            pos2 = new ItemBuilder(Material.GOLD_INGOT);
+            pos2 = new ItemBuilder(XMaterial.GOLD_INGOT);
         } else {
-            pos2 = new ItemBuilder(Material.IRON_INGOT);
+            pos2 = new ItemBuilder(XMaterial.IRON_INGOT);
         }
 
         // Give item names from items.yml

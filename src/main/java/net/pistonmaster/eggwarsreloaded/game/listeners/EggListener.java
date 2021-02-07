@@ -9,7 +9,7 @@ import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Material;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,7 +30,7 @@ public class EggListener implements Listener {
             if (game.getState() == GameState.RUNNING
                     && player.getGameMode() == GameMode.SURVIVAL
                     && (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_BLOCK)
-                    && Objects.requireNonNull(event.getClickedBlock()).getType() == Material.DRAGON_EGG) {
+                    && Objects.requireNonNull(event.getClickedBlock()).getType() == XMaterial.DRAGON_EGG.parseMaterial()) {
                 HashMap<Location, TeamColor> teamEggs = new HashMap<>();
 
                 for (TeamColor team : game.usedTeams) {
@@ -47,7 +47,7 @@ public class EggListener implements Listener {
                             player.sendMessage(ChatColor.RED + "You can't destroy your own egg!");
                         } else {
                             game.eggDestroyed(teamEggs.get(event.getClickedBlock().getLocation()));
-                            event.getClickedBlock().setType(Material.AIR);
+                            event.getClickedBlock().setType(XMaterial.AIR.parseMaterial());
                         }
 
                         break;

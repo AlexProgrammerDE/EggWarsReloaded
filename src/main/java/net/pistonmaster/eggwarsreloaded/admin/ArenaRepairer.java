@@ -6,7 +6,7 @@ import net.pistonmaster.eggwarsreloaded.utils.ArenaManager;
 import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
@@ -61,7 +61,7 @@ public class ArenaRepairer implements Listener {
         if (event.hasBlock()) {
             Block block = event.getClickedBlock();
 
-            if (block != null && block.getType() == Material.DRAGON_EGG) {
+            if (block != null && block.getType() == XMaterial.DRAGON_EGG.parseMaterial()) {
                 FileConfiguration arenas = plugin.getArenaConfig();
 
                 for (String arenaName : arenas.getKeys(false)) {

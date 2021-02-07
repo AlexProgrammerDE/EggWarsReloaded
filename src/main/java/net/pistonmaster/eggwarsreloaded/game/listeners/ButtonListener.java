@@ -3,7 +3,7 @@ package net.pistonmaster.eggwarsreloaded.game.listeners;
 import net.pistonmaster.eggwarsreloaded.game.Game;
 import net.pistonmaster.eggwarsreloaded.game.GameControl;
 import net.pistonmaster.eggwarsreloaded.game.collection.GameState;
-import org.bukkit.Material;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -30,7 +30,7 @@ public class ButtonListener implements Listener {
                 Game game = GameControl.getPlayerGame(player);
 
                 if (game.getState() == GameState.LOBBY || game.getState() == GameState.STARTING1 && player.getInventory().getHeldItemSlot() == 2
-                        && hand.getType() == Material.DIAMOND
+                        && hand.getType() == XMaterial.DIAMOND.parseMaterial()
                         && player.hasPermission("eggwarsreloaded.forcestart")) {
                     game.forceStart();
                 }

@@ -1,5 +1,6 @@
 package net.pistonmaster.eggwarsreloaded;
 
+import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.Economy;

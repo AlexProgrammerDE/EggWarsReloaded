@@ -7,7 +7,7 @@ import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
 import net.pistonmaster.eggwarsreloaded.utils.ArenaManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;
@@ -51,7 +51,7 @@ public class EggAssistant implements Listener {
         if (event.getAction() == Action.LEFT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Player player = event.getPlayer();
 
-            if (player == this.player && isAdding(player) && assistants.containsKey(player) && event.getClickedBlock().getType() == Material.DRAGON_EGG) {
+            if (player == this.player && isAdding(player) && assistants.containsKey(player) && event.getClickedBlock().getType() == XMaterial.DRAGON_EGG.parseMaterial()) {
                 event.setCancelled(true);
                 Location eggLocation = event.getClickedBlock().getLocation();
 

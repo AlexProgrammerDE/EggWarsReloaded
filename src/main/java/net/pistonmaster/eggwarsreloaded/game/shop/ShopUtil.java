@@ -2,7 +2,7 @@ package net.pistonmaster.eggwarsreloaded.game.shop;
 
 import net.md_5.bungee.api.ChatColor;
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
-import org.bukkit.Material;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -17,7 +17,7 @@ public class ShopUtil {
         List<ItemStack> iron = new ArrayList<>();
 
         for (ItemStack item : player.getInventory().getContents()) {
-            if (item != null && item.getType() == Material.IRON_INGOT) {
+            if (item != null && item.getType() == XMaterial.IRON_INGOT.parseMaterial()) {
                 iron.add(item);
             }
         }
@@ -29,7 +29,7 @@ public class ShopUtil {
         List<ItemStack> gold = new ArrayList<>();
 
         for (ItemStack item : player.getInventory().getContents()) {
-            if (item != null && item.getType() == Material.GOLD_INGOT) {
+            if (item != null && item.getType() == XMaterial.GOLD_INGOT.parseMaterial()) {
                 gold.add(item);
             }
         }
@@ -41,7 +41,7 @@ public class ShopUtil {
         List<ItemStack> diamond = new ArrayList<>();
 
         for (ItemStack item : player.getInventory().getContents()) {
-            if (item != null && item.getType() == Material.DIAMOND) {
+            if (item != null && item.getType() == XMaterial.DIAMOND.parseMaterial()) {
                 diamond.add(item);
             }
         }

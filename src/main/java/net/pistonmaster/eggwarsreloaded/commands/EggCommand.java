@@ -1,5 +1,6 @@
 package net.pistonmaster.eggwarsreloaded.commands;
 
+import com.cryptomorin.xseries.XMaterial;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.admin.guis.EditMenu;
 import net.pistonmaster.eggwarsreloaded.game.GameControl;
@@ -91,7 +92,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
 
                                 ArenaManager.setArenaWorld(args[1], args[1]);
 
-                                world.getBlockAt(0, 80, 0).setType(Material.BEDROCK);
+                                world.getBlockAt(0, 80, 0).setType(XMaterial.BEDROCK.parseMaterial());
 
                                 player.teleport(new Location(world, 0, 81, 0));
 

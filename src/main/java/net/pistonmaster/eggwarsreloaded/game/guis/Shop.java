@@ -6,7 +6,7 @@ import net.pistonmaster.eggwarsreloaded.game.shop.ShopItems;
 import net.pistonmaster.eggwarsreloaded.game.shop.ShopUtil;
 import net.pistonmaster.eggwarsreloaded.utils.ItemBuilder;
 import net.pistonmaster.eggwarsreloaded.utils.gui.GUI;
-import org.bukkit.Material;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,7 +27,7 @@ public class Shop {
             i++;
         }
 
-        ItemStack closeButton = new ItemBuilder(Material.BARRIER).build();
+        ItemStack closeButton = new ItemBuilder(XMaterial.BARRIER).build();
 
         gui.addItem(closeButton, gui.getSize() - 1).addDefaultEvent(player::closeInventory);
 

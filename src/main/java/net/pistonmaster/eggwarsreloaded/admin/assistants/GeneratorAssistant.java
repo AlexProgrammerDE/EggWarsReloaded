@@ -4,7 +4,7 @@ import net.md_5.bungee.api.ChatColor;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -52,7 +52,7 @@ public class GeneratorAssistant implements Listener {
         String blockLocationString = UtilCore.convertString(block.getLocation());
 
         if (player == this.player && isAdding(player)) {
-            if (block.getType() == Material.IRON_BLOCK) {
+            if (block.getType() == XMaterial.IRON_BLOCK.parseMaterial()) {
                 event.setCancelled(true);
                 List<String> generators = arenas.getStringList(arenaName + ".iron");
 
@@ -63,7 +63,7 @@ public class GeneratorAssistant implements Listener {
                     arenas.set(arenaName + ".iron", generators);
                     player.sendMessage(PREFIX + "Added iron block: " + blockLocationString);
                 }
-            } else if (block.getType() == Material.GOLD_BLOCK) {
+            } else if (block.getType() == XMaterial.GOLD_BLOCK.parseMaterial()) {
                 event.setCancelled(true);
                 List<String> generators = arenas.getStringList(arenaName + ".gold");
 
@@ -74,7 +74,7 @@ public class GeneratorAssistant implements Listener {
                     arenas.set(arenaName + ".gold", generators);
                     player.sendMessage(PREFIX + "Added gold block: " + blockLocationString);
                 }
-            } else if (block.getType() == Material.DIAMOND_BLOCK) {
+            } else if (block.getType() == XMaterial.DIAMOND_BLOCK.parseMaterial()) {
                 event.setCancelled(true);
                 List<String> generators = arenas.getStringList(arenaName + ".diamond");
 

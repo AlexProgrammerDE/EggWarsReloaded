@@ -4,7 +4,7 @@ import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.game.collection.GameState;
 import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
@@ -51,30 +51,30 @@ public class GeneratorManager {
         return () -> {
             if (game.getState() == GameState.RUNNING) {
                 for (String str : arenas.getStringList(game.arenaName + "." + generator.toString())) {
-                    Objects.requireNonNull(UtilCore.convertLocation(str).getWorld()).dropItem(UtilCore.convertLocation(str).add(0.5, 1, 0.5), new ItemStack(generator.getMaterial())).setVelocity(new Vector(0, 0.2, 0));
+                    Objects.requireNonNull(UtilCore.convertLocation(str).getWorld()).dropItem(UtilCore.convertLocation(str).add(0.5, 1, 0.5), new ItemStack(generator.getMaterial().parseMaterial())).setVelocity(new Vector(0, 0.2, 0));
                 }
             }
         };
     }
 
     public enum Generator {
-        IRON(Material.IRON_INGOT, 20, 64),
+        IRON(XMaterial.IRON_INGOT, 20, 64),
 
-        GOLD(Material.GOLD_INGOT, 40, 160),
+        GOLD(XMaterial.GOLD_INGOT, 40, 160),
 
-        DIAMOND(Material.DIAMOND, 60, 320);
+        DIAMOND(XMaterial.DIAMOND, 60, 320);
 
-        private final Material material;
+        private final XMaterial material;
         private final int delay;
         private final int period;
 
-        Generator(Material material, int delay, int period) {
+        Generator(XMaterial material, int delay, int period) {
             this.material = material;
             this.delay = delay;
             this.period = period;
         }
 
-        public Material getMaterial() {
+        public XMaterial getMaterial() {
             return material;
         }
 

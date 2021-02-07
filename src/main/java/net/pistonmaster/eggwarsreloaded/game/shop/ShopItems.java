@@ -2,6 +2,7 @@ package net.pistonmaster.eggwarsreloaded.game.shop;
 
 import lombok.Getter;
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -51,6 +52,6 @@ public enum ShopItems {
     }
 
     public Material getMaterial(TeamColor color) {
-        return Material.valueOf(toString()) == Material.WHITE_WOOL ? color.getMaterial() : Material.valueOf(toString());
+        return XMaterial.valueOf(toString()) == XMaterial.WHITE_WOOL ? color.getMaterial().parseMaterial() : XMaterial.valueOf(toString()).parseMaterial();
     }
 }

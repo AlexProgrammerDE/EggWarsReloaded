@@ -1,5 +1,6 @@
 package net.pistonmaster.eggwarsreloaded.game;
 
+import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
@@ -361,7 +362,7 @@ public class Game {
             player.setLevel(startingTime);
 
             if (player.hasPermission("eggwarsreloaded.forcestart")) {
-                player.getInventory().setItem(2, new ItemBuilder(Material.DIAMOND).name(ChatColor.AQUA + "Force start").build());
+                player.getInventory().setItem(2, new ItemBuilder(XMaterial.DIAMOND).name(ChatColor.AQUA + "Force start").build());
             }
         }
 
@@ -427,7 +428,7 @@ public class Game {
 
         noFall = true;
 
-        setCages(Material.AIR, Material.AIR);
+        setCages(XMaterial.AIR, XMaterial.AIR);
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> noFall = false, 60L);
 
@@ -474,7 +475,7 @@ public class Game {
         // DON'T save actions the players do in the game
         Objects.requireNonNull(arena).setAutoSave(false);
 
-        setCages(Material.GLASS, Material.BARRIER);
+        setCages(XMaterial.GLASS, XMaterial.BARRIER);
 
         placeAllEggs();
     }
@@ -483,7 +484,10 @@ public class Game {
         plugin.getWorldManager().unloadWorld(ArenaManager.getArenaWorld(arenaName), false, ArenaManager.getMainLobby(arenaName));
     }
 
-    public void setCages(Material material, Material topMaterial) {
+    public void setCages(XMaterial xMaterial, XMaterial topXMaterial) {
+        Material material = xMaterial.parseMaterial();
+        Material topMaterial = topXMaterial.parseMaterial();
+
         for (TeamColor team : usedTeams) {
             for (String spawn : ArenaManager.getArenas().getStringList(arenaName + ".team." + team + ".spawn")) {
                 Location loc = UtilCore.convertLocation(spawn);
@@ -541,7 +545,7 @@ public class Game {
         }
 
         for (Location loc : eggs) {
-            loc.getBlock().setType(Material.DRAGON_EGG);
+            loc.getBlock().setType(XMaterial.DRAGON_EGG.parseMaterial());
         }
     }
 

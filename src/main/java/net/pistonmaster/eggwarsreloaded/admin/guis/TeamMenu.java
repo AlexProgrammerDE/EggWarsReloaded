@@ -9,7 +9,7 @@ import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
 import net.pistonmaster.eggwarsreloaded.utils.ArenaManager;
 import net.pistonmaster.eggwarsreloaded.utils.ItemBuilder;
 import net.pistonmaster.eggwarsreloaded.utils.gui.GUI;
-import org.bukkit.Material;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -25,23 +25,23 @@ public class TeamMenu {
         FileConfiguration arenas = plugin.getArenaConfig();
 
         // Load Data from storage
-        ItemStack white = new ItemBuilder(Material.WHITE_WOOL).name(items.getString("items.editteams.white.name")).build();
-        ItemStack orange = new ItemBuilder(Material.ORANGE_WOOL).name(items.getString("items.editteams.orange.name")).build();
-        ItemStack magenta = new ItemBuilder(Material.MAGENTA_WOOL).name(items.getString("items.editteams.magenta.name")).build();
-        ItemStack lightBlue = new ItemBuilder(Material.LIGHT_BLUE_WOOL).name(items.getString("items.editteams.lightblue.name")).build();
-        ItemStack yellow = new ItemBuilder(Material.YELLOW_WOOL).name(items.getString("items.editteams.yellow.name")).build();
-        ItemStack lime = new ItemBuilder(Material.LIME_WOOL).name(items.getString("items.editteams.lime.name")).build();
-        ItemStack pink = new ItemBuilder(Material.PINK_WOOL).name(items.getString("items.editteams.pink.name")).build();
-        ItemStack gray = new ItemBuilder(Material.GRAY_WOOL).name(items.getString("items.editteams.gray.name")).build();
-        ItemStack lightGray = new ItemBuilder(Material.LIGHT_GRAY_WOOL).name(items.getString("items.editteams.lightgray.name")).build();
-        ItemStack cyan = new ItemBuilder(Material.CYAN_WOOL).name(items.getString("items.editteams.cyan.name")).build();
-        ItemStack blue = new ItemBuilder(Material.BLUE_WOOL).name(items.getString("items.editteams.blue.name")).build();
-        ItemStack green = new ItemBuilder(Material.GREEN_WOOL).name(items.getString("items.editteams.green.name")).build();
-        ItemStack red = new ItemBuilder(Material.RED_WOOL).name(items.getString("items.editteams.red.name")).build();
-        ItemStack black = new ItemBuilder(Material.BLACK_WOOL).name(items.getString("items.editteams.black.name")).build();
-        ItemStack greenButton = new ItemBuilder(Material.LIME_DYE).name(items.getString("items.editteams.greenbutton.name")).build();
-        ItemStack grayButton = new ItemBuilder(Material.GRAY_DYE).name(items.getString("items.editteams.graybutton.name")).build();
-        ItemStack back = new ItemBuilder(Material.BARRIER).name(items.getString("items.editteams.back.name")).build();
+        ItemStack white = new ItemBuilder(XMaterial.WHITE_WOOL).name(items.getString("items.editteams.white.name")).build();
+        ItemStack orange = new ItemBuilder(XMaterial.ORANGE_WOOL).name(items.getString("items.editteams.orange.name")).build();
+        ItemStack magenta = new ItemBuilder(XMaterial.MAGENTA_WOOL).name(items.getString("items.editteams.magenta.name")).build();
+        ItemStack lightBlue = new ItemBuilder(XMaterial.LIGHT_BLUE_WOOL).name(items.getString("items.editteams.lightblue.name")).build();
+        ItemStack yellow = new ItemBuilder(XMaterial.YELLOW_WOOL).name(items.getString("items.editteams.yellow.name")).build();
+        ItemStack lime = new ItemBuilder(XMaterial.LIME_WOOL).name(items.getString("items.editteams.lime.name")).build();
+        ItemStack pink = new ItemBuilder(XMaterial.PINK_WOOL).name(items.getString("items.editteams.pink.name")).build();
+        ItemStack gray = new ItemBuilder(XMaterial.GRAY_WOOL).name(items.getString("items.editteams.gray.name")).build();
+        ItemStack lightGray = new ItemBuilder(XMaterial.LIGHT_GRAY_WOOL).name(items.getString("items.editteams.lightgray.name")).build();
+        ItemStack cyan = new ItemBuilder(XMaterial.CYAN_WOOL).name(items.getString("items.editteams.cyan.name")).build();
+        ItemStack blue = new ItemBuilder(XMaterial.BLUE_WOOL).name(items.getString("items.editteams.blue.name")).build();
+        ItemStack green = new ItemBuilder(XMaterial.GREEN_WOOL).name(items.getString("items.editteams.green.name")).build();
+        ItemStack red = new ItemBuilder(XMaterial.RED_WOOL).name(items.getString("items.editteams.red.name")).build();
+        ItemStack black = new ItemBuilder(XMaterial.BLACK_WOOL).name(items.getString("items.editteams.black.name")).build();
+        ItemStack greenButton = new ItemBuilder(XMaterial.LIME_DYE).name(items.getString("items.editteams.greenbutton.name")).build();
+        ItemStack grayButton = new ItemBuilder(XMaterial.GRAY_DYE).name(items.getString("items.editteams.graybutton.name")).build();
+        ItemStack back = new ItemBuilder(XMaterial.BARRIER).name(items.getString("items.editteams.back.name")).build();
 
         GUI gui = new GUI(arenaName, 5, plugin, player);
 

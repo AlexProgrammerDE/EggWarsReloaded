@@ -86,7 +86,12 @@
                             <relocations>
                                 <relocation>
                                     <pattern>org.bstats</pattern>
-                                    <shadedPattern>me.alexprogrammerde.eggwarsreloaded.bstats</shadedPattern>
+                                    <shadedPattern>net.pistonmaster.eggwarsreloaded.shade.bstats</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.cryptomorin.xseries</pattern>
+                                    <!-- Be sure to change the package below -->
+                                    <shadedPattern>net.pistonmaster.eggwarsreloaded.shade.xseries</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
@@ -183,6 +188,11 @@
             <artifactId>lombok</artifactId>
             <version>RELEASE</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.cryptomorin</groupId>
+            <artifactId>XSeries</artifactId>
+            <version>7.8.0</version>
         </dependency>
     </dependencies>
 </project>

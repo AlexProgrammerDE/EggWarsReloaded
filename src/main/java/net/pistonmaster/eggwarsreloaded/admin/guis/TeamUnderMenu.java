@@ -10,7 +10,7 @@ import net.pistonmaster.eggwarsreloaded.utils.ItemBuilder;
 import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
 import net.pistonmaster.eggwarsreloaded.utils.gui.GUI;
 import org.bukkit.Location;
-import org.bukkit.Material;
+import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -35,15 +35,15 @@ public class TeamUnderMenu {
         ItemBuilder shop;
 
         if (arenas.contains(arenaName + ".team." + teamName + ".shop")) {
-            shop = new ItemBuilder(Material.ENDER_CHEST);
+            shop = new ItemBuilder(XMaterial.ENDER_CHEST);
         } else {
-            shop = new ItemBuilder(Material.CHEST);
+            shop = new ItemBuilder(XMaterial.CHEST);
         }
 
-        ItemBuilder eggBuilder = new ItemBuilder(Material.DRAGON_EGG);
-        ItemBuilder spawnBuilder = new ItemBuilder(Material.EMERALD_BLOCK);
-        ItemBuilder respawnBuilder = new ItemBuilder(Material.REDSTONE_BLOCK);
-        ItemBuilder backBuilder = new ItemBuilder(Material.BARRIER);
+        ItemBuilder eggBuilder = new ItemBuilder(XMaterial.DRAGON_EGG);
+        ItemBuilder spawnBuilder = new ItemBuilder(XMaterial.EMERALD_BLOCK);
+        ItemBuilder respawnBuilder = new ItemBuilder(XMaterial.REDSTONE_BLOCK);
+        ItemBuilder backBuilder = new ItemBuilder(XMaterial.BARRIER);
 
         // Get item names from items.yml
         shop.name(items.getString("items.editteam.shop.name"));
@@ -180,7 +180,7 @@ public class TeamUnderMenu {
                         Location playerLocation = player.getLocation();
                         Block ground = player.getWorld().getBlockAt(new Location(playerLocation.getWorld(), playerLocation.getBlockX(), playerLocation.getBlockY() - 1, playerLocation.getBlockZ()));
 
-                        if (ground.getType().equals(Material.EMERALD_BLOCK)) {
+                        if (ground.getType().equals(XMaterial.EMERALD_BLOCK)) {
                             List<String> strings = arenas.getStringList(arenaName + ".team." + teamName + ".spawn");
                             List<Location> locations = new ArrayList<>();
 
