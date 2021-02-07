@@ -141,7 +141,7 @@ public class Game {
 
         Scoreboard playerScoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
 
-        Objective objective = playerScoreboard.registerNewObjective("scoreboard", "dummy", "eggwarsreloaded");
+        Objective objective = playerScoreboard.registerNewObjective("scoreboard", "dummy", ChatColor.YELLOW + "" + ChatColor.BOLD + "Egg Wars");
 
         objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 

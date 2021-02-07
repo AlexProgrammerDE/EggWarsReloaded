@@ -1,5 +1,6 @@
 package net.pistonmaster.eggwarsreloaded.game.shop;
 
+import lombok.Getter;
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -24,10 +25,12 @@ public enum ShopItems {
 
     END_STONE(10, new ItemPrice(3, 0, 0)),
 
+    ENDER_PEARL(new ItemPrice(0, 4, 2)),
+
     WHITE_WOOL(15, new ItemPrice(1, 0, 0));
 
-    private final ItemPrice price;
-    private final int amount;
+    private final @Getter ItemPrice price;
+    private final @Getter int amount;
 
     ShopItems(ItemPrice itemPrice) {
         this.price = itemPrice;
@@ -45,14 +48,6 @@ public enum ShopItems {
         itemStack.setAmount(item.getAmount());
 
         player.getInventory().addItem(itemStack);
-    }
-
-    public ItemPrice getPrice() {
-        return price;
-    }
-
-    public int getAmount() {
-        return amount;
     }
 
     public Material getMaterial(TeamColor color) {

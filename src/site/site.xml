@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<project name="${artifactId}" xmlns="http://maven.apache.org/DECORATION/1.8.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/DECORATION/1.8.0 http://maven.apache.org/xsd/decoration-1.8.0.xsd">
+    <bannerLeft>
+        <name>${artifactId}</name>
+        <src>https://github.com/AlexProgrammerDE/PistonMOTD/raw/master/images/banner.png</src>
+        <href>https://pistonmaster.net/PistonMOTD/</href>
+    </bannerLeft>
+
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.8</version>
+    </skin>
+
+    <body>
+        <head>
+            <![CDATA[<meta name="theme-color" content="#C970D9">]]>
+            <![CDATA[<meta property="og:title" content="EggWarsReloaded">]]>
+            <![CDATA[<meta property="description" content="Best free EggWars plugin out there!">]]>
+            <![CDATA[<meta property="og:description" content="Best free EggWars plugin out there!">]]>
+        </head>
+
+        <links>
+            <item name="Github" href="https://github.com/AlexProgrammerDE/EggWarsReloaded"/>
+            <item name="Discord" href="https://discord.gg/CDrcxzH"/>
+            <!-- <item name="SpigotMC" href="https://www.spigotmc.org/resources/80567/"/> -->
+        </links>
+
+        <menu ref="reports"/>
+
+        <footer><![CDATA[All rights reserved.]]></footer>
+    </body>
+
+    <custom>
+        <fluidoSkin>
+            <topBarEnabled>false</topBarEnabled>
+            <sideBarEnabled>true</sideBarEnabled>
+            <sourceLineNumbersEnabled>true</sourceLineNumbersEnabled>
+            <profile>(production)</profile>
+            <skipGenerationDate>true</skipGenerationDate>
+        </fluidoSkin>
+    </custom>
+</project>

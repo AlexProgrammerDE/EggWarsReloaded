@@ -22,6 +22,7 @@ permissions:
     default: true
     description: Basic access for the player.
     children:
+      eggwarsreloaded.command: true
       eggwarsreloaded.command.help: true
       eggwarsreloaded.command.join: true
       eggwarsreloaded.command.randomjoin: true

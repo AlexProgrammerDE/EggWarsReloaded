@@ -35,8 +35,9 @@ public class GameControl {
 
     public static RejectType kickPlayer(Player player) {
         if (players.containsKey(player)) {
+            Game game = players.get(player);
             players.remove(player);
-            return players.get(player).kickPlayer(player);
+            return game.kickPlayer(player);
         } else {
             return RejectType.NOT_IN;
         }
