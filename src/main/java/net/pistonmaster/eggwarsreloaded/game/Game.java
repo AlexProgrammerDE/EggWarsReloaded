@@ -170,6 +170,7 @@ public class Game {
     }
 
     public void removePlayer(Player player) {
+        inGamePlayers.remove(player);
         livingPlayers.remove(player);
 
         player.getInventory().clear();
@@ -516,6 +517,7 @@ public class Game {
 
                 Block top = new Location(world, x, y + 3, z).getBlock();
 
+                assert material != null;
                 ground.setType(material);
 
                 first1.setType(material);
@@ -533,6 +535,7 @@ public class Game {
                 third3.setType(material);
                 third4.setType(material);
 
+                assert topMaterial != null;
                 top.setType(topMaterial);
             }
         }

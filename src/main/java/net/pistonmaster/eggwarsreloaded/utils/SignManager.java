@@ -86,9 +86,12 @@ public class SignManager implements Listener {
 
     @EventHandler
     public void onSignDestroy(BlockBreakEvent event) {
-        if (signs.containsKey(event.getBlock().getLocation())) {
+        Player player = event.getPlayer();
+
+        if (!player.hasPermission("eggwarsreloaded.createsigns")) return;
+
+        if (signs.containsKey(event.getBlock().getLocation()))
             removeSign(event.getBlock());
-        }
     }
 
     public void detectSigns() {
