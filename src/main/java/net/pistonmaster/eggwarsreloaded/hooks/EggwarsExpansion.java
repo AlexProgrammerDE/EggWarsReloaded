@@ -75,9 +75,8 @@ public class EggwarsExpansion extends PlaceholderExpansion {
      */
     @Override
     public String onRequest(OfflinePlayer player, @NotNull String identifier) {
-        if (player != null && StatsManager.isValidStat(identifier)) {
+        if (player != null && StatsManager.isValidStat(identifier))
             return String.valueOf(StatsManager.getStat(player, identifier));
-        }
 
         String[] split = identifier.split("_");
 

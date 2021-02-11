@@ -113,6 +113,15 @@ public class EggWarsReloaded extends JavaPlugin {
         signManager.detectSigns();
         getServer().getPluginManager().registerEvents(signManager, this);
 
+        log.info(ChatColor.LIGHT_PURPLE + "Checking for updates");
+        new UpdateChecker(this, 88928).getVersion(version -> {
+            if (this.getDescription().getVersion().equalsIgnoreCase(version)) {
+                log.info(ChatColor.LIGHT_PURPLE + "There is not a new update available.");
+            } else {
+                log.info(ChatColor.RED + "There is a new update available. Its: " + version);
+            }
+        });
+
         log.info(ChatColor.LIGHT_PURPLE + "Loading metrics");
         new Metrics(this, 10135);
     }
