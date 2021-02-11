@@ -69,7 +69,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder name(String name) {
-        this.name = name;
+        this.name = ChatColor.translateAlternateColorCodes('&', name);
         return this;
     }
 
@@ -79,7 +79,7 @@ public class ItemBuilder {
     }
 
     public ItemBuilder lore(String lore) {
-        this.lore.add(lore);
+        this.lore.add(ChatColor.translateAlternateColorCodes('&', lore));
         return this;
     }
 

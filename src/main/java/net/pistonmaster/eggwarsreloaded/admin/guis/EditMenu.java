@@ -29,7 +29,6 @@ public class EditMenu {
     }
 
     public static void openEditMenu(String arenaName, Player player, EggWarsReloaded plugin) {
-        FileConfiguration items = plugin.getItems();
         FileConfiguration arenas = ArenaManager.getArenas();
 
         // Load Data from storage
@@ -57,16 +56,16 @@ public class EditMenu {
         }
 
         // Give item names from items.yml
-        mainLobby.name(items.getString("items.editmain.mainlobby.name"));
-        waitingLobby.name(items.getString("items.editmain.waitinglobby.name"));
-        spectator.name(items.getString("items.editmain.spectator.name"));
-        register.name(items.getString("items.editmain.register.name"));
-        teams.name(items.getString("items.editmain.teams.name"));
-        generators.name(items.getString("items.editmain.generators.name"));
-        size.name(items.getString("items.editmain.teamsize.name"));
-        pos1.name(items.getString("items.editmain.pos1.name"));
-        pos2.name(items.getString("items.editmain.pos2.name"));
-        save.name(items.getString("items.editmain.save.name"));
+        mainLobby.name("Main Lobby");
+        waitingLobby.name("Waiting Lobby");
+        spectator.name("Spectator Spawn");
+        register.name("Register arena");
+        teams.name("Teams");
+        generators.name("Add generators");
+        size.name("Set teamsize");
+        pos1.name("Set pos1 of arena");
+        pos2.name("Set pos2 of arena");
+        save.name("Save the world");
 
         if (ArenaManager.getArenas().contains(arenaName + ".mainlobby")) {
             mainLobby.enchant();
@@ -165,7 +164,7 @@ public class EditMenu {
 
         GUI gui = new GUI(arenaName, 3, plugin, player);
 
-        gui.addItem(mainLobby.build(), items.getInt("items.editmain.mainlobby.slot"))
+        gui.addItem(mainLobby.build(), 0)
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     if (arenas.contains(arenaName + ".mainlobby")) {
                         ArenaManager.setMainLobby(arenaName, null);
@@ -188,7 +187,7 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
-        gui.addItem(waitingLobby.build(), items.getInt("items.editmain.waitinglobby.slot"))
+        gui.addItem(waitingLobby.build(), 1)
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     if (arenas.contains(arenaName + ".waitinglobby")) {
                         ArenaManager.setWaitingLobby(arenaName, null);
@@ -210,7 +209,7 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
-        gui.addItem(spectator.build(), items.getInt("items.editmain.spectator.slot"))
+        gui.addItem(spectator.build(), 2)
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     if (arenas.contains(arenaName + ".spectator")) {
                         ArenaManager.setSpectator(arenaName, null);
@@ -233,7 +232,75 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
-        gui.addItem(register.build(), items.getInt("items.editmain.register.slot"))
+        gui.addItem(teams.build(), 4)
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    arenas.set(arenaName + ".team", null);
+
+                    try {
+                        plugin.getArenaConfig().save(plugin.getArenasFile());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    plugin.loadConfig();
+                    EditMenu.openEditMenu(arenaName, player, plugin);
+
+                    player.sendMessage(PREFIX + "Reset teams of arena: " + arenaName);
+                })
+                .addDefaultEvent(() -> TeamMenu.setupTeamMenu(arenaName, player, plugin));
+
+        gui.addItem(generators.build(), 6)
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    arenas.set(arenaName + ".iron", null);
+                    arenas.set(arenaName + ".gold", null);
+                    arenas.set(arenaName + ".diamond", null);
+
+                    try {
+                        plugin.getArenaConfig().save(plugin.getArenasFile());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    plugin.loadConfig();
+                    EditMenu.openEditMenu(arenaName, player, plugin);
+                    player.sendMessage(PREFIX + "Reset all generators of arena: " + arenaName);
+                })
+                .addDefaultEvent(() -> {
+                    if (GeneratorAssistant.isAdding(player)) {
+                        GeneratorAssistant.removePlayer(player);
+
+                        player.sendMessage(GeneratorAssistant.PREFIX + "You left generator adding mode.");
+
+                        EditMenu.openEditMenu(arenaName, player, plugin);
+                    } else {
+                        new GeneratorAssistant(player, arenaName, plugin);
+
+                        player.sendMessage(GeneratorAssistant.PREFIX + "You are in generator adding mode. Left click a iron/gold/diamond block and it gets added to the list.");
+                        player.closeInventory();
+                    }
+                });
+
+        gui.addItem(size.build(), 8)
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    ArenaManager.setTeamSize(arenaName, 1);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
+                    player.sendMessage(PREFIX + "Reset teamsize to 1 of arena: " + arenaName);
+                })
+                .addDefaultEvent(() -> {
+                    int size1 = ArenaManager.getTeamSize(arenaName);
+
+                    if (size1 == 4) {
+                        ArenaManager.setTeamSize(arenaName, 1);
+                        ArenaManager.setArenaRegistered(arenaName, false, null);
+                        player.sendMessage(PREFIX + "Changed the team size and unregistered the arena.");
+                    } else {
+                        ArenaManager.setTeamSize(arenaName, size1 + 1);
+                    }
+
+                    EditMenu.openEditMenu(arenaName, player, plugin);
+                });
+
+        gui.addItem(register.build(), 18)
                 .addDefaultEvent(() -> {
                     if (ArenaManager.isArenaRegistered(arenaName)) {
                         ArenaManager.setArenaRegistered(arenaName, false, null);
@@ -289,75 +356,19 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
-        gui.addItem(teams.build(), items.getInt("items.editmain.teams.slot"))
+        gui.addItem(save.build(), 22)
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
-                    arenas.set(arenaName + ".team", null);
+                    player.teleport(Objects.requireNonNull(Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName))).getSpawnLocation());
 
-                    try {
-                        plugin.getArenaConfig().save(plugin.getArenasFile());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    plugin.loadConfig();
                     EditMenu.openEditMenu(arenaName, player, plugin);
-
-                    player.sendMessage(PREFIX + "Reset teams of arena: " + arenaName);
-                })
-                .addDefaultEvent(() -> TeamMenu.setupTeamMenu(arenaName, player, plugin));
-
-        gui.addItem(generators.build(), items.getInt("items.editmain.generators.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
-                    arenas.set(arenaName + ".iron", null);
-                    arenas.set(arenaName + ".gold", null);
-                    arenas.set(arenaName + ".diamond", null);
-
-                    try {
-                        plugin.getArenaConfig().save(plugin.getArenasFile());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    plugin.loadConfig();
-                    EditMenu.openEditMenu(arenaName, player, plugin);
-                    player.sendMessage(PREFIX + "Reset all generators of arena: " + arenaName);
                 })
                 .addDefaultEvent(() -> {
-                    if (GeneratorAssistant.isAdding(player)) {
-                        GeneratorAssistant.removePlayer(player);
-
-                        player.sendMessage(GeneratorAssistant.PREFIX + "You left generator adding mode.");
-
-                        EditMenu.openEditMenu(arenaName, player, plugin);
-                    } else {
-                        new GeneratorAssistant(player, arenaName, plugin);
-
-                        player.sendMessage(GeneratorAssistant.PREFIX + "You are in generator adding mode. Left click a iron/gold/diamond block and it gets added to the list.");
-                        player.closeInventory();
-                    }
-                });
-
-        gui.addItem(size.build(), items.getInt("items.editmain.teamsize.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
-                    ArenaManager.setTeamSize(arenaName, 1);
-                    EditMenu.openEditMenu(arenaName, player, plugin);
-                    player.sendMessage(PREFIX + "Reset teamsize to 1 of arena: " + arenaName);
-                })
-                .addDefaultEvent(() -> {
-                    int size1 = ArenaManager.getTeamSize(arenaName);
-
-                    if (size1 == 4) {
-                        ArenaManager.setTeamSize(arenaName, 1);
-                        ArenaManager.setArenaRegistered(arenaName, false, null);
-                        player.sendMessage(PREFIX + "Changed the team size and unregistered the arena.");
-                    } else {
-                        ArenaManager.setTeamSize(arenaName, size1 + 1);
-                    }
+                    Objects.requireNonNull(Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName))).save();
 
                     EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
-        gui.addItem(pos1.build(), items.getInt("items.editmain.pos1.slot"))
+        gui.addItem(pos1.build(), 24)
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setArenaPos1(arenaName, null);
 
@@ -370,7 +381,7 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
-        gui.addItem(pos2.build(), items.getInt("items.editmain.pos2.slot"))
+        gui.addItem(pos2.build(), 26)
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setArenaPos2(arenaName, null);
 
@@ -379,18 +390,6 @@ public class EditMenu {
                 })
                 .addDefaultEvent(() -> {
                     ArenaManager.setArenaPos2(arenaName, player.getLocation());
-
-                    EditMenu.openEditMenu(arenaName, player, plugin);
-                });
-
-        gui.addItem(save.build(), items.getInt("items.editmain.save.slot"))
-                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
-                    player.teleport(Objects.requireNonNull(Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName))).getSpawnLocation());
-
-                    EditMenu.openEditMenu(arenaName, player, plugin);
-                })
-                .addDefaultEvent(() -> {
-                    Objects.requireNonNull(Bukkit.getWorld(ArenaManager.getArenaWorld(arenaName))).save();
 
                     EditMenu.openEditMenu(arenaName, player, plugin);
                 });

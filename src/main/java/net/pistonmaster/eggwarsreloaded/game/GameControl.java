@@ -59,9 +59,8 @@ public class GameControl {
         Game returnedGame = null;
 
         for (Game game : games) {
-            if (game.arenaName.equalsIgnoreCase(arenaName)) {
+            if (game.getArenaName().equalsIgnoreCase(arenaName))
                 returnedGame = game;
-            }
         }
 
         return returnedGame;

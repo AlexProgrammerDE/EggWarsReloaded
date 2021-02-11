@@ -1,42 +1,5 @@
 items:
-  editmain:
-    mainlobby:
-      name: "Main Lobby"
-      slot: 0
-    waitinglobby:
-      name: "Waiting Lobby"
-      slot: 1
-    spectator:
-      name: "Spectator Spawn"
-      slot: 2
-    teams:
-      name: "Teams"
-      slot: 4
-    generators:
-      name: "Add generators"
-      slot: 6
-    teamsize:
-      name: "Set teamsize"
-      slot: 8
-    world:
-      name: "Set world"
-      slot: 22
-    pos1:
-      name: "Set pos1 of arena"
-      slot: 24
-    pos2:
-      name: "Set pos2 of arena"
-      slot: 26
-    register:
-      name: "Register arena"
-      slot: 18
-    save:
-      name: "Save the world"
-      slot: 22
   editteams:
-    back:
-      name: "Back to main menu"
-      slot: 22
     white:
       name: "White Team"
       slot: 0
@@ -93,23 +56,3 @@ items:
       name: "Black Team"
       slot: 35
       buttonslot: 44
-    greenbutton:
-      name: "Deactivate Team"
-    graybutton:
-      name: "Activate team"
-  editteam:
-    egg:
-      name: "Egg"
-      slot: 2
-    shop:
-      name: "Shop"
-      slot: 20
-    spawn:
-      name: "Spawn"
-      slot: 6
-    respawn:
-      name: "Respawn"
-      slot: 24
-    back:
-      name: "Back"
-      slot: 13

@@ -25,23 +25,25 @@ public class TeamMenu {
         FileConfiguration arenas = plugin.getArenaConfig();
 
         // Load Data from storage
-        ItemStack white = new ItemBuilder(XMaterial.WHITE_WOOL).name(items.getString("items.editteams.white.name")).build();
-        ItemStack orange = new ItemBuilder(XMaterial.ORANGE_WOOL).name(items.getString("items.editteams.orange.name")).build();
-        ItemStack magenta = new ItemBuilder(XMaterial.MAGENTA_WOOL).name(items.getString("items.editteams.magenta.name")).build();
-        ItemStack lightBlue = new ItemBuilder(XMaterial.LIGHT_BLUE_WOOL).name(items.getString("items.editteams.lightblue.name")).build();
-        ItemStack yellow = new ItemBuilder(XMaterial.YELLOW_WOOL).name(items.getString("items.editteams.yellow.name")).build();
-        ItemStack lime = new ItemBuilder(XMaterial.LIME_WOOL).name(items.getString("items.editteams.lime.name")).build();
-        ItemStack pink = new ItemBuilder(XMaterial.PINK_WOOL).name(items.getString("items.editteams.pink.name")).build();
-        ItemStack gray = new ItemBuilder(XMaterial.GRAY_WOOL).name(items.getString("items.editteams.gray.name")).build();
-        ItemStack lightGray = new ItemBuilder(XMaterial.LIGHT_GRAY_WOOL).name(items.getString("items.editteams.lightgray.name")).build();
-        ItemStack cyan = new ItemBuilder(XMaterial.CYAN_WOOL).name(items.getString("items.editteams.cyan.name")).build();
-        ItemStack blue = new ItemBuilder(XMaterial.BLUE_WOOL).name(items.getString("items.editteams.blue.name")).build();
-        ItemStack green = new ItemBuilder(XMaterial.GREEN_WOOL).name(items.getString("items.editteams.green.name")).build();
-        ItemStack red = new ItemBuilder(XMaterial.RED_WOOL).name(items.getString("items.editteams.red.name")).build();
-        ItemStack black = new ItemBuilder(XMaterial.BLACK_WOOL).name(items.getString("items.editteams.black.name")).build();
-        ItemStack greenButton = new ItemBuilder(XMaterial.LIME_DYE).name(items.getString("items.editteams.greenbutton.name")).build();
-        ItemStack grayButton = new ItemBuilder(XMaterial.GRAY_DYE).name(items.getString("items.editteams.graybutton.name")).build();
-        ItemStack back = new ItemBuilder(XMaterial.BARRIER).name(items.getString("items.editteams.back.name")).build();
+        ItemStack white = new ItemBuilder(XMaterial.WHITE_WOOL).name("White Team").build();
+        ItemStack orange = new ItemBuilder(XMaterial.ORANGE_WOOL).name("Orange Team").build();
+        ItemStack magenta = new ItemBuilder(XMaterial.MAGENTA_WOOL).name("Magenta Team").build();
+        ItemStack lightBlue = new ItemBuilder(XMaterial.LIGHT_BLUE_WOOL).name("Light Blue Team").build();
+        ItemStack yellow = new ItemBuilder(XMaterial.YELLOW_WOOL).name("Yellow Team").build();
+        ItemStack lime = new ItemBuilder(XMaterial.LIME_WOOL).name("Lime Team").build();
+        ItemStack pink = new ItemBuilder(XMaterial.PINK_WOOL).name("Pink Team").build();
+        ItemStack gray = new ItemBuilder(XMaterial.GRAY_WOOL).name("Gray Team").build();
+        ItemStack lightGray = new ItemBuilder(XMaterial.LIGHT_GRAY_WOOL).name("Light Gray Team").build();
+        ItemStack cyan = new ItemBuilder(XMaterial.CYAN_WOOL).name("Cyan Team").build();
+        ItemStack blue = new ItemBuilder(XMaterial.BLUE_WOOL).name("Blue Team").build();
+        ItemStack green = new ItemBuilder(XMaterial.GREEN_WOOL).name("Green Team").build();
+        ItemStack red = new ItemBuilder(XMaterial.RED_WOOL).name("Red Team").build();
+        ItemStack black = new ItemBuilder(XMaterial.BLACK_WOOL).name("Black Team").build();
+
+        ItemStack greenButton = new ItemBuilder(XMaterial.LIME_DYE).name("Deactivate Team").build();
+        ItemStack grayButton = new ItemBuilder(XMaterial.GRAY_DYE).name("Activate team").build();
+
+        ItemStack back = new ItemBuilder(XMaterial.BARRIER).name("Back to main menu").build();
 
         GUI gui = new GUI(arenaName, 5, plugin, player);
 
@@ -88,7 +90,7 @@ public class TeamMenu {
                 .addDefaultEvent(openTeam(player, arenaName, TeamColor.BLACK, plugin));
 
 
-        gui.addItem(back, items.getInt("items.editteams.back.slot"))
+        gui.addItem(back, 22)
                 .addDefaultEvent(() -> EditMenu.openEditMenu(arenaName, player, plugin));
 
 

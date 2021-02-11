@@ -28,16 +28,15 @@ public class TeamUnderMenu {
     }
 
     public static void setupTeamUnderMenu(String arenaName, TeamColor teamName, Player player, EggWarsReloaded plugin) {
-        FileConfiguration items = plugin.getItems();
         FileConfiguration arenas = plugin.getArenaConfig();
 
         // Load Data from storage
-        ItemBuilder shop;
+        ItemBuilder shopBuilder;
 
         if (arenas.contains(arenaName + ".team." + teamName + ".shop")) {
-            shop = new ItemBuilder(XMaterial.ENDER_CHEST);
+            shopBuilder = new ItemBuilder(XMaterial.ENDER_CHEST);
         } else {
-            shop = new ItemBuilder(XMaterial.CHEST);
+            shopBuilder = new ItemBuilder(XMaterial.CHEST);
         }
 
         ItemBuilder eggBuilder = new ItemBuilder(XMaterial.DRAGON_EGG);
@@ -46,11 +45,11 @@ public class TeamUnderMenu {
         ItemBuilder backBuilder = new ItemBuilder(XMaterial.BARRIER);
 
         // Get item names from items.yml
-        shop.name(items.getString("items.editteam.shop.name"));
-        eggBuilder.name(items.getString("items.editteam.egg.name"));
-        spawnBuilder.name(items.getString("items.editteam.spawn.name"));
-        respawnBuilder.name(items.getString("items.editteam.respawn.name"));
-        backBuilder.name(items.getString("items.editteam.back.name"));
+        shopBuilder.name("Shop");
+        eggBuilder.name("Egg");
+        spawnBuilder.name("Spawn");
+        respawnBuilder.name("Respawn");
+        backBuilder.name("Back");
 
         eggBuilder.lore("Left click to start the egg assistant.");
 
@@ -67,19 +66,19 @@ public class TeamUnderMenu {
             eggBuilder.lore("Use shift + left click to reset it.");
         }
 
-        shop.lore("Left click to start the shop assistant.");
+        shopBuilder.lore("Left click to start the shop assistant.");
 
         if (arenas.contains(arenaName + ".team." + teamName + ".shop")) {
             Location shopLocation = UtilCore.convertLocation(ArenaManager.getArenas().getString(arenaName + ".team." + teamName + ".shop.location"));
 
-            shop.lore("Current: " + shopLocation.getWorld().getName() + " "
+            shopBuilder.lore("Current: " + shopLocation.getWorld().getName() + " "
                     + shopLocation.getBlockX() + " "
                     + shopLocation.getBlockY() + " "
                     + shopLocation.getBlockZ());
 
-            shop.enchant();
+            shopBuilder.enchant();
 
-            shop.lore("Use shift + left click to reset it.");
+            shopBuilder.lore("Use shift + left click to reset it.");
         }
 
         spawnBuilder.lore("Left click to start the spawn assistant.");
@@ -120,7 +119,7 @@ public class TeamUnderMenu {
 
         GUI gui = new GUI(arenaName, 3, plugin, player);
 
-        gui.addItem(shop.build(), items.getInt("items.editteam.shop.slot"))
+        gui.addItem(shopBuilder.build(), 20)
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setShop(arenaName, teamName, null, null);
                     ArenaManager.setTeamRegistered(arenaName, teamName, false);
@@ -141,7 +140,7 @@ public class TeamUnderMenu {
                     }
                 });
 
-        gui.addItem(eggBuilder.build(), items.getInt("items.editteam.egg.slot"))
+        gui.addItem(eggBuilder.build(), 2)
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setEgg(arenaName, teamName, null);
                     ArenaManager.setTeamRegistered(arenaName, teamName, false);
@@ -161,7 +160,7 @@ public class TeamUnderMenu {
                     }
                 });
 
-        gui.addItem(spawnBuilder.build(), items.getInt("items.editteam.spawn.slot"))
+        gui.addItem(spawnBuilder.build(), 6)
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     if (arenas.getStringList(arenaName + ".team." + teamName + ".spawn").size() < 4) {
                         ArenaManager.setTeamRegistered(arenaName, teamName, false);
@@ -178,9 +177,9 @@ public class TeamUnderMenu {
                 .addDefaultEvent(() -> {
                     if (arenas.getStringList(arenaName + ".team." + teamName + ".spawn").size() < 4) {
                         Location playerLocation = player.getLocation();
-                        Block ground = player.getWorld().getBlockAt(new Location(playerLocation.getWorld(), playerLocation.getBlockX(), playerLocation.getBlockY() - 1, playerLocation.getBlockZ()));
+                        Block ground = player.getWorld().getBlockAt(new Location(playerLocation.getWorld(), playerLocation.getBlockX(), playerLocation.getBlockY() - 1D, playerLocation.getBlockZ()));
 
-                        if (ground.getType().equals(XMaterial.EMERALD_BLOCK)) {
+                        if (ground.getType().equals(XMaterial.EMERALD_BLOCK.parseMaterial())) {
                             List<String> strings = arenas.getStringList(arenaName + ".team." + teamName + ".spawn");
                             List<Location> locations = new ArrayList<>();
 
@@ -215,7 +214,7 @@ public class TeamUnderMenu {
                     TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
                 });
 
-        gui.addItem(respawnBuilder.build(), items.getInt("items.editteam.respawn.slot"))
+        gui.addItem(respawnBuilder.build(), 24)
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setTeamRegistered(arenaName, teamName, false);
                     ArenaManager.setArenaRegistered(arenaName, false, null);
@@ -239,7 +238,7 @@ public class TeamUnderMenu {
                     TeamUnderMenu.setupTeamUnderMenu(arenaName, teamName, player, plugin);
                 });
 
-        gui.addItem(backBuilder.build(), items.getInt("items.editteam.back.slot"))
+        gui.addItem(backBuilder.build(), 13)
                 .addDefaultEvent(() -> TeamMenu.setupTeamMenu(arenaName, player, plugin));
 
         gui.openGUI();

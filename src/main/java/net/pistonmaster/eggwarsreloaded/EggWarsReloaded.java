@@ -147,6 +147,10 @@ public class EggWarsReloaded extends JavaPlugin {
         return new File(getDataFolder(), "stats.yml");
     }
 
+    public File getSignsFile() {
+        return new File(getDataFolder(), "signs.yml");
+    }
+
     public void reloadArenas() {
         this.arenaConfig = new ConfigManager(this, "arenas.yml").getConfig();
     }

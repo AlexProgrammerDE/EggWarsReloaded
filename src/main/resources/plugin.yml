@@ -37,6 +37,7 @@ permissions:
       eggwarsreloaded.command.edit: true
       eggwarsreloaded.command.endgame: true
       eggwarsreloaded.forcestart: true
+      eggwarsreloaded.createsigns: true
   eggwarsreloaded.command.help:
     description: Permission to run the help command.
   eggwarsreloaded.command.reload:
@@ -57,3 +58,5 @@ permissions:
     description: Permission to run the edit command.
   eggwarsreloaded.forcestart:
     description: Permission to get the forcestart option.
+  eggwarsreloaded.createsigns:
+    description: Permission for adding signs to join games.

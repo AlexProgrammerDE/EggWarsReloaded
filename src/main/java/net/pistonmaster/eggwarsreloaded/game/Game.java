@@ -116,6 +116,8 @@ public class Game {
 
         // Remove everything the player had
         player.getInventory().clear();
+        player.getEnderChest().clear();
+
         player.setGameMode(GameMode.ADVENTURE);
 
         player.setVelocity(new Vector(0, 0, 0));
@@ -130,7 +132,7 @@ public class Game {
         player.setFoodLevel(20);
         player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
 
-        player.sendTitle(ChatColor.GOLD + "You joined " + ChatColor.AQUA + arenaName + ChatColor.GOLD + "!", "Please wait till the game starts!", 5, 10, 5);
+        player.sendTitle(ChatColor.GOLD + "You joined " + ChatColor.AQUA + arenaName + ChatColor.GOLD + "!", ChatColor.GOLD + "Please wait till the game starts!", 5, 10, 5);
 
         player.sendMessage(ChatColor.GOLD + "You joined " + ChatColor.AQUA + arenaName + ChatColor.GOLD + "!");
 
@@ -207,7 +209,6 @@ public class Game {
         player.getInventory().clear();
 
         player.setGameMode(GameMode.SPECTATOR);
-
         player.setVelocity(new Vector(0, 0, 0));
 
         player.teleport(ArenaManager.getSpectator(arenaName));

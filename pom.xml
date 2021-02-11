@@ -130,10 +130,6 @@
             <url>https://repo.codemc.io/repository/maven-public/</url>
         </repository>
         <repository>
-            <id>nms-repo</id>
-            <url>https://repo.codemc.io/repository/nms/</url>
-        </repository>
-        <repository>
             <id>alessiodp-repo</id>
             <url>https://repo.alessiodp.com/releases/</url>
         </repository>
@@ -186,7 +182,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>RELEASE</version>
+            <version>1.18.16</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

@@ -59,7 +59,7 @@ public class EggCommand implements CommandExecutor, TabExecutor {
                             noPerm(player);
                         }
                         break;
-                    case "randomjoin":
+                    case "randomjoin": case "autojoin":
                         if (player.hasPermission("eggwarsreloaded.command.randomjoin")) {
                             player.sendMessage(ChatColor.GOLD + "Searching a game for you!");
                             RejectType reject = GameControl.randomJoin(player);
