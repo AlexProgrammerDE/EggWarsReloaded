@@ -1,8 +1,8 @@
 package net.pistonmaster.eggwarsreloaded.game.shop;
 
+import com.cryptomorin.xseries.XMaterial;
 import net.md_5.bungee.api.ChatColor;
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
-import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

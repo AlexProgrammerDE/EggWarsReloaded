@@ -1,6 +1,5 @@
 package net.pistonmaster.eggwarsreloaded;
 
-import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.Economy;
@@ -10,6 +9,7 @@ import net.pistonmaster.eggwarsreloaded.game.Game;
 import net.pistonmaster.eggwarsreloaded.game.listeners.*;
 import net.pistonmaster.eggwarsreloaded.hooks.EggwarsExpansion;
 import net.pistonmaster.eggwarsreloaded.utils.*;
+import net.pistonmaster.eggwarsreloaded.utils.config.ConfigManager;
 import net.pistonmaster.eggwarsreloaded.utils.world.FileWorldManager;
 import net.pistonmaster.eggwarsreloaded.utils.world.WorldManager;
 import org.bstats.bukkit.Metrics;
@@ -38,7 +38,11 @@ public class EggWarsReloaded extends JavaPlugin {
     FileConfiguration signs;
     @Getter
     FileConfiguration stats;
+    @Getter
+    FileConfiguration scoreboards;
     private Economy econ = null;
+    @Getter
+    boolean papi = false;
 
     @Getter
     private SignManager signManager;
@@ -62,6 +66,7 @@ public class EggWarsReloaded extends JavaPlugin {
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             log.info(ChatColor.LIGHT_PURPLE + "Hooked into PlaceholderAPI!");
             new EggwarsExpansion(this).register();
+            papi = true;
         }
 
         /* Preparation for upcoming Parties support
@@ -175,5 +180,6 @@ public class EggWarsReloaded extends JavaPlugin {
         this.items = new ConfigManager(this, "items.yml").getConfig();
         this.signs = new ConfigManager(this, "signs.yml").getConfig();
         this.stats = new ConfigManager(this, "stats.yml").getConfig();
+        this.scoreboards = new ConfigManager(this, "scoreboards.yml").getConfig();
     }
 }

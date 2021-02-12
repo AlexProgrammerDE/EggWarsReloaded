@@ -1,0 +1,9 @@
+domain: "example.net"
+game:
+  header: ""
+  top:
+    - "&7%time%"
+    - ""
+  bottom:
+    - ""
+    - "%domain%"

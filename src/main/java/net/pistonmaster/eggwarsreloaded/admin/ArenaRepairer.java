@@ -1,12 +1,12 @@
 package net.pistonmaster.eggwarsreloaded.admin;
 
+import com.cryptomorin.xseries.XMaterial;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
 import net.pistonmaster.eggwarsreloaded.utils.ArenaManager;
 import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;

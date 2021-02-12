@@ -1,10 +1,10 @@
 package net.pistonmaster.eggwarsreloaded.game;
 
+import com.cryptomorin.xseries.XMaterial;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.game.collection.GameState;
 import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
 import org.bukkit.Bukkit;
-import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;

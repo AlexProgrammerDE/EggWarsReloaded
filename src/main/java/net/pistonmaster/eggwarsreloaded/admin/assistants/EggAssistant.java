@@ -1,5 +1,6 @@
 package net.pistonmaster.eggwarsreloaded.admin.assistants;
 
+import com.cryptomorin.xseries.XMaterial;
 import net.md_5.bungee.api.ChatColor;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.admin.guis.TeamUnderMenu;
@@ -7,7 +8,6 @@ import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
 import net.pistonmaster.eggwarsreloaded.utils.ArenaManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.HandlerList;

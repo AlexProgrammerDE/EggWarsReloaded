@@ -1,7 +1,7 @@
 package net.pistonmaster.eggwarsreloaded.game.collection;
 
-import net.md_5.bungee.api.ChatColor;
 import com.cryptomorin.xseries.XMaterial;
+import net.md_5.bungee.api.ChatColor;
 
 import java.util.ArrayList;
 import java.util.List;

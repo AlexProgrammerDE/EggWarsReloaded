@@ -1,8 +1,8 @@
 package net.pistonmaster.eggwarsreloaded.game.shop;
 
+import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
-import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

@@ -1,9 +1,9 @@
 package net.pistonmaster.eggwarsreloaded.game.listeners;
 
+import com.cryptomorin.xseries.XMaterial;
 import net.pistonmaster.eggwarsreloaded.game.Game;
 import net.pistonmaster.eggwarsreloaded.game.GameControl;
 import net.pistonmaster.eggwarsreloaded.game.collection.GameState;
-import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

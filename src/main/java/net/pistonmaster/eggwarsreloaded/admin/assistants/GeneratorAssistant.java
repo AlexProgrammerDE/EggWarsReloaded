@@ -1,10 +1,10 @@
 package net.pistonmaster.eggwarsreloaded.admin.assistants;
 
+import com.cryptomorin.xseries.XMaterial;
 import net.md_5.bungee.api.ChatColor;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
 import org.bukkit.Bukkit;
-import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;

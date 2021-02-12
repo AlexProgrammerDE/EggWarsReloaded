@@ -2,17 +2,14 @@ package net.pistonmaster.eggwarsreloaded.game;
 
 import net.md_5.bungee.api.ChatColor;
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
-import org.bukkit.Bukkit;
+import net.pistonmaster.eggwarsreloaded.utils.PlaceholderParser;
+import net.pistonmaster.eggwarsreloaded.utils.ScoreboardBuilder;
+import net.pistonmaster.eggwarsreloaded.utils.ScoreboardConfig;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class ScoreboardManager {
     private final List<TeamColor> teams = new ArrayList<>();
@@ -27,37 +24,26 @@ public class ScoreboardManager {
     }
 
     public void setScoreboard(Player player) {
-        Scoreboard playerScoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
+        ScoreboardBuilder builder = new ScoreboardBuilder(player);
+        ScoreboardConfig config = new ScoreboardConfig(game.plugin.getScoreboards(), "game");
 
-        Objective objective = playerScoreboard.registerNewObjective("scoreboard", "dummy", ChatColor.YELLOW + "" + ChatColor.BOLD + "Egg Wars");
+        builder.displayName(config.getHeader());
 
-        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-
-        List<String> text = new ArrayList<>();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-
-        text.add(ChatColor.GRAY + dtf.format(LocalDateTime.now()) + "");
-
-        text.add("");
+        for (String str : config.getTop()) {
+            builder.addLine(PlaceholderParser.parse(str, player));
+        }
 
         for (TeamColor team : teams) {
             String var1 = game.matchmaker.getTeamOfPlayer(player).equals(team) ? ChatColor.DARK_GRAY + " (You)" : "";
             String var2 = game.gameLogics.isTeamDead(team) ? ChatColor.RED + "✗" : ChatColor.GREEN + "✓";
 
-            text.add(team.getColor() + "" + team.getFirstLetter() + ChatColor.RESET + " " + team.getCapitalized() + ": " + var2 + var1);
+            builder.addLine(team.getColor().toString() + team.getFirstLetter() + ChatColor.RESET + " " + team.getCapitalized() + ": " + var2 + var1);
         }
 
-        text.add(" ");
-
-        text.add(ChatColor.YELLOW + "pistonmaster.net");
-
-        int i = text.size();
-
-        for (String str : text) {
-            objective.getScore(str).setScore(i);
-            i--;
+        for (String str : config.getBottom()) {
+            builder.addLine(PlaceholderParser.parse(str, player));
         }
 
-        player.setScoreboard(playerScoreboard);
+        player.setScoreboard(builder.build());
     }
 }

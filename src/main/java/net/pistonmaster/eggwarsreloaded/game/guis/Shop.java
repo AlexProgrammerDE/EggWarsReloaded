@@ -1,12 +1,12 @@
 package net.pistonmaster.eggwarsreloaded.game.guis;
 
+import com.cryptomorin.xseries.XMaterial;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
 import net.pistonmaster.eggwarsreloaded.game.shop.ShopItems;
 import net.pistonmaster.eggwarsreloaded.game.shop.ShopUtil;
 import net.pistonmaster.eggwarsreloaded.utils.ItemBuilder;
 import net.pistonmaster.eggwarsreloaded.utils.gui.GUI;
-import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 

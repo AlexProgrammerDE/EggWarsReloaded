@@ -1,4 +1,4 @@
-package net.pistonmaster.eggwarsreloaded.utils;
+package net.pistonmaster.eggwarsreloaded.utils.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
