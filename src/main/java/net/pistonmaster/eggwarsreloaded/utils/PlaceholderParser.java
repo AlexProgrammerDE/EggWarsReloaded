@@ -10,7 +10,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class PlaceholderParser {
-    private PlaceholderParser() {}
+    private PlaceholderParser() {
+    }
 
     public static String parse(String str, OfflinePlayer player) {
         EggWarsReloaded plugin = EggWarsReloaded.getPlugin(EggWarsReloaded.class);

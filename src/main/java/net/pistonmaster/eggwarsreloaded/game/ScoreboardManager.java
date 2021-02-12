@@ -2,12 +2,10 @@ package net.pistonmaster.eggwarsreloaded.game;
 
 import net.md_5.bungee.api.ChatColor;
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
-import net.pistonmaster.eggwarsreloaded.utils.PlaceholderParser;
 import net.pistonmaster.eggwarsreloaded.utils.ScoreboardBuilder;
 import net.pistonmaster.eggwarsreloaded.utils.ScoreboardConfig;
 import org.bukkit.entity.Player;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +28,7 @@ public class ScoreboardManager {
         builder.displayName(config.getHeader());
 
         for (String str : config.getTop()) {
-            builder.addLine(PlaceholderParser.parse(str, player));
+            builder.addLine(str);
         }
 
         for (TeamColor team : teams) {
@@ -41,7 +39,7 @@ public class ScoreboardManager {
         }
 
         for (String str : config.getBottom()) {
-            builder.addLine(PlaceholderParser.parse(str, player));
+            builder.addLine(str);
         }
 
         player.setScoreboard(builder.build());

@@ -68,16 +68,21 @@ public class GameListener implements Listener {
         Player player = event.getPlayer();
 
         if (GameControl.isInGame(player)) {
-            event.setQuitMessage(null);
             Game game = GameControl.getPlayerGame(player);
+            event.setQuitMessage(null);
 
             game.removePlayer(player);
 
             for (Player p : game.inGamePlayers) {
-                p.sendMessage(ChatColor.GOLD + player.getDisplayName() + " left the match!");
+                if (game.getState() == GameState.LOBBY || game.getState() == GameState.STARTING1) {
+                    p.sendMessage(ChatColor.GOLD + "[ " + ChatColor.RED + "-" + ChatColor.GOLD + " ] " + player.getDisplayName() + " " + game.inGamePlayers.size() + "/" + game.maxPlayers);
+                } else {
+                    p.sendMessage(ChatColor.GOLD + player.getDisplayName() + " left the match!");
+                }
             }
 
-            game.checkWin();
+            if (game.getState() == GameState.RUNNING)
+                game.checkWin();
         }
     }
 

@@ -14,9 +14,9 @@ import java.util.Objects;
 @SuppressWarnings({"unused"})
 public class ScoreboardBuilder {
     private final List<String> texts = new LinkedList<>();
+    private final Player player;
     private DisplaySlot slot = DisplaySlot.SIDEBAR;
     private String displayName = ChatColor.YELLOW + "" + ChatColor.BOLD + "Egg Wars";
-    private final Player player;
 
     public ScoreboardBuilder(Player player) {
         this.player = player;
@@ -24,6 +24,7 @@ public class ScoreboardBuilder {
 
     /**
      * Add lines from the top to the bottom.
+     *
      * @param text Line to add.
      */
     public ScoreboardBuilder addLine(String text) {
@@ -33,6 +34,7 @@ public class ScoreboardBuilder {
 
     /**
      * Set where it should be displayed.
+     *
      * @param slot Where to display it.
      */
     public ScoreboardBuilder slot(DisplaySlot slot) {
@@ -42,15 +44,17 @@ public class ScoreboardBuilder {
 
     /**
      * Set the line at the top.
+     *
      * @param displayName Line to set at the top.
      */
     public ScoreboardBuilder displayName(String displayName) {
-        this.displayName = displayName;
+        this.displayName = PlaceholderParser.parse(displayName, player);
         return this;
     }
 
     /**
      * Create the scoreboard you described!
+     *
      * @return The created scoreboard.
      */
     public Scoreboard build() {

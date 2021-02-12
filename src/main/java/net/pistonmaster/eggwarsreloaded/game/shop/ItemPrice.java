@@ -2,7 +2,8 @@ package net.pistonmaster.eggwarsreloaded.game.shop;
 
 import lombok.Data;
 
-public @Data class ItemPrice {
+public @Data
+class ItemPrice {
     private final int iron;
     private final int gold;
     private final int diamonds;

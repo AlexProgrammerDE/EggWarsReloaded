@@ -126,7 +126,7 @@ public class SignManager implements Listener {
 
             sign.setLine(0, ChatColor.DARK_PURPLE + "" + ChatColor.BOLD + "EggWars");
             sign.setLine(1, ChatColor.GOLD + game.getArenaName());
-            sign.setLine(2, ChatColor.WHITE + "" + game.inGamePlayers.size() + ChatColor.GOLD + "" + ChatColor.BOLD + "/" + ChatColor.RESET + "" + ChatColor.WHITE +  "" + game.maxPlayers);
+            sign.setLine(2, ChatColor.WHITE + "" + game.inGamePlayers.size() + ChatColor.GOLD + "" + ChatColor.BOLD + "/" + ChatColor.RESET + "" + ChatColor.WHITE + "" + game.maxPlayers);
             sign.setLine(3, ChatColor.GREEN + game.getState().name());
 
             sign.update();

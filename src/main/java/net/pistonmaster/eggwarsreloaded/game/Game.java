@@ -11,19 +11,13 @@ import net.pistonmaster.eggwarsreloaded.game.collection.GameState;
 import net.pistonmaster.eggwarsreloaded.game.collection.RejectType;
 import net.pistonmaster.eggwarsreloaded.game.collection.RewardType;
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
-import net.pistonmaster.eggwarsreloaded.utils.ArenaManager;
-import net.pistonmaster.eggwarsreloaded.utils.ItemBuilder;
-import net.pistonmaster.eggwarsreloaded.utils.StatsManager;
-import net.pistonmaster.eggwarsreloaded.utils.UtilCore;
+import net.pistonmaster.eggwarsreloaded.utils.*;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
-import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.util.Vector;
 
 import java.time.Instant;
@@ -142,22 +136,18 @@ public class Game {
 
         player.sendMessage(ChatColor.GOLD + "Your team: " + matchmaker.getTeamOfPlayer(player).getColor() + matchmaker.getTeamOfPlayer(player));
 
-        Scoreboard playerScoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
+        ScoreboardBuilder builder = new ScoreboardBuilder(player);
+        ConfigurationSection scoreboardConfig = plugin.getScoreboards().getConfigurationSection("lobby");
 
-        Objective objective = playerScoreboard.registerNewObjective("scoreboard", "dummy", ChatColor.YELLOW + "" + ChatColor.BOLD + "Egg Wars");
+        assert scoreboardConfig != null;
+        builder.displayName(scoreboardConfig.getString("header"));
 
-        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        scoreboardConfig.getStringList("text").forEach(str ->
+                builder.addLine(str
+                        .replace("%arena%", arenaName)
+                        .replace("%team%", matchmaker.getTeamOfPlayer(player).getColor().toString() + matchmaker.getTeamOfPlayer(player))));
 
-        Score one = objective.getScore("");
-        one.setScore(3);
-
-        Score two = objective.getScore(ChatColor.GOLD + "Your team: " + matchmaker.getTeamOfPlayer(player).getColor() + matchmaker.getTeamOfPlayer(player));
-        two.setScore(2);
-
-        Score three = objective.getScore(ChatColor.GOLD + "Arena: " + ChatColor.AQUA + arenaName);
-        three.setScore(1);
-
-        player.setScoreboard(playerScoreboard);
+        player.setScoreboard(builder.build());
 
         for (Player lobbyPlayer : inGamePlayers)
             lobbyPlayer.sendMessage(ChatColor.GOLD + "[ " + ChatColor.AQUA + "+" + ChatColor.GOLD + " ] " + player.getDisplayName() + " " + inGamePlayers.size() + "/" + maxPlayers);
@@ -442,7 +432,7 @@ public class Game {
     public void endGame() {
         state = GameState.ENDING;
 
-        for (Player player : inGamePlayers) {
+        for (Player player : new ArrayList<>(inGamePlayers)) {
             player.sendMessage(ChatColor.GOLD + "The game ended!");
             rewardPlayer(player, RewardType.GAME);
             StatsManager.rewardPlayer(player, StatsManager.Type.GAME);

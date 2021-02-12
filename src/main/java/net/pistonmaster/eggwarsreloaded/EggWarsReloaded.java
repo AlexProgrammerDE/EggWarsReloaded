@@ -40,10 +40,9 @@ public class EggWarsReloaded extends JavaPlugin {
     FileConfiguration stats;
     @Getter
     FileConfiguration scoreboards;
-    private Economy econ = null;
     @Getter
     boolean papi = false;
-
+    private Economy econ = null;
     @Getter
     private SignManager signManager;
 

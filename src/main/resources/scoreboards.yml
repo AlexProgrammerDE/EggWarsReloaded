@@ -1,9 +1,16 @@
+# Every line in a scoreboard needs to be UNIQUE!
 domain: "example.net"
 game:
-  header: ""
+  header: "&e&lEgg Wars"
   top:
     - "&7%time%"
-    - ""
+    - " "
   bottom:
     - ""
-    - "%domain%"
+    - "&e%domain%"
+lobby:
+  header: "&e&lEgg Wars"
+  text:
+    - " "
+    - "&6Your team: %team%"
+    - "&6Arena: &b%arena%"
