@@ -28,23 +28,17 @@ public class EggWarsReloaded extends JavaPlugin {
     @Getter
     private final WorldManager worldManager = new FileWorldManager(this);
     FileConfiguration config;
-    @Getter
-    FileConfiguration language;
-    @Getter
-    FileConfiguration arenaConfig;
-    @Getter
-    FileConfiguration items;
-    @Getter
-    FileConfiguration signs;
-    @Getter
-    FileConfiguration stats;
-    @Getter
-    FileConfiguration scoreboards;
-    @Getter
-    boolean papi = false;
-    private Economy econ = null;
-    @Getter
-    private SignManager signManager;
+
+    @Getter FileConfiguration language;
+    @Getter FileConfiguration arenaConfig;
+    @Getter FileConfiguration items;
+    @Getter FileConfiguration signs;
+    @Getter FileConfiguration stats;
+    @Getter FileConfiguration scoreboards;
+
+    @Getter boolean papi = false;
+    @Getter private Economy economy = null;
+    @Getter private SignManager signManager;
 
     @Override
     public void onEnable() {
@@ -139,12 +133,8 @@ public class EggWarsReloaded extends JavaPlugin {
         if (rsp == null)
             return false;
 
-        econ = rsp.getProvider();
+        economy = rsp.getProvider();
         return true;
-    }
-
-    public Economy getEconomy() {
-        return econ;
     }
 
     @Override

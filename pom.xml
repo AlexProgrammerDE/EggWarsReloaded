@@ -6,7 +6,7 @@
 
     <groupId>net.pistonmaster</groupId>
     <artifactId>EggWarsReloaded</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <name>EggWarsReloaded</name>
@@ -189,11 +189,6 @@
             <groupId>com.github.cryptomorin</groupId>
             <artifactId>XSeries</artifactId>
             <version>7.8.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.amihaiemil.web</groupId>
-            <artifactId>eo-yaml</artifactId>
-            <version>5.1.8</version>
         </dependency>
     </dependencies>
 </project>
