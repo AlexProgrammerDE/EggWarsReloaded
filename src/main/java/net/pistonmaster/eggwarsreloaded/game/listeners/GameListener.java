@@ -104,8 +104,7 @@ public class GameListener implements Listener {
 
     @EventHandler
     public void onCraft(CraftItemEvent event) {
-        if (!GameControl.isInGame((Player) event.getView().getPlayer())) return;
-
-        event.getInventory().setResult(null);
+        if (GameControl.isInGame((Player) event.getView().getPlayer()))
+          event.getInventory().setResult(null);
     }
 }
