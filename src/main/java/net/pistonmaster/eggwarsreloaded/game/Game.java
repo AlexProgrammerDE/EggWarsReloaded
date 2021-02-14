@@ -53,7 +53,7 @@ public class Game {
     final FileConfiguration arenas = ArenaManager.getArenas();
     private final ScoreboardManager scoreboardManager = new ScoreboardManager(this);
     private int startingTime;
-    private GameState state;
+    private @Getter GameState state;
     private int clockTask;
     private @Getter boolean noFall = false;
     private @Getter Instant gameStart;
@@ -65,9 +65,8 @@ public class Game {
         state = GameState.UNREGISTERED;
 
         for (String team : Objects.requireNonNull(arenas.getConfigurationSection(arenaName + ".team")).getKeys(false)) {
-            if (ArenaManager.isTeamRegistered(arenaName, TeamColor.fromString(team))) {
+            if (ArenaManager.isTeamRegistered(arenaName, TeamColor.fromString(team)))
                 usedTeams.add(TeamColor.fromString(team));
-            }
         }
 
         prepareArena();
@@ -85,16 +84,11 @@ public class Game {
         state = GameState.LOBBY;
 
         taskIds.add(Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
-            if (state == GameState.LOBBY || state == GameState.STARTING1) {
+            if (state == GameState.LOBBY || state == GameState.STARTING1)
                 inGamePlayers.forEach(player -> player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new ComponentBuilder(ChatColor.AQUA + "The game will start shortly!").create()));
-            }
         }, 0, 20));
 
         new GeneratorManager(this, plugin);
-    }
-
-    public GameState getState() {
-        return state;
     }
 
     public RejectType addPlayer(Player player) {
@@ -207,9 +201,8 @@ public class Game {
 
         player.setFallDistance(0);
 
-        if (respawn) {
+        if (respawn)
             Bukkit.getScheduler().runTaskLater(plugin, () -> respawnPlayer(player), 100);
-        }
     }
 
     private void respawnPlayer(Player player) {

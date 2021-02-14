@@ -13,13 +13,13 @@ import java.util.*;
 
 public class MatchMaker {
     protected final Map<TeamColor, Boolean> hasTeamEgg = new EnumMap<>(TeamColor.class);
+    protected final HashMap<UUID, TeamColor> playerInTeam = new HashMap<>();
     private final String arenaName;
     private final Game game;
     // This value is used as a storage for possible locations for players
     private final HashMap<Location, TeamColor> spawns = new HashMap<>();
     private final Map<TeamColor, List<Location>> teams = new EnumMap<>(TeamColor.class);
     private final HashMap<UUID, Location> playerInLocation = new HashMap<>();
-    protected final HashMap<UUID, TeamColor> playerInTeam = new HashMap<>();
 
     public MatchMaker(String arenaName, Game game) {
         this.arenaName = arenaName;
