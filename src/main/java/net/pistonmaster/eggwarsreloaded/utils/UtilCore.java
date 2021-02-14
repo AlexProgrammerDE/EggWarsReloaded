@@ -39,6 +39,20 @@ public class UtilCore {
         return loc.getWorld().getName() + " " + loc.getX() + " " + loc.getY() + " " + loc.getZ() + " " + loc.getYaw() + " " + loc.getPitch();
     }
 
+    public static Block convertBlock(String str) {
+        if (str == null)
+            return null;
+
+        return convertLocation(str).getBlock();
+    }
+
+    public static String convertString(Block block) {
+        if (block == null)
+            return null;
+
+        return convertString(block.getLocation());
+    }
+
     public static boolean compareBlock(Block loc1, Block loc2) {
         return loc1.getWorld().equals(loc2.getWorld()) && loc1.getX() == loc2.getX() && loc1.getY() == loc2.getY() && loc1.getZ() == loc2.getZ();
     }
