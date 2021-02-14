@@ -20,21 +20,20 @@ public class ArenaProtect implements Listener {
     public void onPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
 
-        if (GameControl.isInGame(player)) {
-
-
-            // Game game = GameControl.getPlayerGame(event.getPlayer());
-
+        if (GameControl.isInGame(player))
             placedBlocks.add(UtilCore.convertString(event.getBlockPlaced().getLocation()));
-        }
     }
 
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
+        Player player = event.getPlayer();
 
+        if (GameControl.isInGame(player) && isArenaBlock(event.getBlock()))
+            event.setCancelled(true);
     }
 
     private boolean isArenaBlock(Block block) {
-        return !placedBlocks.contains(UtilCore.convertString(block.getLocation()));
+        return !placedBlocks.contains(UtilCore.convertString(block.getLocation()))
+                || placedBlocks.remove(UtilCore.convertString(block.getLocation()));
     }
 }

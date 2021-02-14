@@ -85,6 +85,7 @@ public class EggWarsReloaded extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EggListener(), this);
         getServer().getPluginManager().registerEvents(new ShopListener(this), this);
         getServer().getPluginManager().registerEvents(new ButtonListener(), this);
+        getServer().getPluginManager().registerEvents(new ArenaProtect(), this);
 
         log.info(ChatColor.LIGHT_PURPLE + "Loading arenas");
         ConfigurationSection section = ArenaManager.getArenas();

@@ -1,10 +1,12 @@
 package net.pistonmaster.eggwarsreloaded.game;
 
 import net.pistonmaster.eggwarsreloaded.game.collection.TeamColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class GameLogics {
     private final Game game;
@@ -16,9 +18,9 @@ public class GameLogics {
     public boolean isOnlyOneTeamLeft() {
         List<TeamColor> teams = new ArrayList<>();
 
-        for (Player player : game.matchmaker.playerInTeam.keySet()) {
-            if (game.livingPlayers.contains(player)) {
-                teams.add(game.matchmaker.playerInTeam.get(player));
+        for (UUID uuid : game.matchmaker.playerInTeam.keySet()) {
+            if (game.livingPlayers.contains(Bukkit.getPlayer(uuid))) {
+                teams.add(game.matchmaker.playerInTeam.get(uuid));
             }
         }
 
@@ -28,9 +30,9 @@ public class GameLogics {
     public TeamColor getLastTeam() {
         List<TeamColor> teams = new ArrayList<>();
 
-        for (Player player : game.matchmaker.playerInTeam.keySet()) {
-            if (game.livingPlayers.contains(player)) {
-                teams.add(game.matchmaker.playerInTeam.get(player));
+        for (UUID uuid : game.matchmaker.playerInTeam.keySet()) {
+            if (game.livingPlayers.contains(Bukkit.getPlayer(uuid))) {
+                teams.add(game.matchmaker.playerInTeam.get(uuid));
             }
         }
 
