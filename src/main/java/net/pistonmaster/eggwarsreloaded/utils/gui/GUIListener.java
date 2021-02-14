@@ -42,9 +42,8 @@ public class GUIListener implements Listener {
                     }
                 }
 
-                if (d && event.getAction() != InventoryAction.NOTHING && event.getAction() != InventoryAction.UNKNOWN) {
+                if (d && event.getAction() != InventoryAction.NOTHING && event.getAction() != InventoryAction.UNKNOWN)
                     defaultTask.run();
-                }
 
                 event.setCancelled(true);
 

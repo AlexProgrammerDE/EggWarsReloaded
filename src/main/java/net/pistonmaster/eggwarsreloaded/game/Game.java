@@ -1,6 +1,7 @@
 package net.pistonmaster.eggwarsreloaded.game;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.cryptomorin.xseries.XSound;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
@@ -239,7 +240,8 @@ public class Game {
 
         rewardPlayer(killer, RewardType.KILL);
 
-        killer.playSound(killer.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1, 2);
+        assert XSound.BLOCK_NOTE_BLOCK_PLING.parseSound() != null;
+        killer.playSound(killer.getLocation(), XSound.BLOCK_NOTE_BLOCK_PLING.parseSound(), 1, 2);
 
         for (Player livePlayer : inGamePlayers) {
             livePlayer.sendMessage(ChatColor.RED + killer.getDisplayName() + ChatColor.GOLD + " killed " + ChatColor.AQUA + killed.getDisplayName() + ChatColor.GOLD + "!");
@@ -361,7 +363,8 @@ public class Game {
 
             inGamePlayers.forEach(player -> {
                 player.setLevel(startingTime);
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 1, 2);
+                assert XSound.BLOCK_NOTE_BLOCK_HAT.parseSound() != null;
+                player.playSound(player.getLocation(), XSound.BLOCK_NOTE_BLOCK_HAT.parseSound(), 1, 2);
             });
 
             if (startingTime == 10) {
@@ -391,7 +394,8 @@ public class Game {
 
             inGamePlayers.forEach(player -> {
                 player.setLevel(startingTime);
-                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 1, 2);
+                assert XSound.BLOCK_NOTE_BLOCK_HAT.parseSound() != null;
+                player.playSound(player.getLocation(), XSound.BLOCK_NOTE_BLOCK_HAT.parseSound(), 1, 2);
             });
 
             if (startingTime == 0) {
@@ -537,6 +541,7 @@ public class Game {
         }
 
         for (Location loc : eggs) {
+            assert XMaterial.DRAGON_EGG.parseMaterial() != null;
             loc.getBlock().setType(XMaterial.DRAGON_EGG.parseMaterial());
         }
     }

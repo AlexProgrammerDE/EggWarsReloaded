@@ -9,8 +9,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 
 import java.util.EnumMap;
@@ -55,39 +53,10 @@ public class GeneratorManager {
         return () -> {
             if (game.getState() == GameState.RUNNING) {
                 for (String str : arenas.getStringList(game.arenaName + "." + generator.toString())) {
-
-
-                    Objects.requireNonNull(UtilCore.convertLocation(str).getWorld()).dropItem(UtilCore.convertLocation(str).add(0.5, 1, 0.5), markAsGenerated(new ItemStack(generator.getMaterial().parseMaterial()))).setVelocity(new Vector(0, 0.2, 0));
+                    Objects.requireNonNull(UtilCore.convertLocation(str).getWorld()).dropItem(UtilCore.convertLocation(str).add(0.5, 1, 0.5), new ItemStack(generator.getMaterial().parseMaterial())).setVelocity(new Vector(0, 0.2, 0));
                 }
             }
         };
-    }
-
-    private ItemStack markAsGenerated(ItemStack stack) {
-        ItemMeta meta = stack.getItemMeta();
-        NamespacedKey key = new NamespacedKey(plugin, "eggwars-generated");
-        assert meta != null;
-        PersistentDataContainer container = meta.getPersistentDataContainer();
-
-        container.set(key, PersistentDataType.STRING, "true");
-
-        stack.setItemMeta(meta);
-
-        return stack;
-    }
-
-    private boolean isGenerated(ItemStack stack) {
-        ItemMeta meta = stack.getItemMeta();
-        NamespacedKey key = new NamespacedKey(plugin, "eggwars-generated");
-        assert meta != null;
-        PersistentDataContainer container = meta.getPersistentDataContainer();
-
-        String str = container.get(key, PersistentDataType.STRING);
-
-        if (str == null)
-            return false;
-
-        return Boolean.parseBoolean(str);
     }
 
     public enum Generator {
