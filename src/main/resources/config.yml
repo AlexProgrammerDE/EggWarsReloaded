@@ -4,3 +4,12 @@ rewards:
   game: 3
   kill: 5
   win: 8
+hooks:
+  discordsrv:
+    enabled: true
+    logchannels:
+      - global
+    events:
+      join: true
+      leave: true
+      gamestart: true

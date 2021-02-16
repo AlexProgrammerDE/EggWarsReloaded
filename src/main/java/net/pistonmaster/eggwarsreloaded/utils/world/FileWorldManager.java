@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
+import org.bukkit.block.Biome;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +43,7 @@ public class FileWorldManager implements WorldManager {
                 ChunkGenerator.ChunkData chunkData = createChunkData(world);
                 for (int i = 0; i < 16; i++) {
                     for (int j = 0; j < 16; j++) {
-                        chunkGenerator.setBiome(i, j, org.bukkit.block.Biome.valueOf("THE_VOID"));
+                        chunkGenerator.setBiome(i, j, Biome.valueOf("THE_VOID"));
                     }
                 }
                 return chunkData;
@@ -83,9 +84,9 @@ public class FileWorldManager implements WorldManager {
         World world = Bukkit.getServer().getWorld(w);
 
         if (world != null) {
-            for (Player p : world.getPlayers()) {
+            for (Player p : world.getPlayers())
                 p.teleport(end);
-            }
+
             Bukkit.getServer().unloadWorld(world, save);
         }
     }
@@ -126,13 +127,14 @@ public class FileWorldManager implements WorldManager {
 
     public void deleteWorld(String name, boolean removeFile, Location end) {
         unloadWorld(name, false, end);
-        File target = new File(Bukkit.getServer().getWorldContainer().getAbsolutePath(), name);
-        deleteWorld(target);
+
+        deleteWorld(new File(Bukkit.getServer().getWorldContainer().getAbsolutePath(), name));
     }
 
     public void deleteWorld(File path) {
         if (path.exists()) {
             File[] files = path.listFiles();
+
             if (files != null) {
                 for (File file : files) {
                     if (file.isDirectory()) {

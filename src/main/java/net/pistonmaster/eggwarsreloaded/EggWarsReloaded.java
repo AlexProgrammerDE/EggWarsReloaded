@@ -1,5 +1,6 @@
 package net.pistonmaster.eggwarsreloaded;
 
+import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.Economy;
@@ -7,7 +8,9 @@ import net.pistonmaster.eggwarsreloaded.admin.ArenaRepairer;
 import net.pistonmaster.eggwarsreloaded.commands.EggCommand;
 import net.pistonmaster.eggwarsreloaded.game.Game;
 import net.pistonmaster.eggwarsreloaded.game.listeners.*;
+import net.pistonmaster.eggwarsreloaded.hooks.DiscordSRVHook;
 import net.pistonmaster.eggwarsreloaded.hooks.EggwarsExpansion;
+import net.pistonmaster.eggwarsreloaded.hooks.PartiesHook;
 import net.pistonmaster.eggwarsreloaded.utils.*;
 import net.pistonmaster.eggwarsreloaded.utils.config.ConfigManager;
 import net.pistonmaster.eggwarsreloaded.utils.world.FileWorldManager;
@@ -62,14 +65,13 @@ public class EggWarsReloaded extends JavaPlugin {
             papi = true;
         }
 
-        /* Preparation for upcoming Parties support
-        if (getServer().getPluginManager().getPlugin("Parties") != null) {
-            if (Objects.requireNonNull(getServer().getPluginManager().getPlugin("Parties")).isEnabled()) {
+        /* Upcoming hooks
+        if (getServer().getPluginManager().getPlugin("Parties") != null)
+            new PartiesHook(this);
 
-            }
-        }
-
-         */
+        if (getServer().getPluginManager().getPlugin("DiscordSRV") != null)
+            new DiscordSRVHook(this);
+        */
 
         new StatsManager().setInstance(this);
         new LeaderboardManager().setInstance(this);
