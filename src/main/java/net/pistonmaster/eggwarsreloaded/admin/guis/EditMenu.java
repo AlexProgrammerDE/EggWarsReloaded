@@ -40,6 +40,7 @@ public class EditMenu {
         ItemBuilder generators = new ItemBuilder(XMaterial.DIAMOND_BLOCK);
         ItemBuilder size = new ItemBuilder(XMaterial.ENDER_PEARL);
         ItemBuilder save = new ItemBuilder(XMaterial.CRAFTING_TABLE);
+        ItemBuilder lobbySize = new ItemBuilder(XMaterial.SLIME_BALL);
         ItemBuilder pos1;
         ItemBuilder pos2;
 
@@ -66,6 +67,7 @@ public class EditMenu {
         pos1.name("Set pos1 of arena");
         pos2.name("Set pos2 of arena");
         save.name("Save the world");
+        lobbySize.name("Set minimum teams to start");
 
         if (ArenaManager.getArenas().contains(arenaName + ".mainlobby")) {
             mainLobby.enchant();
@@ -102,6 +104,7 @@ public class EditMenu {
         size.lore("Click to increase teamsize. 4 is the maximum!");
         pos1.lore("Left click to set your position to pos1.");
         pos2.lore("Left click to set your position to pos2.");
+        lobbySize.lore("Once the x amount of teams are full the start countdown will run.");
 
         if (arenas.getBoolean(arenaName + ".registered")) {
             register.lore("Left click to unregister the arena.");
@@ -155,6 +158,7 @@ public class EditMenu {
         }
 
         size.lore("Current: " + ArenaManager.getTeamSize(arenaName));
+        lobbySize.lore("Current: " + ArenaManager.getLobbySize(arenaName));
 
         mainLobby.lore("Use shift + left click to reset it.");
         waitingLobby.lore("Use shift + left click to reset it.");
@@ -284,7 +288,7 @@ public class EditMenu {
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setTeamSize(arenaName, 1);
                     EditMenu.openEditMenu(arenaName, player, plugin);
-                    player.sendMessage(PREFIX + "Reset teamsize to 1 of arena: " + arenaName);
+                    player.sendMessage(PREFIX + "Reset team size to 1 of arena: " + arenaName);
                 })
                 .addDefaultEvent(() -> {
                     int size1 = ArenaManager.getTeamSize(arenaName);
@@ -296,6 +300,27 @@ public class EditMenu {
                     } else {
                         ArenaManager.setTeamSize(arenaName, size1 + 1);
                     }
+
+                    EditMenu.openEditMenu(arenaName, player, plugin);
+                });
+
+        gui.addItem(lobbySize.build(), 9)
+                .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
+                    ArenaManager.setLobbySize(arenaName, 2);
+                    EditMenu.openEditMenu(arenaName, player, plugin);
+                    player.sendMessage(PREFIX + "Reset lobby size to 2 of arena: " + arenaName);
+                })
+                .addDefaultEvent(() -> {
+                    int size1 = ArenaManager.getLobbySize(arenaName);
+
+                    if (size1 == TeamColor.values().length) {
+                        ArenaManager.setTeamSize(arenaName, 1);
+                    } else {
+                        ArenaManager.setTeamSize(arenaName, size1 + 1);
+                    }
+
+                    ArenaManager.setArenaRegistered(arenaName, false, null);
+                    player.sendMessage(PREFIX + "Changed the lobby size and unregistered the arena.");
 
                     EditMenu.openEditMenu(arenaName, player, plugin);
                 });

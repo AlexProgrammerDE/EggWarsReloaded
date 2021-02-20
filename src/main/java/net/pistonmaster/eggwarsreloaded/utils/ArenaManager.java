@@ -87,6 +87,16 @@ public class ArenaManager {
         save();
     }
 
+    public static int getLobbySize(String arenaName) {
+        return getArenas().getInt(arenaName + ".lobbysize");
+    }
+
+    public static void setLobbySize(String arenaName, Integer size) {
+        getArenas().set(arenaName + ".lobbysize", size);
+
+        save();
+    }
+
     public static void setTeamRegistered(String arenaName, TeamColor team, boolean register) {
         getArenas().set(arenaName + ".team." + team + ".registered", register);
 

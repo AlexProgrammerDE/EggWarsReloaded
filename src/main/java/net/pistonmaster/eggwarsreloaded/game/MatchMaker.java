@@ -10,16 +10,19 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MatchMaker {
     protected final Map<TeamColor, Boolean> hasTeamEgg = new EnumMap<>(TeamColor.class);
-    protected final HashMap<UUID, TeamColor> playerInTeam = new HashMap<>();
+
+    // This value is used as a storage for possible locations for players
+    private final Map<Location, TeamColor> spawns = new HashMap<>();
+    private final Map<TeamColor, List<Location>> teams = new EnumMap<>(TeamColor.class);
+    private final Map<UUID, Location> playerInLocation = new HashMap<>();
+    protected final Map<UUID, TeamColor> playerInTeam = new HashMap<>();
+
     private final String arenaName;
     private final Game game;
-    // This value is used as a storage for possible locations for players
-    private final HashMap<Location, TeamColor> spawns = new HashMap<>();
-    private final Map<TeamColor, List<Location>> teams = new EnumMap<>(TeamColor.class);
-    private final HashMap<UUID, Location> playerInLocation = new HashMap<>();
 
     public MatchMaker(String arenaName, Game game) {
         this.arenaName = arenaName;
@@ -45,6 +48,7 @@ public class MatchMaker {
 
     public void teleportPlayers() {
         cleanUpTeams();
+
         for (Map.Entry<UUID, Location> entry : playerInLocation.entrySet()) {
             getPlayer(entry.getKey()).setGameMode(GameMode.ADVENTURE);
             getPlayer(entry.getKey()).teleport(entry.getValue().getBlock().getLocation().add(0.5, 0, 0.5).setDirection(entry.getValue().getDirection()));
@@ -83,6 +87,15 @@ public class MatchMaker {
         playerInLocation.remove(player.getUniqueId());
 
         if (!spawns.isEmpty()) {
+            Optional<TeamColor> match = getPerfectNonFullTeam();
+
+            if (match.isPresent()) {
+                playerInLocation.put(player.getUniqueId(), loc);
+                playerInTeam.put(player.getUniqueId(), spawns.get(loc));
+                spawns.remove(loc);
+                return;
+            }
+
             List<Location> keysAsArray = new ArrayList<>(spawns.keySet());
             Location loc = keysAsArray.get(game.random.nextInt(keysAsArray.size()));
 
@@ -116,8 +129,8 @@ public class MatchMaker {
     }
 
     public void cleanUpTeams() {
-        playerInTeam.keySet().removeAll(Collections.singleton(null));
-        playerInLocation.keySet().removeAll(Collections.singleton(null));
+        playerInTeam.keySet().stream().filter(uuid -> getPlayer(uuid) == null).collect(Collectors.toList()).forEach(playerInTeam::remove);
+        playerInLocation.keySet().stream().filter(uuid -> getPlayer(uuid) == null).collect(Collectors.toList()).forEach(playerInLocation::remove);
 
         new ArrayList<>(playerInTeam.keySet()).forEach(player -> {
             if (!getPlayer(player).isOnline()) {
@@ -134,5 +147,32 @@ public class MatchMaker {
 
     private Player getPlayer(UUID uuid) {
         return Bukkit.getPlayer(uuid);
+    }
+
+    private Optional<TeamColor> getPerfectNonFullTeam() {
+        TeamColor color = null;
+        int maxTeamSize = ArenaManager.getTeamSize(game.getArenaName());
+        Map<TeamColor, Integer> counts = new EnumMap<>(TeamColor.class);
+
+        for (TeamColor teamColor : playerInTeam.values()) {
+            if (counts.containsKey(teamColor)) {
+                counts.put(teamColor, counts.get(teamColor) + 1);
+            } else {
+                counts.put(teamColor, 1);
+            }
+        }
+
+        for (Map.Entry<TeamColor, Integer> entry : counts.entrySet()) {
+            if (entry.getValue() < maxTeamSize) {
+                color = entry.getKey();
+                break;
+            }
+        }
+
+        return Optional.ofNullable(color);
+    }
+
+    private Location getRandomLocationFor(TeamColor color) {
+
     }
 }
