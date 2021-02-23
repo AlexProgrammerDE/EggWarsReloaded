@@ -21,15 +21,17 @@ public class Shop {
         for (ShopItems shopItem : ShopItems.values()) {
             gui.addItem(new ItemBuilder(shopItem, team).build(), i)
                     .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
-                        boolean b = false;
+                        boolean hasBulked = false;
 
                         while (ShopUtil.canPay(shopItem.getPrice(), player)) {
-                            b = true;
+                            hasBulked = true;
                             ShopUtil.buyItem(shopItem, player, team);
                         }
 
-                        if (b) {
+                        if (hasBulked) {
                             player.sendMessage(ChatColor.GOLD + "Successfully bulk bought the item!");
+                        } else {
+                            player.sendMessage(ChatColor.GOLD + "You don't have enough money to buy this!");
                         }
 
                         setupShopMenu(team, player, plugin);
