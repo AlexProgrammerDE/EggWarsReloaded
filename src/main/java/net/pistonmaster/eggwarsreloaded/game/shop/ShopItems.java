@@ -30,10 +30,8 @@ public enum ShopItems {
 
     WHITE_WOOL(15, new ItemPrice(1, 0, 0));
 
-    private final @Getter
-    ItemPrice price;
-    private final @Getter
-    int amount;
+    private final @Getter ItemPrice price;
+    private final @Getter int amount;
 
     ShopItems(ItemPrice itemPrice) {
         this.price = itemPrice;
@@ -50,7 +48,9 @@ public enum ShopItems {
 
         itemStack.setAmount(item.getAmount());
 
-        player.getInventory().addItem(itemStack);
+        for (ItemStack stack : player.getInventory().addItem(itemStack).values()) {
+            player.getWorld().dropItem(player.getLocation(), stack);
+        }
     }
 
     public Material getMaterial(TeamColor color) {

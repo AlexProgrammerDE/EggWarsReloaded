@@ -4,7 +4,7 @@ import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
 import net.pistonmaster.eggwarsreloaded.game.Game;
 import net.pistonmaster.eggwarsreloaded.game.GameControl;
 import net.pistonmaster.eggwarsreloaded.game.collection.GameState;
-import net.pistonmaster.eggwarsreloaded.game.guis.Shop;
+import net.pistonmaster.eggwarsreloaded.game.shop.Shop;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

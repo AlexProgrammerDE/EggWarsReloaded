@@ -53,17 +53,19 @@ public class ShopUtil {
         return list.stream().mapToInt(ItemStack::getAmount).sum();
     }
 
-    public static void buyItem(ShopItems item, Player player, TeamColor color) {
+    public static boolean buyItem(ShopItems item, Player player, TeamColor color) {
         if (canPay(item.getPrice(), player)) {
             payPrice(item.getPrice(), player);
 
             ShopItems.giveItem(player, item, color);
+            return true;
         } else {
             player.sendMessage(ChatColor.GOLD + "You don't have enough money to buy this!");
+            return false;
         }
     }
 
-    private static boolean canPay(ItemPrice price, Player player) {
+    public static boolean canPay(ItemPrice price, Player player) {
         return convertToAmount(getIron(player)) >= price.getIron()
                 && convertToAmount(getGold(player)) >= price.getGold()
                 && convertToAmount(getDiamonds(player)) >= price.getDiamonds();

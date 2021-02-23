@@ -87,11 +87,25 @@ public class SignManager implements Listener {
     @EventHandler
     public void onSignDestroy(BlockBreakEvent event) {
         Player player = event.getPlayer();
+        Block block = event.getBlock();
 
-        if (!player.hasPermission("eggwarsreloaded.createsigns")) return;
+        for (Location loc : signs.keySet()) {
+            Block sign = loc.getBlock();
+            WallSign wallSign = (WallSign) sign.getBlockData();
+            Block against = getWall(wallSign, sign);
 
-        if (signs.containsKey(event.getBlock().getLocation()))
-            removeSign(event.getBlock());
+            if (block.getLocation().equals(sign.getLocation())) {
+                if (player.hasPermission("eggwarsreloaded.createsigns")) {
+                    removeSign(block);
+                } else {
+                    event.setCancelled(true);
+                }
+                return;
+            } else if (block.getLocation().equals(against.getLocation())) {
+                event.setCancelled(true);
+                return;
+            }
+        }
     }
 
     public void detectSigns() {
@@ -131,7 +145,7 @@ public class SignManager implements Listener {
 
             sign.update();
 
-            getBack((WallSign) sign.getBlock().getBlockData(), sign.getBlock()).setType(Material.WHITE_STAINED_GLASS);
+            getWall((WallSign) sign.getBlock().getBlockData(), sign.getBlock()).setType(Material.WHITE_STAINED_GLASS);
         }
     }
 
@@ -143,10 +157,10 @@ public class SignManager implements Listener {
 
         sign.update();
 
-        getBack((WallSign) sign.getBlock().getBlockData(), sign.getBlock()).setType(Material.RED_STAINED_GLASS);
+        getWall((WallSign) sign.getBlock().getBlockData(), sign.getBlock()).setType(Material.RED_STAINED_GLASS);
     }
 
-    private Block getBack(WallSign wallSign, Block sign) {
+    private Block getWall(WallSign wallSign, Block sign) {
         return sign.getRelative(wallSign.getFacing().getOppositeFace(), 1);
     }
 

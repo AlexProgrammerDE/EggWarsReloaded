@@ -8,6 +8,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Team;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -69,7 +70,6 @@ public class MatchMaker {
 
     public void setTeam(Player player, TeamColor team) {
         cleanUpTeams();
-
         if (!isTeamFull(team)) {
             for (Location loc : teams.get(team)) {
                 if (!playerInLocation.containsValue(loc)) {
@@ -90,10 +90,14 @@ public class MatchMaker {
             Optional<TeamColor> match = getPerfectNonFullTeam();
 
             if (match.isPresent()) {
-                playerInLocation.put(player.getUniqueId(), loc);
-                playerInTeam.put(player.getUniqueId(), spawns.get(loc));
-                spawns.remove(loc);
-                return;
+                for (Map.Entry<Location, TeamColor> entry : spawns.entrySet()) {
+                    if (entry.getValue().equals(match.get())) {
+                        playerInLocation.put(player.getUniqueId(), entry.getKey());
+                        playerInTeam.put(player.getUniqueId(), spawns.get(entry.getKey()));
+                        spawns.remove(entry.getKey());
+                        return;
+                    }
+                }
             }
 
             List<Location> keysAsArray = new ArrayList<>(spawns.keySet());
@@ -107,6 +111,7 @@ public class MatchMaker {
 
     public TeamColor getTeamOfPlayer(Player player) {
         cleanUpTeams();
+
         return playerInTeam.get(player.getUniqueId());
     }
 
@@ -124,7 +129,6 @@ public class MatchMaker {
 
     public Collection<TeamColor> getTeams() {
         cleanUpTeams();
-
         return playerInTeam.values();
     }
 
@@ -170,9 +174,5 @@ public class MatchMaker {
         }
 
         return Optional.ofNullable(color);
-    }
-
-    private Location getRandomLocationFor(TeamColor color) {
-
     }
 }
