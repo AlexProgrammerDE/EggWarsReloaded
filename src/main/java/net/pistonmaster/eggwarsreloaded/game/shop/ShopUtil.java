@@ -60,7 +60,7 @@ public class ShopUtil {
             ShopItems.giveItem(player, item, color);
             return true;
         } else {
-            player.sendMessage(ChatColor.GOLD + "You don't have enough money to buy this!");
+            player.sendMessage(ChatColor.RED + "You don't have enough money to buy this!");
             return false;
         }
     }

@@ -27,15 +27,15 @@ public class ConfigManager {
             }
         }
 
-        this.config = YamlConfiguration.loadConfiguration(file);
+        config = YamlConfiguration.loadConfiguration(file);
 
         try {
-            this.config.save(file);
+            config.save(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        this.config = YamlConfiguration.loadConfiguration(file);
+        config = YamlConfiguration.loadConfiguration(file);
     }
 
     public FileConfiguration getConfig() {

@@ -31,7 +31,7 @@ public class Shop {
                         if (hasBulked) {
                             player.sendMessage(ChatColor.GOLD + "Successfully bulk bought the item!");
                         } else {
-                            player.sendMessage(ChatColor.GOLD + "You don't have enough money to buy this!");
+                            player.sendMessage(ChatColor.RED + "You don't have enough money to buy this!");
                         }
 
                         setupShopMenu(team, player, plugin);
