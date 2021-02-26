@@ -36,14 +36,23 @@ public class GUIListener implements Listener {
 
                 for (Map.Entry<InventoryAction, Runnable> entry : actions.entrySet()) {
                     if (event.getAction().equals(entry.getKey())) {
-                        entry.getValue().run();
+                        try {
+                            entry.getValue().run();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         d = false;
                         break;
                     }
                 }
 
-                if (d && event.getAction() != InventoryAction.NOTHING && event.getAction() != InventoryAction.UNKNOWN)
-                    defaultTask.run();
+                if (d && event.getAction() != InventoryAction.NOTHING && event.getAction() != InventoryAction.UNKNOWN) {
+                    try {
+                        defaultTask.run();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
 
                 event.setCancelled(true);
 
