@@ -89,7 +89,7 @@ public class ArenaManager {
     }
 
     public static int getLobbySize(String arenaName) {
-        return getArenas().getInt(arenaName + ".lobbysize");
+        return getArenas().getInt(arenaName + ".lobbysize", 2);
     }
 
     public static void setLobbySize(String arenaName, Integer size) {
