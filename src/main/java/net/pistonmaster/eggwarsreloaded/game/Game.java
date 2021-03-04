@@ -145,8 +145,7 @@ public class Game {
         for (Player lobbyPlayer : inGamePlayers)
             lobbyPlayer.sendMessage(ChatColor.GOLD + "[ " + ChatColor.AQUA + "+" + ChatColor.GOLD + " ] " + player.getDisplayName() + " " + inGamePlayers.size() + "/" + maxPlayers);
 
-        int minPlayers = 2;
-        if (inGamePlayers.size() >= minPlayers && state == GameState.LOBBY)
+        if (state == GameState.LOBBY && matchmaker.getFullTeams().size() >= ArenaManager.getLobbySize(arenaName))
             startGame1();
 
         return RejectType.NONE;

@@ -284,7 +284,7 @@ public class EditMenu {
                     }
                 });
 
-        gui.addItem(size.build(), 8)
+        gui.addItem(size.build(), 7)
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setTeamSize(arenaName, 1);
                     EditMenu.openEditMenu(arenaName, player, plugin);
@@ -304,7 +304,7 @@ public class EditMenu {
                     EditMenu.openEditMenu(arenaName, player, plugin);
                 });
 
-        gui.addItem(lobbySize.build(), 9)
+        gui.addItem(lobbySize.build(), 8)
                 .addEvent(InventoryAction.MOVE_TO_OTHER_INVENTORY, () -> {
                     ArenaManager.setLobbySize(arenaName, 2);
                     EditMenu.openEditMenu(arenaName, player, plugin);
@@ -314,9 +314,9 @@ public class EditMenu {
                     int size1 = ArenaManager.getLobbySize(arenaName);
 
                     if (size1 == TeamColor.values().length) {
-                        ArenaManager.setTeamSize(arenaName, 1);
+                        ArenaManager.setLobbySize(arenaName, 1);
                     } else {
-                        ArenaManager.setTeamSize(arenaName, size1 + 1);
+                        ArenaManager.setLobbySize(arenaName, size1 + 1);
                     }
 
                     ArenaManager.setArenaRegistered(arenaName, false, null);

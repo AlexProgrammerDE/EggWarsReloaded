@@ -26,6 +26,7 @@ public class ArenaManager {
     public static void addArena(String arenaName) {
         getArenas().createSection(arenaName);
         getArenas().set(arenaName + ".size", 1);
+        getArenas().set(arenaName + ".lobbysize", 2);
 
         save();
     }

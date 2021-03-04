@@ -16,14 +16,12 @@ public class GUIItem {
         Bukkit.getServer().getPluginManager().registerEvents(guiListener, plugin);
     }
 
-    public GUIItem addDefaultEvent(Runnable exec) {
-        guiListener.defaultTask = exec;
-
-        return this;
+    public void addDefaultEvent(Runnable exec) {
+        guiListener.setDefaultTask(exec);
     }
 
     public GUIItem addEvent(InventoryAction action, Runnable exec) {
-        guiListener.actions.put(action, exec);
+        guiListener.getActions().put(action, exec);
 
         return this;
     }

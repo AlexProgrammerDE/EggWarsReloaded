@@ -1,5 +1,7 @@
 package net.pistonmaster.eggwarsreloaded.utils.gui;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -7,7 +9,7 @@ import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -16,8 +18,10 @@ public class GUIListener implements Listener {
     private final Player player;
     private final int slot;
     private final GUI gui;
-    public Runnable defaultTask;
-    public Map<InventoryAction, Runnable> actions = new HashMap<>();
+    @Setter
+    private Runnable defaultTask;
+    @Getter
+    private final Map<InventoryAction, Runnable> actions = new EnumMap<>(InventoryAction.class);
 
     public GUIListener(GUI gui, Inventory inv, Player player, int slot) {
         this.gui = gui;

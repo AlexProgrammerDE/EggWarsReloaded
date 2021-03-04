@@ -42,8 +42,8 @@ items:
       buttonslot: 37
     blue:
       name: "Blue Team"
-      slot: 30
-      buttonslot: 39
+      slot: 29
+      buttonslot: 38
     green:
       name: "Green Team"
       slot: 33

@@ -8,7 +8,6 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.Team;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -156,6 +155,33 @@ public class MatchMaker {
     private Optional<TeamColor> getPerfectNonFullTeam() {
         TeamColor color = null;
         int maxTeamSize = ArenaManager.getTeamSize(game.getArenaName());
+        Map<TeamColor, Integer> counts = getFilledTeams();
+
+        for (Map.Entry<TeamColor, Integer> entry : counts.entrySet()) {
+            if (entry.getValue() < maxTeamSize) {
+                color = entry.getKey();
+                break;
+            }
+        }
+
+        return Optional.ofNullable(color);
+    }
+
+    public List<TeamColor> getFullTeams() {
+        List<TeamColor> color = new ArrayList<>();
+        int maxTeamSize = ArenaManager.getTeamSize(game.getArenaName());
+        Map<TeamColor, Integer> counts = getFilledTeams();
+
+        for (Map.Entry<TeamColor, Integer> entry : counts.entrySet()) {
+            if (entry.getValue() >= maxTeamSize) {
+                color.add(entry.getKey());
+            }
+        }
+
+        return color;
+    }
+
+    private Map<TeamColor, Integer> getFilledTeams() {
         Map<TeamColor, Integer> counts = new EnumMap<>(TeamColor.class);
 
         for (TeamColor teamColor : playerInTeam.values()) {
@@ -166,13 +192,6 @@ public class MatchMaker {
             }
         }
 
-        for (Map.Entry<TeamColor, Integer> entry : counts.entrySet()) {
-            if (entry.getValue() < maxTeamSize) {
-                color = entry.getKey();
-                break;
-            }
-        }
-
-        return Optional.ofNullable(color);
+        return counts;
     }
 }
