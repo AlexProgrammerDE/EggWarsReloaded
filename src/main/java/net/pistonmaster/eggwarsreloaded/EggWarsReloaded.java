@@ -1,6 +1,5 @@
 package net.pistonmaster.eggwarsreloaded;
 
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import lombok.Getter;
 import net.md_5.bungee.api.ChatColor;
 import net.milkbowl.vault.economy.Economy;
@@ -8,9 +7,7 @@ import net.pistonmaster.eggwarsreloaded.admin.ArenaRepairer;
 import net.pistonmaster.eggwarsreloaded.commands.EggCommand;
 import net.pistonmaster.eggwarsreloaded.game.Game;
 import net.pistonmaster.eggwarsreloaded.game.listeners.*;
-import net.pistonmaster.eggwarsreloaded.hooks.DiscordSRVHook;
 import net.pistonmaster.eggwarsreloaded.hooks.EggwarsExpansion;
-import net.pistonmaster.eggwarsreloaded.hooks.PartiesHook;
 import net.pistonmaster.eggwarsreloaded.utils.*;
 import net.pistonmaster.eggwarsreloaded.utils.config.ConfigManager;
 import net.pistonmaster.eggwarsreloaded.utils.world.FileWorldManager;
@@ -32,16 +29,25 @@ public class EggWarsReloaded extends JavaPlugin {
     private final WorldManager worldManager = new FileWorldManager(this);
     FileConfiguration config;
 
-    @Getter FileConfiguration language;
-    @Getter FileConfiguration arenaConfig;
-    @Getter FileConfiguration items;
-    @Getter FileConfiguration signs;
-    @Getter FileConfiguration stats;
-    @Getter FileConfiguration scoreboards;
+    @Getter
+    FileConfiguration language;
+    @Getter
+    FileConfiguration arenaConfig;
+    @Getter
+    FileConfiguration items;
+    @Getter
+    FileConfiguration signs;
+    @Getter
+    FileConfiguration stats;
+    @Getter
+    FileConfiguration scoreboards;
 
-    @Getter boolean papi = false;
-    @Getter private Economy economy = null;
-    @Getter private SignManager signManager;
+    @Getter
+    boolean papi = false;
+    @Getter
+    private Economy economy = null;
+    @Getter
+    private SignManager signManager;
 
     @Override
     public void onEnable() {

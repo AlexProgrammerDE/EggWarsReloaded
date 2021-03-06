@@ -13,12 +13,13 @@ public class GameLeaveEvent extends PlayerGameEvent {
         super(player, game);
     }
 
-    @Override
-    public @Nonnull HandlerList getHandlers() {
+    public static HandlerList getHandlerList() {
         return HANDLERS;
     }
 
-    public static HandlerList getHandlerList() {
+    @Override
+    public @Nonnull
+    HandlerList getHandlers() {
         return HANDLERS;
     }
 }

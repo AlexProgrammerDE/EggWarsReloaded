@@ -30,8 +30,10 @@ public enum ShopItems {
 
     WHITE_WOOL(15, new ItemPrice(1, 0, 0));
 
-    private final @Getter ItemPrice price;
-    private final @Getter int amount;
+    private final @Getter
+    ItemPrice price;
+    private final @Getter
+    int amount;
 
     ShopItems(ItemPrice itemPrice) {
         this.price = itemPrice;

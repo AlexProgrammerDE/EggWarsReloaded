@@ -15,6 +15,10 @@ public class GameJoinEvent extends PlayerGameEvent implements Cancellable {
         super(player, game);
     }
 
+    public static HandlerList getHandlerList() {
+        return HANDLERS;
+    }
+
     @Override
     public boolean isCancelled() {
         return cancelled;
@@ -26,11 +30,8 @@ public class GameJoinEvent extends PlayerGameEvent implements Cancellable {
     }
 
     @Override
-    public @Nonnull HandlerList getHandlers() {
-        return HANDLERS;
-    }
-
-    public static HandlerList getHandlerList() {
+    public @Nonnull
+    HandlerList getHandlers() {
         return HANDLERS;
     }
 }

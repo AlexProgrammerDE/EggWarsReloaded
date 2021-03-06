@@ -1,6 +1,5 @@
 package net.pistonmaster.eggwarsreloaded.game;
 
-import com.cryptomorin.xseries.XEnchantment;
 import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import net.pistonmaster.eggwarsreloaded.EggWarsReloaded;
@@ -65,9 +64,12 @@ public class GeneratorManager {
         GOLD(XMaterial.GOLD_INGOT, 40, 160),
         DIAMOND(XMaterial.DIAMOND, 60, 320);
 
-        private final @Getter XMaterial material;
-        private final @Getter int delay;
-        private final @Getter int period;
+        private final @Getter
+        XMaterial material;
+        private final @Getter
+        int delay;
+        private final @Getter
+        int period;
 
         Generator(XMaterial material, int delay, int period) {
             this.material = material;

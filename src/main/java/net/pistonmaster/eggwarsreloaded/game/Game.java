@@ -53,10 +53,13 @@ public class Game {
     final FileConfiguration arenas = ArenaManager.getArenas();
     private final ScoreboardManager scoreboardManager = new ScoreboardManager(this);
     private int startingTime;
-    private @Getter GameState state;
+    private @Getter
+    GameState state;
     private int clockTask;
-    private @Getter boolean noFall = false;
-    private @Getter Instant gameStart;
+    private @Getter
+    boolean noFall = false;
+    private @Getter
+    Instant gameStart;
 
     public Game(String arenaName, EggWarsReloaded plugin) {
         this.arenaName = arenaName;

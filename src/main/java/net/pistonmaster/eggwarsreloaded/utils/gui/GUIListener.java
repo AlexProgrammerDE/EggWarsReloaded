@@ -18,10 +18,10 @@ public class GUIListener implements Listener {
     private final Player player;
     private final int slot;
     private final GUI gui;
-    @Setter
-    private Runnable defaultTask;
     @Getter
     private final Map<InventoryAction, Runnable> actions = new EnumMap<>(InventoryAction.class);
+    @Setter
+    private Runnable defaultTask;
 
     public GUIListener(GUI gui, Inventory inv, Player player, int slot) {
         this.gui = gui;
