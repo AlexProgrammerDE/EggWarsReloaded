@@ -3,7 +3,7 @@
 [![Discord embed](https://discordapp.com/api/guilds/739784741124833301/embed.png)](https://discord.gg/CDrcxzH) [![Build Status](https://ci.codemc.io/job/AlexProgrammerDE/job/EggWarsReloaded/badge/icon)](https://ci.codemc.io/job/AlexProgrammerDE/job/EggWarsReloaded/)
 
 -----
-**Best free EggWars plugin out there!**
+**Best free EggWars plugin out there! (WIP)**
 
 ## Notice
 
